@@ -1,0 +1,196 @@
+#! /usr/bin/env bash
+
+id="[$(basename $0)]"
+
+function escenic_dates()
+{
+    echo -n "Taipei: "
+    TZ='Asia/Taipei' date
+    echo -n "Dhaka:  "
+    TZ='Asia/Dhaka' date
+    echo -n "Oslo:   "
+    TZ='Europe/Oslo' date
+}
+
+function end_of_day()
+{
+    # echo -n $id "End of the day, generating report ..."
+    tmp=$(mktemp)
+    cat $HOME/.widt.log > $tmp
+    $HOME/bin/widt > $HOME/.widt.log
+    echo "" >> $HOME/.widt.log
+    cat $tmp >> $HOME/.widt.log 
+    # echo "done."
+    # echo $id "You may go home now :-)"
+}
+
+function start_of_day()
+{
+    echo $id "Launching my favourite applications..."
+    app_list="
+/usr/bin/emacs
+opera
+icedove
+pidgin
+google-chrome
+"
+    for el in $app_list; do
+        if [ $(ps -u $USER | grep "\'$el''" | wc -l) -lt 1 ]; then
+            $el 1>/dev/null 2>/dev/null &
+        fi
+    done
+    
+    echo -n $id "Start of the day: Getting, building & deploying the latest code"
+    echo "..."
+    tkjdaily
+    echo $id "Happy hacking :-)"
+}
+
+function search_im()
+{
+    logs_dir=$HOME/.purple/logs
+    dirs="$logs_dir/jabber/torsteinkrausework@gmail.com/
+          $logs_dir/msn/torsteinkrausework@msn.com/
+          $logs_dir/irc/torstein@catbert.escenic.com/    
+    "
+    for dir in $dirs; do
+        find $dir -name "*.txt" | xargs grep --color $1
+    done
+}
+
+function search_mailing_list_archive()
+{
+    dir=$HOME/mail/mailing-list-archive
+    url="http://lists.escenic.com/pipermail"
+
+    find $dir -name "*.txt" | \
+        xargs grep -i --color $1 | \
+        sed "s#${dir}#${url}#g" | \
+        sed "s#.txt:#/thread.html\ ->\ #g"
+}
+
+function open_jira_issue()
+{
+    opera https://jira.vizrt.com/browse/${1}
+}
+
+function search_otrs()
+{
+    url="http://otrs.escenic.com/otrs/index.pl"
+    session_header_file=/tmp/`basename $0`-$USER-otrs.cookie
+
+    otrs_user=`cat $HOME/.otrs | grep user | cut -d'=' -f2`
+    otrs_password=`cat $HOME/.otrs | grep pass | cut -d'=' -f2`
+    
+    if [ -r $session_header_file ]; then
+        session_header=`cat $session_header_file`
+    else
+        session_header=`wget -S -O /dev/null \
+            --post-data "Action=Login&RequestedURL=&Lang=en&User=$otrs_user&Password=$otrs_password" \
+            $url |& \
+            grep Set-Cookie | \
+            cut -d':' -f2 | \
+            cut -d';' -f1`
+        echo $session_header > $session_header_file
+    fi
+
+    current_year=`date +%Y`
+    last_year=$(( $current_year - 1 ))
+
+    uri_parameters=`wget -O -\
+         --post-data "Action=AgentTicketSearch&Subaction=Search&TicketNumber=$1&CustomerID=&CustomerUserLogin=&From=&To=&Cc=&Subject=&Body=&TicketFreeText2=&TicketFreeText4=&TicketFreeText6=&TimeSearchType=&TicketCreateTimePointStart=Last&TicketCreateTimePoint=1&TicketCreateTimePointFormat=day&TicketCreateTimeStartMonth=12&TicketCreateTimeStartDay=5&TicketCreateTimeStartYear=$last_year&TicketCreateTimeStopMonth=1&TicketCreateTimeStopDay=4&TicketCreateTimeStopYear=$this_year&ResultForm=Normal&Profile=" \
+         --header "Cookie: ${session_header}" \
+         $url \
+         2>/dev/null | \
+         grep $1 | \
+         cut -d'"' -f2 | \
+         cut -d'?' -f2`
+     opera "$url/?$uri_parameters"
+}
+
+function play_that_music()
+{
+    xmms2 clear
+    
+    for el in $@; do
+        if [ $el = "music" ]; then
+            continue
+        fi
+
+        xmms2 add $el
+    done
+
+    xmms2 playlist shuffle
+    xmms2 play
+}
+
+function p4_check_that_everythings_ok()
+{
+    find . -type f -name "*" | grep -v target | grep -v easybook | grep -v iml$ | \
+        while read f; do
+        p4 filelog $f 1>/dev/null
+    done
+}
+
+function make_me_happy()
+{
+    setxkbmap us
+    xmodmap ~/.xmodmaprc
+
+    release_sound_card
+}
+
+# try to be smart first
+if [  `echo $1 | sed 's/[0-9]//g' | wc -c` -lt 2 ]; then
+    search_otrs $1
+    exit 0
+elif [ `echo $1 | egrep -v -i "VIZIWYG|ECOME|VF|STATS|DASH|ERDQ|FORUM|TM" | wc -c` -lt 1 ]; then
+    open_jira_issue $1
+    exit 0
+fi
+
+case "$1" in
+    p4check)
+        p4_check_that_everythings_ok
+        ;;
+    gohome)
+        end_of_day
+        ;;
+    daily)
+        start_of_day
+        ;;
+    happy)
+        make_me_happy
+        ;;
+    jira)
+        open_jira_issue $2
+        ;;
+    music)
+        play_that_music $@
+        ;;
+    searchim)
+        search_im $2
+        ;;
+    searchlists)
+        search_mailing_list_archive $2
+        ;;
+    otrs)
+        search_otrs $2
+        ;;
+    dates)
+        escenic_dates
+        ;;
+    *)
+        echo $id "Usage: $(basename $0) <command>" 
+        echo "" 
+        echo "   Where <command> is one of: " 
+        echo "     * daily                Check out & build the latest code"
+        echo "     * dates                Print the dates of the Escenic offices"
+        echo "     * gohome               Create a report of accomplishments"
+        echo "     * jira <issue>         Open the given issue in the browser"
+        echo "     * searchim <query>     Search the chat logs"
+        echo "     * searchlists <query>  Search the mailing list archive"
+        exit 1
+esac
+
+exit 0
