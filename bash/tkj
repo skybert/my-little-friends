@@ -1,14 +1,12 @@
-#! /usr/bin/env bash
-
-id="[$(basename $0)]"
-
 function escenic_dates()
 {
-    echo -n "Taipei: "
+    echo -n "Taipei:  "
     TZ='Asia/Taipei' date
-    echo -n "Dhaka:  "
+    echo -n "Bangkok: "
+    TZ='Asia/Bangkok' date
+    echo -n "Dhaka:   "
     TZ='Asia/Dhaka' date
-    echo -n "Oslo:   "
+    echo -n "Oslo:    "
     TZ='Europe/Oslo' date
 }
 
@@ -28,7 +26,7 @@ function start_of_day()
 {
     echo $id "Launching my favourite applications..."
     app_list="
-/usr/bin/emacs
+emacs
 opera
 icedove
 pidgin
@@ -137,7 +135,8 @@ function make_me_happy()
     setxkbmap us
     xmodmap ~/.xmodmaprc
 
-    release_sound_card
+    # skype is _really_ confused on my system
+    #    release_sound_card
 }
 
 # try to be smart first
