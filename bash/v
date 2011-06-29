@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+
+# where the file is downloaded to
+dir=/tmp
+
+# kill the browser plugin which I used to get the link for the stream.
+killall mplayer
+
+cd $dir
+file_name=`basename $1`
+nohup mplayer -dumpstream $1 -dumpfile ${file_name} &
+xterm -fn 6x12 -e "watch ls -lh ${dir}/${file_name}" &
+
+# sleep 20
+# mplayer ${dir}/${file_name}
+
