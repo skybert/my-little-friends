@@ -143,6 +143,15 @@ function make_me_happy()
     #    release_sound_card
 }
 
+function set_random_wallper()
+{
+    wallpaper_names=$(ls ~/pictures/wallpapers/*.jpg)
+    wallpaper_array=($wallpaper_names)
+    number_of_wallpapers=${#wallpaper_array[*]}
+    wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
+    display -window root -backdrop $wallpaper
+}
+
 # try to be smart first
 if [  `echo $1 | sed 's/[0-9]//g' | wc -c` -lt 2 ]; then
     search_otrs $1
@@ -182,6 +191,9 @@ case "$1" in
         ;;
     dates)
         escenic_dates
+        ;;
+    wallpaper)
+        set_random_wallper
         ;;
     *)
         echo $id "Usage: $(basename $0) <command>" 
