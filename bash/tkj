@@ -1,6 +1,10 @@
+#! /usr/bin/env bash
+
 function escenic_dates()
 {
-    echo -n "Taipei:  "
+    echo -n "Sidney: "
+    TZ='Australia/Sydney' date
+    echo -n "Taipei  "
     TZ='Asia/Taipei' date
     echo -n "Bangkok: "
     TZ='Asia/Bangkok' date
@@ -33,7 +37,7 @@ pidgin
 google-chrome
 "
     for el in $app_list; do
-        if [ $(ps -u $USER | grep "\'$el''" | wc -l) -lt 1 ]; then
+        if [ $(ps -u $USER | grep $el | wc -l) -lt 1 ]; then
             $el 1>/dev/null 2>/dev/null &
         fi
     done
