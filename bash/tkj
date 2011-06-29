@@ -143,7 +143,7 @@ function make_me_happy()
     #    release_sound_card
 }
 
-function set_random_wallper()
+function set_random_wallpaper()
 {
     wallpaper_names=$(ls ~/pictures/wallpapers/*.jpg)
     wallpaper_array=($wallpaper_names)
@@ -193,7 +193,7 @@ case "$1" in
         escenic_dates
         ;;
     wallpaper)
-        set_random_wallper
+        set_random_wallpaper
         ;;
     *)
         echo $id "Usage: $(basename $0) <command>" 
