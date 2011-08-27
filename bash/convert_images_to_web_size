@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+# Script to convert a set of images to a version suitable for your
+# website. The script guarantees a maximum size (either width or
+# height).
+#
+# tkj/at/freeshell/dot/org
+
+max_size=400
+
+for el in $@; do
+    wh=`identify $el | cut -d' ' -f3`
+    w=`echo $wh | cut -d'x' -f1`
+    h=`echo $wh | cut -d'x' -f2`
+    echo -n $el " "
+    if [ $h -gt $w ]; then
+        echo  h=$h is greater than w=$w
+        convert -resize x${max_size} $el $el.web.jpg
+    else
+        echo w=$w is greater or equal to h=$h
+        convert -resize ${max_size} $el $el.web.jpg
+    fi
+done
+    
