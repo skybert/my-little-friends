@@ -55,3 +55,34 @@ function get_seconds_since_start()
     seconds=$(( now - started ))
     echo "$seconds"
 }
+
+function make_dir()
+{
+    if [ ! -d $1 ]; then
+        run mkdir -p $1
+    fi
+}
+
+function make_ln()
+{
+    if [ $2 ]; then
+        if [ -e $1 -a ! -h $2 ]; then
+            run ln -s $1 $2
+        elif [ ! -e $1 ]; then
+            print "Tried to make a symlink to $1, but it doesn't exist"
+            exit 1
+        fi
+    else
+        if [ -e $1 -a ! -h $(basename $1) ]; then
+            run ln -s $1
+        elif [ ! -e $1 ]; then
+            print "Tried to make a symlink to $1, but it doesn't exist"
+            exit 1
+        fi
+    fi
+}
+
+function clean_up()
+{
+    rm $pid_file
+}
