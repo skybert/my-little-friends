@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
 # makes files and directory names beautiful.
+#
+# by torstein.k.johansen@gmail.com
 
 echo "Press ENTER to beatify files in $(pwd), Ctrl-c to abort."
 echo -n "You choose> " 
