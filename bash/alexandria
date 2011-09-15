@@ -1,0 +1,57 @@
+#! /usr/bin/env bash
+
+# alexandria - a great libary full of useful BASH functions that are
+# indespensible to me when programming.
+
+# by torstein.k.johansen@gmail.com
+
+log=/tmp/$(basename $0).log
+
+# this directory will normally be /var/run for scripts run as
+# priveleged users.
+pid_dir=/tmp
+pid_file=$pid_dir/$(basename $0).pid
+touch $pid_file
+
+function exit_on_error()
+{
+    if [ $? -gt 0 ]; then
+        print "The command ["$@"] FAILED, exiting :-("
+        print "See $log for further details."
+        exit 1
+    fi
+}
+
+# Command wrapper which will exit if the command passed to it
+# fails. Output and errors are written to the $log file.
+function run()
+{
+    $@ 1>>$log 2>>$log
+    exit_on_error $@
+}
+
+function get_id()
+{
+    timestamp=$(get_seconds_since_start)
+    echo "[$(basename $0)-${timestamp}]"
+}
+
+function debug()
+{
+    if [ $debug -eq 1 ]; then
+        echo "[$(basename $0)-debug]" "$@"
+    fi
+}
+
+function print()
+{
+    echo $(get_id) $@
+}
+
+function get_seconds_since_start()
+{
+    now=`date +%s`
+    started=`stat -c %Y $pid_file`
+    seconds=$(( now - started ))
+    echo "$seconds"
+}
