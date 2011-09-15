@@ -2,19 +2,40 @@
 
 # makes files and directory names beautiful.
 
-echo "Press ENTER to beatify files from $(pwd) and beyond, Ctrl-c to abort."
+echo "Press ENTER to beatify files in $(pwd), Ctrl-c to abort."
 echo -n "You choose> " 
 read ok
 
-find . | while read f; do
+find . -maxdepth 1 | while read f; do
     if [ "$f" = "." -o "$f" = ".." ]; then
         continue
-    elif [ $(echo "$f" | grep [A-Z] | wc -l) -eq 0 -o \
-        $(echo "$f" | grep " " | wc -l) -eq 0 ]; then
+    fi
+    beautify=0
+
+    for el in '&' '{' '}' " "; do
+        # need setting locale to C in order to get traditional bracket
+        # range to work.
+        export LC_ALL=C
+        
+        if [ $(echo $f | grep "$el" | wc -l) -gt 0 -o \
+            $(echo $f | grep [A-Z] | wc -l) -gt 0 ]; then
+            beautify=1
+        fi
+    done
+
+    if [ $beautify -eq 0 ]; then
         continue
     fi
-    
-    beautiful_name=$(echo "$f" | sed -e 's/\ /_/g' | tr [A-Z] [a-z])
+
+    beautiful_name=$(echo "$f" | \
+        sed \
+        -e 's/\ /_/g' \
+        -e 's/&/_/g' \
+        -e 's/{/_/g' \
+        -e 's/}/_/g' \
+        | \
+        tr [A-Z] [a-z])
+
+    echo "Beautifying $f -> $beautiful_name"
     mv "$f" "$beautiful_name"
 done
-
