@@ -28,17 +28,24 @@ function end_of_day()
 
 function start_of_day()
 {
+    
+    echo $id "Setting a random wallpaper..."
+    set_random_wallpaper &
+    
     echo $id "Launching my favourite applications..."
     app_list="
 emacs
 opera
-icedove
 pidgin
-google-chrome
+firefox
 "
     for el in $app_list; do
         if [ $(ps -u $USER | grep $el | wc -l) -lt 1 ]; then
-            $el 1>/dev/null 2>/dev/null &
+            if [ $el = "chrome" ]; then
+                google-chrome 1>/dev/null 2>/dev/null &
+            else
+                $el 1>/dev/null 2>/dev/null &
+            fi
         fi
     done
     
