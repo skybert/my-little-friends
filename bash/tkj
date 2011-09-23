@@ -44,10 +44,12 @@ function start_of_day()
     echo $id "Adding your SSH key"
     ssh-add
     
+    echo $id "Setting a random wallpaper..."
+    set_random_wallpaper &
+    
     echo $id "Launching my favourite applications..."
     app_list="
 opera
-icedove
 pidgin
 google-chrome
 firefox
