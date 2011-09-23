@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+id="[$(basename $0)]"
+
 function escenic_dates()
 {
     echo -n "Sidney: "
@@ -28,23 +30,47 @@ function end_of_day()
 
 function start_of_day()
 {
+    echo $id "Putting on some good music ..."
+    mpd ~/.mpdrc 1>/dev/null 2>/dev/null &
+    mpc play 1>/dev/null 2>/dev/null &
+
+    # set up the network
+    while [ $(/sbin/ifconfig eth1 | grep -v inet6 | grep inet | wc -l) -eq 0 ]; do
+        echo $id "Enter your root password to set up the network"
+        su -c "ifdown eth1 ; ifup eth1"
+    done
+
+    TERM=rxvt-color phionvpn
+    echo $id "Adding your SSH key"
+    ssh-add
+    
     echo $id "Launching my favourite applications..."
     app_list="
-emacs
 opera
 icedove
 pidgin
 google-chrome
+firefox
 "
     for el in $app_list; do
-        if [ $(ps -u $USER | grep $el | wc -l) -lt 1 ]; then
+        if [ $(ps -u $USER | grep  $el | wc -l) -lt 1 ]; then
+            if [ $el = "icedove" ]; then
+                LD_BIND_NOW=1 icedove 1>/dev/null 2>/dev/null &
+            fi
+            
             $el 1>/dev/null 2>/dev/null &
         fi
     done
+
+    if [ $(ps -u $USER | grep emacs | wc -l) -lt 1 ]; then
+        emacs -fn 7x14 &
+        emacs -fn 10x20 -fg black -bg white -f tkj-load-vm
+    fi
     
     echo -n $id "Start of the day: Getting, building & deploying the latest code"
     echo "..."
     tkjdaily
+
     echo $id "Happy hacking :-)"
 }
 
