@@ -124,7 +124,7 @@
 (prefer-coding-system 'utf-8)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Set tabs to 3 spaces and replace all tabs with spaces
+;; Set tabs to 2 spaces and replace all tabs with spaces
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
@@ -359,9 +359,7 @@
       js2-indent-on-enter-key t
       js2-enter-indents-newline t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; makes j2-mode work (better) with JSON files. 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defadvice js2-reparse (before json)
 	(setq js2-buffer-file-name buffer-file-name))
 (ad-activate 'js2-reparse)
@@ -406,39 +404,29 @@
   (let ((fill-column (point-max)))
     (fill-region (region-beginning) (region-end) nil)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Some things, I want to be only loaded when I want them
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (defun tkj-load-planner ()
-;;  (interactive)
-;;
-;; setting load path since I'm runing with /usr/local/emacs
-;; (setq load-path
-;;      (append (list
-;;               "/usr/share/emacs/site-lisp/planner-el"
-;;               "/usr/share/emacs/site-lisp/muse-el"
-;;               "/usr/share/emacs/site-lisp/remember-el"
-;;               "/mnt/debian/usr/share/emacs/site-lisp/planner-el"
-;;               "/mnt/debian/usr/share/emacs/site-lisp/muse-el"
-;;               "/mnt/debian/usr/share/emacs/site-lisp/remember-el"
-;;                    )
-;;              load-path))
-;; (load "~/.emacs-planner")
-;;  (plan)
-;; )
-
-(defun tkj-load-malabar-and-jdibug ()
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; I often want to explicitly load big Emacs modules to minimize the
+;; start up time
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun tkj-load-jdibug ()
   (interactive)
-  (load "~/.emacs-malabar")
-  (load "~/.emacs-jdibug")
+  (load "~/.emacs.d/tkj-jdibug.el")
+)
+
+(defun tkj-load-malabar ()
+  (interactive)
+  (load "~/.emacs.d/tkj-malabar.el")
 )
 
 (defun tkj-load-jdee ()
   (interactive)
-  (load "~/.emacs-jdee")
+  (load "~/.emacs.d/tkj-jdee.el")
 )
 
-(load "~/.emacs-auto-insert")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto insert file templates
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "~/.emacs.d/tkj-auto-insert.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tidy
@@ -466,7 +454,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Inputting Mandarin
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (load "~/.emacs-ibus")
+;; (load "~/.emacs.d/tkj-ibus.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; insert timestamp
@@ -565,6 +553,20 @@
   (load "~/.vm")
   (vm))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; IDO, smart file name completion
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'ido)
+(require 'filecache)
+
+;; ido-everywhere breaks find-dired, to turning it off until the fix
+;; in emacs/trunk gets into the emacs23 packages.
+(setq ido-everywhere nil
+      ido-create-new-buffer 'always
+      ido-file-extensions-order '(".java" ".js" ".el")
+      ido-use-filename-at-point 'guess)
+(ido-mode t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -595,7 +597,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(flymake-errline ((((class color)) (:background "Red"))))
- '(flymake-warnline ((((class color)) (:inverse-video t)))))
+ '(flymake-errline ((((class color)) (:underline "Red"))))
+ '(flymake-warnline ((((class color)) (:underline "Orange")))))
 
 
