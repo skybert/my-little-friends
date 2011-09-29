@@ -72,12 +72,13 @@
         )
       (setq count (1- count)))))
 
-(defun show-previous-error ()
+
+(defun tkj-show-previous-error ()
   (interactive)
   (flymake-goto-prev-error)
   (credmp/flymake-display-err-minibuf))
 
-(defun show-next-error ()
+(defun tkj-show-next-error ()
   (interactive)
   (flymake-goto-next-error)
   (credmp/flymake-display-err-minibuf))
