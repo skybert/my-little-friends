@@ -6,8 +6,7 @@
 
 (setq user-full-name "Torstein Krause Johansen"
       user-mail-address "tkj@vizrt.com"
-      mail-from-style 'angles
-      )
+      mail-from-style 'angles)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
@@ -63,8 +62,9 @@
 ;; extra line breaks are inserted.
 (global-visual-line-mode 1)
 
-;; Save & restore sessions
-(desktop-save-mode 1)
+;; Save & restore sessions, it drives me nuts ... but can be very
+;; useful, so I'll keep the setting just for a while
+;; (desktop-save-mode 1)
 
  ;; Automatically reload files was modified by external program
 (global-auto-revert-mode 1)
@@ -173,10 +173,11 @@
 (require 'auto-complete)
 
 (add-to-list 'ac-dictionary-directories
+             (list
              "~/.emacs.d/auto-complete/dict/"
              "/usr/share/auto-complete/dict/"
              "/mnt/debian/usr/share/auto-complete/dict/"
-             )
+             ))
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -321,7 +322,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun tkj-load-p4()
   (interactive)
-  (load "$HOME/.emacs.d/tkj-p4.el"))
+  (load "$HOME/.emacs.d/tkj-p4.el")
+  (p4-opened))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML
@@ -541,7 +543,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load "~/.emacs-org")
+(load "~/.emacs.d/tkj-org.el")
 (add-to-list 'Info-default-directory-list
              (expand-file-name "/usr/local/share/info"))
 
@@ -554,18 +556,9 @@
   (vm))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; IDO, smart file name completion
+;; Various packaegs & settings to get smart file name completion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'ido)
-(require 'filecache)
-
-;; ido-everywhere breaks find-dired, to turning it off until the fix
-;; in emacs/trunk gets into the emacs23 packages.
-(setq ido-everywhere nil
-      ido-create-new-buffer 'always
-      ido-file-extensions-order '(".java" ".js" ".el")
-      ido-use-filename-at-point 'guess)
-(ido-mode t)
+(load "~/.emacs.d/tkj-smart-file-name-completion.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
