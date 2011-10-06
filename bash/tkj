@@ -46,7 +46,8 @@ function start_of_day()
     
     echo $id "Setting a random wallpaper..."
     set_random_wallpaper &
-    
+
+    # the applications that requirethe network to work
     echo $id "Launching my favourite applications..."
     app_list="
 opera
@@ -64,11 +65,6 @@ firefox
         fi
     done
 
-    if [ $(ps -u $USER | grep emacs | wc -l) -lt 1 ]; then
-        emacs -fn 7x14 &
-        emacs -fn 10x20 -fg black -bg white -f tkj-load-vm
-    fi
-    
     echo -n $id "Start of the day: Getting, building & deploying the latest code"
     echo "..."
     tkjdaily
