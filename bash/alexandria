@@ -86,3 +86,34 @@ function clean_up()
 {
     rm $pid_file
 }
+
+# Returns the file (can be a directory) passed to the function only
+# if it's the actual file/directory and not a link to it. If the
+# passed file is a link, the link target is returned instead.
+#
+# $1 - the file (which could be a link)
+function get_actual_file()
+{
+    if [ -h ${1} ]; then
+        dir=$(dirname $1)
+        real_file=$(ls -l ${1} | awk '{print $11}')
+
+        # Because of the test if the file we want to returns is
+        # absolute, we go to the root before testing. We want to
+        # preserve the cwd, therefore, we're doing the "cd /" in a
+        # subshell.
+        real_file=$(
+            cd / 
+            if [ ! -e ${real_file} ]; then
+                real_file=${dir}/${real_file}
+            fi
+
+            # this is the return value from the sub process
+            echo ${real_file}
+        )
+    else
+        real_file=${1}
+    fi
+    
+    echo ${real_file}
+}
