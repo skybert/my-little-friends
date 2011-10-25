@@ -117,3 +117,24 @@ function get_actual_file()
     
     echo ${real_file}
 }
+
+# Will first run mvn in offline mode. If it fails, it will re-run
+# maven in online mode. This will make Maven feel faster for most
+# developers.
+#
+# mvn_fast will also pass a number of options to mvn that are
+# typically used to make the building/packaging go faster, again from
+# the developer's point of view. If you're building a release package
+# of your Maven project, you don't want to use mvn_fast.
+#
+# The method will run the second maven call (when applicable) in the
+# run() wrapper, exciting the process with an error if it fails.
+function mvn_fast()
+{
+    mvn_opts=" -Dtest=false -DfailIfNoTests=false -Ddocumentation.skip=true"
+    mvn -o ${mvn_opts} "$@" 1>>$log 2>>$log
+    
+    if [ $? -gt 0 ]; then
+        run mvn ${mvn_opts} "$@"
+    fi
+}
