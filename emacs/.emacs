@@ -173,11 +173,9 @@
 (require 'auto-complete)
 
 (add-to-list 'ac-dictionary-directories
-             (list
-             "~/.emacs.d/auto-complete/dict/"
-             "/usr/share/auto-complete/dict/"
-             "/mnt/debian/usr/share/auto-complete/dict/"
-             ))
+             "~/.emacs.d/auto-complete/dict"
+             )
+
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -207,6 +205,7 @@
          ("ChangeLog" . change-log-mode)
          ("\\.cgi\\'" . python-mode) 
          ("\\.conf\\'" . conf-mode) 
+         ("\\.config\\'" . conf-mode) 
          ("\\.cpp\\'" . c++-mode) 
          ("\\.css\\'" . css-mode) 
          ("\\.dtd\\'" . dtd-mode)
@@ -219,16 +218,14 @@
          ("\\.jbk\\'" . nxml-mode) 
          ("\\.shtml\\'" . nxml-mode) 
          ("\\.idl\\'" . c++-mode)
-         ;; appending to the auto-mode-alist overriding a previous
-         ;; setting doesn't seem to work in emacs 23.x as it did in
-         ;; 22.x 2009-11-27 12:22
-         ;;         ("\\.java\\'" . java-mode) ;; overridden in .emacs-java
+         ("\\.java$" . java-mode)
          ("\\.json$" . js2-mode)
          ("\\.js$" . js2-mode)
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.muse$" . planner-mode)
          ("\\.odl\\'" . c++-mode) 
+         ("\\.org\\'" . org-mode) 
          ("\\.pdf\\'" . doc-view-mode)
          ("\\.py\\'" . python-mode) 
          ("\\.php\\'" . php-mode) 
@@ -252,8 +249,9 @@
          ("\\.xml$" . nxml-mode) ;; psgml-mode, nxml-mode
          ("\\.xsd$" . nxml-mode) ;; xsl-mode
          ("\\.xsl$" . nxml-mode) ;; xsl-mode
-         )
-       auto-mode-alist))
+         ("feature" . conf-mode)
+         ("section-parameter" . conf-mode)
+         )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hippe expansion
@@ -294,8 +292,6 @@
         require-final-newline nil)
   (auto-fill-mode)
   (c-set-offset 'substatement-open 0)
-  (define-key c-mode-base-map "\C-c\C-n" 'tkj-show-next-error)
-  (define-key c-mode-base-map "\C-c\C-p" 'tkj-show-previous-error)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (subword-mode)
   )
