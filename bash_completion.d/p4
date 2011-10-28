@@ -40,7 +40,7 @@ _p4_commands()
             completions="..."
             ;;
         integrate)
-            completions="-b -s"
+            completions="-b -s -n"
             ;;
         -s)
             completions="@"
@@ -52,6 +52,9 @@ _p4_commands()
             completions="... -u"
             ;;
         -u)
+            completions=$(get_users)
+            ;;
+        user)
             completions=$(get_users)
             ;;
     esac
