@@ -26,7 +26,7 @@ function get_users()
 function get_commands()
 {
     if [ ! -r $p4_commands_cache_file ]; then
-        p4 help commands | cut -d' ' -f1 > $p4_commands_cache_file
+        p4 help commands | awk 'NF>3 {print $1}' > $p4_commands_cache_file
     fi
 
     echo $(cat $p4_commands_cache_file)
