@@ -8,7 +8,7 @@ p4_commands_cache_file=$HOME/.p4-commands
 function get_branches()
 {
     if [ ! -r $p4_branches_cache_file ]; then
-        p4 branches | cut -d' ' -f2 > $p4_branches_cache_file
+        p4 branches | awk 'NF>3 {print $2}'> $p4_branches_cache_file
     fi
 
     echo $(cat $p4_branches_cache_file)
@@ -17,7 +17,7 @@ function get_branches()
 function get_users()
 {
     if [ ! -r $p4_users_cache_file ]; then
-        p4 users | cut -d' ' -f1 > $p4_users_cache_file
+        p4 users | awk 'NF>3 {print $1}' > $p4_users_cache_file
     fi
 
     echo $(cat $p4_users_cache_file)
