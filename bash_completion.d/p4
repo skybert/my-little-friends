@@ -1,13 +1,15 @@
 # auto completion for the p4 (Perforce) command.
 # by torstein.k.johansen@gmail.com
 
+p4_branches_cache_file=$HOME/.p4-branches
+
 function get_branches()
 {
-    if [ ! -r $HOME/.p4-branches ]; then
-        p4 branches | cut -d' ' -f2 > $HOME/.p4-branches
+    if [ ! -r $p4_branches_cache_file ]; then
+        p4 branches | cut -d' ' -f2 > $p4_branches_cache_file
     fi
 
-    echo $(cat $HOME/.p4-branches)
+    echo $(cat $p4_branches_cache_file)
 }
 
 _p4_commands()
@@ -21,6 +23,12 @@ _p4_commands()
     completions=$commands
 
     case "$prev" in
+        describe)
+            completions="-du"
+            ;;
+        diff)
+            completions="..."
+            ;;
         integrate)
             completions="-b -s"
             ;;
