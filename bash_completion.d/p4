@@ -1,6 +1,15 @@
 # auto completion for the p4 (Perforce) command.
 # by torstein.k.johansen@gmail.com
 
+function get_branches()
+{
+    if [ ! -r $HOME/.p4-branches ]; then
+        p4 branches | cut -d' ' -f2 > $HOME/.p4-branches
+    fi
+
+    echo $(cat $HOME/.p4-branches)
+}
+
 _p4_commands()
 {
     local cur=${COMP_WORDS[COMP_CWORD]}
@@ -11,6 +20,18 @@ _p4_commands()
     # default completions is the list of commands
     completions=$commands
 
+    case "$prev" in
+        integrate)
+            completions="-b -s"
+            ;;
+        -s)
+            completions="@"
+            ;;
+        -b)
+            completions=$(get_branches)
+            ;;
+    esac
+    
     COMPREPLY=( $(compgen -W "$completions" -- $cur) )
 }
 
