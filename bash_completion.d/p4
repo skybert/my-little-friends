@@ -58,6 +58,9 @@ _p4_commands()
         diff)
             completions="..."
             ;;
+        edit)
+            completions="-c -n -t"
+            ;;
         integrate)
             completions="-c -d -Dt -Ds -Di -f -h -i -I -o -r -t -v -b -s -n"
             ;;
@@ -66,6 +69,18 @@ _p4_commands()
             ;;
         -s)
             completions="@"
+            ;;
+        -t)
+            # file types
+            base_types="text binary symlink apple apple resource unicode utf16"
+            modifiers="w x ko k l C D F S Sn m X"
+            completions=""
+            for el in $base_types; do
+                for ele in $modifiers; do
+                    completions=$completions" "${el}"+"${ele}
+                done
+            done
+            
             ;;
         -b)
             completions=$(get_branches)
