@@ -1,9 +1,15 @@
 # auto completion for the p4 (Perforce) command.
 # by torstein.k.johansen@gmail.com
 
-p4_branches_cache_file=$HOME/.p4-branches
-p4_users_cache_file=$HOME/.p4-users
-p4_commands_cache_file=$HOME/.p4-commands
+cache_dir=$HOME/.p4.d
+if [ ! -e $cache_dir ]; then
+    mkdir $cache_dir
+fi
+
+p4_branches_cache_file=$cache_dir/branches.cache
+p4_users_cache_file=$cache_dir/users.cache
+p4_commands_cache_file=$cache_dir/commands.cache
+p4_depot_cache_file=$cache_dir/depot.cache
 
 function get_branches()
 {
@@ -34,10 +40,9 @@ function get_commands()
 
 function get_depot_completion()
 {
-    local completions=""
+    local completions
     completions=$(p4 files ${1}* 2>/dev/null)
-    completions=${completions}$(p4 dirs ${1}* 2>/dev/null)
-    
+    completions=${completions}" "$(p4 dirs ${1}* 2>/dev/null)
     echo $completions
 }
 
@@ -52,6 +57,9 @@ _p4_commands()
     completions=$commands
 
     case "$prev" in
+        add)
+            completions="-c -f -n -t"
+            ;;
         describe)
             completions="-du"
             ;;
@@ -63,6 +71,15 @@ _p4_commands()
             ;;
         integrate)
             completions="-c -d -Dt -Ds -Di -f -h -i -I -o -r -t -v -b -s -n"
+            ;;
+        resolve)
+            completions="-af -am -as -at -ay -db -dw -f -n -o -t -v"
+            ;;
+        resolved)
+            completions="-o"
+            ;;
+        revert)
+            completions="-a -n -k -c"
             ;;
         sync)
             completions="-f -n -k"
