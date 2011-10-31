@@ -32,12 +32,21 @@ function get_commands()
     echo $(cat $p4_commands_cache_file)
 }
 
+function get_depot_completion()
+{
+    local completions=""
+    completions=$(p4 files ${1}* 2>/dev/null)
+    completions=${completions}$(p4 dirs ${1}* 2>/dev/null)
+    
+    echo $completions
+}
+
 _p4_commands()
 {
     local cur=${COMP_WORDS[COMP_CWORD]}
     local prev=${COMP_WORDS[COMP_CWORD-1]}
 
-    commands="$(get_commands) ..."
+    commands="$(get_commands) ... //depot"
 
     # default completions is the list of commands
     completions=$commands
@@ -50,7 +59,10 @@ _p4_commands()
             completions="..."
             ;;
         integrate)
-            completions="-b -s -n"
+            completions="-c -d -Dt -Ds -Di -f -h -i -I -o -r -t -v -b -s -n"
+            ;;
+        sync)
+            completions="-f -n -k"
             ;;
         -s)
             completions="@"
@@ -68,9 +80,14 @@ _p4_commands()
             completions=$(get_users)
             ;;
     esac
+
+
+    if [[ "$cur" == //depot/* ]]; then
+        completions=$(get_depot_completion $cur)
+    fi
     
     COMPREPLY=( $(compgen -W "$completions" -- $cur) )
 }
 
-complete -o default  -F _p4_commands p4
+complete -o default -F _p4_commands p4
 
