@@ -9,7 +9,6 @@ fi
 p4_branches_cache_file=$cache_dir/branches.cache
 p4_users_cache_file=$cache_dir/users.cache
 p4_commands_cache_file=$cache_dir/commands.cache
-p4_depot_cache_file=$cache_dir/depot.cache
 
 function get_branches()
 {
@@ -60,11 +59,41 @@ _p4_commands()
         add)
             completions="-c -f -n -t"
             ;;
+        annotate)
+            completions="-a -c -i -q -d -dw"
+            ;;
+        branch)
+            completions="-f -d -o -i"
+            ;;
+        change)
+            completions="-f -s -d -o -i"
+            ;;
+        changes)
+            completions="-i -t -l -L -c -m -s -u"
+            ;;
+        changelist)
+            completions="-f -s -d -o -i"
+            ;;
+        changelists)
+            completions="-i -t -l -L -c -m -s -u"
+            ;;
+        client)
+            completions="-f -t -d -o -i"
+            ;;
+        counter)
+            completions="-f -d"
+            ;;
+        delete)
+            completions="-c -n"
+            ;;
+        depot)
+            completions="-d -o -i"
+            ;;
         describe)
-            completions="-du"
+            completions="-dn -dc -ds -du -db -dw -s"
             ;;
         diff)
-            completions="..."
+            completions="... -dn -dc -ds -du -db -dw -dl -f -sa -sd -se -sr -t"
             ;;
         edit)
             completions="-c -n -t"
@@ -113,8 +142,7 @@ _p4_commands()
             ;;
     esac
 
-
-    if [[ "$cur" == //depot/* ]]; then
+    if [[ "$cur" == //depot/* && -z "$P4_DISABLE_DEPOT_COMPLETION" ]]; then
         completions=$(get_depot_completion $cur)
     fi
     
