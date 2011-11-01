@@ -1,0 +1,33 @@
+#! /usr/bin/evn bash
+
+# I'm so tired of NetworkManager that I've created this simple script
+# which gets up my network without all the fuzz.
+#
+# torstein.k.johansen@gmail.com
+
+source $HOME/src/my-little-friends/bash/alexandria
+
+function are_we_networked()
+{
+    test_host=vg.no
+    echo $(ping -c 1 $test_host 2>/dev/null | grep received | wc -l)
+}
+
+function get_essid()
+{
+    echo $(iwconfig 2>/dev/null | grep ESSID | cut -d'"' -f2)
+}
+
+while true; do
+    if [ $(are_we_networked) -eq 0 ]; then
+        print "You're NOT connected to the world, remedying this ..."
+        run ifdown eth1
+        run ifup eth1
+        print "I tried to connect you, I'm hanging around to verify this ..."
+        sleep 20
+    else
+        print "You're connected to the world via" $(get_essid)", have fun!"
+        exit 0
+    fi
+done
+
