@@ -39,10 +39,15 @@ function get_commands()
 
 function get_depot_completion()
 {
-    local completions
-    completions=$(p4 files ${1}* 2>/dev/null)
-    completions=${completions}" "$(p4 dirs ${1}* 2>/dev/null)
-    echo $completions
+    echo $(
+        # in case someone actually has /[/]depot/ on their file system
+        # and have enabled globastar, we disable it here just to be
+        # safe.
+        shopt -u globstar
+        completions=$(p4 files ${1}* 2>/dev/null)
+        completions=${completions}" "$(p4 dirs ${1}* 2>/dev/null)
+        echo $completions
+    )
 }
 
 _p4_commands()
@@ -108,7 +113,7 @@ _p4_commands()
             completions="-o"
             ;;
         revert)
-            completions="-a -n -k -c"
+            completions="-a -n -k -c ..."
             ;;
         sync)
             completions="-f -n -k"
