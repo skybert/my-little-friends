@@ -9,22 +9,24 @@
 
 dir_list="
 $HOME/.emacs.d
+$HOME/src/p4/branches/personal/torstein/memento
 $HOME/src/p4/escenic/plugins/viziwyg/trunk
 $HOME/src/p4/escenic/plugins/forum/trunk
 $HOME/src/p4/escenic/plugins/dashboard/trunk
 $HOME/src/p4/escenic/plugins/community/trunk
-$HOME/src/p4/escenic/plugins/poll/trunk
 $HOME/src/p4/escenic/plugins/analysis/trunk
 $HOME/src/p4/escenic/studio/trunk
 $HOME/src/p4/escenic/engine/trunk
 $HOME/src/p4/escenic/model-core/trunk
-$HOME/src/p4/escenic/widget-framework/trunk
 $HOME/src/ece-scripts
 $HOME/src/my-little-friends
 /etc/escenic
-/opt/tomcat-dev1
+/opt/tomcat-dev1/conf
 /opt/dropbox/doc/work
 "
+
+# $HOME/src/p4/escenic/widget-framework/trunk
+# $HOME/src/p4/escenic/plugins/poll/trunk
 
 file=/tmp/file_cache.el-$(date --iso)
 
@@ -33,12 +35,14 @@ echo "(" > $file
 
 for el in $dir_list; do
     find $el -type f | \
-	egrep -vi "target|.jar|.html|tmp|temp|Catalina|.iml|.iws|.ipr|\#|.log" | \
-	egrep -vi ".git|.svn|\~|.class|.swp|.png|.jpg|.bmp|.pdf|.gif|\\.cache" | \
-	while read f; do
-	    file_name=$(basename "$f")
-	    directory=$(dirname "$f")
-	    echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
+	      egrep -vi "/test/" | \
+	      egrep -vi "\\.tmp|Catalina|\\.iml|\\.iws|\\.ipr|\#|\\.log" | \
+	      egrep -vi "target|\\.jar|\\.html|\\.png|\\.jpg|\\.bmp" | \
+	      egrep -vi "\\.git|\\.svn|\~|\\.class|\\.swp|\\.pdf|\\.gif|\\.cache" | \
+	      while read f; do
+	      file_name=$(basename "$f")
+	      directory=$(dirname "$f")
+	      echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
     done
 done
 
