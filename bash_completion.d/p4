@@ -68,7 +68,7 @@ _p4_commands()
             completions="-a -c -i -q -d -dw"
             ;;
         branch)
-            completions="-f -d -o -i"
+            completions="-f -d -o -i $(get_branches)"
             ;;
         change)
             completions="-f -s -d -o -i"
