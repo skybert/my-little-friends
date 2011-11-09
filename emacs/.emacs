@@ -91,10 +91,11 @@
       ;; no visible or audible bells, please
       visible-bell nil
       ring-bell-function (lambda nil (message ""))
-      )
-(tool-bar-mode())
-(menu-bar-mode())
-(scroll-bar-mode())
+)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(set-scroll-bar-mode nil)
+
 (setq gnus-article-save-directory "~/news"
       gnus-dribble-directory "~/news/dribble"
       gnus-agent-directory "~/news/agent"
@@ -189,10 +190,17 @@
          (match-end 0)
          'face (list :background 
                      (match-string-no-properties 0)))))))
+
 (defun hexcolour-add-to-font-lock ()
   (font-lock-add-keywords nil hexcolour-keywords))
 
+(defun my-css-mode-hook()
+  (setq compile-command
+        "cp -r ~/src/p4/branches/personal/torstein/memento/src/main/webapp/{template,css}/ /opt/tomcat-dev1/webapps/g/"
+        ))
+
 (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
+(add-hook 'css-mode-hook 'my-css-mode-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Associate different modes with different file types.
@@ -226,6 +234,7 @@
          ("\\.muse$" . planner-mode)
          ("\\.odl\\'" . c++-mode) 
          ("\\.org\\'" . org-mode) 
+         ("p4" . sh-mode)
          ("\\.pdf\\'" . doc-view-mode)
          ("\\.py\\'" . python-mode) 
          ("\\.php\\'" . php-mode) 
