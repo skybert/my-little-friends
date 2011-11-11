@@ -3,7 +3,6 @@
 ;;           Torstein Krause Johansen's .emacs file                         ;;
 ;;                                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (setq user-full-name "Torstein Krause Johansen"
       user-mail-address "tkj@vizrt.com"
       mail-from-style 'angles)
@@ -268,6 +267,14 @@
 (require 'hippie-exp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Yasnippets
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq yas/root-directory (list "~/.emacs.d/snippets"
+                               "/usr/share/emacs/site-lisp/yasnippet/snippets"
+                               ))
+(global-set-key "\C-c\C-i" 'yas/expand)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; camel case
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'camelCase-mode "camelCase-mode")
@@ -302,6 +309,7 @@
   (auto-fill-mode)
   (c-set-offset 'substatement-open 0)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
+  (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (subword-mode)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
@@ -355,6 +363,13 @@
       rng-validate-delay 3
       nxml-slash-auto-complete-flag t
       )
+
+;; my special nXML mode settings.
+(add-hook 'nxml-mode-hook
+          (lambda ()
+            (define-key nxml-mode-map "\C-c\C-i" 'yas/expand)
+            )
+          t)
 
 ;; HTML5 support
 (require 'whattf-dt)
