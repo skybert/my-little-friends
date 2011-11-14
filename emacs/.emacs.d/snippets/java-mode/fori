@@ -1,5 +1,5 @@
-#name : for with index
+#name : for loop with index
 # --
-for (${1:int i = 0}; ${2:i < N}; ${3:i++}) {
-    $0
-}
+for (int ${1:i} = 0; $1 < ${2:args.length}; $1${3:++}) {
+  $0
+}   
