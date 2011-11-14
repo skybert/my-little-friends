@@ -1,0 +1,6 @@
+#name : function
+# --
+function ${1:test}(${2:pValue}) {
+  $0
+}
+

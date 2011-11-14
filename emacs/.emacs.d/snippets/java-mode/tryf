@@ -1,0 +1,11 @@
+#name : tryf 
+# --
+try {
+  $0
+}
+catch (${1:Exception} ${2:e}) {
+  mLogger.error($2);
+}
+finally {
+}
+

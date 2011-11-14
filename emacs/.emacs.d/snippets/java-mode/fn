@@ -1,0 +1,8 @@
+#name : new method
+# --
+/**
+ * @param a ${5:$(substring text 1)} of type <code>$4</code>  
+ */
+${1:public} ${2:void} ${3:update}(${4:String} ${5:pName}) {
+  $0;
+}                                 

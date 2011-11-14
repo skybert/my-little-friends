@@ -1,0 +1,13 @@
+#name : get/set/member variable
+# --
+private ${1:String} ${2:mName};
+
+public void set${2:$(capitalize (substring text 1))}(final $1 p${2:$(capitalize (substring text 1))}) {
+  $2 = p${2:$(capitalize (substring text 1))};
+}
+
+public $1 get${2:$(capitalize (substring text 1))}() {
+ return $2;
+}
+$0
+

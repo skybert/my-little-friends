@@ -1,0 +1,6 @@
+#name : debug
+# --
+if (mLogger.isDebugEnabled()) {
+  mLogger.debug("${1:result}=" + ${2:result});
+}
+

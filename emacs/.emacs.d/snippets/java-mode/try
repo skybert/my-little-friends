@@ -1,0 +1,8 @@
+#name : try
+# --
+try {
+  $0
+}
+catch (${1:Exception} ${2:e}) {
+  mLogger.error($2);
+}

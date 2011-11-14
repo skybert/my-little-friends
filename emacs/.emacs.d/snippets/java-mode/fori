@@ -1,0 +1,5 @@
+#name : for with index
+# --
+for (${1:int i = 0}; ${2:i < N}; ${3:i++}) {
+    $0
+}
