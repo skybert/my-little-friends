@@ -1,0 +1,4 @@
+#name : new array
+# --
+var ${1:myArray} = new Array();
+$0
