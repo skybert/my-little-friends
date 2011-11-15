@@ -1,10 +1,16 @@
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java flymake support using the Eclipse compiler
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'flymake)
 
 ;; setting the class path
-(setq tkj-dir "/home/torstein/src/p4/projects/poc/inpage-poc/")
+(if (eq system-type 'darwin)
+    (setq tkj-dir "/mnt/debian/home/torstein/src/p4/projects/poc/inpage-poc/")
+  (setq tkj-dir "/home/torstein/src/p4/projects/poc/inpage-poc/")
+)
+
+
 (setq tkj-classpath
       (concat
        tkj-dir "viziwyg-ws/target/classes:"
@@ -17,10 +23,13 @@
 
 (require 'find-lisp)
 (mapc 'tkj-read-jar
-      (find-lisp-find-files "/opt/escenic/assemblytool/dist/.work/publication-plugin/WEB-INF/lib/"
+      (find-lisp-find-files "/usr/lib/jvm/java-6-sun/jre/lib"
                             "\\.jar$"))
 (mapc 'tkj-read-jar
-      (find-lisp-find-files "/opt/escenic/assemblytool/dist/.work/ear/lib"
+      (find-lisp-find-files "/opt/tomcat/lib"
+                            "\\.jar$"))
+(mapc 'tkj-read-jar
+      (find-lisp-find-files "/opt/tomcat-dev1"
                             "\\.jar$"))
 
 
