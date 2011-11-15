@@ -1,8 +1,7 @@
-#! /usr/bin/env bash
-
-lsof +d /dev/snd | grep -v COMMAND | cut -d' ' -f2-3 | while read f; do
-    echo $f | cut -d' ' -f1 | xargs kill -9 2>/dev/null;
-done
-
-
+#! /usr/bin/env bash                                                 
+lsof +d /dev/snd/ | \
+    grep -v pulse | \
+    grep -v COMM | \
+    cut -d' ' -f5 | \
+    xargs kill -9
 
