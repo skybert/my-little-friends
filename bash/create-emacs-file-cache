@@ -10,13 +10,13 @@
 dir_list="
 $HOME/.emacs.d
 $HOME/src/p4/branches/personal/torstein/memento
-$HOME/src/p4/escenic/plugins/viziwyg/trunk
+$HOME/src/p4/projects/poc/inpage-poc
 $HOME/src/p4/escenic/plugins/forum/trunk
 $HOME/src/p4/escenic/plugins/dashboard/trunk
 $HOME/src/p4/escenic/plugins/community/trunk
 $HOME/src/p4/escenic/plugins/analysis/trunk
-$HOME/src/p4/escenic/studio/trunk
-$HOME/src/p4/escenic/engine/trunk
+$HOME/src/p4/escenic/studio/branches/5.3
+$HOME/src/p4/escenic/engine/branches/5.3
 $HOME/src/p4/escenic/model-core/trunk
 $HOME/src/ece-scripts
 $HOME/src/my-little-friends
@@ -24,9 +24,15 @@ $HOME/src/my-little-friends
 /opt/tomcat-dev1/conf
 /opt/dropbox/doc/work
 "
+# $HOME/src/p4/escenic/plugins/viziwyg/trunk
 
-# $HOME/src/p4/escenic/widget-framework/trunk
-# $HOME/src/p4/escenic/plugins/poll/trunk
+file_list="
+/home/torstein/.bashrc
+/home/torstein/.emacs
+/home/torstein/.fluxbox/keys
+/home/torstein/.fluxbox/init
+/home/torstein/.fluxbox/startup
+"
 
 file=/tmp/file_cache.el-$(date --iso)
 
@@ -44,6 +50,12 @@ for el in $dir_list; do
 	      directory=$(dirname "$f")
 	      echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
     done
+done
+
+for el in $file_list; do
+	  file_name=$(basename "$el")
+	  directory=$(dirname "$el")
+	  echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
 done
 
 echo ")" >> $file
