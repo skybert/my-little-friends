@@ -1,0 +1,5 @@
+#name : ul with a li
+# --
+<ul>
+  <li>$0</li>
+</ul>

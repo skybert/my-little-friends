@@ -1,0 +1,4 @@
+#name : xlink
+# --
+<link xlink:href="http://${1:vizrt.com}">$1</link>
+$0

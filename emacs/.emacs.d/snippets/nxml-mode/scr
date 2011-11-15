@@ -1,0 +1,5 @@
+#name : insert a JS tag without src
+# --
+<script type="text/javascript">
+  $0
+</script>

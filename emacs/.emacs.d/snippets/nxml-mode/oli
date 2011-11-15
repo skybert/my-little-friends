@@ -1,0 +1,5 @@
+#name : ol with a li
+# --
+<ol>
+  <li>$0</li>
+</ol>

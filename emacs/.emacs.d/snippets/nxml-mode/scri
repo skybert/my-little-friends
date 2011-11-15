@@ -1,0 +1,4 @@
+#name : insert a JS tag with src
+# --
+<script type="text/javascript" src="${1:script.js}"></script>
+$0
