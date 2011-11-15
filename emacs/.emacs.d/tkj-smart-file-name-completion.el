@@ -6,19 +6,24 @@
 ;; ido-everywhere breaks find-dired, to turning it off until the fix
 ;; in emacs/trunk gets into the emacs23 packages.
 (setq ido-everywhere nil
+      ido-enable-flex-matching t
       ido-create-new-buffer 'always
       ido-file-extensions-order '(".java" ".js" ".el")
       ido-use-filename-at-point 'guess)
-(ido-mode t)
+
+;; I'm SO tired of ido-mode messing up my C-x C-f (find-file), instead
+;; I use it with "C-c f", see below. Hence, just wanting IDO in buffer
+;; switching.
+(ido-mode 'buffer)
 
 (require 'filecache)
-
 (setq tkj-file-cache-file "~/.emacs.d/file_cache.el")
 
 (defun file-cache-read-cache-from-file ()
   "Clear `file-cache-alist' and read cache from FILE.
   The file cache can be saved to a file using
   `file-cache-save-cache-to-file'."
+  (interactive)
 ;;  (interactive "fFile: ")
   (file-cache-clear-cache)
   (save-excursion
@@ -27,6 +32,7 @@
     (setq file-cache-alist (read (current-buffer)))))
 
 (defun file-cache-save-cache-to-file ()
+  (interactive)
   "Save contents of `file-cache-alist' to FILE.
 For later retrieval using `file-cache-read-cache-from-file'"
 ;;  (interactive "FFile: ")
@@ -34,8 +40,9 @@ For later retrieval using `file-cache-read-cache-from-file'"
     (prin1 file-cache-alist (current-buffer))))
 
 ;; write the file_cache file when exiting emacs
-(add-hook 'kill-emacs-hook
-          'file-cache-save-cache-to-file)
+;; (add-hook 'kill-emacs-hook
+;;           'file-cache-save-cache-to-file)
+
 ;; and read it again when starting emacs
 (file-cache-read-cache-from-file)
 
