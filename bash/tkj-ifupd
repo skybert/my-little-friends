@@ -5,7 +5,7 @@
 #
 # torstein.k.johansen@gmail.com
 
-source $HOME/src/my-little-friends/bash/alexandria
+source $(dirname $0)/alexandria
 
 function are_we_networked()
 {

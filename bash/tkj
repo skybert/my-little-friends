@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-id="[$(basename $0)]"
+. $HOME/src/my-little-friends/bash/alexandria
 
 function escenic_dates()
 {
@@ -25,29 +25,31 @@ function end_of_day()
     echo "" >> $HOME/.widt.log
     cat $tmp >> $HOME/.widt.log 
     # echo "done."
-    # echo $id "You may go home now :-)"
+    # print "You may go home now :-)"
 }
 
 function start_of_day()
 {
-    # echo $id "Putting on some good music ..."
+    # print "Putting on some good music ..."
     mpd ~/.mpdrc 1>/dev/null 2>/dev/null &
     # mpc play 1>/dev/null 2>/dev/null &
 
     # set up the network
-    echo $id "Enter your root password to set up the network"
-    su -c "cd /tmp; nohup bash /home/torstein/src/my-little-friends/bash/tkj-ifupd &"
+    if [ $(ping -c 1 vg.no 2>/dev/null | grep received | wc -l) -eq 0 ]; then
+      print "Enter your root password to set up the network"
+      su -c "cd /tmp; nohup bash /home/torstein/src/my-little-friends/bash/tkj-ifupd &"
+    fi
 
     if [ $(ssh-add -l | grep -v "no identities" | wc -l) -lt 1 ]; then
-        echo $id "Adding your SSH key"
+        print "Adding your SSH key"
         ssh-add
     fi
     
-    echo $id "Setting a random wallpaper..."
+    print "Setting a random wallpaper..."
     set_random_wallpaper &
 
     # the applications that requirethe network to work
-    echo $id "Launching my favourite applications..."
+    print "Launching my favourite applications..."
     app_list="
 opera
 pidgin
@@ -61,10 +63,13 @@ emacs
             if [ $el = "icedove" ]; then
                 LD_BIND_NOW=1 icedove 1>/dev/null 2>/dev/null &
             elif [ $el = "emacs" ]; then
-                emacs -fn 7x14 &
+                bash ~/src/my-little-friends/bash/create-emacs-file-cache
+                print "Replacing ~/.emacs.d/file_cache.el ..."
+                run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
+                emacs-snapshot-gtk -fn 7x14 ~/doc/work.org &
+            else
+                $el 1>/dev/null 2>/dev/null &
             fi
-            
-            $el 1>/dev/null 2>/dev/null &
         fi
     done
 
@@ -76,7 +81,7 @@ emacs
     echo "..."
     tkjdaily
 
-    echo $id "Happy hacking :-)"
+    print "Happy hacking :-)"
     if [ $(/sbin/ifconfig | grep tun0 -A 1 | grep inet | wc -l) -lt 1 ]; then
         TERM=rxvt-color phionvpn
     fi
@@ -230,7 +235,7 @@ case "$1" in
         set_random_wallpaper
         ;;
     *)
-        echo $id "Usage: $(basename $0) <command>" 
+        print "Usage: $(basename $0) <command>" 
         echo "" 
         echo "   Where <command> is one of: " 
         echo "     * daily                Check out & build the latest code"
