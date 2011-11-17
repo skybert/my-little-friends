@@ -12,7 +12,7 @@ public final class (>>FILE_NO_EXT<<) {
    */
   private (>>FILE_NO_EXT<<)() {
   }
-  
+
   public static void main(String args[]) {
   }
 }
