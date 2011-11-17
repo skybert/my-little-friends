@@ -3,7 +3,7 @@
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     >
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
   <groupId>com.escenic.memento</groupId>
   <artifactId>memento-ws</artifactId>
   <packaging>war</packaging>
@@ -11,7 +11,7 @@
   <name>
     memento-ws :: web service interface to remembering what's happend
   </name>
-  
+
   <dependencies>
     <dependency>
       <groupId>taglibs</groupId>
@@ -76,25 +76,25 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-  
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/webapp/WEB-INF/classes</directory>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/webapp/WEB-INF/classes</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
