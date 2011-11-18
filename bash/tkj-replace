@@ -1,0 +1,44 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+
+. $HOME/src/my-little-friends/bash/alexandria
+
+# arg0 = from
+# arg1 = to
+# arg2...n = file
+from=$1
+to=$2
+i=0
+use_p4=0
+
+print "Press ENTER if you wish to replace $from with $to in ${@:3}"
+print "Or press Ctrl+c to cancel"
+read ok
+
+for el in $@; do
+    if [ $i -lt 2 ]; then
+        i=$((i+1))
+        continue
+    fi
+    if [ ! -f $el ]; then
+        print $el "is not a regular file"
+        continue
+    fi
+    if [ ! -w $el ]; then
+        print $el "is not writable, will try using p4"
+        p4 edit $el
+        if [ ! -w $el ]; then
+            print $el "is still not writable, will skip it"
+            continue
+        fi
+    fi
+
+    if [ $(grep $from $el | wc -l) -gt 0 ]; then
+        print "replacing" $from "with" $to "in" $el "..."
+        sed -i "s~${from}~${to}~g" $el
+    else
+        print "doesn't contain $from, skipping it."
+    fi
+done 
+
