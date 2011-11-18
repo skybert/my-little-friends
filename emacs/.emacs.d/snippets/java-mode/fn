@@ -5,4 +5,5 @@
  */
 ${1:public} ${2:void} ${3:update}(final ${4:String} ${5:pName}) {
   ${2:$(if (string= text "void") "" "return null;")}
+  $0
 }                                 
