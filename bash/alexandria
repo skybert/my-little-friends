@@ -45,7 +45,7 @@ function debug()
 
 function print()
 {
-    echo $(get_id) $@
+    echo "$(get_id)" $@
 }
 
 function get_seconds_since_start()
