@@ -1,0 +1,38 @@
+Reading list
+
+* Tomcat
+** TODO Tomcat JVM tuning
+   SCHEDULED: <2011-11-25 Fri>
+http://www.tomcatexpert.com/blog/2011/11/16/setting-measurement-garbage-collection-apache-tomcat
+
+http://www.tomcatexpert.com/blog/2011/11/22/performance-tuning-jvm-running-tomcat
+
+** DONE Tomcat DB pooling
+   SCHEDULED: <2011-05-31 Tue>
+http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency
+
+
+* Web design
+http://www.alistapart.com/articles/responsive-web-design/
+
+http://www.w3.org/TR/WCAG20/
+
+* Sync cookies
+http://cr.yp.to/syncookies.html
+
+
+* DONE Making-Apps-That-Dont-Suck
+   SCHEDULED: <2011-05-31 Tue>
+http://www.infoq.com/presentations/Making-Apps-That-Dont-Suck
+
+* DONE NY Twitter visualisation
+http://www.niemanlab.org/2011/04/the-new-york-times-rd-lab-has-built-a-tool-that-explores-the-life-stories-take-in-the-social-space/
+
+* DONE New version of CouchDB
+http://docs.couchbase.org/couchdb-release-1.1/index.html
+
+* Automatic installs
+http://alestic.com/2009/06/ec2-user-data-scripts
+
+http://www.turnkeylinux.org/blog/ec2-userdata
+
