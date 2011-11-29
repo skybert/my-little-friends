@@ -1,4 +1,16 @@
-Reading list
+My Reading list
+
+* Linux
+
+** Vitalisation 
+http://www.linode.com/wiki/index.php/Multiple_IPs#Debian_way_for_permanent_setup
+
+http://www.palegray.net/tutorials/debian-6-kvm-howto/configure-kvm
+
+http://www.linux-kvm.org/page/Networking
+
+** Performance tuning
+http://www.linuxjournal.com/article/10678?page=0,0
 
 * Tomcat
 ** TODO Tomcat JVM tuning
@@ -36,3 +48,7 @@ http://alestic.com/2009/06/ec2-user-data-scripts
 
 http://www.turnkeylinux.org/blog/ec2-userdata
 
+* HA
+http://www.linux-ha.org/doc/users-guide/_administrative_tasks.html
+
+http://lubl.de/blog/2009/10/setting-up-hearbeat-failover-for-an-ip-adress-on-debian-squeeze/
