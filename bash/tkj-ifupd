@@ -6,6 +6,9 @@
 # torstein.k.johansen@gmail.com
 
 source $(dirname $0)/alexandria
+interface=eth1
+log=/var/log/$(basename $0).log
+pid_file=/var/run/$(basename $0).pid
 
 function are_we_networked()
 {
@@ -15,14 +18,18 @@ function are_we_networked()
 
 function get_essid()
 {
-    echo $(iwconfig 2>/dev/null | grep ESSID | cut -d'"' -f2)
+    if [ $interface = "eth0" ]; then
+      echo "a wire"
+    else
+      echo $(iwconfig 2>/dev/null | grep ESSID | cut -d'"' -f2)
+    fi
 }
 
 while true; do
     if [ $(are_we_networked) -eq 0 ]; then
         print "You're NOT connected to the world, remedying this ..."
-        run ifdown eth1
-        run ifup eth1
+        run ifdown $interface
+        run ifup $interface
         print "I tried to connect you, I'm hanging around to verify this ..."
         sleep 20
     else
