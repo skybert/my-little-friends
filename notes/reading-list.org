@@ -1,6 +1,12 @@
 My Reading list
 
 * Linux
+** HA
+http://www.mail-archive.com/haproxy@formilux.org/msg04240.html
+
+http://www.linux-ha.org/doc/users-guide/_administrative_tasks.html
+
+http://lubl.de/blog/2009/10/setting-up-hearbeat-failover-for-an-ip-adress-on-debian-squeeze/
 
 ** Vitalisation 
 http://www.linode.com/wiki/index.php/Multiple_IPs#Debian_way_for_permanent_setup
@@ -48,7 +54,7 @@ http://alestic.com/2009/06/ec2-user-data-scripts
 
 http://www.turnkeylinux.org/blog/ec2-userdata
 
-* HA
-http://www.linux-ha.org/doc/users-guide/_administrative_tasks.html
+* Language
+** English
+http://www.open.edu/openlearn/history-the-arts/culture/english-language/the-history-english-ten-minutes
 
-http://lubl.de/blog/2009/10/setting-up-hearbeat-failover-for-an-ip-adress-on-debian-squeeze/
