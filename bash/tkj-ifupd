@@ -6,13 +6,16 @@
 # torstein.k.johansen@gmail.com
 
 source $(dirname $0)/alexandria
-interface=eth1
+interface=eth0
+
+# overriding default behaviour defined by alexandria
 log=/var/log/$(basename $0).log
 pid_file=/var/run/$(basename $0).pid
+touch $pid_file
 
 function are_we_networked()
 {
-    test_host=vg.no
+    local test_host=vg.no
     echo $(ping -c 1 $test_host 2>/dev/null | grep received | wc -l)
 }
 
@@ -25,15 +28,48 @@ function get_essid()
     fi
 }
 
+function is_device_connected()
+{
+    if [ $(ifconfig $1 | grep "inet addr" | wc -l) -gt 0 ]; then
+        echo 1
+        return
+    fi
+    
+    echo 0
+}
+
+function get_all_network_interfaces()
+{
+    echo $(ifconfig | cut -d' ' -f1 | sort | grep [a-z] | egrep "eth|wlan|br")
+}
+
+# the interface defined above can be overridden it as follows:
+if [ $1 ]; then
+    interface=$1
+fi
+
+if [ $(is_device_connected $interface) -eq 1 ]; then
+    print $interface is "already connected to the world via" $(get_essid)
+    exit 0
+else
+    for el in $(get_all_network_interfaces); do
+        print "Taking down $el ..."
+        run ifdown  $el
+    done
+fi
+
 while true; do
     if [ $(are_we_networked) -eq 0 ]; then
         print "You're NOT connected to the world, remedying this ..."
-        run ifdown $interface
+        for el in $(get_all_network_interfaces); do
+            run ifdown $el
+        done
         run ifup $interface
         print "I tried to connect you, I'm hanging around to verify this ..."
         sleep 20
     else
         print "You're connected to the world via" $(get_essid)", have fun!"
+        rm $pid_file
         exit 0
     fi
 done
