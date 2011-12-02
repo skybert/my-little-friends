@@ -69,14 +69,16 @@ cat $file | \
 mv $file.tmp $file
 
 # statistics
-uniq -c $file | \
-    sort -nr| \
+cat $file | \
     sed "s#><#::#g" | \
     sed "s#</groupId::artifactId>#::#g" | \
     sed "s#<dependency::groupId>##g" | \
     sed "s#</artifactId::version>#::#g" | \
     cut -d'<' -f1 | \
-    grep [a-z] \
+    grep [a-z] | \
+    sort | \
+    uniq -c | \
+    sort -nr \
     > ${file}.stats
 
 echo "<dependencyManagement><dependencies>" > ${file}.tmp
