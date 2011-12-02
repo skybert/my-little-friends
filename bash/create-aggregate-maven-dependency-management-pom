@@ -1,0 +1,89 @@
+#! /usr/bin/env bash
+
+# Prerequisites: xml_grep from http://www.xmltwig.com/. On
+# Debian/Ubuntu, the packages is called xml-twig-tools.
+
+# Usage: Go to some diretory in your Maven tree, and do:
+# create-all-maven-dependencies-defined.sh
+#
+# It will traverse all trunk POMs from your current directory and
+# down, creating three things:
+
+# 1) a file with all Maven dependencies in all the trunk projects it
+# found
+# 
+# 2) a file with statistics of how many times the different
+# dependencies are used.
+#
+# 3) a file with all the dependencies found formatted and wrapped in a
+# Maven dependency management block.
+#
+# tkj@vizrt.com
+
+file=/tmp/$(basename $(pwd))-all-dependencies.xml
+echo "" > $file
+
+# can be run in //depot/escenic
+find . -name pom.xml | grep trunk | egrep -v "osl|dhk|target" | \
+    while read f; do
+    management_path=dependencyManagement/dependencies/dependency
+    dependency_path=dependencies/dependency
+
+    echo "<!-- dependency management in $f -->" >> $file
+    
+    # first look for dependency management dependencies since xml_grep
+    # lists comments on a new line, we filter out lines that don't
+    # start with a <dependency/> tag.
+    cat $f | \
+        xml_grep --cond project/${management_path} | \
+        sed 's/^[ ]*//g' | \
+        egrep "^(<dependency>|</dependency>)" | \
+        grep -v "xml_grep" | \
+        grep -v "<?xml" \
+        >> $file
+
+    # then for defined versions
+    echo "<!-- defined versions in $f -->" >> $file
+
+    cat $f | \
+        xml_grep --cond project/${dependency_path} |  \
+        tr '\n' ' ' | \
+        sed 's/[ ]*//g' | \
+        sed "s#/dependency><#/dependency>\n<#g" | \
+        sed 's#"><#">\n<#g' | \
+        grep "<version" \
+        >> $file
+
+done
+
+# put each dependency on its own line 
+# sed -i "s#/dependency><#/dependency>\n<#g" $file
+
+# filter out in-house escenic dependencies and remove
+# empty lines.
+cat $file | \
+    grep -v "com.escenic" | \
+    grep -v '\$' | \
+    grep -v "<!--" | \
+    grep [a-z] > $file.tmp
+mv $file.tmp $file
+
+# statistics
+uniq -c $file | \
+    sort -nr| \
+    sed "s#><#::#g" | \
+    sed "s#</groupId::artifactId>#::#g" | \
+    sed "s#<dependency::groupId>##g" | \
+    sed "s#</artifactId::version>#::#g" | \
+    cut -d'<' -f1 | \
+    grep [a-z] \
+    > ${file}.stats
+
+echo "<dependencyManagement><dependencies>" > ${file}.tmp
+cat ${file} >> ${file}.tmp
+echo "</dependencies></dependencyManagement>" >> ${file}.tmp
+xmllint --format ${file}.tmp | grep -v "scope>" > ${file}.pom
+
+echo "All dependencies: ${file}"
+echo "Statistics: ${file}.stats"
+echo "Dependency management you can add to your POM: ${file}.pom"
