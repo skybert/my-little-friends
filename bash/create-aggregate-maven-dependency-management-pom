@@ -18,7 +18,7 @@
 # 3) a file with all the dependencies found formatted and wrapped in a
 # Maven dependency management block.
 #
-# tkj@vizrt.com
+# echo feedback > tkj@vizrt.com
 
 file=/tmp/$(basename $(pwd))-all-dependencies.xml
 echo "" > $file
