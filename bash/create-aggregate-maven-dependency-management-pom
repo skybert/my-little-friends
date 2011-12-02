@@ -45,6 +45,12 @@ find . -name pom.xml | grep trunk | egrep -v "osl|dhk|target" | \
     # then for defined versions
     echo "<!-- defined versions in $f -->" >> $file
 
+    # explanation: first get the dependency elements with children,
+    # replace line breakes with spaces, get rid of whitespace at the
+    # start of the line, move each dependencies on its own line, then,
+    # create a space between them to get rid of the wrapping XML
+    # elements added by xml_grep. Lastly, fitler out the dependencies
+    # with versions in them and append the result to a file. Puh!
     cat $f | \
         xml_grep --cond project/${dependency_path} |  \
         tr '\n' ' ' | \
