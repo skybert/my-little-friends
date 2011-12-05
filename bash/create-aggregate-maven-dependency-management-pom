@@ -30,48 +30,47 @@ find . -name pom.xml | grep trunk | egrep -v "osl|dhk|target" | \
     dependency_path=dependencies/dependency
 
     echo "<!-- dependency management in $f -->" >> $file
-    
-    # first look for dependency management dependencies since xml_grep
-    # lists comments on a new line, we filter out lines that don't
-    # start with a <dependency/> tag.
+    # since xml_grep lists comments on their own line, we can filter
+    # them out here.
     cat $f | \
         xml_grep --cond project/${management_path} | \
-        sed 's/^[ ]*//g' | \
-        egrep "^(<dependency>|</dependency>)" | \
-        grep -v "xml_grep" | \
-        grep -v "<?xml" \
+        grep -v "<!--" \
         >> $file
 
-    # then for defined versions
     echo "<!-- defined versions in $f -->" >> $file
-
-    # explanation: first get the dependency elements with children,
-    # replace line breakes with spaces, get rid of whitespace at the
-    # start of the line, move each dependencies on its own line, then,
-    # create a space between them to get rid of the wrapping XML
-    # elements added by xml_grep. Lastly, fitler out the dependencies
-    # with versions in them and append the result to a file. Puh!
+    # since xml_grep lists comments on their own line, we can filter
+    # them out here.
     cat $f | \
-        xml_grep --cond project/${dependency_path} |  \
-        tr '\n' ' ' | \
-        sed 's/[ ]*//g' | \
-        sed "s#/dependency><#/dependency>\n<#g" | \
-        sed 's#"><#">\n<#g' | \
-        grep "<version" \
+        xml_grep --cond project/${dependency_path} | \
+        grep -v "<!--" \
         >> $file
-
 done
 
-# put each dependency on its own line 
-# sed -i "s#/dependency><#/dependency>\n<#g" $file
-
-# filter out in-house escenic dependencies and remove
-# empty lines.
+# (1) first, remove <?xml/> and <xml_grep/>
+# (2) remove scope elements
+# (3) put each dependency on its own line
+# (4) remove escenic dependencies and dependencies using build
+#     variables local to the Escenic build environment.
+# (5) remove scopes (no, <scope>.*</scope> doesn't work as it will
+#     remove too much if there's more than one scopeed dependency).
+# (6) we're only interested in dependencies which themselves are not
+#     referring toa parent version definition or a dependency with
+#     version management.
+cp $file $file.old
 cat $file | \
+    grep -v "<?xml" | \
+    grep -v "xml_grep"  | \
+    tr '\n' ' ' | sed "s#>[ ]*<#><#g" | \
+    sed "s#/dependency><#/dependency>\n<#g" | \
     grep -v "com.escenic" | \
     grep -v '\$' | \
-    grep -v "<!--" | \
-    grep [a-z] > $file.tmp
+    sed "s#<scope>provided</scope>##g" | \
+    sed "s#<scope>test</scope>##g" | \
+    sed "s#<scope>run</scope>##g" | \
+    sed "s#<scope>compile</scope>##g" | \
+    sed "s#^[ ]*##g" | \
+    egrep "<version>|<!--|-->" \
+    > $file.tmp
 mv $file.tmp $file
 
 # statistics
@@ -88,9 +87,9 @@ cat $file | \
     > ${file}.stats
 
 echo "<dependencyManagement><dependencies>" > ${file}.tmp
-cat ${file} >> ${file}.tmp
+sort ${file} | uniq >> ${file}.tmp
 echo "</dependencies></dependencyManagement>" >> ${file}.tmp
-xmllint --format ${file}.tmp | grep -v "scope>" > ${file}.pom
+xmllint --format ${file}.tmp > ${file}.pom
 
 echo "All dependencies: ${file}"
 echo "Statistics: ${file}.stats"
