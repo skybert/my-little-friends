@@ -30,48 +30,58 @@ find . -name pom.xml | grep trunk | egrep -v "osl|dhk|target" | \
     dependency_path=dependencies/dependency
 
     echo "<!-- dependency management in $f -->" >> $file
-    # since xml_grep lists comments on their own line, we can filter
-    # them out here.
     cat $f | \
-        xml_grep --cond project/${management_path} | \
-        grep -v "<!--" \
+        xml_grep --nowrap --cond project/${management_path} \
         >> $file
 
     echo "<!-- defined versions in $f -->" >> $file
-    # since xml_grep lists comments on their own line, we can filter
-    # them out here.
     cat $f | \
-        xml_grep --cond project/${dependency_path} | \
-        grep -v "<!--" \
+        xml_grep --nowrap --cond project/${dependency_path} \
         >> $file
 done
 
-# (1) first, remove <?xml/> and <xml_grep/>
-# (2) remove scope elements
-# (3) put each dependency on its own line
-# (4) remove escenic dependencies and dependencies using build
-#     variables local to the Escenic build environment.
-# (5) remove scopes (no, <scope>.*</scope> doesn't work as it will
-#     remove too much if there's more than one scopeed dependency).
-# (6) we're only interested in dependencies which themselves are not
-#     referring toa parent version definition or a dependency with
-#     version management.
-cp $file $file.old
-cat $file | \
-    grep -v "<?xml" | \
-    grep -v "xml_grep"  | \
-    tr '\n' ' ' | sed "s#>[ ]*<#><#g" | \
-    sed "s#/dependency><#/dependency>\n<#g" | \
-    grep -v "com.escenic" | \
-    grep -v '\$' | \
-    sed "s#<scope>provided</scope>##g" | \
-    sed "s#<scope>test</scope>##g" | \
-    sed "s#<scope>run</scope>##g" | \
-    sed "s#<scope>compile</scope>##g" | \
-    sed "s#^[ ]*##g" | \
-    egrep "<version>|<!--|-->" \
-    > $file.tmp
-mv $file.tmp $file
+function remove_xml_pre_amble() {
+    echo $(cat $1 | grep -v "<?xml")
+}
+
+function remove_all_white_space_i_dont_want() {
+    echo $(echo "$@" | sed "s#>[ ]*<#><#g")
+}
+
+function put_each_dependency_on_its_own_line() {
+    # must wrap in quotes to preservce whitespace
+    echo "$(echo "${@}" | \
+            sed 's#/dependency><#/dependency>\n<#g' | \
+            sed 's#--><dependency>#-->\n<dependency>#g' | \
+            sed 's#--><\!--#-->\n<\!--#g'
+          )"
+}
+    
+function remove_scope_elements() {
+    echo $(echo "$@" | \
+        sed "s#<scope>provided</scope>##g" | \
+        sed "s#<scope>test</scope>##g" | \
+        sed "s#<scope>run</scope>##g" | \
+        sed "s#<scope>compile</scope>##g")
+}
+
+# we're only interested in dependencies which themselves are not
+# referring toa parent version definition or a dependency with version
+# management. Therefore we filter on the <version/> tag and in order
+# to do that, we must make sure that comments end on their own line
+# (above the the next line).
+function get_the_dependencies_we_want() {
+    echo "$@" | \
+        grep -v "com.escenic" | \
+        grep -v '\$' | \
+        egrep "<version>|<!--"
+}
+
+result=$(remove_xml_pre_amble $file)
+result=$(remove_all_white_space_i_dont_want $result)
+result=$(remove_scope_elements $result)
+result=$(put_each_dependency_on_its_own_line $result)
+get_the_dependencies_we_want "$result" > ${file}
 
 # statistics
 cat $file | \
@@ -89,7 +99,9 @@ cat $file | \
 echo "<dependencyManagement><dependencies>" > ${file}.tmp
 sort ${file} | uniq >> ${file}.tmp
 echo "</dependencies></dependencyManagement>" >> ${file}.tmp
-xmllint --format ${file}.tmp > ${file}.pom
+
+# remove our own comments,they're still available in the .xml file.
+xmllint --format ${file}.tmp | grep -v "<!--" > ${file}.pom
 
 echo "All dependencies: ${file}"
 echo "Statistics: ${file}.stats"
