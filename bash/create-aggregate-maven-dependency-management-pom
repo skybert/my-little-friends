@@ -28,6 +28,7 @@ find . -name pom.xml | grep trunk | egrep -v "osl|dhk|target" | \
     while read f; do
     management_path=dependencyManagement/dependencies/dependency
     dependency_path=dependencies/dependency
+    plugin_dependency_path=build/plugins/plugin/dependencies/dependency
 
     echo "<!-- dependency management in $f -->" >> $file
     cat $f | \
@@ -37,6 +38,11 @@ find . -name pom.xml | grep trunk | egrep -v "osl|dhk|target" | \
     echo "<!-- defined versions in $f -->" >> $file
     cat $f | \
         xml_grep --nowrap --cond project/${dependency_path} \
+        >> $file
+    
+    echo "<!-- build dependency versions defined in $f -->" >> $file
+    cat $f | \
+        xml_grep --nowrap --cond project/${plugin_dependency_path} \
         >> $file
 done
 
@@ -97,12 +103,30 @@ cat $file | \
     > ${file}.stats
 
 echo "<dependencyManagement><dependencies>" > ${file}.tmp
-sort ${file} | uniq >> ${file}.tmp
+cat ${file} | sort | uniq >> ${file}.tmp
 echo "</dependencies></dependencyManagement>" >> ${file}.tmp
 
 # remove our own comments,they're still available in the .xml file.
-xmllint --format ${file}.tmp | grep -v "<!--" > ${file}.pom
+xmllint --format ${file}.tmp | grep -v "<\!--" > ${file}.pom
 
-echo "All dependencies: ${file}"
-echo "Statistics: ${file}.stats"
 echo "Dependency management you can add to your POM: ${file}.pom"
+echo "Statistics: ${file}.stats"
+echo "All dependencies (raw, with pointers to where they come from): ${file}"
+s="Be sure to check out these dependencies, they have duplicate versions:"
+duplicates=$(cat ${file}.stats | \
+    cut -d':' -f1-3 | \
+    cut -d' ' -f8- | \
+    uniq -d -c | \
+    sort -r | \
+    grep [a-z])
+if [ -n "${duplicates}" ]; then
+    echo $s
+    echo -e "${duplicates}"
+
+    echo "" >> ${file}.stats
+    echo $s >> ${file}.stats
+    echo -e "${duplicates}" >> ${file}.stats
+fi
+
+    
+    
