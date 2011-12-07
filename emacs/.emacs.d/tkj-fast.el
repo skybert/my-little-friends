@@ -9,6 +9,14 @@
       mail-from-style 'angles)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Appearance
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(set-scroll-bar-mode nil)
+(fringe-mode 0)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts in all modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\C-xg" 'goto-line)
@@ -18,6 +26,8 @@
 (global-set-key  [ (control meta shift n) ] 'grep-find)
 ;; don't write backslashed to indicate continuous lines
 (set-display-table-slot standard-display-table 'wrap ?\ )
+;; Treat 'y' or <CR> as yes, 'n' as no.
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Prefer UTF 8, but don't override current encoding if specified
