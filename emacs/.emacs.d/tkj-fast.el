@@ -44,3 +44,17 @@
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Pure text settings 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq ispell-program-name "aspell"
+      ispell-list-command "list"
+      ispell-dictionary "uk"
+      )
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (auto-fill-mode 1)
+             (flyspell-mode)
+             ))
+(setq longlines-show-hard-newlines t)
+
