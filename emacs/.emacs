@@ -3,9 +3,11 @@
 ;;           Torstein Krause Johansen's .emacs file                         ;;
 ;;                                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq user-full-name "Torstein Krause Johansen"
-      user-mail-address "tkj@vizrt.com"
-      mail-from-style 'angles)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; First, load the fast settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "~/.emacs.d/tkj-fast.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
@@ -32,14 +34,9 @@
 (global-set-key [ (super w) ] 'kill-ring-save)
 (global-set-key [ (super x) ] 'execute-extended-command)
 
-(global-set-key "\C-xg" 'goto-line)
-(global-set-key "\M- " 'hippie-expand)
-(global-set-key "\C-\M-f" 'find-file-at-point)
 (global-set-key "\C-\M-g" 'jde-usages-get-signature-of-thing-at-point)
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-z" 'compile) ;; imenu
-(global-set-key [ (control shift n) ] 'find-dired)
-(global-set-key  [ (control meta shift n) ] 'grep-find)
 (setq grep-find-command
       "find ~/src/p4/escenic/plugins/{community,dashboard,forum}/trunk/ -name \"*.java\" -print0 | xargs -0 -e grep -n -i -e ")
 ;; newline and indent (like other editors, even vi, do).
@@ -49,11 +46,7 @@
 (global-set-key  [ (f12) ] 'gnus-summary-delete-article)
 ;; Like F5/refresh in a web browser
 (global-set-key  [ (f5) ] 'revert-buffer)
-;; don't write backslashed to indicate continuous lines
-(set-display-table-slot standard-display-table 'wrap ?\ )
 
-;; Treat 'y' or <CR> as yes, 'n' as no.
-(fset 'yes-or-no-p 'y-or-n-p)
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
@@ -78,6 +71,11 @@
 (global-unset-key "\C-x\C-b")
 (global-set-key "\C-x\C-b" 'tkj-list-buffers)
 
+;; make unique buffer names
+(require 'uniquify) 
+(setq uniquify-buffer-name-style 'post-forward
+      uniquify-separator ":")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs appearance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -91,9 +89,6 @@
       visible-bell nil
       ring-bell-function (lambda nil (message ""))
 )
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(set-scroll-bar-mode nil)
 
 (setq gnus-article-save-directory "~/news"
       gnus-dribble-directory "~/news/dribble"
@@ -113,35 +108,6 @@
 (setq make-backup-files nil)
 (setq backup-by-copying-when-mismatch t
       backup-by-copying-when-linked t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Prefer UTF 8, but don't override current encoding if specified
-;; (unless you specify a write hook).
-;;
-;; This seems to solve the problem of Gnus encoding the message as
-;; utf-16be (64 encoded) when replying to something Bangladeshi.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(prefer-coding-system 'utf-8)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Set tabs to 2 spaces and replace all tabs with spaces
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq default-tab-width 2)
-(setq-default indent-tabs-mode nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Auto fill in text and related modes. 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq ispell-program-name "aspell"
-      ispell-list-command "list"
-      ispell-dictionary "uk"
-      )
-(add-hook 'text-mode-hook
-          '(lambda ()
-             (auto-fill-mode 1)
-             (flyspell-mode)
-             ))
-(setq longlines-show-hard-newlines t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Setting the general load path for Emacs. This load path is for
@@ -242,7 +208,7 @@
          ("\\.properties\\'" . conf-mode)
          ("\\.properties.template\\'" . conf-mode)
          ("\\.py$" . python-mode)
-         ("\\.pom$" . nxml-mode)
+         ("pom.xml" . nxml-mode)
          ("\\.sh\\'" . sh-mode) 
          ("\\.sql\\'" . sql-mode) 
          ("\\.targets$" . nxml-mode) 
@@ -512,43 +478,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Chat
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'erc-log)
-
-(setq erc-autojoin-channels-alist
-      '(("catbert" "#platform" "#innovation" "#developers")
-        ("irc.freenode.net" "#tossug"))
-      erc-log-channels-directory "~/.erc/logs/"
-      erc-log-write-after-send t
-      erc-save-buffer-on-part t
-      erc-modules (quote (autojoin
-                          button
-                          completion
-                          fill
-                          irccontrols
-                          keep-place
-                          list
-                          log
-                          match
-                          menu
-                          move-to-prompt
-                          netsplit
-                          networks
-                          noncommands
-                          readonly
-                          ring
-                          smiley
-                          stamp
-                          spelling
-                          track))
-
-      )
-;; save logs before quittign emacs
-;;(defadvice save-buffers-kill-emacs (before save-logs (arg) activate)
-;;  (save-some-buffers t (lambda ()
-;;                       (when (eq major-mode 'erc-mode) t))
-;;                         (when (and (eq major-mode 'erc-mode)
-;;                                    (not (null buffer-file-name))))
-;;                         ))
+;; (load "~/.emacs.d/tkj-chat.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; outline/wiki
