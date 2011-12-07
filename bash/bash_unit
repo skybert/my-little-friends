@@ -1,0 +1,48 @@
+#! /usr/bin/env bash
+
+# Unit testing for BASH
+# by tkj@vizrt.com
+
+show_positives=0
+
+# $1 message
+# $2 expected
+# $3 actual
+function assert_equals()
+{
+    local message=$1
+    local expected=$2
+    local actual=$3
+    
+    if [ $# -eq 2 ]; then
+        local message=""
+        local expected=$1
+        local actual=$2
+    fi
+
+    if [[ $(is_number $expected) -eq 1 && $(is_number $actual) ]]; then
+        if [ $expected -ne $actual ]; then
+            echo "FAILED: ${message}: Expected <$expected>, but was <$actual>"
+        elif [ $show_positives -eq 1 ]; then
+            echo "PASSED: ${message}: Expected <$expected> and got <$actual>"
+        fi
+    else
+        if [ "$expected" != "$actual" ]; then
+            echo "FAILED: ${message}: Expected <$expected>, but was <$actual>"
+        elif [ $show_positives -eq 1 ]; then
+            echo "PASSED: ${message}: Expected <$expected> and got <$actual>"
+        fi
+    fi
+}
+
+function is_number()
+{
+    if [ $(echo $1 | tr '[A-Z]' '[a-z]' | grep -v '[a-z]' | wc -l) -gt 0 ]; then
+        echo 1
+        return
+    fi
+    
+    echo 0
+}
+
+
