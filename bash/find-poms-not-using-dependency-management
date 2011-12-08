@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+
+# by tkj@vizrt.com
+
+function get_versions_declared_explicitly()
+{
+    # filtering out escenic & mobiletech dependencies
+    echo -e "$(xml_grep --nowrap --cond project/dependencies/dependency $el | \
+        sed 's#/dependency><#/dependency>\n<#g' | \
+        grep -v com.escenic | \
+        grep -v mobiletech | \
+        grep version | \
+        grep -v '\$')"
+}
+
+for el in `find -name pom.xml | grep  trunk`; do
+    versions=$(get_versions_declared_explicitly ${el})
+    if [ -n "$versions" ]; then
+        echo ${el}:1: "has these explicit versions defined:"
+        echo -e  "${versions}"
+    fi        
+done
+
