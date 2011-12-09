@@ -13,7 +13,13 @@ function get_versions_declared_explicitly()
         grep -v '\$')"
 }
 
-for el in `find -name pom.xml | grep  trunk`; do
+if [ $1 ]; then
+    filter=$1\
+else
+    filter=pom.xml
+fi
+
+for el in `find -name pom.xml | grep "$filter"`; do
     versions=$(get_versions_declared_explicitly ${el})
     if [ -n "$versions" ]; then
         echo ${el}:1: "has these explicit versions defined:"
