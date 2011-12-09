@@ -14,16 +14,19 @@ function get_versions_declared_explicitly()
 }
 
 if [ $1 ]; then
-    filter=$1\
+    filter=$1
 else
     filter=pom.xml
 fi
 
-for el in `find -name pom.xml | grep "$filter"`; do
+for el in `find -name pom.xml | egrep -v "osl|dhk|target" | grep "$filter"`; do
     versions=$(get_versions_declared_explicitly ${el})
     if [ -n "$versions" ]; then
-        echo ${el}:1: "has these explicit versions defined:"
-        echo -e  "${versions}"
+        version_in_file=$(echo ${versions} | sed -e "s#.*<version>\([a-z0-9\.-]*\)</version>.*#\1\n#g")
+        for ele in "${version_in_file}"; do
+            grep -H -n ">${ele}<" ${el} | grep -v trunk-SNAPSHOT | grep -v '\$'
+        done
     fi        
 done
 
+exit 0
