@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+# by tkj@vizrt.com
+
+. $HOME/src/my-little-friends/bash/alexandria
+
+# $1 : from
+# $2 : to
+# $3 : file
+from=$1
+to=$2
+file=$3
+
+if [ $(grep ${from} ${file} | wc -l) -gt 0 ]; then
+    p4 edit ${file}
+    sed -i "s#${from}#${to}#g" ${file}
+    print "replaced $1 with $2 in $3"
+fi
+
+
+
