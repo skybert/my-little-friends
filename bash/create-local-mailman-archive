@@ -1,0 +1,33 @@
+#! /usr/bin/env bash
+
+# tkj@vizrt.com
+
+archive_dir=~/mail/mailing-list-archive
+list_host_url=http://lists.escenic.com/pipermail
+
+list_names="
+tip-manager
+saas
+developers
+innovation
+ewf
+support-staff
+engine-5.0
+community-engine-internal
+"
+
+for el in $list_names; do
+    if [ ! -e ${archive_dir} ]; then
+        mkdir -p ${archive_dir}
+    fi
+
+    cd ${archive_dir}
+    wget --continue \
+        --recursive \
+        --quiet \
+        --accept .html \
+        ${list_host_url}/${el}
+done
+
+
+
