@@ -83,7 +83,8 @@ ${color lightgrey} ${top name 8} ${top pid 8} ${top cpu 8} ${top mem 8}
 ${color lightgrey} ${top name 9} ${top pid 9} ${top cpu 9} ${top mem 9}
 ${color lightgrey} ${top name 10} ${top pid 10} ${top cpu 10} ${top mem 10}
 $hr
-${exec escenic_dates}
+${exec $HOME/bin/escenic_dates}
 $hr
 ${mpd_smart}
+
 
