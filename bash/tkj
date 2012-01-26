@@ -53,9 +53,79 @@ firefox
 
     echo -n $id "Start of the day: Getting, building & deploying the latest code"
     echo "..."
-    tkjdaily
+    update_sources
 
     print "Happy hacking :-)"
+}
+
+function update_sources()
+{
+    local p4_dir_list="
+      $HOME/src/p4/escenic/plugins/community
+      $HOME/src/p4/escenic/plugins/forum
+      $HOME/src/p4/escenic/plugins/dashboard
+      $HOME/src/p4/escenic/plugins/viziwyg
+      $HOME/src/p4/escenic/plugins/poll
+      $HOME/src/p4/escenic/plugins/analysis
+      $HOME/src/p4/main/tip-manager
+    "
+
+    local dir=/usr/local/src
+    local git_repo_list="
+      $dir/malabar-mode
+      $dir/nvidiabl
+      $dir/org-mode
+      $dir/html5-el
+      $dir/gnome-shell-extensions-pidgin
+      $dir/ajc-java-complete
+    "
+
+    local git_fork_list="
+      $HOME/src/forks/ece-scripts
+    "
+
+    local bzr_repo_list="
+      $dir/vm-8.2.x
+      $dir/screenkey
+    "
+
+    local seperator="=============================================================="
+
+    # check out the latest of everything interesting
+    for el in $p4_dir_list; do
+        print $seperator
+        print "Updating $el/..."
+        p4 sync $el/...
+        exit_on_error "p4 sync $el"
+    done
+
+    print $seperator
+    print "Pulling from viziwyg/trunk -> branch/plugins-inpage-dnd-poc"
+    p4 integrate -b plugins-inpage-poc
+    p4 resolve -at
+
+    for el in $git_repo_list; do
+        print $seperator
+        print "Updating $(basename $el) ..."
+        cd $el
+        git pull
+    done
+
+    for el in $git_fork_list; do
+        print $seperator
+        print "Updating fork $(basename $el) ..."
+        cd $el
+        git fetch upstream
+        git merge upstream/master
+        git push
+    done
+    
+    for el in $bzr_repo_list; do
+        print $seperator
+        print "Updating $(basename $el) ..."
+        cd $el
+        bzr up
+    done
 }
 
 function delete_cache_files()
@@ -264,6 +334,9 @@ case "$1" in
         ;;
     delete-local-caches)
         delete_cache_files
+        ;;
+    up)
+        update_sources
         ;;
     *)
         print "Usage: $(basename $0) <command>" 
