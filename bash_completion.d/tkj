@@ -6,13 +6,25 @@ _tkj_commands()
     local cur=${COMP_WORDS[COMP_CWORD]}
     local prev=${COMP_WORDS[COMP_CWORD-1]}
 
-    commands="p4check gohome daily happy jira music searchim searchlists otrs dates wallpaper
-"
+    commands="
+    dates
+    delete-local-caches
+    gohome daily
+    happy jira
+    music
+    otrs
+    p4check
+    searchim
+    searchlists
+    up
+    wallpaper
+    "
+    
     # default completions is the list of commands
     completions=$commands
 
     COMPREPLY=( $(compgen -W "$completions" -- $cur) )
 }
 
-complete -F _tkj_commands tkj
+complete -o default -F _tkj_commands tkj
 
