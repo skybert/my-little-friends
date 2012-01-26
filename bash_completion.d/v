@@ -1,0 +1,20 @@
+# auto completion for the v (video) command.
+# by torstein.k.johansen@gmail.com
+
+function get_videos()
+{
+    \ls $HOME/tmp/*.{wmv,mp4} 2>/dev/null
+}
+
+_v_commands()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local prev=${COMP_WORDS[COMP_CWORD-1]}
+
+    completions="$(get_videos)"
+
+    COMPREPLY=( $(compgen -W "$completions" -- $cur) )
+}
+
+complete -o default -F _v_commands v
+
