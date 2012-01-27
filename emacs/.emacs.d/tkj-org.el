@@ -6,18 +6,21 @@
  load-path (cons "/mnt/debian/usr/local/src/org-mode/lisp" load-path)
  load-path (cons "/mnt/debian/usr/local/src/org-mode/contrib/lisp" load-path)
  load-path (cons "/mnt/debian/usr/local/src/org-mode/EXPERIMENTAL" load-path)
+ 
  org-agenda-files (list "~/doc/work.org"
+                        "~/src/my-little-friends/notes/reading-list.org"
                         "/opt/dropbox/doc/home.org"))
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+
 
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
 (require 'org-export)
-(require 'org-mw)
+;; (require 'org-mw)
 
 ;; These two settings make exported HTML look like our Vizrt branded
 ;; release notes.
@@ -79,6 +82,10 @@ body {
   font-size: small;
   #width : 600;
   margin: 70px 70px 0px 50px;
+}
+
+pre {
+  background-color: grey;
 }
 
 h1, h2 {
@@ -162,41 +169,47 @@ div.note {
   (interactive)
   ;; TODO create new file with <filename>.confluence in the same
   ;; directory as the .org file
-  (goto-line 1)
-  (query-replace "#+BEGIN_SRC js2" "{code}")
-  (goto-line 1)
-  (query-replace "#+BEGIN_SRC html" "{code}")
-  (goto-line 1)
-  (query-replace "#+BEGIN_SRC java" "{code}")
-  (goto-line 1)
-  (query-replace "#+BEGIN_SRC sh" "{code}")
-  (goto-line 1)
-  (query-replace "#+BEGIN_SRC nxml" "{code}")
-  (goto-line 1)
-  (query-replace "#+END_SRC" "{code}")
-  (goto-line 1)
-  (query-replace "#+BEGIN_SRC" "{code}")
-  (goto-line 1)
-  (query-replace "****" "h4.")
-  (goto-line 1)
-  (query-replace "***" "h3.")
-  (goto-line 1)
-  (query-replace "**" "h2.")
-  (goto-line 1)
-  (query-replace "*" "h1.")
-  (goto-line 1)
-  (query-replace "
+  (save-excursion
+    (write-file (concat (buffer-name) ".confluence"))
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC js2" "{code}")
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC html" "{code}")
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC conf" "{code}")
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC java" "{code}")
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC sh" "{code}")
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC nxml" "{code}")
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC text" "{code}")
+    (goto-line 1)
+    (query-replace "#+END_SRC" "{code}")
+    (goto-line 1)
+    (query-replace "#+BEGIN_SRC" "{code}")
+    (goto-line 1)
+    (query-replace "****" "h4.")
+    (goto-line 1)
+    (query-replace "***" "h3.")
+    (goto-line 1)
+    (query-replace "**" "h2.")
+    (goto-line 1)
+    (query-replace "*" "h1.")
+    (goto-line 1)
+    (query-replace "
 - " "
 * ")
-  (goto-line 1)
-  (query-replace "
+    (goto-line 1)
+    (query-replace "
 
 | " "
 || ")
-  (goto-line 1)
-  (query-replace "|
+    (goto-line 1)
+    (query-replace "|
 |-" "||
-|-")
+|-"))
   )
 
 
