@@ -76,6 +76,7 @@ function update_sources()
       $dir/nvidiabl
       $dir/org-mode
       $dir/html5-el
+      $dir/html5-syntax
       $dir/gnome-shell-extensions-pidgin
       $dir/ajc-java-complete
     "
@@ -162,14 +163,12 @@ function escenic_dates()
 
 function end_of_day()
 {
-    # echo -n $id "End of the day, generating report ..."
-    tmp=$(mktemp)
-    cat $HOME/.widt.log > $tmp
-    $HOME/bin/widt > $HOME/.widt.log
-    echo "" >> $HOME/.widt.log
-    cat $tmp >> $HOME/.widt.log 
-    # echo "done."
-    # print "You may go home now :-)"
+    print "End of the day, generating report ..."
+    make_dir $HOME/.widt
+    local file=$HOME/.widt/$(date --iso).html
+    $HOME/bin/widt > $file
+    opera $file
+    print "You may go home now :-)"
 }
 
 function search_im()
@@ -180,7 +179,7 @@ function search_im()
           $logs_dir/irc/torstein@catbert.escenic.com/    
     "
     for dir in $dirs; do
-        find $dir -name "*.txt" | xargs grep --color $1
+        find $dir -name "*.txt" | xargs grep -n -i --color $1
     done
 }
 
