@@ -37,7 +37,11 @@ function assert_equals()
 
 function is_number()
 {
-    if [ $(echo $1 | tr '[A-Z]' '[a-z]' | grep -v '[a-z]' | wc -l) -gt 0 ]; then
+    if [ $(echo $1 | \
+        tr '[A-Z]' '[a-z]' | \
+        grep -v '[a-z]' | \
+        grep -v '.' | \
+        wc -l) -gt 0 ]; then
         echo 1
         return
     fi
