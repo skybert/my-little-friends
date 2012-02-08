@@ -3,15 +3,23 @@
 # where the file is downloaded to
 dir=~/tmp/
 
-# kill the browser plugin which I used to get the link for the stream.
-killall mplayer
-
-cd $dir
-file_name=`basename $1`
-nohup mplayer -dumpstream $1 -dumpfile ${file_name} &
-if [ -x /usr/bin/xterm ]; then
-  xterm -fn 6x12 -e "watch ls -lh ${dir}/${file_name}" &
+if [ $(echo $1 | grep mms | wc -l) -gt 0 ]; then
+    # kill the browser plugin which I used to get the link for the stream.
+    killall mplayer
+    
+    cd $dir
+    file_name=`basename $1`
+    nohup mplayer \
+        -cache 4096 \
+        -dumpstream $1 \
+        -dumpfile ${file_name} &
+    if [ -x /usr/bin/xterm ]; then
+        xterm -fn 6x12 -e "watch ls -lh ${dir}/${file_name}" &
+    fi
+else
+    mplayer $1
 fi
+
 
 # sleep 20
 # mplayer ${dir}/${file_name}
