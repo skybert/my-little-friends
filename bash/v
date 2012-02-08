@@ -4,9 +4,6 @@
 dir=~/tmp/
 
 if [ $(echo $1 | grep mms | wc -l) -gt 0 ]; then
-    # kill the browser plugin which I used to get the link for the stream.
-    killall mplayer
-    
     cd $dir
     file_name=`basename $1`
     nohup mplayer \
