@@ -3,6 +3,8 @@
 # Unit testing for BASH
 # by torstein.k.johansen@gmail.com
 
+source alexandria
+
 show_positives=0
 
 # $1 message
@@ -35,18 +37,32 @@ function assert_equals()
     fi
 }
 
-function is_number()
+function assert_null()
 {
-    if [ $(echo $1 | \
-        tr '[A-Z]' '[a-z]' | \
-        grep -v '[a-z]' | \
-        grep -v '.' | \
-        wc -l) -gt 0 ]; then
-        echo 1
-        return
-    fi
+    local message=$1
+    local value=$2
     
-    echo 0
+    if [ -z "$(eval echo $`echo $value`)" ]; then
+        if [ $show_positives -eq 1 ]; then
+            echo "PASSED: ${message}: <$value> is null (unset)"
+        fi
+    else
+        echo "FAILED: ${message}: <$value> is not null (it is set)"
+    fi
+}
+
+function assert_not_null()
+{
+    local message=$1
+    local value=$2
+
+    if [ -n "$(eval echo $`echo $value`)" ]; then
+        if [ $show_positives -eq 1 ]; then
+            echo "PASSED: ${message}: <$value> is not null (it is set)"
+        fi
+    else
+        echo "FAILED: ${message}: <$value> is null (it is not set)"
+    fi
 }
 
 
