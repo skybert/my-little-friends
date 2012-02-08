@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # Unit testing for BASH
-# by tkj@vizrt.com
+# by torstein.k.johansen@gmail.com
 
 show_positives=0
 
@@ -20,7 +20,7 @@ function assert_equals()
         local actual=$2
     fi
 
-    if [[ $(is_number $expected) -eq 1 && $(is_number $actual) ]]; then
+    if [[ $(is_number $expected) -eq 1 && $(is_number $actual) -eq 1 ]]; then
         if [ $expected -ne $actual ]; then
             echo "FAILED: ${message}: Expected <$expected>, but was <$actual>"
         elif [ $show_positives -eq 1 ]; then
