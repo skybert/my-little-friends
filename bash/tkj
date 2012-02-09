@@ -4,7 +4,41 @@
 
 . $HOME/src/my-little-friends/bash/alexandria
 
-function start_of_day()
+function do_test-url()
+{
+    local headers="$(
+        wget --quiet \
+            --server-response \
+            --header='Accept-Encoding: gzip,deflate' \
+            $1 \
+            2>&1 >/dev/null
+    )"
+    
+    if [ $(echo "$headers" | grep "Set-Cookie" | wc -l) -gt 0 ]; then
+        print "Cache-ability: not ok"
+    else
+        print "Cache-ability: ok"
+    fi
+    
+    if [ $(echo "$headers" | grep "Content-Encoding: gzip" | wc -l) -gt 0 ]; then
+        print "Compression:   ok"
+    else
+        print "Compression:   not ok"
+    fi
+    
+    print "Response headers:"
+    echo "$headers"
+}
+
+function do_help()
+{
+    print "$(basename $0) supports these commands:"
+    declare | grep ^"do_" | cut -d' ' -f1 | cut -d'_' -f2 | while read f; do
+        echo "  *" $f
+    done
+}
+
+function do_daily()
 {
     print "Putting on some good music ..."
     mpd 1>/dev/null 2>/dev/null &
@@ -12,8 +46,8 @@ function start_of_day()
 
     # set up the network
     if [ $(ping -c 1 vg.no 2>/dev/null | grep received | wc -l) -eq 0 ]; then
-      print "Enter your root password to set up the network"
-      su -c "bash /home/torstein/src/my-little-friends/bash/tkj-ifupd"
+        print "Enter your root password to set up the network"
+        su -c "bash /home/torstein/src/my-little-friends/bash/tkj-ifupd"
     fi
 
     if [ $(/sbin/ifconfig | grep tun0 -A 1 | grep inet | wc -l) -lt 1 ]; then
@@ -44,6 +78,25 @@ firefox
                 bash ~/src/my-little-friends/bash/create-emacs-file-cache
                 print "Replacing ~/.emacs.d/file_cache.el ..."
                 run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
+
+                print "Updaging GTags ..."
+                run cd ~/src/p4
+                find /usr/lib/jvm/java-6-sun/src . -type f | \
+                    grep trunk | \
+                    grep trunk | \
+                    egrep -v "dhk|osl|target" | \
+                    egrep ".java|.xml|.pom|.properties" | \
+                    egrep -v ".svn|.git|.hg|~|.swp" | \
+                    gtags -f -
+
+                print "Updating ETags ..."
+                (
+                    run cd ~/src/ece-scripts
+                    find usr -type f | grep bin | grep -v local | etags -
+                    run cd ~/src/my-little-friends
+                    find bash -type f | etags -
+                )
+                
                 emacs-snapshot-lucid -fn 7x14 ~/doc/work.org &
             else
                 $el 1>/dev/null 2>/dev/null &
@@ -58,16 +111,9 @@ firefox
     print "Happy hacking :-)"
 }
 
-function update_sources()
+function do_update-sources()
 {
     local p4_dir_list="
-      $HOME/src/p4/escenic/plugins/community
-      $HOME/src/p4/escenic/plugins/forum
-      $HOME/src/p4/escenic/plugins/dashboard
-      $HOME/src/p4/escenic/plugins/viziwyg
-      $HOME/src/p4/escenic/plugins/poll
-      $HOME/src/p4/escenic/plugins/analysis
-      $HOME/src/p4/main/tip-manager
     "
 
     local dir=/usr/local/src
@@ -100,11 +146,6 @@ function update_sources()
         exit_on_error "p4 sync $el"
     done
 
-    print $seperator
-    print "Pulling from viziwyg/trunk -> branch/plugins-inpage-dnd-poc"
-    p4 integrate -b plugins-inpage-poc
-    p4 resolve -at
-
     for el in $git_repo_list; do
         print $seperator
         print "Updating $(basename $el) ..."
@@ -129,7 +170,7 @@ function update_sources()
     done
 }
 
-function delete_cache_files()
+function do_delete-cache-files()
 {
     local dir_list="
       $HOME/.opera/cache
@@ -145,7 +186,7 @@ function delete_cache_files()
     done
 }
 
-function escenic_dates()
+function do_dates()
 {
     echo -n "Sidney:    "
     TZ='Australia/Sydney' date
@@ -161,8 +202,41 @@ function escenic_dates()
     TZ='America/Argentina/Buenos_Aires' date
 }
 
-function end_of_day()
+function do_hours()
 {
+    local started_working_string=$(grep $(date --iso) \
+        ~/.bash_eternal_history \
+        | head -1 \
+        | cut -d' ' -f6-8
+    )
+    
+    local seconds_worked=$((
+            $(date +%s) -
+            $(date +%s -d "$started_working_string") ))
+    local days=$(( seconds_worked / ( 60 * 60 * 24 ) ))
+    local seconds_left=$(( seconds_worked - ( $days * 60 * 60 * 24 ) ))
+    local hours=$(( seconds_left / ( 60 * 60 ) ))
+    local seconds_left=$(( seconds_left - ( $hours * 60 * 60 ) ))
+    local minutes=$(( seconds_left / 60 ))
+    local seconds_left=$(( seconds_left - $minutes * 60 ))
+
+    # echo "It's" ${hours}h ${minutes}m ${seconds_left}s \
+    # "since you started working today."$'\n' \
+    echo "|" $(date --iso) \
+        "|" $(date -d "$started_working_string" +%H:%M) \
+        "->" \
+        $(date +%H:%M) \
+        "| and probably some lunch |" \
+        ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours" \
+        "|"
+}
+
+function do_go-home()
+{
+    local hlhyw=$(how_long_have_you_worked)
+    echo $hlhyw >> ~/doc/hours.org
+    print $hlhyw
+    
     print "End of the day, generating report ..."
     make_dir $HOME/.widt
     local file=$HOME/.widt/$(date --iso).html
@@ -171,7 +245,7 @@ function end_of_day()
     print "You may go home now :-)"
 }
 
-function search_im()
+function do_search-im()
 {
     logs_dir=$HOME/.purple/logs
     dirs="$logs_dir/jabber/torsteinkrausework@gmail.com/
@@ -183,7 +257,7 @@ function search_im()
     done
 }
 
-function search_mailing_list_archive()
+function so_search-mailing-list-archive()
 {
     dir=$HOME/mail/mailing-list-archive
     url="http://lists.escenic.com"
@@ -243,10 +317,10 @@ function search_otrs()
          grep $1 | \
          cut -d'"' -f2 | \
          cut -d'?' -f2`
-     opera "$url/?$uri_parameters"
+    opera "$url/?$uri_parameters"
 }
 
-function play_that_music()
+function do_play-that-music()
 {
     mpc clear
     
@@ -255,7 +329,7 @@ function play_that_music()
             continue
         fi
 
-         mpc add $el
+        mpc add $el
     done
 
     mpc shuffle
@@ -270,16 +344,7 @@ function p4_check_that_everythings_ok()
     done
 }
 
-function make_me_happy()
-{
-    setxkbmap us
-    xmodmap ~/.xmodmaprc
-
-    # skype is _really_ confused on my system
-    #    release_sound_card
-}
-
-function set_random_wallpaper()
+function do_set-random-wallpaper()
 {
     wallpaper_names=$(ls ~/pictures/wallpapers/*.jpg)
     wallpaper_array=($wallpaper_names)
@@ -297,57 +362,29 @@ elif [ `echo $1 | egrep -v -i "VIZIWYG|ECOME|VF|STATS|DASH|ERDQ|FORUM|TM" | wc -
     exit 0
 fi
 
-case "$1" in
-    p4check)
-        p4_check_that_everythings_ok
-        ;;
-    gohome)
-        end_of_day
-        ;;
-    daily)
-        start_of_day
-        ;;
-    happy)
-        make_me_happy
-        ;;
-    jira)
-        open_jira_issue $2
-        ;;
-    music)
-        play_that_music $@
-        ;;
-    searchim)
-        search_im $2
-        ;;
-    searchlists)
-        search_mailing_list_archive $2
-        ;;
-    otrs)
-        search_otrs $2
-        ;;
-    dates)
-        escenic_dates
-        ;;
-    wallpaper)
-        set_random_wallpaper
-        ;;
-    delete-local-caches)
-        delete_cache_files
-        ;;
-    up)
-        update_sources
-        ;;
-    *)
-        print "Usage: $(basename $0) <command>" 
-        echo "" 
-        echo "   Where <command> is one of: " 
-        echo "     * daily                Check out & build the latest code"
-        echo "     * dates                Print the dates of the Escenic offices"
-        echo "     * gohome               Create a report of accomplishments"
-        echo "     * jira <issue>         Open the given issue in the browser"
-        echo "     * searchim <query>     Search the chat logs"
-        echo "     * searchlists <query>  Search the mailing list archive"
-        exit 1
-esac
+function unknown_command()
+{
+    print "I don't know the command '${1}' :-("
+    exit 1
+}
+
+fn=do_${1}
+declare > /dev/null -f "$fn" || unknown_command "$1"
+${fn} ${@:2} 
+ 
 
 exit 0
+
+#    print $seperator
+#    print "Pulling from viziwyg/trunk -> branch/plugins-inpage-dnd-poc"
+#    p4 integrate -b plugins-inpage-poc
+#    p4 resolve -at
+
+# $HOME/src/p4/escenic/plugins/community
+# $HOME/src/p4/escenic/plugins/forum
+# $HOME/src/p4/escenic/plugins/dashboard
+# $HOME/src/p4/escenic/plugins/viziwyg
+# $HOME/src/p4/escenic/plugins/poll
+# $HOME/src/p4/escenic/plugins/analysis
+# $HOME/src/p4/main/tip-manager
+
