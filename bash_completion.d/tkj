@@ -1,4 +1,4 @@
-# auto completion for the tkj command.
+# auto completion for the tkj command.                    -*- sh -*-
 # by torstein.k.johansen@gmail.com
 
 _tkj_commands()
@@ -6,19 +6,9 @@ _tkj_commands()
     local cur=${COMP_WORDS[COMP_CWORD]}
     local prev=${COMP_WORDS[COMP_CWORD-1]}
 
-    commands="
-    dates
-    delete-local-caches
-    gohome daily
-    happy jira
-    music
-    otrs
-    p4check
-    searchim
-    searchlists
-    up
-    wallpaper
-    "
+    commands=$(
+        tkj help | grep "*" | cut -d'*' -f2
+    )
     
     # default completions is the list of commands
     completions=$commands
