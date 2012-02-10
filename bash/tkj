@@ -4,6 +4,9 @@
 
 . $HOME/src/my-little-friends/bash/alexandria
 
+## Method useful for developers and system administrators. It checks
+## the passed URL for common things interesting, producing a short
+## report, as well as listing all the response headers.
 function do_test-url()
 {
     local headers="$(
@@ -33,7 +36,8 @@ function do_test-url()
 function do_help()
 {
     print "$(basename $0) supports these commands:"
-    declare | grep ^"do_" | cut -d' ' -f1 | cut -d'_' -f2 | while read f; do
+    declare | grep ^"do_" | cut -d' ' -f1 | cut -d'_' -f2 | sort | \
+        while read f; do
         echo "  *" $f
     done
 }
@@ -60,7 +64,7 @@ function do_daily()
     fi
     
     print "Setting a random wallpaper..."
-    set_random_wallpaper &
+    do_set-random-wallpaper &
 
     # the applications that requirethe network to work
     print "Launching my favourite applications..."
@@ -93,11 +97,15 @@ firefox
                 (
                     run cd ~/src/ece-scripts
                     find usr -type f | grep bin | grep -v local | etags -
+                    
                     run cd ~/src/my-little-friends
                     find bash -type f | etags -
+                    
+                    run cd ~/src/vosa
+                    find . -type f | egrep -v ".hg|~|var|etc" | etags -
                 )
                 
-                emacs-snapshot-lucid -fn 7x14 ~/doc/work.org &
+                emacs -fn 7x14 ~/doc/work.org &
             else
                 $el 1>/dev/null 2>/dev/null &
             fi
@@ -106,11 +114,21 @@ firefox
 
     echo -n $id "Start of the day: Getting, building & deploying the latest code"
     echo "..."
-    update_sources
+    do_update-sources
 
     print "Happy hacking :-)"
 }
 
+function do_doc() {
+    print "Documentation for method ${1}:"
+    grep -B 5 "^function do_${1}" $(which $0) | grep ^"##" | cut -d' ' -f2- | \
+        while read line; do
+          echo '   '"$line"
+        done
+}
+
+## Updates the sources, including p4, git, forks, hg++
+## Arguments: takes no arguments.
 function do_update-sources()
 {
     local p4_dir_list="
@@ -134,6 +152,10 @@ function do_update-sources()
     local bzr_repo_list="
       $dir/vm-8.2.x
       $dir/screenkey
+    "
+
+    local hg_repo_list="
+      $HOME/src/vosa
     "
 
     local seperator="=============================================================="
@@ -167,6 +189,15 @@ function do_update-sources()
         print "Updating $(basename $el) ..."
         cd $el
         bzr up
+    done
+    
+    for el in $hg_repo_list; do
+        print $seperator
+        print "Updating $(basename $el) ..."
+        cd $el
+        hg pull
+        hg update
+        hg merge
     done
 }
 
@@ -204,14 +235,28 @@ function do_dates()
 
 function do_hours()
 {
-    local started_working_string=$(grep $(date --iso) \
-        ~/.bash_eternal_history \
-        | head -1 \
-        | cut -d' ' -f6-8
+    if [ $1 ]; then
+        local the_date=$1
+    else
+        the_date=$(date --iso)
+    fi
+
+    local started_working_string=$(
+        cat ~/.bash_eternal_history | \
+            cut -d' ' -f7-8 | \
+            grep ${the_date} | \
+            head -1
     )
-    
+
+    local ended_working_string=$(
+        cat ~/.bash_eternal_history | \
+            cut -d' ' -f7-8 | \
+            grep ${the_date} | \
+            tail -1
+    )
+
     local seconds_worked=$((
-            $(date +%s) -
+            $(date +%s -d "$ended_working_string") -
             $(date +%s -d "$started_working_string") ))
     local days=$(( seconds_worked / ( 60 * 60 * 24 ) ))
     local seconds_left=$(( seconds_worked - ( $days * 60 * 60 * 24 ) ))
@@ -222,18 +267,22 @@ function do_hours()
 
     # echo "It's" ${hours}h ${minutes}m ${seconds_left}s \
     # "since you started working today."$'\n' \
-    echo "|" $(date --iso) \
+    echo -n "|" $(date -d "$ended_working_string" --iso) \
         "|" $(date -d "$started_working_string" +%H:%M) \
         "->" \
-        $(date +%H:%M) \
-        "| and probably some lunch |" \
-        ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours" \
-        "|"
+        $(date -d "$ended_working_string" +%H:%M) \
+        "| and probably some lunch | "
+
+    if [ $minutes -gt 0 ]; then
+        echo ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours |"
+    else
+        echo ${hours}".0 hours |"
+    fi
 }
 
 function do_go-home()
 {
-    local hlhyw=$(how_long_have_you_worked)
+    local hlhyw=$(do_hours)
     echo $hlhyw >> ~/doc/hours.org
     print $hlhyw
     
@@ -257,7 +306,7 @@ function do_search-im()
     done
 }
 
-function so_search-mailing-list-archive()
+function do_search-mailing-list-archive()
 {
     dir=$HOME/mail/mailing-list-archive
     url="http://lists.escenic.com"
@@ -369,10 +418,10 @@ function unknown_command()
 }
 
 fn=do_${1}
+
 declare > /dev/null -f "$fn" || unknown_command "$1"
 ${fn} ${@:2} 
  
-
 exit 0
 
 #    print $seperator
