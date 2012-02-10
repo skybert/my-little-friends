@@ -5,13 +5,37 @@
 
 # by torstein.k.johansen@gmail.com
 
-log=/tmp/$(basename $0).log
+if [ -z "$log_dir" ]; then
+    log_dir=/tmp
+fi
+
+log=${log_dir}/$(basename $0).log
 
 # this directory will normally be /var/run for scripts run as
 # priveleged users.
-pid_dir=/tmp
+if [ -z "$pid_dir" ]; then
+    pid_dir=/tmp
+fi
+
 pid_file=$pid_dir/$(basename $0).pid
 touch $pid_file
+
+function remove_pid_and_exit()
+{
+    if [ -w $pid_file ]; then
+        rm $pid_file
+    fi
+    
+    exit 0
+}
+
+
+function log()
+{
+    local id="[$(basename $0)-$(date +%Y-%m-%d-%H:%M:%S)]"
+    echo ${id} "$@" >> $log
+}
+
 
 function exit_on_error()
 {
@@ -38,14 +62,23 @@ function get_id()
 
 function debug()
 {
-    if [ $debug -eq 1 ]; then
+    if [[ -n $debug &&  $debug -eq 1 ]]; then
         echo "[$(basename $0)-debug]" "$@"
     fi
 }
 
 function print()
 {
-    echo "$(get_id)" $@
+    echo "$(get_id)" "$@"
+}
+
+function hello_on_you()
+{
+    echo hello
+}
+
+function a-new-one() {
+    echo hello
 }
 
 function get_seconds_since_start()
@@ -143,3 +176,37 @@ function mvn_fast()
         /usr/bin/mvn ${mvn_opts} "$@"
     fi
 }
+
+# returns a string of asterixes with the same lenght as the inputted
+# string.
+function get_asterixes()
+{
+    s=""
+    j=$(echo $1 | wc -c)
+
+    # wc -c always returns the length + 1, hence we start on index=1
+    for (( i=1; i<$j; i++ )); do
+        s=${s}"@"
+    done
+    echo "$s"
+}
+
+function get_length()
+{
+    echo $(( $(echo $1 | wc -c) - 1 ))
+}
+
+## Returns 1 if the passed argument is a number, 0 if not.
+## $1: the value you wish to test.
+function is_number()
+{
+    for (( i = 0; i < ${#1}; i++ )); do
+        if [ $(echo ${1:$i:1} | grep [0-9] | wc -l) -lt 1 ]; then
+            echo 0
+            return
+        fi
+    done
+    
+    echo 1
+}
+
