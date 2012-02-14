@@ -18,7 +18,6 @@ if [ -z "$pid_dir" ]; then
 fi
 
 pid_file=$pid_dir/$(basename $0).pid
-touch $pid_file
 
 function remove_pid_and_exit()
 {
@@ -83,9 +82,12 @@ function a-new-one() {
 
 function get_seconds_since_start()
 {
-    now=`date +%s`
-    started=`stat -c %Y $pid_file`
-    seconds=$(( now - started ))
+    local now=`date +%s`
+    if [ ! -e $pid_file ]; then
+        touch $pid_file
+    fi
+    local started=`stat -c %Y $pid_file`
+    local seconds=$(( now - started ))
     echo "$seconds"
 }
 
