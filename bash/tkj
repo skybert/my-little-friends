@@ -421,7 +421,11 @@ fn=do_${1}
 
 declare > /dev/null -f "$fn" || unknown_command "$1"
 ${fn} ${@:2} 
- 
+
+# remove pid if it exists (created by
+# alexanria/get_seconds_since_start
+rm $pid_file 2>/dev/null
+
 exit 0
 
 #    print $seperator
