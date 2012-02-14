@@ -1,0 +1,18 @@
+! Re-arringing keys to make them more Emacs & shell friendly, as well
+! as making the annoying CAPS LOCK key behave as a decent Control key
+! :-)
+!
+! Apple left  -> Meta/Alt left
+! Apple right -> Meta/Alt right
+! Alt right   -> Control right
+! Caps Lock   -> Control left
+!
+remove mod4 = Super_L
+remove mod4 = Super_R
+remove mod1 = Alt_R
+! remove lock = Caps_Lock
+add mod1 = Super_L
+add mod1 = Super_R
+add control = Alt_R
+add control = Caps_Lock
+
