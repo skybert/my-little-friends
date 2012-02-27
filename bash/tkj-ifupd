@@ -1,17 +1,17 @@
-#! /usr/bin/evn bash
+#! /usr/bin/env bash
 
 # I'm so tired of NetworkManager that I've created this simple script
 # which gets up my network without all the fuzz.
 #
 # torstein.k.johansen@gmail.com
 
+# telling alexandria to use FHS paths
+pid_dir=/var/run
+log_dir=/var/log
 source $(dirname $0)/alexandria
-interface=eth0
 
-# overriding default behaviour defined by alexandria
-log=/var/log/$(basename $0).log
-pid_file=/var/run/$(basename $0).pid
-touch $pid_file
+interface=eth1
+conf_file=/etc/$(basename $0).conf
 
 function are_we_networked()
 {
@@ -34,6 +34,12 @@ function is_device_connected()
         echo 1
         return
     fi
+
+    if [[ $(ifconfig br0 2>/dev/null | grep "inet addr" | wc -l) -gt 0 \
+        && ${1} = "eth0" ]]; then
+        echo 1
+        return
+    fi
     
     echo 0
 }
@@ -48,29 +54,47 @@ if [ $1 ]; then
     interface=$1
 fi
 
-if [ $(is_device_connected $interface) -eq 1 ]; then
-    print $interface is "already connected to the world via" $(get_essid)
-    exit 0
-else
-    for el in $(get_all_network_interfaces); do
-        print "Taking down $el ..."
-        run ifdown  $el
-    done
-fi
-
-while true; do
-    if [ $(are_we_networked) -eq 0 ]; then
-        print "You're NOT connected to the world, remedying this ..."
-        for el in $(get_all_network_interfaces); do
-            run ifdown $el
-        done
-        run ifup $interface
-        print "I tried to connect you, I'm hanging around to verify this ..."
-        sleep 20
-    else
-        print "You're connected to the world via" $(get_essid)", have fun!"
-        rm $pid_file
-        exit 0
+function main()
+{
+    if [ -e ${pid_file} ]; then
+        print "PID file $pid_file exists. Exiting"
+        exit 1
     fi
-done
 
+    run touch ${pid_file}
+
+    if [ -r ${conf_file} ]; then
+        source ${conf_file}
+    fi
+
+    if [ $(is_device_connected $interface) -eq 1 ]; then
+        log $interface is "already connected to the world via" $(get_essid)
+        remove_pid_and_exit
+    else
+        for el in $(get_all_network_interfaces); do
+            log "Taking down $el ..."
+            run ifdown  $el
+        done
+    fi
+
+    MAX_TRIES=5
+    for ((i = 0; i < $MAX_TRIES; i++)) ; do
+        if [ $(are_we_networked) -eq 0 ]; then
+            log "You're NOT connected to the world, remedying this ..."
+            for el in $(get_all_network_interfaces); do
+                run ifdown $el
+            done
+            run ifup $interface
+            log "I tried to connect you, I'm hanging around to verify this ..."
+            sleep 20
+        else
+            log "you're connected to the world via" $(get_essid)", have fun!"
+            rm $pid_file
+            remove_pid_and_exit
+        fi
+    done
+    
+    run rm ${pid_file}
+}
+
+main
