@@ -9,6 +9,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/.emacs.d/tkj-fast.el")
 
+(if (>= emacs-major-version 24)
+    (load "~/.emacs.d/tkj-emacs24.el"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -38,7 +41,7 @@
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-z" 'compile) ;; imenu
 (setq grep-find-command
-      "find ~/src/p4/escenic/plugins/{community,dashboard,forum}/trunk/ -name \"*.java\" -print0 | xargs -0 -e grep -n -i -e ")
+      "find ~/src/p4/escenic/plugins/{viziwyg,community,dashboard,forum}/trunk/ -name \"*.java\" -print0 | xargs -0 -e grep -n -i -e ")
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 (global-set-key  "\C-o" 'ecb-goto-window-methods)
@@ -46,6 +49,7 @@
 (global-set-key  [ (f12) ] 'gnus-summary-delete-article)
 ;; Like F5/refresh in a web browser
 (global-set-key  [ (f5) ] 'revert-buffer)
+(setq revert-without-query (list "\\.java$" "\\.xml$"))
 
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
@@ -72,28 +76,23 @@
 (global-set-key "\C-x\C-b" 'tkj-list-buffers)
 
 ;; make unique buffer names
-(require 'uniquify) 
+(require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward
       uniquify-separator ":")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Emacs appearance
+;; Mail (and news), common to both Gnus and VM
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (set-background-color "black")
-;; (set-foreground-color "#aad6b1")		;#aad6b1, slategray
-(set-cursor-color "red")
-(setq frame-background-mode nil
-      column-number-mode t
-      frame-title-format (concat invocation-name "@" (system-name) " {%f}")
-      ;; no visible or audible bells, please
-      visible-bell nil
-      ring-bell-function (lambda nil (message ""))
-)
-
-(setq gnus-article-save-directory "~/news"
-      gnus-dribble-directory "~/news/dribble"
-      gnus-agent-directory "~/news/agent"
-      gnus-cache-directory "~/news/cache"
+(setq  mail-self-blind t
+       mail-interactive nil
+       mail-from-style 'angles
+       gnus-local-organization "Vizrt Online A/S"
+       gnus-directory "~/mail"
+       gnus-article-save-directory "~/mail"
+       gnus-dribble-directory "~/mail/dribble"
+       gnus-agent-directory "~/mail/agent"
+       gnus-cache-directory "~/mail/cache"
+       message-directory "~/mail"
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -144,6 +143,7 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+(ac-flyspell-workaround)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
@@ -176,6 +176,7 @@
          ("\\.bib\\'" . bibtex-mode)
          ("\\.c\\'" . c-mode) 
          ("ChangeLog" . change-log-mode)
+         ("\\.cfg\\'" . nagios-mode) 
          ("\\.cgi\\'" . python-mode) 
          ("\\.conf\\'" . conf-mode) 
          ("\\.config\\'" . conf-mode) 
@@ -233,23 +234,26 @@
 (require 'hippie-exp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tags
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; BASH is handled by regular etags
+(setq tags-table-list '(
+                        "/home/torstein/src/ece-scripts"
+                        "/home/torstein/src/my-little-friends"
+                        "/home/torstein/src/vosa"
+                        ))
+
+;; C style like languages like Java are handled by gtags (global)
+(autoload 'gtags-mode "gtags" "" t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq yas/root-directory (list "~/.emacs.d/snippets"
+(setq yas/root-directory '( "~/.emacs.d/snippets"
                                "/usr/share/emacs/site-lisp/yasnippet/snippets"
                                ))
+(mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; camel case
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'camelCase-mode "camelCase-mode")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Varnish configuration language
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (setq vcl-indent-level 2)
-;; (require 'vcl-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Advanced paren mode
@@ -277,6 +281,7 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (subword-mode)
+  (gtags-mode 1)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
@@ -398,18 +403,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun tkj-load-jdibug ()
   (interactive)
-  (load "~/.emacs.d/tkj-jdibug.el")
-)
+  (load "~/.emacs.d/tkj-jdibug.el"))
 
 (defun tkj-load-malabar ()
   (interactive)
-  (load "~/.emacs.d/tkj-malabar.el")
-)
+  (load "~/.emacs.d/tkj-malabar.el"))
 
 (defun tkj-load-jdee ()
   (interactive)
-  (load "~/.emacs.d/tkj-jdee.el")
-)
+  (load "~/.emacs.d/tkj-jdee.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto insert file templates
@@ -435,14 +437,8 @@
   (goto-char 0)
   (replace-string "><" ">
 <")
-  (indent-region (point-min) (point-max))
-  )
+  (indent-region (point-min) (point-max)))
 (global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Inputting Mandarin
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (load "~/.emacs.d/tkj-ibus.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; insert timestamp
@@ -475,11 +471,6 @@
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Chat
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (load "~/.emacs.d/tkj-chat.el")
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; outline/wiki
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -487,8 +478,7 @@
       '(("h1." . 1)
         ("h2." . 2)
         ("h3." . 3)
-        ("h4." . 4)
-        ))
+        ("h4." . 4)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
@@ -506,22 +496,32 @@
   (vm))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; BASH
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq sh-basic-offset 2)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Various packaegs & settings to get smart file name completion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/.emacs.d/tkj-smart-file-name-completion.el")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Nagios
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'nagios-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(canlock-password "e4d772a3afeae6dbcbc7e1dbff60aa2ac44921b2")
  '(css-indent-offset 2)
+ '(custom-safe-themes (quote ("dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
  '(ecb-options-version "2.32")
  '(ecb-tip-of-the-day nil)
  '(fringe-mode 0 nil (fringe))
- '(ispell-local-dictionary "british")
  '(jde-bug-debugger-host-address "localhost")
  '(jde-bug-server-socket (quote (t . "5005")))
  '(jde-db-option-connect-socket (quote (nil "5005")))
@@ -532,15 +532,17 @@
  '(jde-wiz-get-set-variable-convention (quote ("m" . "Prefix")))
  '(jde-wiz-get-set-variable-prefix "p")
  '(jde-wiz-tostring-postfix (quote ("\"]\"")))
- '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\"")))
- )
+ '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\""))))
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(diff-added ((t (:foreground "Darkgreen"))) t)
+ '(diff-removed ((t (:foreground "Red"))) t)
  '(flymake-errline ((((class color)) (:underline "Red"))))
  '(flymake-warnline ((((class color)) (:underline "Orange")))))
+
 
 
