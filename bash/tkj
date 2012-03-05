@@ -69,42 +69,20 @@ function do_daily()
     # the applications that requirethe network to work
     print "Launching my favourite applications..."
     app_list="
-opera
 pidgin
-emacs
 icedove
+opera
+emacs
 firefox
 "
     for el in $app_list; do
         if [ $(ps aux | grep  $el | grep -v grep | wc -l) -lt 1 ]; then
             if [ $el = "emacs" ]; then
                 # emacs -fn 7x14 -f gnus &
-                bash ~/src/my-little-friends/bash/create-emacs-file-cache
-                print "Replacing ~/.emacs.d/file_cache.el ..."
-                run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
-
-                print "Updaging GTags ..."
-                run cd ~/src/p4
-                find /usr/lib/jvm/java-6-sun/src . -type f | \
-                    grep trunk | \
-                    grep trunk | \
-                    egrep -v "dhk|osl|target" | \
-                    egrep ".java|.xml|.pom|.properties" | \
-                    egrep -v ".svn|.git|.hg|~|.swp" | \
-                    gtags -f -
-
-                print "Updating ETags ..."
-                (
-                    run cd ~/src/ece-scripts
-                    find usr -type f | grep bin | grep -v local | etags -
-                    
-                    run cd ~/src/my-little-friends
-                    find bash -type f | etags -
-                    
-                    run cd ~/src/vosa
-                    find . -type f | egrep -v ".hg|~|var|etc" | etags -
-                )
-                
+                # bash ~/src/my-little-friends/bash/create-emacs-file-cache
+                # print "Replacing ~/.emacs.d/file_cache.el ..."
+                # run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
+                do_update-tags
                 emacs -fn 7x14 ~/doc/work.org &
             else
                 $el 1>/dev/null 2>/dev/null &
@@ -117,6 +95,36 @@ firefox
     do_update-sources
 
     print "Happy hacking :-)"
+}
+
+function do_update-tags()
+{
+    print "Updating ETags ..."
+    (
+        run cd ~/src/ece-scripts
+        find usr -type f | \
+          egrep "bin|share" | \
+          grep -v local | \
+          egrep -v "~|#|swp|html|tex|pdf|diff" | \
+          etags -
+        
+        run cd ~/src/my-little-friends
+        find bash -type f | etags -
+        
+        run cd ~/src/vosa
+        find . -type f | egrep -v ".hg|~|var|etc" | etags -
+    )
+    # print "Updaging GTags ..."
+    # (
+    #     run cd ~/src/p4
+    #     find /usr/lib/jvm/java-6-sun/src . -type f | \
+    #         grep trunk | \
+    #         grep trunk | \
+    #         egrep -v "dhk|osl|target" | \
+    #         egrep ".java|.xml|.pom|.properties" | \
+    #         egrep -v ".svn|.git|.hg|~|.swp" | \
+    #         gtags -f -
+    # )
 }
 
 function do_doc() {
@@ -136,13 +144,14 @@ function do_update-sources()
 
     local dir=/usr/local/src
     local git_repo_list="
-      $dir/malabar-mode
       $dir/nvidiabl
       $dir/org-mode
       $dir/html5-el
       $dir/html5-syntax
       $dir/gnome-shell-extensions-pidgin
       $dir/ajc-java-complete
+      $dir/djcb-elisp
+      $dir/malabar-mode
     "
 
     local git_fork_list="
@@ -201,6 +210,28 @@ function do_update-sources()
     done
 }
 
+function get_primary_screen() {
+  echo $(xrandr -q | head -2 | grep connected | cut -d' ' -f1)
+}
+
+function get_secondary_screen() {
+  echo $(xrandr -q | grep connected | tail -1 | cut -d' ' -f1)
+}
+
+function do_setup-screens() {
+
+  local screen1=$(get_primary_screen)
+  local screen2=$(get_secondary_screen)
+
+  print "Setting up primary screen $screen1 ..."
+  xrandr --output $screen1 --auto
+  
+  if [ -n "$screen2" ]; then
+    print "Setting up secondary screen $screen2 ..."
+    xrandr --output $screen2 --right-of $screen1 --auto
+  fi
+}
+
 function do_delete-cache-files()
 {
     local dir_list="
@@ -243,16 +274,18 @@ function do_hours()
 
     local started_working_string=$(
         cat ~/.bash_eternal_history | \
-            cut -d' ' -f7-8 | \
-            grep ${the_date} | \
-            head -1
+          cut -d' ' -f7-8 | \
+          grep ${the_date} | \
+          sort | \
+          head -1
     )
 
     local ended_working_string=$(
         cat ~/.bash_eternal_history | \
-            cut -d' ' -f7-8 | \
-            grep ${the_date} | \
-            tail -1
+          cut -d' ' -f7-8 | \
+          grep ${the_date} | \
+          sort | \
+          tail -1
     )
 
     local seconds_worked=$((
@@ -278,12 +311,46 @@ function do_hours()
     else
         echo ${hours}".0 hours |"
     fi
+
+    local previous_date
+    cat $HOME/.bash_eternal_history | \
+      cut -d' ' -f7-8 | \
+      grep $the_date | \
+      uniq | \
+      sort | \
+      while read l; do
+      now=$(date -d "$l" +%s)
+      if [ $previous_date ] ;then
+        since_last=$(( $now - $previous_date ))
+
+        if [ $since_last -gt 2500 ]; then
+          print "No command line action between" $(date -d @${previous_date} +%H:%M:%S) \
+            "and" $(date -d "$l" +%H:%M:%S) \
+            $(get_human_time $since_last)
+        fi
+      fi
+      previous_date=$now
+    done
+}
+
+function get_human_time()
+{
+  local seconds_worked=$1
+  
+  local days=$(( seconds_worked / ( 60 * 60 * 24 ) ))
+  local seconds_left=$(( seconds_worked - ( $days * 60 * 60 * 24 ) ))
+  local hours=$(( seconds_left / ( 60 * 60 ) ))
+  local seconds_left=$(( seconds_left - ( $hours * 60 * 60 ) ))
+  local minutes=$(( seconds_left / 60 ))
+  local seconds_left=$(( seconds_left - $minutes * 60 ))
+
+  echo "${hours}h ${minutes}m ${seconds_left}s"
 }
 
 function do_go-home()
 {
     local hlhyw=$(do_hours)
-    echo $hlhyw >> ~/doc/hours.org
+    echo "$hlhyw" | head -1 >> ~/doc/hours.org
     print $hlhyw
     
     print "End of the day, generating report ..."
