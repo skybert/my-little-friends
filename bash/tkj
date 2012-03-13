@@ -44,6 +44,8 @@ function do_help()
 
 function do_daily()
 {
+    do_setup-screens
+
     print "Putting on some good music ..."
     mpd 1>/dev/null 2>/dev/null &
     # mpc play 1>/dev/null 2>/dev/null &
@@ -219,7 +221,10 @@ function get_secondary_screen() {
 }
 
 function do_setup-screens() {
-
+  if [ $(grep "Driver.*nvidia" /etc/X11/xorg.conf | wc -l) -gt 0 ]; then
+    return
+  fi
+  
   local screen1=$(get_primary_screen)
   local screen2=$(get_secondary_screen)
 
