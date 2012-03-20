@@ -127,6 +127,10 @@ Control Shift k :ExecCommand tkj happy
 Control Shift 4 :ExecCommand mpc toggle
 Control Shift 6 :ExecCommand mpc prev
 Control Shift 7 :ExecCommand mpc next
+XF86AudioPrev :ExecCommand mpc prev
+XF86AudioNext :ExecCommand mpc next
+XF86AudioPlay :ExecCommand mpc toggle
+
 Control Shift 0 :ExecCommand tkj-setup-screens
 
 # 'i' for interruption. The challenge is stil to remmeber to hit it
@@ -160,9 +164,12 @@ Control Shift x :ExecCommand xscreensaver-command -lock
 Control Shift w :Exec opera
 
 # sound
-# keysym 0x1008ff12, XF86AudioMute
 XF86AudioRaiseVolume :ExecCommand aumix -v +2
 XF86AudioLowerVolume :ExecCommand aumix -v -2
+XF86AudioMute :ExecCommand aumix -v 0
+
+# eject
+XF86Eject :ExecCommand eject
 
 # Brightness
 XF86MonBrightnessDown :ExecCommand /usr/local/sbin/nvidiablctl down
