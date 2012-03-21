@@ -6,6 +6,8 @@
 source alexandria
 
 show_positives=0
+number_of_successes=0
+number_of_failures=0
 
 # $1 message
 # $2 expected
@@ -29,7 +31,7 @@ function assert_equals()
             echo "PASSED: ${message}: Expected <$expected> and got <$actual>"
         fi
     else
-        if [ "$expected" != "$actual" ]; then
+        if [[ "$expected" != "$actual" ]]; then
             echo "FAILED: ${message}: Expected <$expected>, but was <$actual>"
         elif [ $show_positives -eq 1 ]; then
             echo "PASSED: ${message}: Expected <$expected> and got <$actual>"
@@ -63,6 +65,18 @@ function assert_not_null()
     else
         echo "FAILED: ${message}: <$value> is null (it is not set)"
     fi
+}
+
+function run_test_suite()
+{
+  if [ -z $1 ]; then
+    return
+  fi
+
+  for el in $1; do
+    ${el}
+  done
+  
 }
 
 
