@@ -18,17 +18,25 @@ http://www.linux-kvm.org/page/Networking
 ** Performance tuning
 http://www.linuxjournal.com/article/10678?page=0,0
 
+
 * Tomcat
-** TODO Tomcat JVM tuning
-   SCHEDULED: <2011-11-25 Fri>
+** Tomcat JVM tuning
 http://www.tomcatexpert.com/blog/2011/11/16/setting-measurement-garbage-collection-apache-tomcat
 
 http://www.tomcatexpert.com/blog/2011/11/22/performance-tuning-jvm-running-tomcat
 
-** DONE Tomcat DB pooling
-   SCHEDULED: <2011-05-31 Tue>
+** Tomcat DB pooling
 http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency
 
+
+* Java 
+** DONE read article on achieving no GC
+   SCHEDULED: <2012-02-09 Thu>
+http://forum.vizrt.com/showthread.php?t=5302 
+
+** DONE inform about GC feature in the ece script
+   SCHEDULED: <2012-02-09 Thu>
+https://github.com/escenic/ece-scripts/commit/aea57f25056ca83e4269dff49fd5876340bc4d26
 
 * Web design
 http://www.alistapart.com/articles/responsive-web-design/
@@ -38,6 +46,10 @@ http://www.w3.org/TR/WCAG20/
 * Sync cookies
 http://cr.yp.to/syncookies.html
 
+* Web standards
+APP: http://tools.ietf.org/html/rfc5023
+
+APP up and down links: http://tools.ietf.org/html/draft-divilly-atom-hierarchy-03
 
 * DONE Making-Apps-That-Dont-Suck
    SCHEDULED: <2011-05-31 Tue>
@@ -58,3 +70,5 @@ http://www.turnkeylinux.org/blog/ec2-userdata
 ** English
 http://www.open.edu/openlearn/history-the-arts/culture/english-language/the-history-english-ten-minutes
 
+* General Technology
+http://swombat.com/2011/12/7/picking-technologies
