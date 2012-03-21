@@ -38,7 +38,7 @@ for el in $@; do
         print "replacing" $from "with" $to "in" $el "..."
         sed -i "s~${from}~${to}~g" $el
     else
-        print "doesn't contain $from, skipping it."
+        print "$el doesn't contain $from, skipping it."
     fi
 done 
 
