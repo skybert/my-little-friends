@@ -154,6 +154,7 @@ function do_update-sources()
       $dir/ajc-java-complete
       $dir/djcb-elisp
       $dir/malabar-mode
+      $HOME/src/ece-scripts
     "
 
     local git_fork_list="
@@ -183,7 +184,7 @@ function do_update-sources()
         print $seperator
         print "Updating $(basename $el) ..."
         cd $el
-        git pull
+        git pull 2>/dev/null
     done
 
     for el in $git_fork_list; do
