@@ -10,10 +10,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(tool-bar-mode 0)
 (menu-bar-mode 0)
-(set-scroll-bar-mode nil)
-(fringe-mode 0)
+
+;; (set-scroll-bar-mode nil)
+;; (tool-bar-mode 0)
+;; (fringe-mode 0)
 
 (set-background-color "black")
 (set-foreground-color "#aad6b1")
