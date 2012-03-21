@@ -9,23 +9,21 @@
 
 dir_list="
 $HOME/.emacs.d
-$HOME/src/p4/branches/personal/torstein/memento
-$HOME/src/p4/projects/poc/inpage-poc
-$HOME/src/p4/escenic/plugins/forum/trunk
-$HOME/src/p4/escenic/plugins/dashboard/trunk
-$HOME/src/p4/escenic/plugins/community/trunk
-$HOME/src/p4/escenic/plugins/analysis/trunk
-$HOME/src/p4/escenic/studio/branches/5.3
-$HOME/src/p4/escenic/engine/branches/5.3
-$HOME/src/p4/escenic/model-core/trunk
 $HOME/src/ece-scripts
 $HOME/src/my-little-friends
-/etc/escenic
-/opt/tomcat-dev1/conf
+$HOME/src/vosa
 /opt/dropbox/doc/work
+$HOME/src/p4/escenic/common/trunk
+$HOME/src/p4/escenic/engine/trunk
+$HOME/src/p4/escenic/model-core/trunk
+$HOME/src/p4/escenic/plugins/analysis/trunk
+$HOME/src/p4/escenic/plugins/community/trunk
+$HOME/src/p4/escenic/plugins/dashboard/trunk
+$HOME/src/p4/escenic/plugins/forum/trunk
+$HOME/src/p4/escenic/plugins/semantic/trunk
+$HOME/src/p4/escenic/plugins/viziwyg/trunk
+$HOME/src/p4/escenic/studio/trunk
 "
-# $HOME/src/p4/escenic/plugins/viziwyg/trunk
-
 file_list="
 /home/torstein/.bashrc
 /home/torstein/.emacs
@@ -34,16 +32,16 @@ file_list="
 /home/torstein/.fluxbox/startup
 "
 
-file=/tmp/file_cache.el-$(date --iso)
+file=~/.emacs.d/file_cache.el
 
 print "Generating new file cache $file"
 echo "(" > $file
 
 for el in $dir_list; do
     find $el -type f | \
-	      egrep -vi "/test/" | \
+	      egrep -vi "/test/|TAGS|\\.man|elpa|session\\.|\\.hg" | \
 	      egrep -vi "\\.tmp|Catalina|\\.iml|\\.iws|\\.ipr|\#|\\.log" | \
-	      egrep -vi "target|\\.jar|\\.html|\\.png|\\.jpg|\\.bmp" | \
+	      egrep -vi "target|\\.jar|\\.html|\\.png|\\.jpg|\\.bmp|\\.xls" | \
 	      egrep -vi "\\.git|\\.svn|\~|\\.class|\\.swp|\\.pdf|\\.gif|\\.cache" | \
 	      while read f; do
 	      file_name=$(basename "$f")
@@ -61,3 +59,6 @@ done
 echo ")" >> $file
 
 print "Done, $file is now ready"
+
+# $HOME/src/p4/projects/poc/memento
+# $HOME/src/p4/projects/poc/inpage-poc
