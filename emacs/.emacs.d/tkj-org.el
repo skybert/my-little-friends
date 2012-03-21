@@ -6,8 +6,10 @@
  load-path (cons "/mnt/debian/usr/local/src/org-mode/lisp" load-path)
  load-path (cons "/mnt/debian/usr/local/src/org-mode/contrib/lisp" load-path)
  load-path (cons "/mnt/debian/usr/local/src/org-mode/EXPERIMENTAL" load-path)
- 
+
+ org-return-follows-link t 
  org-agenda-files (list "~/doc/work.org"
+                        "~/doc/saved_for_a_rainy_day.org"
                         "~/src/my-little-friends/notes/reading-list.org"
                         "/opt/dropbox/doc/home.org"))
 
