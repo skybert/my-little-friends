@@ -5,10 +5,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; First, load the fast settings
+;; Loading other general init files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; first the fast one (minimum)
 (load "~/.emacs.d/tkj-fast.el")
 
+;; then load Emacs 24 specific settings
 (if (>= emacs-major-version 24)
     (load "~/.emacs.d/tkj-emacs24.el"))
 
