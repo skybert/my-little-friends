@@ -10,7 +10,7 @@ pid_dir=/var/run
 log_dir=/var/log
 source $(dirname $0)/alexandria
 
-interface=eth1
+interface=wlan0
 conf_file=/etc/$(basename $0).conf
 
 function are_we_networked()
