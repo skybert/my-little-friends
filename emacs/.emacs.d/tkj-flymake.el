@@ -6,31 +6,25 @@
 
 ;; setting the class path
 (if (eq system-type 'darwin)
-    (setq tkj-dir "/mnt/debian/home/torstein/src/p4/projects/poc/inpage-poc/")
-  (setq tkj-dir "/home/torstein/src/p4/projects/poc/inpage-poc/")
+    (setq tkj-dir "/mnt/debian/home/torstein/src/p4/")
+  (setq tkj-dir "/home/torstein/src/p4/")
 )
 
 (setq tkj-classpath
       (concat
-       tkj-dir "viziwyg-ws/target/classes:"
-       tkj-dir "viziwyg-common/target/classes:"
-       tkj-dir "viziwyg-presentation/target/classes"))
+       tkj-dir "projects/poc/memento/memento-ws/target/classes"
+       ":/opt/tomcat-dev1/webapps/webservice/WEB-INF/classes"
+       ))
 
 (defun tkj-read-jar(file)
   (setq tkj-classpath
         (concat tkj-classpath ":" file)))
 
 (require 'find-lisp)
-(mapc 'tkj-read-jar
-      (find-lisp-find-files "/usr/lib/jvm/java-6-sun/jre/lib"
-                            "\\.jar$"))
-(mapc 'tkj-read-jar
-      (find-lisp-find-files "/opt/tomcat/lib"
-                            "\\.jar$"))
-(mapc 'tkj-read-jar
-      (find-lisp-find-files "/opt/tomcat-dev1"
-                            "\\.jar$"))
-
+(mapc 'tkj-read-jar (find-lisp-find-files "/usr/lib/jvm/java-6-sun/jre/lib" "\\.jar$"))
+(mapc 'tkj-read-jar (find-lisp-find-files "/opt/tomcat/lib" "\\.jar$"))
+(mapc 'tkj-read-jar (find-lisp-find-files "/opt/tomcat-dev1" "\\.jar$"))
+(mapc 'tkj-read-jar (find-lisp-find-files "/opt/tomcat-dev1/" "classes"))
 
 (defun flymake-java-ecj-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
