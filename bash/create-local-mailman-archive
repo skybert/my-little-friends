@@ -6,14 +6,14 @@ archive_dir=~/mail/mailing-list-archive
 list_host_url=http://lists.escenic.com/pipermail
 
 list_names="
-tip-manager
-saas
 developers
+saas
 innovation
 ewf
-support-staff
 engine-5.0
+support-staff
 community-engine-internal
+tip-manager
 "
 
 for el in $list_names; do
