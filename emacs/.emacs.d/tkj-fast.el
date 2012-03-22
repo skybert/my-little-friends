@@ -34,8 +34,8 @@
 (global-set-key "\C-xg" 'goto-line)
 (global-set-key "\M- " 'hippie-expand)
 (global-set-key "\C-\M-f" 'find-file-at-point)
-(global-set-key [ (control shift n) ] 'find-dired)
-(global-set-key  [ (control meta shift n) ] 'grep-find)
+(global-set-key "\C-cn" 'find-dired)
+(global-set-key "\C-cN" 'grep-find)
 ;; don't write backslashed to indicate continuous lines
 (set-display-table-slot standard-display-table 'wrap ?\ )
 ;; Treat 'y' or <CR> as yes, 'n' as no.
