@@ -42,7 +42,7 @@
 
 (global-set-key "\C-\M-g" 'jde-usages-get-signature-of-thing-at-point)
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
-(global-set-key "\C-z" 'compile) ;; imenu
+(global-set-key "\C-x\C-c" 'compile) ;; imenu
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 (global-set-key  "\C-o" 'ecb-goto-window-methods)
