@@ -6,4 +6,8 @@
                                "/usr/local/src/djcb-elisp/themes" 
                                "/mnt/debian/usr/local/src/djcb-elisp/themes")
       load-cust)
-(load-theme 'zenburn t)
+
+(defun tkj-load-zenburn()
+  (interactive)
+  (load-theme 'zenburn t))
+
