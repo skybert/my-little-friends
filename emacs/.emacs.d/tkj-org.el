@@ -11,7 +11,7 @@
  org-agenda-files (list "~/doc/work.org"
                         "~/doc/saved_for_a_rainy_day.org"
                         "~/src/my-little-friends/notes/reading-list.org"
-                        "/opt/dropbox/doc/home.org"))
+                        "~/doc/home.org"))
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
