@@ -19,10 +19,3 @@
 ;;           )
 ;;          compilation-error-regexp-alist))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; jtags
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "/usr/local/src/jtags/src/lisp")
-(autoload 'jtags-mode "jtags" "Toggle jtags mode." t)
-(add-hook 'java-mode-hook 'jtags-mode)
-
