@@ -73,25 +73,18 @@ Emacs*useXIM: false
 *color6: S_cyan
 *color14: S_base1
 
-
 !! white dark/light
 *color7: S_base2
 *color15: S_base3
 
 
-
 !###Urxvt config###
-
 ! Xft: DejaVu fonts
-
 URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true
-
 URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true
 
-
-
 ! scrollbar - true (default) or false
-URxvt*scrollBar: true
+URxvt*scrollBar: false
 
 ! scrollbar position - left=false (default) or right=true
 URxvt*scrollBar_right: false
