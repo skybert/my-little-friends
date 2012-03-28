@@ -238,7 +238,7 @@
                         "/home/torstein/src/my-little-friends"
                         ))
 
-;; C style like languages like Java are handled by gtags (global)
+;; C style like languages like Java are handled by gtags (from GNU Global)
 (autoload 'gtags-mode "gtags" "" t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
