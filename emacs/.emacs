@@ -19,12 +19,6 @@
 ;; Shortcuts available in all modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Set up the delete key and the keypad delete the character under the
-;; cursor and to the right under X, instead of the default, backspace
-;; behavior. 
-(global-set-key [delete] 'delete-char)
-(global-set-key [kp-delete] 'delete-char)
-
 ;; Making the Mac cmd or Windows key useful, simply letting it act as
 ;; as its Alt cousin when pressed in combination with my most used
 ;; combinations (yes, I have re-mapped it in xmodmap, but when
@@ -47,6 +41,8 @@
 (global-set-key  "\C-m" 'newline-and-indent)
 (global-set-key  "\C-o" 'ecb-goto-window-methods)
 ;; Gnus shortcut B DELETE is way too hard ...
+(global-unset-key [ (delete) ])
+(global-set-key [ delete ] 'gnus-summary-delete-article)
 (global-set-key  [ (f12) ] 'gnus-summary-delete-article)
 ;; Like F5/refresh in a web browser
 (global-set-key  [ (f5) ] 'revert-buffer)
@@ -240,7 +236,6 @@
 (setq tags-table-list '(
                         "/home/torstein/src/ece-scripts"
                         "/home/torstein/src/my-little-friends"
-                        "/home/torstein/src/vosa"
                         ))
 
 ;; C style like languages like Java are handled by gtags (global)
@@ -281,7 +276,6 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (subword-mode)
-  (gtags-mode 1)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
@@ -510,6 +504,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (require 'nagios-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Chat
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "~/.emacs.d/tkj-chat.el")
+(load "~/.emacs.d/tkj-jabber.el")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -518,7 +518,7 @@
  ;; If there is more than one, they won't work right.
  '(canlock-password "e4d772a3afeae6dbcbc7e1dbff60aa2ac44921b2")
  '(css-indent-offset 2)
- '(custom-safe-themes (quote ("dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
+ '(custom-safe-themes (quote ("54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "d6a00ef5e53adf9b6fe417d2b4404895f26210c52bb8716971be106550cea257" "dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
  '(ecb-options-version "2.32")
  '(ecb-tip-of-the-day nil)
  '(fringe-mode 0 nil (fringe))
@@ -532,7 +532,8 @@
  '(jde-wiz-get-set-variable-convention (quote ("m" . "Prefix")))
  '(jde-wiz-get-set-variable-prefix "p")
  '(jde-wiz-tostring-postfix (quote ("\"]\"")))
- '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\""))))
+ '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\"")))
+ '(org-agenda-files (quote ("~/doc/work.org" "~/src/my-little-friends/notes/reading-list.org" "/opt/dropbox/doc/home.org"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
