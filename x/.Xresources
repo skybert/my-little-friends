@@ -46,7 +46,7 @@ URxvt.underlineURLs: true
 #define S_green #859900
 
 *background: S_base03
-*foreground: S_base00
+*foreground: S_base0
 *fading: 10
 *fadeColor: S_base03
 *cursorColor: S_base1
