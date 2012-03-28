@@ -1,7 +1,6 @@
 Emacs*useXIM: false
 
-URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=false:hinting=true
-URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=false:hinting=true
+Mono:bold:pixelsize=12:antialias=false:hinting=true
 URxvt*scrollBar: false
 URxvt.perl-ext-common:  default,matcher
 URxvt.urlLauncher:      opera
