@@ -1,5 +1,14 @@
 Emacs*useXIM: false
 
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=false:hinting=true
+URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=false:hinting=true
+URxvt*scrollBar: false
+URxvt.perl-ext-common:  default,matcher
+URxvt.urlLauncher:      opera
+URxvt.matcher.button:   1
+URxvt.underlineURLs: true
+
+
 !!! copied from http://pastebin.com/uiSiSPwQ, work by matse
 !!SOLARIZED HEX 16/8 TERMCOL XTERM/HEX L*A*B RGB HSB
 !!--------- ------- ---- ------- ----------- ---------- ----------- -----------
@@ -39,7 +48,7 @@ Emacs*useXIM: false
 
 *background: S_base03
 *foreground: S_base00
-*fading: 40
+*fading: 10
 *fadeColor: S_base03
 *cursorColor: S_base1
 *pointerColorBackground:S_base01
@@ -80,34 +89,3 @@ Emacs*useXIM: false
 
 
 
-!###Urxvt config###
-
-! Xft: DejaVu fonts
-
-URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true
-
-URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true
-
-
-
-! scrollbar - true (default) or false
-URxvt*scrollBar: true
-
-! scrollbar position - left=false (default) or right=true
-URxvt*scrollBar_right: false
-
-! scrollbar style - rxvt (default), plain, next, or xterm
-URxvt*scrollstyle: plain
-
-! rxvt-unicode enable warnings
-URxvt.urgentOnBell:  true
-
-!de-iconify (map) on receipt of a bell chacacter
-URxvt*mapAlert:   true
-
-
-
-
-
-
-   
