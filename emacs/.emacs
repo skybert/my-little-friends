@@ -518,7 +518,7 @@
  ;; If there is more than one, they won't work right.
  '(canlock-password "e4d772a3afeae6dbcbc7e1dbff60aa2ac44921b2")
  '(css-indent-offset 2)
- '(custom-safe-themes (quote ("dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
+ '(custom-safe-themes (quote ("54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "baed08a10ff9393ce578c3ea3e8fd4f8c86e595463a882c55f3bd617df7e5a45" "284aece21e57abcf7c7d5f273d2d17dc646b24cb1465fd054ad9dca3555aed1c" "dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
  '(ecb-options-version "2.32")
  '(ecb-tip-of-the-day nil)
  '(fringe-mode 0 nil (fringe))
@@ -532,15 +532,17 @@
  '(jde-wiz-get-set-variable-convention (quote ("m" . "Prefix")))
  '(jde-wiz-get-set-variable-prefix "p")
  '(jde-wiz-tostring-postfix (quote ("\"]\"")))
- '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\""))))
+ '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\"")))
+ '(menu-bar-mode nil)
+ '(tool-bar-mode nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(diff-added ((t (:foreground "Darkgreen"))) t)
- '(diff-removed ((t (:foreground "Red"))) t)
+ '(diff-added ((t (:foreground "Darkgreen"))))
+ '(diff-removed ((t (:foreground "Red"))))
  '(flymake-errline ((((class color)) (:underline "Red"))))
  '(flymake-warnline ((((class color)) (:underline "Orange")))))
 
