@@ -1,7 +1,10 @@
 (require 'erc-log)
 
-(setq erc-autojoin-channels-alist
-      '(("catbert" "#platform" "#innovation" "#developers")
+(setq erc-autojoin-mode t
+      erc-default-server "catbert.escenic.com"
+      erc-default-nicks "torstein"
+      erc-autojoin-channels-alist
+      '(("catbert.escenic.com" "#platform" "#innovation" "#developers")
         ("irc.freenode.net" "#tossug"))
       erc-log-channels-directory "~/.erc/logs/"
       erc-log-write-after-send t
@@ -26,8 +29,9 @@
                           stamp
                           spelling
                           track))
-
       )
+
+      
 ;; save logs before quittign emacs
 ;;(defadvice save-buffers-kill-emacs (before save-logs (arg) activate)
 ;;  (save-some-buffers t (lambda ()
