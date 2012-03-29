@@ -12,8 +12,8 @@
 (load "~/.emacs.d/tkj-fast.el")
 
 ;; then load Emacs 24 specific settings
-(if (>= emacs-major-version 24)
-    (load "~/.emacs.d/tkj-emacs24.el"))
+;; (if (>= emacs-major-version 24)
+;;    (load "~/.emacs.d/tkj-emacs24.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
