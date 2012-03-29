@@ -16,9 +16,9 @@
 ;; (tool-bar-mode 0)
 ;; (fringe-mode 0)
 
-(set-background-color "black")
-(set-foreground-color "#aad6b1")
-(set-cursor-color "red")
+;; (set-background-color "black")
+;; (set-foreground-color "#aad6b1")
+;; (set-cursor-color "red")
 
 (setq frame-background-mode nil
       column-number-mode t
