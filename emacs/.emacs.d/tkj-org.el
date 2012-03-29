@@ -1,5 +1,6 @@
 ;;                                                      -*- emacs-lisp -*-
 (setq
+ load-path (cons "/usr/local/src/org-html5presentation" load-path)
  load-path (cons "/usr/local/src/org-mode/lisp" load-path)
  load-path (cons "/usr/local/src/org-mode/contrib/lisp" load-path)
  load-path (cons "/usr/local/src/org-mode/EXPERIMENTAL" load-path)
@@ -11,7 +12,8 @@
  org-agenda-files (list "~/doc/work.org"
                         "~/doc/saved_for_a_rainy_day.org"
                         "~/src/my-little-friends/notes/reading-list.org"
-                        "~/doc/home.org"))
+                        "~/doc/home.org")
+ )
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -22,6 +24,7 @@
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
 (require 'org-export)
+(require 'org-html5presentation)
 ;; (require 'org-mw)
 
 ;; These two settings make exported HTML look like our Vizrt branded
