@@ -2,10 +2,7 @@
 ;; Themeing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq custom-theme-load-path
-      '(custom-theme-directory t
-                               "/usr/local/src/djcb-elisp/themes" 
-                               "/usr/local/src/solarized-emacs" 
-                               "/mnt/debian/usr/local/src/djcb-elisp/themes")
+      '(custom-theme-directory t "$HOME/.emacs.d/themes"
       load-cust)
 
 (defun tkj-load-zenburn()
