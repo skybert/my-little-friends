@@ -533,15 +533,15 @@
  '(jde-wiz-get-set-variable-prefix "p")
  '(jde-wiz-tostring-postfix (quote ("\"]\"")))
  '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\"")))
- '(org-agenda-files (quote ("~/doc/work.org" "~/src/my-little-friends/notes/reading-list.org" "/opt/dropbox/doc/home.org"))))
+)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(diff-added ((t (:foreground "Darkgreen"))) t)
- '(diff-removed ((t (:foreground "Red"))) t)
+ '(diff-added ((t (:foreground "Darkgreen"))))
+ '(diff-removed ((t (:foreground "Red"))))
  '(flymake-errline ((((class color)) (:underline "Red"))))
  '(flymake-warnline ((((class color)) (:underline "Orange")))))
 
