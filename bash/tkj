@@ -112,9 +112,6 @@ function do_update-tags()
         
         run cd ~/src/my-little-friends
         find bash -type f | etags -
-        
-        run cd ~/src/vosa
-        find . -type f | egrep -v ".hg|~|var|etc" | etags -
     )
     # print "Updaging GTags ..."
     # (
