@@ -4,6 +4,7 @@
  load-path (cons "/usr/local/src/org-mode/lisp" load-path)
  load-path (cons "/usr/local/src/org-mode/contrib/lisp" load-path)
  load-path (cons "/usr/local/src/org-mode/EXPERIMENTAL" load-path)
+ load-path (cons "//mnt/debian/usr/local/src/org-html5presentation" load-path)
  load-path (cons "/mnt/debian/usr/local/src/org-mode/lisp" load-path)
  load-path (cons "/mnt/debian/usr/local/src/org-mode/contrib/lisp" load-path)
  load-path (cons "/mnt/debian/usr/local/src/org-mode/EXPERIMENTAL" load-path)
