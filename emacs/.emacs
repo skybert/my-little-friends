@@ -12,8 +12,8 @@
 (load "~/.emacs.d/tkj-fast.el")
 
 ;; then load Emacs 24 specific settings
-;; (if (>= emacs-major-version 24)
-;;    (load "~/.emacs.d/tkj-emacs24.el"))
+(if (>= emacs-major-version 24)
+    (load "~/.emacs.d/tkj-emacs24.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
@@ -245,7 +245,6 @@
 ;; Yasnippets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq yas/root-directory '( "~/.emacs.d/snippets"
-                               "/usr/share/emacs/site-lisp/yasnippet/snippets"
                                ))
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
@@ -283,13 +282,11 @@
 ;; Java
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/.emacs.d/tkj-java.el")
-(load "~/.emacs.d/tkj-flymake.el")
+;; (load "~/.emacs.d/tkj-flymake.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Default browser
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (require 'w3m-load)
-;;       browse-url-browser-function 'w3m-browse-url)
 (setq browse-url-generic-program "opera"
       browse-url-browser-function 'browse-url-generic)
 
