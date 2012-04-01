@@ -15,6 +15,10 @@
 (if (>= emacs-major-version 24)
     (load "~/.emacs.d/tkj-emacs24.el"))
 
+;; load all locally installed packages
+(let ((default-directory "/usr/local/src/emacs"))
+  (normal-top-level-add-subdirs-to-load-path))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
