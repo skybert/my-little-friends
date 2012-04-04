@@ -18,6 +18,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 'echo "$(history 1)" >> ~/.bash_eternal_history'
 
 # aliases
+alias df='df -hT'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 
 # bash completion
