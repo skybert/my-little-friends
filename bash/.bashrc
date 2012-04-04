@@ -19,6 +19,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 
 # aliases
 alias df='df -hT'
+alias ls='ls -lh'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 
 # bash completion
