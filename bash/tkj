@@ -71,8 +71,6 @@ function do_daily()
     # the applications that requirethe network to work
     print "Launching my favourite applications..."
     app_list="
-pidgin
-icedove
 opera
 emacs
 firefox
