@@ -41,7 +41,7 @@ $PATH
 export P4CONFIG=$HOME/.p4config
 
 # language & time zone
-export TZ='Asia/Taipei'
+export TZ='Europe/Oslo'
 export LANG=en_GB.utf8
 export LC_ALL=en_GB.utf8
 
