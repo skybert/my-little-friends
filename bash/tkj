@@ -56,9 +56,9 @@ function do_daily()
         su -c "bash /home/torstein/src/my-little-friends/bash/tkj-ifupd"
     fi
 
-    if [ $(/sbin/ifconfig | grep tun0 -A 1 | grep inet | wc -l) -lt 1 ]; then
-        TERM=rxvt-color phionvpn
-    fi
+    # if [ $(/sbin/ifconfig | grep tun0 -A 1 | grep inet | wc -l) -lt 1 ]; then
+    #     TERM=rxvt-color phionvpn
+    # fi
 
     if [ $(ssh-add -l | grep -v "no identities" | wc -l) -lt 1 ]; then
         print "Adding your SSH key"
@@ -366,7 +366,8 @@ function do_search-im()
     logs_dir=$HOME/.purple/logs
     dirs="$logs_dir/jabber/torsteinkrausework@gmail.com/
           $logs_dir/msn/torsteinkrausework@msn.com/
-          $logs_dir/irc/torstein@catbert.escenic.com/    
+          $logs_dir/irc/torstein@catbert.escenic.com/
+          $HOME/.erc/logs
     "
     for dir in $dirs; do
         find $dir -name "*.txt" | xargs grep -n -i --color $1
