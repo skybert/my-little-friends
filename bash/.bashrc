@@ -3,7 +3,7 @@
 # window
 shopt -s checkwinsize
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-TERM=rxvt-color
+TERM=rxvt-256color
 
 # prompt
 PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;32m\]what now... \[\033[0;39m\]"
