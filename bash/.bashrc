@@ -23,10 +23,12 @@ alias ls='ls -lh'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 
 # bash completion
-l="~/src/my-little-friends/bash_completion.d/tkj
-~/src/ece-scripts/etc/bash_completion.d/ece"
-for el in $el; do
-  if [ -e $el ]; then
+l="
+$HOME/src/my-little-friends/bash_completion.d/tkj
+$HOME/src/ece-scripts/etc/bash_completion.d/ece
+"
+for el in $l; do
+  if [ -r $el ]; then
     source $el
   fi
 done
