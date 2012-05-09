@@ -19,6 +19,7 @@
 (require 'yasnippet)
 (require 'mic-paren)
 (require 'magit)
+(require 'yaml-mode)
 
 (defun tkj-load-zenburn()
   (interactive)

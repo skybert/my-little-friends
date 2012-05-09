@@ -2,6 +2,7 @@
 (setq
  org-return-follows-link t 
  org-agenda-files (list "~/doc/work.org"
+                        "~/doc/nie.org"
                         "~/doc/saved_for_a_rainy_day.org"
                         "~/src/my-little-friends/notes/reading-list.org"
                         "~/doc/home.org")
