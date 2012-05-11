@@ -10,15 +10,20 @@ fi
 cat <<EOF
 Press ENTER to convert all images in the current directory and all sub
 directories to standard RGB colour space if they're currently CMYK.
+
+To abort, press Ctrl + c now.
 EOF
 read answer
 
 find -iname "*.jpg" | while read f; do
-  if [ $(identify -verbose $f | grep Colorspace | grep CMYK | wc -l) -gt 0 ]; then
+  if [ $(identify -verbose "$f" | \
+    grep Colorspace | \
+    grep CMYK | wc -l) -gt 0 ]; then
     echo "$f is using the CMYK colour space, converting it to RGB ..."
     (
-      cd $(dirname $f)
-      convert $(basename $f) -colorspace rgb $(basename $f)
+      cd $(dirname "$f")
+      file=$(basename "$f")
+      convert "$file" -colorspace rgb "$file"
     )
   fi
 done
