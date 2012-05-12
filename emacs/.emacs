@@ -338,6 +338,9 @@
           t)
 
 ;; HTML5 support
+(eval-after-load "rng-loc"
+  '(add-to-list 'rng-schema-locating-files
+                "/usr/local/src/emacs/html5-el/schemas.xml"))
 (require 'whattf-dt)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
