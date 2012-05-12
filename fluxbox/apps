@@ -1,0 +1,48 @@
+[app] (name=fbrun)
+  [Position]	(CENTER)	{0 0}
+  [Layer]	{2}
+[end]
+[app] (name=Mail) (class=Icedove) (role=3pane)
+  [Workspace]	{1}
+[end]
+[app] (name=Pidgin) (class=Pidgin) (role=buddy_list)
+  [Workspace]	{7}
+[end]
+[app] (name=Pidgin) (class=Pidgin) (role=conversation)
+  [Workspace]	{0}
+[end]
+[app] (name=opera) (class=Opera)
+  [Workspace]	{4}
+[end]
+[app] (name=google-chrome) (class=Google-chrome)
+  [Workspace]	{4}
+[end]
+[app] (name=skype) (class=Skype) (role=MainWindow)
+  [Workspace]	{7}
+[end]
+[app] (name=emacs) (class=Emacs)
+  [Workspace]	{3}
+[end]
+[app] (name=urxvt) (class=URxvt)
+[end]
+[app] (name=x-www-browser) (class=X-www-browser)
+  [Workspace]	{11}
+[end]
+[app] (name=Navigator) (class=Iceweasel) (role=browser)
+  [Workspace]	{11}
+[end]
+[app] (name=sun-awt-X11-XFramePeer) (class=java-lang-Thread)
+  [Workspace]	{10}
+[end]
+[app] (name=sun-awt-X11-XFramePeer) (class=com-escenic-studio-core-ContentStudio)
+  [Workspace]	{4}
+[end]
+[app] (name=startupdialog) (class=Opera)
+  [Workspace]	{4}
+[end]
+[app] (name=emacs-snapshot-gtk) (class=Emacs)
+  [Workspace]	{3}
+[end]
+[app] (name=emacs-snapshot-lucid) (class=Emacs)
+  [Workspace]	{3}
+[end]

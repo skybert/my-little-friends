@@ -136,7 +136,7 @@ Control Shift 0 :ExecCommand tkj-setup-screens
 # 'i' for interruption. The challenge is stil to remmeber to hit it
 # when being interrupted. Still, it makes for interesting statistics
 # :-)
-Control Shift i :ExecCommand echo `date` >> ~/www/interruptions/`date --iso`.log
+Control Shift i :ExecCommand echo `date` >> ~/.interruptions/`date --iso`.log
 
 # 'd' for (show) desktop
 Control Shift d :ShowDesktop

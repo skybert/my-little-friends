@@ -1,10 +1,11 @@
 (require 'erc-log)
 
 (setq erc-autojoin-mode t
-      erc-default-server "catbert.escenic.com"
-      erc-default-nicks "torstein"
+      erc-default-server "localhost"
+      erc-default-nicks "tkj"
       erc-autojoin-channels-alist
       '(("catbert.escenic.com" "#platform" "#innovation" "#developers")
+        ("localhost" "saas@conference.chat.ardendo.se")
         ("irc.freenode.net" "#tossug"))
       erc-log-channels-directory "~/.erc/logs/"
       erc-log-write-after-send t

@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+
+# by tkj@vizrt.com
+
+if [ $(which identify 2>/dev/null | wc -l) -eq 0 ]; then
+  echo "You need imagemagick installed to use $(basename $0) :-("
+  exit 1
+fi
+
+cat <<EOF
+Press ENTER to convert all images in the current directory and all sub
+directories to standard RGB colour space if they're currently CMYK.
+
+To abort, press Ctrl + c now.
+EOF
+read answer
+
+find -iname "*.jpg" | while read f; do
+  if [ $(identify -verbose "$f" | \
+    grep Colorspace | \
+    grep CMYK | wc -l) -gt 0 ]; then
+    echo "$f is using the CMYK colour space, converting it to RGB ..."
+    (
+      cd $(dirname "$f")
+      file=$(basename "$f")
+      convert "$file" -colorspace rgb "$file"
+    )
+  fi
+done

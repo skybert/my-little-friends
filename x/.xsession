@@ -5,7 +5,7 @@
 xmodmap "$HOME/.xmodmaprc"
 unclutter -idle 2 &
 setxkbmap -option ctrl:nocaps &
-display -window root -backdrop ~/pictures/wallpaper &
+display -window root ~/pictures/wallpaper &
 
 mpd &
 clipit &

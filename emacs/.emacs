@@ -84,16 +84,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mail (and news), common to both Gnus and VM
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq  mail-self-blind t
-       mail-interactive nil
-       mail-from-style 'angles
-       gnus-local-organization "Vizrt Online A/S"
-       gnus-directory "~/mail"
-       gnus-article-save-directory "~/mail"
-       gnus-dribble-directory "~/mail/dribble"
-       gnus-agent-directory "~/mail/agent"
-       gnus-cache-directory "~/mail/cache"
-       message-directory "~/mail"
+(setq gnus-agent-directory "~/mail/agent"
+      gnus-article-save-directory "~/mail"
+      gnus-cache-directory "~/mail/cache"
+      gnus-directory "~/mail"
+      gnus-dribble-directory "~/mail/dribble"
+      gnus-local-organization "Vizrt Online A/S"
+      mail-default-directory "~/mail"
+      mail-from-style 'angles
+      mail-interactive nil
+      mail-self-blind t
+      message-directory "~/mail"
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
