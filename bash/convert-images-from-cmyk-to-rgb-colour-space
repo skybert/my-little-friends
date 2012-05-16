@@ -15,15 +15,17 @@ To abort, press Ctrl + c now.
 EOF
 read answer
 
-find -iname "*.jpg" | while read f; do
-  if [ $(identify -verbose "$f" | \
-    grep Colorspace | \
-    grep CMYK | wc -l) -gt 0 ]; then
-    echo "$f is using the CMYK colour space, converting it to RGB ..."
-    (
-      cd $(dirname "$f")
-      file=$(basename "$f")
-      convert "$file" -colorspace rgb "$file"
-    )
-  fi
+for suffix in jpg gif png jpeg; do
+  find -iname "*.${suffix}" -type f | while read f; do
+    if [ $(identify -verbose "$f" | \
+      grep Colorspace | \
+      grep CMYK | wc -l) -gt 0 ]; then
+      echo "$f is using the CMYK colour space, converting it to RGB ..."
+      (
+        cd $(dirname "$f")
+        file=$(basename "$f")
+        convert "$file" -colorspace rgb "$file"
+      )
+    fi
+  done
 done
