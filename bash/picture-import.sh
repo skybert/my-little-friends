@@ -4,7 +4,7 @@
 
 src_dir=$HOME/put_the_new_pictures_in_here
 target_dir=/var/gallery
-error_dir=/usr/local/src/picture-import/picture-import/error
+error_dir=/usr/local/src/picture-import/error
 log_file=/usr/local/src/picture-import/log/$(basename $0 .sh).log
 
 if [ $(which identify 2>/dev/null | wc -l) -eq 0 ]; then
@@ -48,5 +48,9 @@ function remove_picture_src_dir_if_empty() {
 }
 
 find $src_dir -iname "*.jpg" | while read f; do
+  create_dir_for_picture "$f"
+done
+
+find $src_dir -iname "*.png" | while read f; do
   create_dir_for_picture "$f"
 done
