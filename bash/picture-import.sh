@@ -24,9 +24,15 @@ function create_dir_for_picture() {
     return 1
   fi
   
+  # catering for dates on the forms:
+  # * 2007-04-06T21:13:29.07+02:00
+  # * 2007:01:01 17:02:03
   local date_dir=$(identify -format "%[EXIF:DateTimeOriginal]" "$1" | \
+    cut -d'T' -f1 | \
     cut -d' ' -f1 | \
-    sed 's#:#/#g')
+    sed 's#:#/#g' | \
+    sed 's#-#/#g'
+  )
 
   local picture_dir=$target_dir/$date_dir
 
