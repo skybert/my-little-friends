@@ -1,0 +1,58 @@
+#! /usr/bin/env bash
+
+# by tkj@vizrt.com
+
+## Will check the passed log4j for import related errors and attempt
+## to provide useful information on which actions to take to remedy
+## them.
+
+## $1 :: the log4j log (often called Escenic-error.log)
+
+function check_picture_file() {
+  local dir=$(dirname "$1")
+  local file_name=$(basename "$1")
+  local alternative=$(find $dir -maxdepth 1 -iname "$file_name")
+
+  # first check if the image is size=0
+  if [ $(find $dir -name $file_name -maxdepth 1 -type f -size 0 | wc -l) -gt 0 ]; then
+    cat <<EOF
+The file $1 is empty (size = 0 bytes)
+====
+EOF
+    return
+  fi
+
+  if [[ -n "$alternative" && $(echo $alternative | wc -l) -gt 0 ]]; then
+    cat <<EOF
+The file $1
+was missing from your import data set It was referred to from one of
+your XML files, perhaps you meant this one?
+
+   $alternative
+Suggested command to fix this:
+   mv "$alternative" \\
+      "$1"
+====
+EOF
+  fi
+}
+
+function analyse_this() {
+  if [ ! -e $1 ]; then
+    echo $1 "doesn't exist :-("
+    exit 1
+  fi
+  
+  grep "Invalid image file" $1 | \
+    grep ^java.io.IOException | \
+    cut -d' ' -f5 | \
+    sed 's/\.$//g' | \
+    while read picture_path; do
+    check_picture_file "$picture_path"
+  done
+
+}
+
+log_file=$1
+analyse_this $log_file
+
