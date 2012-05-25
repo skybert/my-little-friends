@@ -3,7 +3,7 @@
 # by tkj@vizrt.com
 
 if [ $(which identify 2>/dev/null | wc -l) -eq 0 ]; then
-  echo "You need imagemagick installed to use $(basename $0) :-("
+  echo "You need ImageMagick installed to use $(basename $0) :-("
   exit 1
 fi
 
