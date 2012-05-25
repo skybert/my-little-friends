@@ -7,33 +7,59 @@
 ## them.
 
 ## $1 :: the log4j log (often called Escenic-error.log)
-
+count=0
 function check_picture_file() {
+  count=$(( $count + 1 ))
+  local id="[error-#${count}]"
   local dir=$(dirname "$1")
   local file_name=$(basename "$1")
-  local alternative=$(find $dir -maxdepth 1 -iname "$file_name")
 
-  # first check if the image is size=0
-  if [ $(find $dir -name $file_name -maxdepth 1 -type f -size 0 | wc -l) -gt 0 ]; then
+  if [ ! -d $dir ]; then
     cat <<EOF
-The file $1 is empty (size = 0 bytes)
-====
+$id The directory $dir doesn't exist.
+#id The image $1 should reside there.
 EOF
     return
   fi
 
-  if [[ -n "$alternative" && $(echo $alternative | wc -l) -gt 0 ]]; then
-    cat <<EOF
-The file $1
-was missing from your import data set It was referred to from one of
-your XML files, perhaps you meant this one?
+  local alternative=$(find $dir -maxdepth 1 -iname "$file_name" | \grep -v "$file_name")
 
-   $alternative
-Suggested command to fix this:
-   mv "$alternative" \\
-      "$1"
-====
+  # first check if the image is size=0
+  if [ $(find $dir -name $file_name -maxdepth 1 -type f -size 0 | wc -l) -gt 0 ]; then
+    cat <<EOF
+$id The file $1 has size = 0 bytes.
 EOF
+    return
+  fi
+
+  if [ -n "$alternative" ]; then
+    cat <<EOF
+$id The file $1 was missing from your import data set.
+$id Perhaps you meant this one: $alternative
+$id Suggested command to fix this: mv "$alternative" "$1"
+EOF
+  elif [ ! -e $1 ]; then
+    cat <<EOF
+$id The file $1 was missing from your data set.
+EOF
+  else
+    cat <<EOF
+$id The XML refered to ${1} which exists. This probably means that the
+$id file wasn't there before when the import failed, but is now there, in
+$id which case you can just re-run the import. Another option is that
+$id thefile is corrupt.
+EOF
+    return
+  fi
+}
+
+
+function list_sax_errors() {
+  local xml_parse_errors="$(grep ^'Caused by: org.xml.sax.SAXParseException:' $1 | sort | uniq)"
+  if [ -n "$xml_parse_errors" ]; then
+    echo "There are illegal elements, attributes and/or contents in the XML:"
+    "$xml_parse_errors"
+    echo "===="
   fi
 }
 
@@ -42,17 +68,33 @@ function analyse_this() {
     echo $1 "doesn't exist :-("
     exit 1
   fi
-  
+
   grep "Invalid image file" $1 | \
     grep ^java.io.IOException | \
     cut -d' ' -f5 | \
     sed 's/\.$//g' | \
+    sort | \
+    uniq | \
     while read picture_path; do
     check_picture_file "$picture_path"
   done
 
+  list_sax_errors "$1"
+}
+
+function verify_log_file() {
+  if [ -z "$log_file" ]; then
+    echo "Usage: $(basename $0): <log file>"
+    exit 1
+  elif [ ! -e "$log_file" ]; then
+    echo "$log_file doesn't exist :-("
+    exit 1
+  elif [ ! -r "$log_file" ]; then
+    echo "$log_file isn't readable :-("
+    exit 1
+  fi
 }
 
 log_file=$1
+verify_log_file
 analyse_this $log_file
-
