@@ -3,7 +3,7 @@
 # window
 shopt -s checkwinsize
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-TERM=rxvt-256color
+TERM=xterm-color
 
 # prompt
 PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;32m\]what now... \[\033[0;39m\]"
@@ -21,6 +21,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 alias df='df -hT'
 alias ls='ls -lh'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
+alias mypublicip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 
 # bash completion
 l="
