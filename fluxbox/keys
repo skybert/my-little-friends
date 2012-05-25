@@ -116,10 +116,9 @@ Control Shift Down :LeftWorkspace 7
 Control Shift m :Maximize
 
 # the keyboard layouts I use
-Control Shift 1 :ExecCommand setxkbmap us;
-Control Shift 2 :ExecCommand setxkbmap de;
-Control Shift 3 :ExecCommand setxkbmap no;
-Control Shift k :ExecCommand tkj happy
+Control Shift 1 :ExecCommand setxkbmap us -option ctrl:nocaps;
+Control Shift 2 :ExecCommand setxkbmap de -option ctrl:nocaps;
+Control Shift 3 :ExecCommand setxkbmap no -option ctrl:nocaps;
 
 # controlling my music player (the numbers are simply following the
 # ones I use for the keyboard layouts and are quick to access, no
