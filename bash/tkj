@@ -164,6 +164,10 @@ function do_update-sources()
     local hg_repo_list="
     "
 
+    local svn_repo_list="
+      $HOME/src/nie
+    "
+
     local seperator="=============================================================="
 
     # check out the latest of everything interesting
@@ -204,6 +208,13 @@ function do_update-sources()
         hg pull
         hg update
         hg merge
+    done
+
+    for el in $svn_repo_list; do
+      print $seperator
+      print "Updating $(basename $el) ..."
+      cd $el
+      svn up
     done
 }
 
