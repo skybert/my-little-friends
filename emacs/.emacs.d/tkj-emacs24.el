@@ -20,6 +20,10 @@
 (require 'mic-paren)
 (require 'magit)
 (require 'yaml-mode)
+(require 'twittering-mode)
+
+;; twittering 
+(setq twittering-use-master-password t)
 
 (defun tkj-load-zenburn()
   (interactive)
