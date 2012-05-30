@@ -17,7 +17,7 @@ function check_picture_file() {
   if [ ! -d $dir ]; then
     cat <<EOF
 $id The directory $dir doesn't exist.
-#id The image $1 should reside there.
+$id The image $1 should reside there.
 EOF
     return
   fi
@@ -47,7 +47,7 @@ EOF
 $id The XML refered to ${1} which exists. This probably means that the
 $id file wasn't there before when the import failed, but is now there, in
 $id which case you can just re-run the import. Another option is that
-$id thefile is corrupt.
+$id the file is corrupt.
 EOF
     return
   fi
