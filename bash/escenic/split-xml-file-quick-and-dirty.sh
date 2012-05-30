@@ -12,11 +12,11 @@
 #   <articleid>...</articleid>
 #   <articleid>...</articleid>
 # </item>
-first_level_element="item"
-second_level_element="articleid"
+first_level_element="$1"
+second_level_element="$2"
 
 i=1
-cat $1 | \
+cat $3 | \
     sed -n -e ":a" -e "$ s/\n//gp;N;b a" | \
     sed "s/<${second_level_element}>/\n<${second_level_element}>/g" | \
 
