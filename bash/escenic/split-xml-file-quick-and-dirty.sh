@@ -29,9 +29,9 @@ while read line; do
         continue
     fi
 
-    file=${input_file}.${i}.xml
+    file=$dir/${input_file}.${i}.xml
 
-    cat > $dir/$file <<EOF
+    cat > $file <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <${first_level_element}>
   $line
@@ -44,5 +44,4 @@ EOF
 done
 
 echo "$(basename $0): split files in $dir are ready"
-
 
