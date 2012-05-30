@@ -1,0 +1,68 @@
+#! /usr/bin/env bash
+
+# by tkj@vizrt.com
+
+site=documentation.vizrt.com
+dir=/tmp/${site}-testing
+status_codes="200 302 404 500 503"
+
+# generate a list of URIs that produced any of these error codes
+uri_list_for_code_list="404 500 503"
+
+if [ $1 ]; then
+  site=$1
+  dir=/tmp/$(echo $site | sed "s#/#-#g")-testing
+  mkdir -p ${dir}
+  (
+    cd ${dir}
+    time wget \
+      --timeout=1800 \
+      -e robots=off \
+      -c \
+      -o $(date +%s)-wget.log \
+      -p  \
+      -r http://${site}/
+  )
+fi
+
+if [ ! -e $dir ]; then
+  exit 0
+elif [ $(ls $dir | grep .log$ | wc -l) -lt 1 ]; then
+  exit 0
+fi
+
+for el in $dir/*.log;  do
+  echo -n "Statistics from crawling $site @ " 
+  stat -c %y $el | sed "s#.000000000##g"
+
+  total_requests=$(grep "HTTP.*request.*sent" $el | wc -l)
+  for ele in $status_codes; do
+    echo -n $'\t'"Status code $ele: " 
+    this_code=$(grep HTTP.*$ele $el | wc -l)
+    percent=$(echo $this_code*100 / $total_requests)
+
+    if [ -z $(which bc) ]; then
+      continue
+    fi
+    
+    echo $this_code \
+      "("$(echo "scale=2;"$percent | bc -l)"%)"
+    
+  done
+
+  for ele in $uri_list_for_code_list; do
+    if [ $(grep HTTP.*$ele $el | wc -l) -eq 0 ]; then
+      continue
+    fi
+    
+    echo "URIs with status code $ele:"
+    grep -B 2 HTTP.*$ele $el | \
+      grep http://${site} | \
+      cut -d' ' -f4 | \
+      sort | \
+      uniq | while read f; do
+      echo $'\t'${f}
+    done
+    
+  done
+done
