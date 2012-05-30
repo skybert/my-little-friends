@@ -16,6 +16,10 @@ first_level_element="$1"
 second_level_element="$2"
 input_file=$3
 i=1
+
+dir="$(basename $input_file .xml)-files"
+mkdir $dir
+
 cat $input_file | \
     sed -n -e ":a" -e "$ s/\n//gp;N;b a" | \
     sed "s/<${second_level_element}>/\n<${second_level_element}>/g" | \
@@ -27,7 +31,7 @@ while read line; do
 
     file=${input_file}.${i}.xml
 
-    cat > $file <<EOF
+    cat > $dir/$file <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <${first_level_element}>
   $line
@@ -39,5 +43,6 @@ EOF
     i=$(( i + 1 ))
 done
 
-echo "$(basename $0):" ${input_file}.[0-9]*.xml "are ready"
+echo "$(basename $0): split files in $dir are ready"
+
 
