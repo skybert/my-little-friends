@@ -2,7 +2,7 @@
 
 # by torstein.k.johansen@gmail.com
 
-. $HOME/src/my-little-friends/bash/alexandria
+. $HOME/src/my-little-friends/bash/common/alexandria
 
 ## Method useful for developers and system administrators. It checks
 ## the passed URL for common things interesting, producing a short
