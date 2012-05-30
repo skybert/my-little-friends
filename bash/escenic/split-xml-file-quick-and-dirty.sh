@@ -18,7 +18,7 @@ input_file=$3
 i=1
 
 dir="$(basename $input_file .xml)-files"
-mkdir $dir
+mkdir -p $dir
 
 cat $input_file | \
     sed -n -e ":a" -e "$ s/\n//gp;N;b a" | \
