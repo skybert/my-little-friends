@@ -24,6 +24,7 @@ alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 alias mypublicip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 
 # bash completion
+export FIGNORE=.svn
 l="
 $HOME/src/my-little-friends/bash_completion.d/tkj
 $HOME/src/ece-scripts/etc/bash_completion.d/ece
