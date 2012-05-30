@@ -14,9 +14,9 @@
 # </item>
 first_level_element="$1"
 second_level_element="$2"
-
+input_file=$3
 i=1
-cat $3 | \
+cat $input_file | \
     sed -n -e ":a" -e "$ s/\n//gp;N;b a" | \
     sed "s/<${second_level_element}>/\n<${second_level_element}>/g" | \
 
@@ -25,7 +25,7 @@ while read line; do
         continue
     fi
 
-    file=${1}.${i}.xml
+    file=${input_file}.${i}.xml
 
     cat > $file <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -39,5 +39,5 @@ EOF
     i=$(( i + 1 ))
 done
 
-echo "$(basename $0):" ${1}.[0-9]*.xml "are ready"
+echo "$(basename $0):" ${input_file}.[0-9]*.xml "are ready"
 
