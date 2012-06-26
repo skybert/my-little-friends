@@ -5,12 +5,13 @@
 # Creates the file cache I use with the file-cache and ido-mode Emacs
 # modules.
 
-. $HOME/src/my-little-friends/bash/alexandria
+. $HOME/src/my-little-friends/bash/common/alexandria
 
 dir_list="
 $HOME/.emacs.d
 $HOME/src/ece-scripts
 $HOME/src/my-little-friends
+$HOME/src/nie
 $HOME/doc
 $HOME/src/p4/escenic/common/trunk
 $HOME/src/p4/escenic/engine/trunk
