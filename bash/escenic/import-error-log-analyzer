@@ -58,8 +58,11 @@ function list_sax_errors() {
   local xml_parse_errors="$(grep ^'Caused by: org.xml.sax.SAXParseException:' $1 | sort | uniq)"
   if [ -n "$xml_parse_errors" ]; then
     echo "There are illegal elements, attributes and/or contents in the XML:"
-    "$xml_parse_errors"
-    echo "===="
+    echo "$xml_parse_errors" | while read line; do
+      count=$(( $count + 1 ))
+      local id="[SAX error-#${count}]"
+      echo "$id $line"
+    done
   fi
 }
 
