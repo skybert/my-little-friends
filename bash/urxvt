@@ -1,0 +1,42 @@
+#! /usr/bin/env sh
+
+s_base03='#002b36'
+s_base02='#073642'
+s_base01='#586e75'
+s_base00='#657b83'
+s_base0='#839496'
+s_base1='#93a1a1'
+s_base2='#eee8d5'
+s_base3='#fdf6e3'
+s_yellow='#b58900'
+s_orange='#cb4b16'
+s_red='#dc322f'
+s_magenta='#d33682'
+s_violet='#6c71c4'
+s_blue='#268bd2'
+s_cyan='#2aa198'
+s_green='#859900'
+
+
+urxvt \
+  +sb \
+  -cr red \
+  --foreground "$s_base0" \
+  --background "$s_base03" \
+  --color0 "$s_base02" \
+  --color8 "$s_base03" \
+  --color1 "$s_red" \
+  --color9 "$s_orange" \
+  --color2 "$s_green" \
+  --color10 "$s_base01" \
+  --color3 "$s_yellow" \
+  --color11 "$s_base00" \
+  --color4 "$s_blue" \
+  --color12 "$s_base0" \
+  --color5 "$s_magenta" \
+  --color13 "$s_violet" \
+  --color6 "$s_cyan" \
+  --color14 "$s_base1" \
+  --color7 "$s_base2" \
+  --color15 "$s_base3"
+
