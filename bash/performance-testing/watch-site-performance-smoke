@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+
+source ~/src/my-little-friends/bash/common/alexandria
+
+site=beta.newindianexpress.com
+
+if [ $1 ]; then
+   site=$1
+fi
+
+smoke=/tmp/$(echo $site | sed "s#/#-#g").smoke
+
+print "Smoke testing for $site"
+print "Watch the smok in $smoke"
+print "Press Ctrl+C to cancel..."
+
+dir=$(mktemp -d)
+while true; do
+    cd $dir
+    echo "Smoke test for $site @ $(date)" >> $smoke
+    /usr/bin/time -f "Full PI: %E" -o $smoke -a \
+      wget -p \
+      --delete-after http://${site}/ \
+      -e robots=off \
+      -o /dev/null
+    echo "==================================" >> $smoke
+done
+
+rm -rf $dir
+
+
