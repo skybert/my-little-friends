@@ -7,6 +7,11 @@
 #
 # tkj/at/freeshell/dot/org
 
+if [ ! $1 ]; then
+  echo "You must pass a URL: $(basename $0) http://example.com"
+  exit 1
+fi
+
 time wget -p --delete-after $1 -o /dev/null
 
 
