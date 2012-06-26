@@ -111,6 +111,19 @@ function do_update-tags()
         run cd ~/src/my-little-friends
         find bash -type f | etags -
     )
+
+    local java_src_list="
+      $HOME/src/p4/escenic/plugins/lucy/trunk
+    "
+    for el in $java_src_list; do
+      run cd $el
+      find . -type f | \
+        egrep ".java|.xml|.pom|.properties" | \
+        egrep -v ".svn|.git|.hg|~|.swp" | \
+        gtags -f -
+      
+    done
+    
     # print "Updaging GTags ..."
     # (
     #     run cd ~/src/p4
