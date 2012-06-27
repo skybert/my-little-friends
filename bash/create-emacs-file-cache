@@ -11,6 +11,7 @@ dir_list="
 $HOME/.emacs.d
 $HOME/src/ece-scripts
 $HOME/src/my-little-friends
+$HOME/src/nie
 $HOME/doc
 $HOME/src/p4/escenic/common/trunk
 $HOME/src/p4/escenic/engine/trunk

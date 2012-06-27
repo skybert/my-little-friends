@@ -18,7 +18,10 @@ input_file=$3
 i=1
 
 dir="$(basename $input_file .xml)-files"
-mkdir -p $dir
+mkdir -p $dir || {
+  echo $(basename $0) "couldn't write to $(pwd)/$dir :-("
+  exit 1
+}
 
 cat $input_file | \
     sed -n -e ":a" -e "$ s/\n//gp;N;b a" | \
