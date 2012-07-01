@@ -69,6 +69,8 @@ function remove_rempty_directories() {
   done
 }
 
+echo "Started picture import @ $(date)"
+
 find $src_dir -iname "*.jpg" | while read f; do
   sort_and_archive_picture "$f"
 done
@@ -78,3 +80,5 @@ find $src_dir -iname "*.png" | while read f; do
 done
 
 remove_rempty_directories
+
+echo "Finished picture import @ $(date)"
