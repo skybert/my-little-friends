@@ -2,8 +2,20 @@
 
 # by torstein.k.johansen@gmail.com
 
-src_dir=$HOME/put_the_new_pictures_in_here
-target_dir=/var/gallery
+# from/source
+if [ $1 ]; then
+  src_dir=$1
+else
+  src_dir=$HOME/put_the_new_pictures_in_here
+fi
+
+# to/target
+if [ $2 ]; then
+  target_dir=$2
+else
+  target_dir=/var/gallery
+fi
+
 error_dir=/usr/local/src/picture-import/error
 log_file=/usr/local/src/picture-import/log/$(basename $0 .sh).log
 
