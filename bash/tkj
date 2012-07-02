@@ -185,6 +185,9 @@ function do_update-sources()
 
     # check out the latest of everything interesting
     for el in $p4_dir_list; do
+        if [ ! -d $el ]; then
+          continue
+        fi
         print $seperator
         print "Updating $el/..."
         p4 sync $el/...
@@ -192,6 +195,9 @@ function do_update-sources()
     done
 
     for el in $git_repo_list; do
+        if [ ! -d $el ]; then
+          continue
+        fi
         print $seperator
         print "Updating $(basename $el) ..."
         cd $el
@@ -199,6 +205,9 @@ function do_update-sources()
     done
 
     for el in $git_fork_list; do
+        if [ ! -d $el ]; then
+          continue
+        fi
         print $seperator
         print "Updating fork $(basename $el) ..."
         cd $el
@@ -208,6 +217,9 @@ function do_update-sources()
     done
     
     for el in $bzr_repo_list; do
+        if [ ! -d $el ]; then
+          continue
+        fi
         print $seperator
         print "Updating $(basename $el) ..."
         cd $el
@@ -215,6 +227,9 @@ function do_update-sources()
     done
     
     for el in $hg_repo_list; do
+        if [ ! -d $el ]; then
+          continue
+        fi
         print $seperator
         print "Updating $(basename $el) ..."
         cd $el
@@ -224,6 +239,9 @@ function do_update-sources()
     done
 
     for el in $svn_repo_list; do
+      if [ ! -d $el ]; then
+        continue
+      fi
       print $seperator
       print "Updating $(basename $el) ..."
       cd $el
