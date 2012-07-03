@@ -38,22 +38,27 @@ print "Generating new file cache $file"
 echo "(" > $file
 
 for el in $dir_list; do
-    find $el -type f | \
-	      egrep -vi "/test/|TAGS|\\.man|elpa|session\\.|\\.hg" | \
-	      egrep -vi "\\.tmp|Catalina|\\.iml|\\.iws|\\.ipr|\#|\\.log" | \
-	      egrep -vi "target|\\.jar|\\.html|\\.png|\\.jpg|\\.bmp|\\.xls" | \
-	      egrep -vi "\\.git|\\.svn|\~|\\.class|\\.swp|\\.pdf|\\.gif|\\.cache" | \
-	      while read f; do
-	      file_name=$(basename "$f")
-	      directory=$(dirname "$f")
-	      echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
-    done
+  if [ ! -d $el ]; then
+    continue
+  fi
+  
+  
+  find $el -type f | \
+	  egrep -vi "/test/|TAGS|\\.man|elpa|session\\.|\\.hg" | \
+	  egrep -vi "\\.tmp|Catalina|\\.iml|\\.iws|\\.ipr|\#|\\.log" | \
+	  egrep -vi "target|\\.jar|\\.html|\\.png|\\.jpg|\\.bmp|\\.xls" | \
+	  egrep -vi "\\.git|\\.svn|\~|\\.class|\\.swp|\\.pdf|\\.gif|\\.cache" | \
+	  while read f; do
+	  file_name=$(basename "$f")
+	  directory=$(dirname "$f")
+	  echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
+  done
 done
 
 for el in $file_list; do
-	  file_name=$(basename "$el")
-	  directory=$(dirname "$el")
-	  echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
+	file_name=$(basename "$el")
+	directory=$(dirname "$el")
+	echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
 done
 
 echo ")" >> $file
