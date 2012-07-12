@@ -113,9 +113,14 @@ function do_update-tags()
     )
 
     local java_src_list="
+      $HOME/src/cnn/ece-to-nginx-cache
       $HOME/src/p4/escenic/plugins/lucy/trunk
     "
     for el in $java_src_list; do
+      if [ ! -d $el ]; then
+        continue
+      fi
+      
       run cd $el
       find . -type f | \
         egrep ".java|.xml|.pom|.properties" | \
