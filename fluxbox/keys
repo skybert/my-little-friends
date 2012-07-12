@@ -111,8 +111,8 @@ Control Mod4 F12 :TakeToWorkspace 12
 # I want a 7x2 grid
 Control Shift Left :PrevWorkspace
 Control Shift Right :NextWorkspace
-Control Shift Up :RightWorkspace 7
-Control Shift Down :LeftWorkspace 7
+Control Shift Up :RightWorkspace 3
+Control Shift Down :LeftWorkspace 3
 Control Shift m :Maximize
 
 # the keyboard layouts I use

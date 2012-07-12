@@ -2,11 +2,12 @@ Emacs*useXIM: false
 
 Mono:bold:pixelsize=12:antialias=false:hinting=true
 URxvt*scrollBar: false
-URxvt.perl-ext-common:  default,matcher
-URxvt.urlLauncher:      opera
 URxvt.matcher.button:   1
-URxvt.underlineURLs: true
-
+URxvt.perl-ext-common:  default,matcher
+URxvt.perl-ext:         clipboard
+URxvt.perl-lib:         /home/torstein/.urxvt/perl
+URxvt.underlineURLs:    true
+URxvt.urlLauncher:      opera
 
 !! see .Xresources-solarized-theme for fancy solarized theme in urxvt,
 !! Skype++

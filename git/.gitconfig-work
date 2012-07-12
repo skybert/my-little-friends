@@ -1,0 +1,8 @@
+[user]
+name = Torstein Krause Johansen
+email = tkj@vizrt.com
+
+[color]
+branch = auto
+diff = auto
+status = auto
