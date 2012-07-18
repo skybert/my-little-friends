@@ -12,7 +12,7 @@
   [Workspace]	{0}
 [end]
 [app] (name=opera) (class=Opera)
-  [Workspace]	{4}
+  [Workspace]	{1}
 [end]
 [app] (name=google-chrome) (class=Google-chrome)
   [Workspace]	{4}
@@ -21,7 +21,7 @@
   [Workspace]	{7}
 [end]
 [app] (name=emacs) (class=Emacs)
-  [Workspace]	{3}
+  [Workspace]	{2}
 [end]
 [app] (name=urxvt) (class=URxvt)
 [end]
@@ -29,7 +29,7 @@
   [Workspace]	{11}
 [end]
 [app] (name=Navigator) (class=Iceweasel) (role=browser)
-  [Workspace]	{11}
+  [Workspace]	{1}
 [end]
 [app] (name=sun-awt-X11-XFramePeer) (class=java-lang-Thread)
   [Workspace]	{10}
