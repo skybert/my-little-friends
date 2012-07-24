@@ -8,6 +8,10 @@ URxvt.perl-ext:         clipboard
 URxvt.perl-lib:         /home/torstein/.urxvt/perl
 URxvt.underlineURLs:    true
 URxvt.urlLauncher:      opera
+!! With these two magic settings, Ctrl+Shift doesn't mess up my work
+!! in the terminal
+URxvt.iso14755:    false
+URxvt.iso14755_52: false
 
 !! see .Xresources-solarized-theme for fancy solarized theme in urxvt,
 !! Skype++
