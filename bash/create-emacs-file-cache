@@ -9,6 +9,7 @@
 
 dir_list="
 $HOME/.emacs.d
+$HOME/src/cnn
 $HOME/src/ece-scripts
 $HOME/src/my-little-friends
 $HOME/src/nie
@@ -25,11 +26,8 @@ $HOME/src/p4/escenic/plugins/viziwyg/trunk
 $HOME/src/p4/escenic/studio/trunk
 "
 file_list="
-/home/torstein/.bashrc
-/home/torstein/.emacs
-/home/torstein/.fluxbox/keys
-/home/torstein/.fluxbox/init
-/home/torstein/.fluxbox/startup
+$HOME/.bashrc
+$HOME/.emacs
 "
 
 file=~/.emacs.d/file_cache.el
@@ -41,7 +39,6 @@ for el in $dir_list; do
   if [ ! -d $el ]; then
     continue
   fi
-  
   
   find $el -type f | \
 	  egrep -vi "/test/|TAGS|\\.man|elpa|session\\.|\\.hg" | \

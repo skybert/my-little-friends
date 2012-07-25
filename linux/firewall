@@ -43,16 +43,7 @@ start_fw()
     iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
     iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
     ####### HOLES ####### Edit holes below, then run this script again
-    iptables -A INPUT -p tcp --dport 9022 -j ACCEPT
     iptables -A INPUT -p tcp --dport http -j ACCEPT
-    # munin-node
-    iptables -A INPUT -p tcp --dport 4949 -j ACCEPT
-
-    # http://wiki.escenic.com/display/eea/Keeps+hanging+while+bootstrapping
-    iptables -A INPUT -p tcp --dport 8123 -j ACCEPT
-    iptables -A INPUT -p tcp --dport 8223 -j ACCEPT
-    # iptables -A INPUT -p tcp --dport 1521 -j ACCEPT
-    # iptables -A INPUT -p tcp --dport 389 -j ACCEPT
     ##################### Edit above
 
     # iptables -A INPUT -j LOG -m limit --limit 40/minute
