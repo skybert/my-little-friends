@@ -4,6 +4,16 @@
       ;; don't save messages to Sent Messages, Gmail/IMAP will take
       ;; care of this
       mu4e-sent-messages-behavior 'trash
+
+      mu4e-maildir-shortcuts
+      '(
+        ("/gmailw/developers-list" . ?d)
+        ("/gmailw/engine-5-list" . ?e)
+        ("/gmailw/inbox" . ?i)
+        ("/gmailw/jira" . ?j)
+        ("/gmailw/saas" . ?s)
+        ("/gmailw/p4" . ?p)
+        )
       )
 
 (setq message-send-mail-function 'smtpmail-send-it
