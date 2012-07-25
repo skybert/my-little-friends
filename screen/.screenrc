@@ -10,3 +10,10 @@ title "emacs"
 screen bash
 title "bash"
 
+# third screen tab
+screen bash
+title "builder"
+
+# fourth screen tab
+screen bash
+title "control"
