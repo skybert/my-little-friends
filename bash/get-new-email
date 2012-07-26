@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+log=/tmp/$(basename $0).log
+lock=/tmp/$(basename $0).lock
+
+if [ -e $lock ]; then
+  exit 0
+fi
+
+touch $lock
+
+offlineimap >> $log 2>>$log
+pkill -2 -u $UID mu >> $log
+sleep 1
+mu index --maildir=~/mail >> $log 2>>$log
+
+rm $lock
