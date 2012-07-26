@@ -1,0 +1,29 @@
+# auto completion for the dropbox command.                    -*- sh -*-
+# by torstein.k.johansen@gmail.com
+
+_dropbox_commands()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local prev=${COMP_WORDS[COMP_CWORD-1]}
+
+    commands="
+      status
+      help
+      puburl
+      stop
+      running
+      start
+      filestatus
+      ls
+      autostart
+      exclude
+      lansync"
+
+    # default completions is the list of commands
+    completions=$commands
+
+    COMPREPLY=( $(compgen -W "$completions" -- $cur) )
+}
+
+complete -o default -F _dropbox_commands dropbox
+
