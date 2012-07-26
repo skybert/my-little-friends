@@ -12,6 +12,11 @@ _tkj_commands()
     
     # default completions is the list of commands
     completions=$commands
+    case "$prev" in
+        puburl)
+            completions=""
+            ;;
+    esac
 
     COMPREPLY=( $(compgen -W "$completions" -- $cur) )
 }
