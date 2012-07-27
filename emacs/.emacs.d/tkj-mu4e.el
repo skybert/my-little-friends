@@ -7,12 +7,13 @@
 
       mu4e-maildir-shortcuts
       '(
+        ("/gmailw/community" . ?c)
         ("/gmailw/developers-list" . ?d)
         ("/gmailw/engine-5-list" . ?e)
         ("/gmailw/inbox" . ?i)
         ("/gmailw/jira" . ?j)
-        ("/gmailw/saas" . ?s)
         ("/gmailw/p4" . ?p)
+        ("/gmailw/saas" . ?s)
         )
       )
 
