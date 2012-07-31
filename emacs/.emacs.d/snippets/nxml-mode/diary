@@ -1,0 +1,10 @@
+#name : diary
+# --
+<!--#include virtual="/ssi/header.shtml" -->
+    <h1>$1</h1>
+    <div id="main">
+      <p>
+        $0
+      </p>
+    </div>
+<!--#include virtual="/ssi/footer.shtml" -->
