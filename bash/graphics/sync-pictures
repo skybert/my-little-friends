@@ -40,7 +40,8 @@ function sync_directory() {
   echo rsync -az \
     -e "ssh $ssh_opts" \
     $dir/ \
-    $target_user_and_server:$target_dir/
+    $target_user_and_server:$target_dir/ \
+    1>>$log 2>>$log
 }
 
 check_input $@
