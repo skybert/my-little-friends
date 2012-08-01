@@ -1,0 +1,58 @@
+#! /usr/bin/env bash
+
+# Uploads pictures to picasa, maintains a local database of which
+# files have already been uploaded. Selects the album name based on
+# the date of the pictures.
+
+state_file=$HOME/.$(basename $0).state
+lock_file=/tmp/$(basename $0).lock
+
+function create_lock_or_exit_if_exists() {
+  if [ -e $lock_file ]; then
+    echo "An instance of $(basename $0) is already running"
+    kill $$
+  fi
+
+  touch $lock_file
+}
+
+## $1: file
+function upload_to_picasa() {
+  if [ $(grep $1 $state_file 2>/dev/null | wc -l) -gt 0 ]; then
+    echo $1 "already uploaded to picasa"
+    return
+  fi
+
+  local file_date=$(
+    identify -format  "%[EXIF:DateTimeOriginal]" "$1" | \
+      sed 's#:#-#g' | \
+      cut -d' ' -f1
+  )
+  
+  local album_name=$(date --date=$file_date "+%B %Y")
+  echo google post \"$album_name\" $1
+  echo $1 >> $state_file
+}
+
+function check_input() {
+  if [[ ! $1 || ! -d $1 ]]; then
+    echo "Usage: $(basename $0) <directory>"
+    exit 1
+  fi
+  dir=$1
+}
+
+function remove_lock_file() {
+  if [ -e $lock_file ]; then
+    rm $lock_file
+  fi
+}
+
+check_input $@
+create_lock_or_exit_if_exists
+
+for el in $(find $dir -iname "*.jpg" 2>/dev/null); do
+  upload_to_picasa $el
+done
+
+remove_lock_file
