@@ -24,7 +24,7 @@ function run() {
 
 function create_lock_or_exit_if_exists() {
   if [ -e $lock_file ]; then
-    echo "An instance of $(basename $0) is already running"
+    log "An instance of $(basename $0) is already running"
     kill $$
   fi
 
