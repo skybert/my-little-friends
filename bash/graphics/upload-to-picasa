@@ -31,6 +31,16 @@ function create_lock_or_exit_if_exists() {
   touch $lock_file
 }
 
+## $@ : album name
+function create_album_if_doesnt_exist() {
+  # this test takes ~1 second
+  if [ $(google picasa list-albums | grep "$@" | wc -l) -gt 0 ]; then
+    return
+  fi
+
+  run google picasa create "$@"
+}
+
 ## $1: file
 function upload_to_picasa() {
   if [ $(grep $1 $state_file 2>/dev/null | wc -l) -gt 0 ]; then
@@ -45,6 +55,7 @@ function upload_to_picasa() {
   )
   
   local album_name=$(date --date=$file_date "+%B %Y")
+  create_album_if_doesnt_exist $album_name
   run google picasa post "$album_name" $1
   echo $1 >> $state_file
 }
