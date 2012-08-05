@@ -25,7 +25,7 @@ function run() {
 function create_lock_or_exit_if_exists() {
   if [ -e $lock_file ]; then
     log "An instance of $(basename $0) is already running"
-    kill $$
+    exit 0
   fi
 
   touch $lock_file
@@ -38,7 +38,8 @@ function create_album_if_doesnt_exist() {
     return
   fi
 
-  run google picasa create "$@"
+  log "Creating new album $@ ..."
+  google picasa create "$@"
 }
 
 ## $1: file
@@ -55,8 +56,8 @@ function upload_to_picasa() {
   )
   
   local album_name=$(date --date=$file_date "+%B %Y")
-  create_album_if_doesnt_exist $album_name
-  run google picasa post "$album_name" $1
+  create_album_if_doesnt_exist "$album_name"
+  google picasa post "$album_name" $1 >> $log_file 2>>$log_file
   echo $1 >> $state_file
 }
 
@@ -69,7 +70,6 @@ function check_input() {
   else
     dir=$HOME/pictures/$(date +%Y)/$(date +%Y-%m)
   fi
-
 }
 
 function remove_lock_file() {
