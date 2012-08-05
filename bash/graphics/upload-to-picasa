@@ -45,7 +45,7 @@ function upload_to_picasa() {
   )
   
   local album_name=$(date --date=$file_date "+%B %Y")
-  run google post \"$album_name\" $1
+  run google picasa post \"$album_name\" $1
   echo $1 >> $state_file
 }
 
