@@ -31,7 +31,7 @@ function remove_lock_file() {
 }
 
 function sync_directory() {
-  local target_dir=$(echo $dir | sed "s#\/home\/${USER}\/##g")
+  local target_dir=$(echo $dir | sed "s#${HOME}/##g")
   echo $(basename $0) \
     $dir "->" ${target_user_and_server}:${target_dir} \
     "@" $(date) \
