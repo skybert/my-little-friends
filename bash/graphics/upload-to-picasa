@@ -61,11 +61,15 @@ function upload_to_picasa() {
 }
 
 function check_input() {
-  if [[ ! $1 || ! -d $1 ]]; then
+  if [[ $1 && ! -d $1 ]]; then
     echo "Usage: $(basename $0) <directory>"
     exit 1
+  elif [ $1 ]; then
+    dir=$1
+  else
+    dir=$HOME/pictures/$(date +%Y)/$(date +%Y-%m)
   fi
-  dir=$1
+
 }
 
 function remove_lock_file() {
