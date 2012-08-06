@@ -440,13 +440,12 @@
 (global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; insert timestamp
+;; insert date
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun insert-timestamp ()
-   "Default timestamp insertion function."
+(defun insert-date ()
    (interactive)
    (let (( time (current-time-string) ))
-     (insert (format-time-string "%Y-%m-%d %H:%M"))))
+     (insert (format-time-string "%Y-%m-%d"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Edit text areas in Google Chrome(ium)
