@@ -1,0 +1,51 @@
+#! /usr/bin/env bash
+
+target_user_and_server=files@bt
+picture_dir=$HOME/pictures
+state_file=$HOME/.$(basename $0).state
+log_file=$HOME/.$(basename $0).log
+lock_file=/tmp/$(basename $0).lock
+ssh_opts="-p 9022 -i $HOME/.ssh/files-bt-key"
+
+function create_lock_or_exit_if_exists() {
+  if [ -e $lock_file ]; then
+    echo "An instance of $(basename $0) is already running"
+    kill $$
+  fi
+
+  touch $lock_file
+}
+
+function check_input() {
+  if [ $1 ]; then
+    dir=$1
+  else
+    dir=$picture_dir/$(date +%Y)/$(date +%Y-%m)
+  fi
+}
+
+function remove_lock_file() {
+  if [ -e $lock_file ]; then
+    rm $lock_file
+  fi
+}
+
+function sync_directory() {
+  local target_dir=$(echo $dir | sed "s#${HOME}/##g")
+  echo $(basename $0) \
+    $dir "->" ${target_user_and_server}:${target_dir} \
+    "@" $(date) \
+    >> $log_file
+  
+  rsync -az \
+    -e "ssh $ssh_opts" \
+    $dir/ \
+    $target_user_and_server:$target_dir/ \
+    1>>$log_file 2>>$log_file
+}
+
+check_input $@
+create_lock_or_exit_if_exists
+sync_directory
+remove_lock_file
+

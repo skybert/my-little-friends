@@ -1,9 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Themeing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq custom-theme-load-path
-      '(custom-theme-directory t "$HOME/.emacs.d/themes" load-cust)
-      )
+
+(add-to-list 'custom-theme-load-path
+             "$HOME/.emacs.d/themes")
 
 ;; Add the user-contributed repository
 
