@@ -299,14 +299,12 @@ function do_dates()
 {
     echo -n "Taipei:    "
     TZ='Asia/Taipei' date
-    echo -n "Bangkok:   "
-    TZ='Asia/Bangkok' date
     echo -n "Dhaka:     "
     TZ='Asia/Dhaka' date
     echo -n "Oslo:      "
     TZ='Europe/Oslo' date
-    echo -n "Argentina: "
-    TZ='America/Argentina/Buenos_Aires' date
+    # echo -n "Argentina: "
+    # TZ='America/Argentina/Buenos_Aires' date
 }
 
 function do_hours()
