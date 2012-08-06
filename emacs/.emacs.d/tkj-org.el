@@ -83,7 +83,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: small;
-  #width : 600;
   margin: 70px 70px 0px 50px;
 }
 
