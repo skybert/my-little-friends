@@ -81,42 +81,51 @@
 </p>")))
       org-export-html-style "<style type=\"text/css\">
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: small;
-  margin: 70px 70px 0px 50px;
+  background-color: #FFFFFF;
+  border: 1px solid #818A71;
+  font-family: Lucida Sans Unicode, sans-serif;
+  font-size: 0.80em;
+  line-height: 1.3em;
+  margin: 0 auto;
+  margin: 15px 15px;
+  padding: 60px;
+  width: 760px;
+}
+
+.toc {
+  margin-top: 50px;
 }
 
 h1, h2 {
-  color: #e88424;
+  color: #E98300;
+  font-family: Georgia, serif;
 }
 
 h1 {
-  font-size: 150%;
+  font-size: 1.8em;
+  margin: 40px 0 20px 0;
 }
 
 h2 {
-  font-size: 120%;
-  margin-top: 3em;
-  margin-bottom: 0em;
+  font-size: 1.4em;
+  margin: 30px 0 10px 0;
 }
 
 h3, h4, h5, h6 {
   font-weight: bold;
-  margin-top: 2em;
-  margin-bottom: 0.2em;
+  margin: 20px 0 5px 0;
 }
 
 h3, h4, h5 {
-  font-size: 110%;
+  font-size: 1.2em;
 }
 
 h6 {
-  font-size: 80%;
+  font-size: 0.9em;
 }
 
 a {
-  color: #333;
-  font-weight: bold;
+  color: #666;
   text-decoration: none;
 }
 
@@ -124,22 +133,40 @@ a:hover {
   text-decoration: underline;
 }
 
-p, dl {
-  font-size: 95%;
+dl {
+  margin: 0;
+  padding: 0;
+}
+dt {
+  font-weight: bold;
+  margin: 15px 0 10px 0;
+  padding: 0;
+}
+
+dd {
+  margin: 0 0 0 30px;
+  padding: 0;
 }
 
 p {
-  margin-top: 0em;
+  margin-top: 0.2em;
   margin-bottom: 0.6em;
 }
 
 pre.programlisting {
-  margin-top: 0em;
+  font-family: courier, monospace;
+  margin-top: 0;
   background-color: #ffddaa;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   padding-left: 0.5em;
   padding-right: 0.5em;
+  display: block;
+  overflow: auto;
+}
+
+.literal {
+  font-family: courier, monospace;
 }
 
 em {
@@ -158,6 +185,8 @@ div.note {
   padding-bottom: 0.5em;
   padding-left: 0.5em;
   padding-right: 0.5em;
+  display: block;
+  overflow: auto;
 }
 </style>
 "
