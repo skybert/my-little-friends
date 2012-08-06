@@ -297,8 +297,6 @@ function do_delete-cache-files()
 
 function do_dates()
 {
-    echo -n "Sidney:    "
-    TZ='Australia/Sydney' date
     echo -n "Taipei:    "
     TZ='Asia/Taipei' date
     echo -n "Bangkok:   "
