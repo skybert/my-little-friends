@@ -175,6 +175,7 @@
 (setq auto-mode-alist
       (append
        '(("\\.bashrc\\'" . sh-mode)
+         ("\\.blockdiag\\'" . perl-mode)
          ("\\.bib\\'" . bibtex-mode)
          ("\\.c\\'" . c-mode) 
          ("ChangeLog" . change-log-mode)
@@ -523,7 +524,7 @@
  ;; If there is more than one, they won't work right.
  '(canlock-password "e4d772a3afeae6dbcbc7e1dbff60aa2ac44921b2")
  '(css-indent-offset 2)
- '(custom-safe-themes (quote ("54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "d6a00ef5e53adf9b6fe417d2b4404895f26210c52bb8716971be106550cea257" "dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
+ '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "d6a00ef5e53adf9b6fe417d2b4404895f26210c52bb8716971be106550cea257" "dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
  '(ecb-options-version "2.32")
  '(ecb-tip-of-the-day nil)
  '(fringe-mode 0 nil (fringe))
@@ -537,8 +538,7 @@
  '(jde-wiz-get-set-variable-convention (quote ("m" . "Prefix")))
  '(jde-wiz-get-set-variable-prefix "p")
  '(jde-wiz-tostring-postfix (quote ("\"]\"")))
- '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\"")))
-)
+ '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\""))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -547,7 +547,7 @@
  ;; If there is more than one, they won't work right.
  '(diff-added ((t (:foreground "Darkgreen"))))
  '(diff-removed ((t (:foreground "Red"))))
- '(flymake-errline ((((class color)) (:underline "Red"))))
- '(flymake-warnline ((((class color)) (:underline "Orange")))))
+ '(flymake-errline ((((class color)) (:underline "Red"))) t)
+ '(flymake-warnline ((((class color)) (:underline "Orange"))) t))
 
 
