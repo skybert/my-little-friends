@@ -5,7 +5,7 @@ picture_dir=$HOME/pictures
 state_file=$HOME/.$(basename $0).state
 log_file=$HOME/.$(basename $0).log
 lock_file=/tmp/$(basename $0).lock
-ssh_opts='-p 9022'
+ssh_opts="-p 9022 -i $HOME/.ssh/files-bt-key"
 
 function create_lock_or_exit_if_exists() {
   if [ -e $lock_file ]; then
@@ -31,7 +31,7 @@ function remove_lock_file() {
 }
 
 function sync_directory() {
-  local target_dir=$(echo $dir | sed "s#\/home\/${USER}\/##g")
+  local target_dir=$(echo $dir | sed "s#${HOME}/##g")
   echo $(basename $0) \
     $dir "->" ${target_user_and_server}:${target_dir} \
     "@" $(date) \

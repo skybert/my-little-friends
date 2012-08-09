@@ -6,20 +6,46 @@
 
 state_file=$HOME/.$(basename $0).state
 lock_file=/tmp/$(basename $0).lock
+log_file=/tmp/$(basename $0).log
+
+function log() {
+  echo "$@" >> $log_file
+}
+
+function run() {
+  "$@" >> $log_file 2>> $log_file
+  
+  if [ $? -gt 0 ]; then
+    log "The command [ $@ ] failed :-( Exiting."
+    rm lock_file
+    exit 1
+  fi
+}
 
 function create_lock_or_exit_if_exists() {
   if [ -e $lock_file ]; then
-    echo "An instance of $(basename $0) is already running"
-    kill $$
+    log "An instance of $(basename $0) is already running"
+    exit 0
   fi
 
   touch $lock_file
 }
 
+## $@ : album name
+function create_album_if_doesnt_exist() {
+  # this test takes ~1 second
+  if [ $(google picasa list-albums | grep "$@" | wc -l) -gt 0 ]; then
+    return
+  fi
+
+  log "Creating new album $@ ..."
+  google picasa create "$@"
+}
+
 ## $1: file
 function upload_to_picasa() {
   if [ $(grep $1 $state_file 2>/dev/null | wc -l) -gt 0 ]; then
-    echo $1 "already uploaded to picasa"
+    log $1 "already uploaded to picasa"
     return
   fi
 
@@ -30,16 +56,20 @@ function upload_to_picasa() {
   )
   
   local album_name=$(date --date=$file_date "+%B %Y")
-  echo google post \"$album_name\" $1
+  create_album_if_doesnt_exist "$album_name"
+  google picasa post "$album_name" $1 >> $log_file 2>>$log_file
   echo $1 >> $state_file
 }
 
 function check_input() {
-  if [[ ! $1 || ! -d $1 ]]; then
+  if [[ $1 && ! -d $1 ]]; then
     echo "Usage: $(basename $0) <directory>"
     exit 1
+  elif [ $1 ]; then
+    dir=$1
+  else
+    dir=$HOME/pictures/$(date +%Y)/$(date +%Y-%m)
   fi
-  dir=$1
 }
 
 function remove_lock_file() {
