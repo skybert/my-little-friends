@@ -297,18 +297,12 @@ function do_delete-cache-files()
 
 function do_dates()
 {
-    echo -n "Sidney:    "
-    TZ='Australia/Sydney' date
-    echo -n "Taipei:    "
-    TZ='Asia/Taipei' date
-    echo -n "Bangkok:   "
-    TZ='Asia/Bangkok' date
-    echo -n "Dhaka:     "
-    TZ='Asia/Dhaka' date
-    echo -n "Oslo:      "
-    TZ='Europe/Oslo' date
-    echo -n "Argentina: "
-    TZ='America/Argentina/Buenos_Aires' date
+    echo "Taipei:    " $(TZ='Asia/Taipei' date)
+    echo "Dhaka:     " $(TZ='Asia/Dhaka' date)
+    echo "Kolkata:   " $(TZ='Asia/Kolkata' date)
+    echo "Oslo:      " $(TZ='Europe/Oslo' date)
+    # echo -n "Argentina: "
+    # TZ='America/Argentina/Buenos_Aires' date
 }
 
 function do_hours()
