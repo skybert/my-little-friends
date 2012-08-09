@@ -1,5 +1,6 @@
 (setq mu4e-maildir "~/mail"
       mu4e-get-mail-command "offlineimap"
+      mu4e-view-show-images t
       
       ;; don't save messages to Sent Messages, Gmail/IMAP will take
       ;; care of this
@@ -23,3 +24,18 @@
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
+
+(defun tkj-load-mu4e-private()
+  (interactive)
+  (setq mu4e-maildir-shortcuts
+      '(
+        ("/gmail/community" . ?c)
+        ("/gmail/inbox" . ?i)
+        )
+      user-mail-address "torstein.k.johansen@gmail.com"
+))
+
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
