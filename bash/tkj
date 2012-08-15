@@ -2,6 +2,8 @@
 
 # by torstein.k.johansen@gmail.com
 
+LC_ALL=C
+
 . $HOME/src/my-little-friends/bash/common/alexandria
 
 ## Method useful for developers and system administrators. It checks
