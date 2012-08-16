@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+dirs="
+$HOME/src/p4/escenic
+$HOME/src/p4/escenic/plugins
+"
+
+branch=trunk
+
+for el in $dirs; do
+  if [ ! -d $el ]; then
+    continue
+  fi
+  for ele in $el/*; do
+    if [ ! -d $ele/$branch ]; then
+      continue
+    fi
+
+    (
+      cd $ele/$branch;
+      echo "Top comitters to" $(basename $ele)/$branch;
+      p4 changes ... | cut -d' ' -f6 | sort | uniq -c |sort -k1 -n -r
+    )
+  done
+done
