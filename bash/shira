@@ -1,6 +1,47 @@
 #! /usr/bin/env bash
 
-# by torstein
+## Command line interface to JIRA by torstein
+##
+## Requires xml_grep from xml-twig-tools
+##
+## Usage:
+##   
+##     Searches all issues (also the closed ones) with summaries or
+##     titles with all of the three words, 'tomcat', 'garbage' and
+##     'collection':
+##   
+##       $ shira --all tomcat garbage collection
+##   
+##     Same as above, but in a specific project:
+##   
+##       $ shira --project DOGS --all tomcat garbage collection
+##   
+##     Same as above, but also assigned to torstein
+##   
+##       $ shira --project DOGS --all --assignee torstein tomcat garbage collection
+##   
+##     To only see the open ones, remove the --all parameter:
+##   
+##       $ shira --project DOGS --assignee torstein tomcat garbage collection
+##   
+##     All the parameters can be given in any order, including the
+##     search query string. This:
+##   
+##       $ shira --project DOGS --assignee torstein tomcat garbage collection
+##   
+##     Is the same as:
+##   
+##       $ shira --assignee torstein tomcat garbage collection --project DOGS
+##   
+##     Which is the same as:
+##   
+##       $ shira --project DOGS tomcat --assignee torstein  garbage collection
+##   
+##     shira reads $HOME/.shira.conf:
+##   
+##        jira_http_user=myuser
+##        jira_http_password=youbet
+##        jira_host=jira.mycompany.com
 
 max_hits=20
 file=$HOME/.$(basename $0).conf
