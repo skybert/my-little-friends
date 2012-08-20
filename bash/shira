@@ -1,0 +1,95 @@
+#! /usr/bin/env bash
+
+# by torstein
+
+max_hits=20
+file=$HOME/.$(basename $0).conf
+source $file || {
+  echo "I cannot live without" $file
+  exit 1
+}
+
+function get_query() {
+  if [ -z $1 ]; then
+    return
+  fi
+  local query=""
+  
+  for (( i = 1; i <= $#; i++ )); do
+    if [ $i -eq 1 ]; then
+      query="%22%2B${@:$i:1}"
+    else
+      # %2B, '+' makes the term required, making it similar to the way
+      # e.g. Google works.
+      query="${query}+%2B${@:$i:1}"
+    fi
+  done
+  
+  query="${query}%22"
+  echo "${start}%28summary+%7E+${query}%29"
+  start="+AND+"
+}
+
+function read_user_input() {
+  local next_is_project=0
+  for el in $@; do
+    if [[ $el == "-p" || $el == "--project" ]]; then
+      next_is_project=1
+    elif [[ $el == "-a" || $el == "--assignee" ]]; then
+      next_is_assignee=1
+    elif [[ $el == "--all" ]]; then
+      all_status=1
+    elif [[ $next_is_assignee -eq 1 ]]; then
+      assignee=$el
+      next_is_assignee=0
+    elif [[ $next_is_project -eq 1 ]]; then
+      project=$el
+      next_is_project=0
+    else
+      to_query="${to_query} $el"
+    fi
+  done
+}
+
+start=""
+
+function get_status() {
+  if [ ${all_status-0} -eq 1 ]; then
+    return
+  fi
+  echo "${start}status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29"
+  start="+AND+"
+}
+
+function escape_it() {
+  echo "$@" | sed 's/@/%40/g'
+}
+
+function get_assignee() {
+  if [ -n "$assignee" ]; then
+    echo "+AND+assignee+%3D+%22$(escape_it $assignee)%22"
+    start="+AND+"
+  fi
+}
+
+function get_project() {
+  if [ -n "$project" ]; then
+    echo "${start}project+%3D+${project}"
+    start="+AND+"
+  fi
+}
+
+read_user_input $@
+
+curl -u ${jira_http_user}:${jira_http_password} \
+  -s \
+"https://${jira_host}/sr/jira.issueviews:searchrequest-rss/temp/SearchRequest.xml?jqlQuery=$(get_project)$(get_status)$(get_assignee)$(get_query $to_query)+ORDER+BY+priority+DESC&tempMax=${max_hits}" | \
+  xml_grep --nowrap \
+  --cond rss/channel/item/title \
+  --cond rss/channel/item/link \
+  --cond rss/channel/item/pubDate \
+  --cond rss/channel/item/author | \
+  sed -e 's/<title>//g' -e 's#</title>#\n#g' | \
+  sed -e 's/<link>/\t/g' -e 's#</link>#\n#g' | \
+  sed -e 's/<pubDate>/\tPublished: /g' -e 's#</pubDate>#\n#g' | \
+  sed -e 's/<author>/\tAuthor: /g' -e 's#</author>#\n#g' 
