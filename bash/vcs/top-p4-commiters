@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+# by torstein
+
 src_dir=$HOME/src/p4
 
 dirs="
@@ -23,7 +25,7 @@ function top_committers() {
   echo "Top $max_commiters comitters to" $(echo $1 | sed "s#${src_dir}/##")
   (
     cd $1
-    p4 changes ... | cut -d' ' -f6 | sort | uniq -c |sort -k1 -n -r | head -${max_commiters}
+    p4 changes ... | cut -d' ' -f6 | sort | uniq -c | sort -k1 -n -r | head -${max_commiters}
   )
 }
 
