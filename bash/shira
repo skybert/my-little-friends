@@ -6,48 +6,91 @@
 ##
 ## Usage:
 ##   
-##     Searches all issues (also the closed ones) with summaries or
-##     titles with all of the three words, 'tomcat', 'garbage' and
-##     'collection':
-##   
-##       $ shira --all tomcat garbage collection
-##   
-##     Same as above, but in a specific project:
-##   
-##       $ shira --project DOGS --all tomcat garbage collection
-##   
-##     Same as above, but also assigned to torstein
-##   
-##       $ shira --project DOGS --all --assignee torstein tomcat garbage collection
-##   
-##     To only see the open ones, remove the --all parameter:
-##   
-##       $ shira --project DOGS --assignee torstein tomcat garbage collection
-##   
-##     All the parameters can be given in any order, including the
-##     search query string. This:
-##   
-##       $ shira --project DOGS --assignee torstein tomcat garbage collection
-##   
-##     Is the same as:
-##   
-##       $ shira --assignee torstein tomcat garbage collection --project DOGS
-##   
-##     Which is the same as:
-##   
-##       $ shira --project DOGS tomcat --assignee torstein  garbage collection
-##   
-##     shira reads $HOME/.shira.conf:
-##   
-##        jira_http_user=myuser
-##        jira_http_password=youbet
-##        jira_host=jira.mycompany.com
+## Searches all issues (also the closed ones) with summaries or
+## titles with all of the three words, 'tomcat', 'garbage' and
+## 'collection':
+## 
+##   $ shira --all tomcat garbage collection
+## 
+## Same as above, but in a specific project:
+## 
+##   $ shira --project DOGS --all tomcat garbage collection
+## 
+## Same as above, but also assigned to torstein
+## 
+##   $ shira --project DOGS --all --assignee torstein tomcat garbage collection
+## 
+## To only see the open ones, remove the --all parameter:
+## 
+##   $ shira --project DOGS --assignee torstein tomcat garbage
+##   collection
+## 
+## All the parameters can be given in any order, including the
+## search query string. This:
+## 
+##   $ shira --project DOGS --assignee torstein tomcat garbage
+##   collection
+## 
+## Is the same as:
+## 
+##   $ shira --assignee torstein tomcat garbage collection
+##   --project DOGS
+## 
+## Which is the same as:
+## 
+##   $ shira --project DOGS tomcat --assignee torstein garbage
+##   collection
+## 
+## shira reads $HOME/.shira.conf:
+## 
+##    jira_http_user=myuser
+##    jira_http_password=youbet
+##    jira_host=jira.mycompany.com
 
 max_hits=20
 file=$HOME/.$(basename $0).conf
+query_fragment_start=""
 source $file || {
   echo "I cannot live without" $file
   exit 1
+}
+
+## Concatenation flags. The order of parsing:
+## (1) project
+## (2) assignee
+## (3) status
+## (4..n) query
+assignee_query_prefix=""
+status_query_prefix=""
+query_string_prefix="+AND+"
+
+function read_user_input() {
+  local next_is_project=0
+  for el in $@; do
+    if [[ $el == "-p" || $el == "--project" ]]; then
+      next_is_project=1
+      assignee_query_prefix="+AND+"
+      status_query_prefix="+AND+"
+      query_string_prefix="+AND+"
+    elif [[ $el == "-a" || $el == "--assignee" ]]; then
+      status_query_prefix="+AND+"
+      query_string_prefix="+AND+"
+      next_is_assignee=1
+    elif [[ $el == "--all" ]]; then
+      all_status=1
+      if [[ -z $project && -z $assignee ]]; then
+        query_string_prefix=""
+      fi
+    elif [[ $next_is_assignee -eq 1 ]]; then
+      assignee=$el
+      next_is_assignee=0
+    elif [[ $next_is_project -eq 1 ]]; then
+      project=$el
+      next_is_project=0
+    else
+      to_query="${to_query} $el"
+    fi
+  done
 }
 
 function get_query() {
@@ -67,39 +110,14 @@ function get_query() {
   done
   
   query="${query}%22"
-  echo "${start}%28summary+%7E+${query}%29"
-  start="+AND+"
+  echo "${query_string_prefix}%28summary+%7E+${query}%29"
 }
-
-function read_user_input() {
-  local next_is_project=0
-  for el in $@; do
-    if [[ $el == "-p" || $el == "--project" ]]; then
-      next_is_project=1
-    elif [[ $el == "-a" || $el == "--assignee" ]]; then
-      next_is_assignee=1
-    elif [[ $el == "--all" ]]; then
-      all_status=1
-    elif [[ $next_is_assignee -eq 1 ]]; then
-      assignee=$el
-      next_is_assignee=0
-    elif [[ $next_is_project -eq 1 ]]; then
-      project=$el
-      next_is_project=0
-    else
-      to_query="${to_query} $el"
-    fi
-  done
-}
-
-start=""
 
 function get_status() {
   if [ ${all_status-0} -eq 1 ]; then
     return
   fi
-  echo "${start}status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29"
-  start="+AND+"
+  echo "${status_query_prefix}status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29"
 }
 
 function escape_it() {
@@ -108,15 +126,13 @@ function escape_it() {
 
 function get_assignee() {
   if [ -n "$assignee" ]; then
-    echo "+AND+assignee+%3D+%22$(escape_it $assignee)%22"
-    start="+AND+"
+    echo "${assignee_query_prefix}assignee+%3D+%22$(escape_it $assignee)%22"
   fi
 }
 
 function get_project() {
   if [ -n "$project" ]; then
-    echo "${start}project+%3D+${project}"
-    start="+AND+"
+    echo "project+%3D+${project}"
   fi
 }
 
@@ -124,7 +140,7 @@ read_user_input $@
 
 curl -u ${jira_http_user}:${jira_http_password} \
   -s \
-"https://${jira_host}/sr/jira.issueviews:searchrequest-rss/temp/SearchRequest.xml?jqlQuery=$(get_project)$(get_status)$(get_assignee)$(get_query $to_query)+ORDER+BY+priority+DESC&tempMax=${max_hits}" | \
+"https://${jira_host}/sr/jira.issueviews:searchrequest-rss/temp/SearchRequest.xml?jqlQuery=$(get_project)$(get_assignee)$(get_status)$(get_query $to_query)+ORDER+BY+priority+DESC&tempMax=${max_hits}" | \
   xml_grep --nowrap \
   --cond rss/channel/item/title \
   --cond rss/channel/item/link \
