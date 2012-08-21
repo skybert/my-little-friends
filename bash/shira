@@ -48,11 +48,14 @@
 ##    jira_host=jira.mycompany.com
 
 max_hits=20
-file=$HOME/.$(basename $0).conf
+conf_file=$HOME/.$(basename $0).conf
 query_fragment_start=""
-source $file || {
-  echo "I cannot live without" $file
-  exit 1
+
+function read_conf_file() {
+  source $conf_file || {
+    echo "I cannot live without" $conf_file
+    exit 1
+  }
 }
 
 ## Concatenation flags. The order of parsing:
@@ -67,7 +70,9 @@ query_string_prefix="+AND+"
 function read_user_input() {
   local next_is_project=0
   for el in $@; do
-    if [[ $el == "-p" || $el == "--project" ]]; then
+    if [[ $el == "-f" || $el == "--conf-file" ]]; then
+      next_is_conf_file=1
+    elif [[ $el == "-p" || $el == "--project" ]]; then
       next_is_project=1
       assignee_query_prefix="+AND+"
       status_query_prefix="+AND+"
@@ -84,6 +89,9 @@ function read_user_input() {
     elif [[ $next_is_assignee -eq 1 ]]; then
       assignee=$el
       next_is_assignee=0
+    elif [[ $next_is_conf_file -eq 1 ]]; then
+      conf_file=$el
+      next_is_conf_file=0
     elif [[ $next_is_project -eq 1 ]]; then
       project=$el
       next_is_project=0
@@ -137,6 +145,7 @@ function get_project() {
 }
 
 read_user_input $@
+read_conf_file
 
 curl -u ${jira_http_user}:${jira_http_password} \
   -s \
