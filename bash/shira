@@ -52,8 +52,8 @@ conf_file=$HOME/.$(basename $0).conf
 query_fragment_start=""
 
 function read_conf_file() {
-  source $conf_file || {
-    echo "I cannot live without" $conf_file
+  source $conf_file 2>/dev/null || {
+    echo "I cannot live without" $conf_file ":-("
     exit 1
   }
 }
