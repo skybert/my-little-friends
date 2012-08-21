@@ -39,7 +39,10 @@ function create_album_if_doesnt_exist() {
   fi
 
   log "Creating new album $@ ..."
-  run google picasa create "$@"
+  
+  # not running google command in run wrapper, seemed to cause
+  # problems with passing string arguments around (containing spaces).
+  google picasa create "$@"
 }
 
 ## $1: file
