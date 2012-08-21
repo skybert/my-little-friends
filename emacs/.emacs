@@ -281,6 +281,7 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (subword-mode)
+  (gtags-mode)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
