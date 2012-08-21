@@ -50,12 +50,29 @@
 max_hits=20
 conf_file=$HOME/.$(basename $0).conf
 query_fragment_start=""
+required_fields="
+  jira_http_user
+  jira_http_password
+  jira_host
+"
 
 function read_conf_file() {
   source $conf_file || {
     echo "I cannot live without" $conf_file
     exit 1
   }
+
+  local ok=1
+  for el in $required_fields; do
+    if [ -z $(eval echo $`(echo $el)`) ]; then
+      echo $el "You must define $el in your $conf_file"
+      ok=0
+    fi
+  done
+  
+  if [ $ok -eq 0 ]; then
+    exit 1
+  fi
 }
 
 ## Concatenation flags. The order of parsing:
