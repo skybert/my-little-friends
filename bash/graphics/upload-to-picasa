@@ -39,7 +39,7 @@ function create_album_if_doesnt_exist() {
   fi
 
   log "Creating new album $@ ..."
-  google picasa create "$@"
+  run google picasa create "$@"
 }
 
 ## $1: file
