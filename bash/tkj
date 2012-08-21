@@ -2,6 +2,8 @@
 
 # by torstein.k.johansen@gmail.com
 
+LC_ALL=C
+
 . $HOME/src/my-little-friends/bash/common/alexandria
 
 ## Method useful for developers and system administrators. It checks
@@ -114,13 +116,17 @@ function do_update-tags()
 
     local java_src_list="
       $HOME/src/cnn/ece-to-nginx-cache
-      $HOME/src/p4/escenic/plugins/lucy/trunk
+      $HOME/src/p4/escenic/engine/trunk
+      $HOME/src/p4/escenic/plugins/community/trunk
+      $HOME/src/p4/escenic/plugins/forum/trunk
+      $HOME/src/p4/escenic/plugins/analysis/trunk
     "
     for el in $java_src_list; do
       if [ ! -d $el ]; then
         continue
       fi
-      
+
+      print "Updating gtags for $el ..."xo
       run cd $el
       find . -type f | \
         egrep ".java|.xml|.pom|.properties" | \
@@ -154,104 +160,36 @@ function do_doc() {
 ## Arguments: takes no arguments.
 function do_update-sources()
 {
-    local p4_dir_list="
-    "
+  local src_list="
+    $HOME/src/ece-scripts
+    $HOME/src/my-little-friends
+    $HOME/src/nie
+    /usr/local/src/emacs/org-mode
+  "
 
-    local dir=/usr/local/src
-    local git_repo_list="
-      $dir/nvidiabl
-      $dir/org-mode
-      $dir/html5-el
-      $dir/html5-syntax
-      $dir/gnome-shell-extensions-pidgin
-      $dir/ajc-java-complete
-      $dir/djcb-elisp
-      $dir/malabar-mode
-      $HOME/src/ece-scripts
-    "
+  for el in $src_list; do
+    if [ ! -d $el ]; then
+      continue
+    fi
 
-    local git_fork_list="
-      $HOME/src/forks/ece-scripts
-    "
-
-    local bzr_repo_list="
-      $dir/vm-8.2.x
-      $dir/screenkey
-    "
-
-    local hg_repo_list="
-    "
-
-    local svn_repo_list="
-      $HOME/src/nie
-    "
-
-    local seperator="=============================================================="
-
-    # check out the latest of everything interesting
-    for el in $p4_dir_list; do
-        if [ ! -d $el ]; then
-          continue
-        fi
-        print $seperator
-        print "Updating $el/..."
-        p4 sync $el/...
-        exit_on_error "p4 sync $el"
-    done
-
-    for el in $git_repo_list; do
-        if [ ! -d $el ]; then
-          continue
-        fi
-        print $seperator
-        print "Updating $(basename $el) ..."
-        cd $el
-        git pull 2>/dev/null
-    done
-
-    for el in $git_fork_list; do
-        if [ ! -d $el ]; then
-          continue
-        fi
-        print $seperator
-        print "Updating fork $(basename $el) ..."
-        cd $el
-        git fetch upstream
-        git merge upstream/master
-        git push
-    done
-    
-    for el in $bzr_repo_list; do
-        if [ ! -d $el ]; then
-          continue
-        fi
-        print $seperator
-        print "Updating $(basename $el) ..."
-        cd $el
-        bzr up
-    done
-    
-    for el in $hg_repo_list; do
-        if [ ! -d $el ]; then
-          continue
-        fi
-        print $seperator
-        print "Updating $(basename $el) ..."
-        cd $el
-        hg pull
-        hg update
-        hg merge
-    done
-
-    for el in $svn_repo_list; do
-      if [ ! -d $el ]; then
-        continue
-      fi
-      print $seperator
-      print "Updating $(basename $el) ..."
+    print "----------------------------------------------"
+    print "Updating $(echo $el | sed "s#${HOME}/##g") ..."
+    print "----------------------------------------------"
+    (
       cd $el
-      svn up
-    done
+      if [ -d $el/.git ]; then
+        git pull
+      elif [ -d $el/.svn ]; then
+        svn up
+      elif [ -d $el/CVS ]; then
+        cvs up -d
+      else
+        p4 sync ...
+      fi
+    )
+    
+  done
+  
 }
 
 function get_primary_screen() {

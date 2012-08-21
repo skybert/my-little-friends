@@ -1,0 +1,45 @@
+#! /usr/bin/env bash
+
+# by torstein
+
+src_dir=$HOME/src/p4
+
+dirs="
+$src_dir/escenic
+$src_dir/escenic/plugins
+$src_dir/main
+"
+
+max_commiters=20
+branch=trunk
+
+## $1 :: dir
+function top_committers() {
+  if [[ -z $1 || ! -d $1 ]]; then
+    return
+  fi
+  if [[ ! -e $1/build.xml.template && ! -e $1/build.xml && ! -e $1/pom.xml ]]; then
+    continue
+  fi
+  
+  echo "Top $max_commiters comitters to" $(echo $1 | sed "s#${src_dir}/##")
+  (
+    cd $1
+    p4 changes ... | cut -d' ' -f6 | sort | uniq -c | sort -k1 -n -r | head -${max_commiters}
+  )
+}
+
+for el in $dirs; do
+  if [ ! -d $el ]; then
+    continue
+  fi
+  for ele in $el/*; do
+    if [ ! -d $ele/$branch ]; then
+      top_committers $ele
+    else
+      (
+        top_committers $ele/$branch;
+      )
+    fi
+  done
+done

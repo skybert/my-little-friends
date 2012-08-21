@@ -84,7 +84,6 @@ body {
   background-color: #FFFFFF;
   border: 1px solid #818A71;
   font-family: Lucida Sans Unicode, sans-serif;
-  font-size: 0.80em;
   line-height: 1.3em;
   margin: 0 auto;
   margin: 15px 15px;
@@ -102,12 +101,10 @@ h1, h2 {
 }
 
 h1 {
-  font-size: 1.8em;
   margin: 40px 0 20px 0;
 }
 
 h2 {
-  font-size: 1.4em;
   margin: 30px 0 10px 0;
 }
 
@@ -117,11 +114,9 @@ h3, h4, h5, h6 {
 }
 
 h3, h4, h5 {
-  font-size: 1.2em;
 }
 
 h6 {
-  font-size: 0.9em;
 }
 
 a {

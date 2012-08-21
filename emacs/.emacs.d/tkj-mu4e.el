@@ -1,6 +1,5 @@
 (setq mu4e-maildir "~/mail"
       mu4e-get-mail-command "offlineimap"
-      mu4e-view-show-images t
       
       ;; don't save messages to Sent Messages, Gmail/IMAP will take
       ;; care of this
@@ -21,6 +20,7 @@
       )
 
 (setq message-send-mail-function 'smtpmail-send-it
+<<<<<<< HEAD
       smtpmail-starttls-credentials '(("mailosl2.vizrt.internal" 587  nil nil))
       smtpmail-default-smtp-server "mailosl2.vizrt.internal"
       smtpmail-smtp-server "mailosl2.vizrt.internal"
@@ -47,3 +47,9 @@
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
+=======
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
+>>>>>>> 81815c5fa2375fa6bb7ceb0e07f2d4464ec585d6

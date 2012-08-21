@@ -1,0 +1,161 @@
+#! /usr/bin/env bash
+
+## Command line interface to JIRA by torstein
+##
+## Requires xml_grep from xml-twig-tools
+##
+## Usage:
+##   
+## Searches all issues (also the closed ones) with summaries or
+## titles with all of the three words, 'tomcat', 'garbage' and
+## 'collection':
+## 
+##   $ shira --all tomcat garbage collection
+## 
+## Same as above, but in a specific project:
+## 
+##   $ shira --project DOGS --all tomcat garbage collection
+## 
+## Same as above, but also assigned to torstein
+## 
+##   $ shira --project DOGS --all --assignee torstein tomcat garbage collection
+## 
+## To only see the open ones, remove the --all parameter:
+## 
+##   $ shira --project DOGS --assignee torstein tomcat garbage
+##   collection
+## 
+## All the parameters can be given in any order, including the
+## search query string. This:
+## 
+##   $ shira --project DOGS --assignee torstein tomcat garbage
+##   collection
+## 
+## Is the same as:
+## 
+##   $ shira --assignee torstein tomcat garbage collection
+##   --project DOGS
+## 
+## Which is the same as:
+## 
+##   $ shira --project DOGS tomcat --assignee torstein garbage
+##   collection
+## 
+## shira reads $HOME/.shira.conf:
+## 
+##    jira_http_user=myuser
+##    jira_http_password=youbet
+##    jira_host=jira.mycompany.com
+
+max_hits=20
+conf_file=$HOME/.$(basename $0).conf
+query_fragment_start=""
+
+function read_conf_file() {
+  source $conf_file || {
+    echo "I cannot live without" $conf_file
+    exit 1
+  }
+}
+
+## Concatenation flags. The order of parsing:
+## (1) project
+## (2) assignee
+## (3) status
+## (4..n) query
+assignee_query_prefix=""
+status_query_prefix=""
+query_string_prefix="+AND+"
+
+function read_user_input() {
+  local next_is_project=0
+  for el in $@; do
+    if [[ $el == "-f" || $el == "--conf-file" ]]; then
+      next_is_conf_file=1
+    elif [[ $el == "-p" || $el == "--project" ]]; then
+      next_is_project=1
+      assignee_query_prefix="+AND+"
+      status_query_prefix="+AND+"
+      query_string_prefix="+AND+"
+    elif [[ $el == "-a" || $el == "--assignee" ]]; then
+      status_query_prefix="+AND+"
+      query_string_prefix="+AND+"
+      next_is_assignee=1
+    elif [[ $el == "--all" ]]; then
+      all_status=1
+      if [[ -z $project && -z $assignee ]]; then
+        query_string_prefix=""
+      fi
+    elif [[ $next_is_assignee -eq 1 ]]; then
+      assignee=$el
+      next_is_assignee=0
+    elif [[ $next_is_conf_file -eq 1 ]]; then
+      conf_file=$el
+      next_is_conf_file=0
+    elif [[ $next_is_project -eq 1 ]]; then
+      project=$el
+      next_is_project=0
+    else
+      to_query="${to_query} $el"
+    fi
+  done
+}
+
+function get_query() {
+  if [ -z $1 ]; then
+    return
+  fi
+  local query=""
+  
+  for (( i = 1; i <= $#; i++ )); do
+    if [ $i -eq 1 ]; then
+      query="%22%2B${@:$i:1}"
+    else
+      # %2B, '+' makes the term required, making it similar to the way
+      # e.g. Google works.
+      query="${query}+%2B${@:$i:1}"
+    fi
+  done
+  
+  query="${query}%22"
+  echo "${query_string_prefix}%28summary+%7E+${query}%29"
+}
+
+function get_status() {
+  if [ ${all_status-0} -eq 1 ]; then
+    return
+  fi
+  echo "${status_query_prefix}status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29"
+}
+
+function escape_it() {
+  echo "$@" | sed 's/@/%40/g'
+}
+
+function get_assignee() {
+  if [ -n "$assignee" ]; then
+    echo "${assignee_query_prefix}assignee+%3D+%22$(escape_it $assignee)%22"
+  fi
+}
+
+function get_project() {
+  if [ -n "$project" ]; then
+    echo "project+%3D+${project}"
+  fi
+}
+
+read_user_input $@
+read_conf_file
+
+curl -u ${jira_http_user}:${jira_http_password} \
+  -s \
+"https://${jira_host}/sr/jira.issueviews:searchrequest-rss/temp/SearchRequest.xml?jqlQuery=$(get_project)$(get_assignee)$(get_status)$(get_query $to_query)+ORDER+BY+priority+DESC&tempMax=${max_hits}" | \
+  xml_grep --nowrap \
+  --cond rss/channel/item/title \
+  --cond rss/channel/item/link \
+  --cond rss/channel/item/pubDate \
+  --cond rss/channel/item/author | \
+  sed -e 's/<title>//g' -e 's#</title>#\n#g' | \
+  sed -e 's/<link>/\t/g' -e 's#</link>#\n#g' | \
+  sed -e 's/<pubDate>/\tPublished: /g' -e 's#</pubDate>#\n#g' | \
+  sed -e 's/<author>/\tAuthor: /g' -e 's#</author>#\n#g' 
