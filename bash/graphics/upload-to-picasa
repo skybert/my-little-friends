@@ -9,7 +9,7 @@ lock_file=/tmp/$(basename $0).lock
 log_file=/tmp/$(basename $0).log
 
 function log() {
-  echo "$@" >> $log_file
+  echo "$(date) $@" >> $log_file
 }
 
 function run() {
