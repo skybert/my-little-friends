@@ -174,5 +174,5 @@ curl -u ${jira_http_user}:${jira_http_password} \
   --cond rss/channel/item/author | \
   sed -e 's/<title>//g' -e 's#</title>#\n#g' | \
   sed -e 's/<link>/\t/g' -e 's#</link>#\n#g' | \
-  sed -e 's/<pubDate>/\Updated: /g' -e 's#</pubDate>#\n#g' | \
+  sed -e 's/<pubDate>/\tUpdated: /g' -e 's#</pubDate>#\n#g' | \
   sed -e 's/<author>/\tAuthor: /g' -e 's#</author>#\n#g' 
