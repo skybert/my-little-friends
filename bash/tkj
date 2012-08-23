@@ -252,19 +252,17 @@ function do_hours()
     fi
 
     local started_working_string=$(
-        cat ~/.bash_eternal_history | \
-          cut -d' ' -f7-8 | \
-          grep ${the_date} | \
-          sort | \
-          head -1
+      egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
+        head -1 | \
+        sed 's/^[ ]*[0-9]*[ ]*//' | \
+        cut -d' ' -f1-2
     )
 
     local ended_working_string=$(
-        cat ~/.bash_eternal_history | \
-          cut -d' ' -f7-8 | \
-          grep ${the_date} | \
-          sort | \
-          tail -1
+      egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
+        tail -1 | \
+        sed 's/^[ ]*[0-9]*[ ]*//' | \
+        cut -d' ' -f1-2
     )
 
     local seconds_worked=$((
