@@ -25,8 +25,10 @@
 (setq erc-default-server "localhost")
 
 ;; connect to these IRC servers
-(erc :server "localhost" :port 6667 :nick "tkj")
-(erc :server "catbert.escenic.com" :port 6667 :nick "torstein")
+(defun tkj-load-chat()
+  (interactive)
+  (erc :server "localhost" :port 6667 :nick "tkj")
+  (erc :server "catbert.escenic.com" :port 6667 :nick "torstein"))
 
 (defun my-reformat-jabber-backlog ()
   "Fix \"unkown participant\" backlog messages from bitlbee."
