@@ -20,7 +20,6 @@
       )
 
 (setq message-send-mail-function 'smtpmail-send-it
-<<<<<<< HEAD
       smtpmail-starttls-credentials '(("mailosl2.vizrt.internal" 587  nil nil))
       smtpmail-default-smtp-server "mailosl2.vizrt.internal"
       smtpmail-smtp-server "mailosl2.vizrt.internal"
@@ -40,16 +39,11 @@
         ("/gmail/community" . ?c)
         ("/gmail/inbox" . ?i)
         )
-      user-mail-address "torstein.k.johansen@gmail.com"
-))
-
-;; use imagemagick, if available
-(when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-
-=======
       smtpmail-stream-type 'starttls
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
->>>>>>> 81815c5fa2375fa6bb7ceb0e07f2d4464ec585d6
+      user-mail-address "torstein.k.johansen@gmail.com"
+))
+
+
