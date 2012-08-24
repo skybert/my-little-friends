@@ -12,14 +12,17 @@ function log() {
   echo "$(date) $@" >> $log_file
 }
 
-function run() {
-  "$@" >> $log_file 2>> $log_file
-  
+function exit_on_error() {
   if [ $? -gt 0 ]; then
     log "The command [ $@ ] failed :-( Exiting."
     rm lock_file
     exit 1
   fi
+}
+
+function run() {
+  "$@" >> $log_file 2>> $log_file
+  exit_on_error "$@"
 }
 
 function create_lock_or_exit_if_exists() {
@@ -42,7 +45,8 @@ function create_album_if_doesnt_exist() {
   
   # not running google command in run wrapper, seemed to cause
   # problems with passing string arguments around (containing spaces).
-  google picasa create "$@"
+  google picasa create "$@" >> $log_file 2>>$log_file
+  exit_on_error google picasa create "$@"
 }
 
 ## $1: file
@@ -61,6 +65,7 @@ function upload_to_picasa() {
   local album_name=$(date --date=$file_date "+%B %Y")
   create_album_if_doesnt_exist "$album_name"
   google picasa post "$album_name" $1 >> $log_file 2>>$log_file
+  exit_on_error google picasa post "$album_name" $1
   echo $1 >> $state_file
 }
 
