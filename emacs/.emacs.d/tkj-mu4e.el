@@ -40,4 +40,11 @@
         ("/gmail/inbox" . ?i)
         )
       user-mail-address "torstein.k.johansen@gmail.com"
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
+      user-mail-address "torstein.k.johansen@gmail.com"
 ))
+
+
