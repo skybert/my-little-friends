@@ -20,6 +20,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 # aliases
 alias df='df -hT'
 alias eternal='cat ~/.bash_eternal_history | grep'
+alias grep='grep -i --color'
 alias ls='ls -lh'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 alias mypublicip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
