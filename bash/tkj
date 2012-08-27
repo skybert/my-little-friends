@@ -161,8 +161,7 @@ function do_doc() {
 function do_update-sources()
 {
   if [ -d $HOME/src/skybert.net ]; then
-    cd $HOME/src/skybert.net && \
-      bash ./bin/wee pull
+    $HOME/src/skybert.net/bin/wee pull
   fi
   
   local src_list="
