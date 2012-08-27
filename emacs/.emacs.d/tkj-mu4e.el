@@ -39,6 +39,7 @@
         ("/gmail/community" . ?c)
         ("/gmail/inbox" . ?i)
         )
+      user-mail-address "torstein.k.johansen@gmail.com"
       smtpmail-stream-type 'starttls
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
