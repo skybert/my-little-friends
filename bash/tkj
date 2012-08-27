@@ -160,6 +160,11 @@ function do_doc() {
 ## Arguments: takes no arguments.
 function do_update-sources()
 {
+  if [ -d $HOME/src/skybert.net ]; then
+    cd $HOME/src/skybert.net && \
+      bash ./bin/wee pull
+  fi
+  
   local src_list="
     $HOME/src/ece-scripts
     $HOME/src/my-little-friends
@@ -375,7 +380,7 @@ function do_search-mailing-list-archive()
     opera ${result_html}
 }
 
-function open_jira_issue()
+function do_jira()
 {
     opera https://jira.vizrt.com/browse/${1}
 }
@@ -452,7 +457,7 @@ if [  `echo $1 | sed 's/[0-9]//g' | wc -c` -lt 2 ]; then
     search_otrs $1
     exit 0
 elif [ `echo $1 | egrep -v -i "VIZIWYG|ECOME|VF|STATS|DASH|ERDQ|FORUM|TM" | wc -c` -lt 1 ]; then
-    open_jira_issue $1
+    do_jira $1
     exit 0
 fi
 
