@@ -38,7 +38,7 @@
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
-))
+)
 
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
