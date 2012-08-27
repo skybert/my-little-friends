@@ -45,6 +45,6 @@
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
       user-mail-address "torstein.k.johansen@gmail.com"
-))
+)
 
 
