@@ -17,6 +17,11 @@ read answer
 
 for suffix in jpg gif png jpeg; do
   find -iname "*.${suffix}" -type f | while read f; do
+    if [ ! -s "$f" ]; then
+      echo "Empty file, length is zero:  $f"
+      continue
+    fi
+    
     if [ $(identify -verbose "$f" | \
       grep Colorspace | \
       grep CMYK | wc -l) -gt 0 ]; then
