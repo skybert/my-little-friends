@@ -15,22 +15,35 @@ To abort, press Ctrl + c now.
 EOF
 read answer
 
-for suffix in jpg gif png jpeg; do
-  find -iname "*.${suffix}" -type f | while read f; do
-    if [ ! -s "$f" ]; then
-      echo "Empty file, the length of $f is zero."
-      continue
-    fi
-    
-    if [ $(identify -verbose "$f" | \
-      grep Colorspace | \
-      grep CMYK | wc -l) -gt 0 ]; then
-      echo "CMYK color profile detected, converting $f to RGB ..."
-      (
-        cd $(dirname "$f")
-        file=$(basename "$f")
-        convert "$file" -colorspace rgb "$file"
-      )
-    fi
-  done
+function get_picture_file_list() {
+  find -L . \
+    -iname "*.jpg" -o \
+    -iname "*.jpeg" -o \
+    -iname "*.png" -o \
+    -iname "*.gif"
+}
+
+picture_list=$(get_picture_file_list)
+echo "Total number of pictures in $(pwd):" $(echo "$pictures" | wc -l)
+
+current_picture=0
+
+for f in $picture_list; do
+  current_picture=$(( $current_picture + 1 ))
+  if [ ! -s "$f" ]; then
+    echo "Picture #${current_picture} is empty: $f"
+    continue
+  fi
+  
+  if [ $(identify -verbose "$f" | \
+    grep Colorspace | \
+    grep CMYK | wc -l) -gt 0 ]; then
+    echo "Picture #${current_picture} uses CMYK color profile," \
+      "converting it to RGB ..."
+    (
+      cd $(dirname "$f")
+      file=$(basename "$f")
+      convert "$file" -colorspace rgb "$file"
+    )
+  fi
 done
