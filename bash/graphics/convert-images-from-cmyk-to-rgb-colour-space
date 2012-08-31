@@ -24,12 +24,35 @@ function get_picture_file_list() {
 }
 
 picture_list=$(get_picture_file_list)
-echo "Total number of pictures in $(pwd):" $(echo "$picture_list" | wc -l)
+total_number=$(echo "$picture_list" | wc -l)
+echo "Started: $(date)"
+echo "Number of pictures in $(pwd):" $total_number 
 current_picture=0
 
+function remove_previous_completion_string() {
+  for ((i=0; i < ${#previous_completion_string}; i++)); do
+    echo -n -e "\b"
+  done
+}  
+
+previous_completion_string=""
 # can't re-use the picture_list as it will fail for special charcters :-(
 echo "$(get_picture_file_list)" | while read f; do
   current_picture=$(( $current_picture + 1 ))
+  percent_completion=$(
+    echo "scale=2;" $current_picture / $total_number | bc -l | sed 's/^\.//g'
+  )
+
+  if [ $percent_completion == 1.00 ]; then
+    percent_completion=100
+  fi
+  
+  completion_string="Completion: ${percent_completion}%"
+  remove_previous_completion_string
+  
+  echo -n "$completion_string"
+  previous_completion_string="$completion_string"
+  
   if [ ! -s "$f" ]; then
     echo "Picture #${current_picture} is empty: $f"
     continue
@@ -46,4 +69,10 @@ echo "$(get_picture_file_list)" | while read f; do
       convert "$file" -colorspace rgb "$file"
     )
   fi
+  
+  if [ $current_picture -eq $total_number ]; then
+    remove_previous_completion_string
+    echo "Finished: $(date)"
+  fi
 done
+
