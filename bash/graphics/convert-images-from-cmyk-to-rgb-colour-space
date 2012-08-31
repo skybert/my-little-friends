@@ -24,7 +24,7 @@ function get_picture_file_list() {
 }
 
 picture_list=$(get_picture_file_list)
-echo "Total number of pictures in $(pwd):" $(echo "$pictures" | wc -l)
+echo "Total number of pictures in $(pwd):" $(echo "$picture_list" | wc -l)
 
 current_picture=0
 
