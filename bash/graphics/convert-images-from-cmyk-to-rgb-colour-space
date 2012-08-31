@@ -25,10 +25,10 @@ function get_picture_file_list() {
 
 picture_list=$(get_picture_file_list)
 echo "Total number of pictures in $(pwd):" $(echo "$picture_list" | wc -l)
-
 current_picture=0
 
-for f in $picture_list; do
+# can't re-use the picture_list as it will fail for special charcters :-(
+echo "$(get_picture_file_list)" | while read f; do
   current_picture=$(( $current_picture + 1 ))
   if [ ! -s "$f" ]; then
     echo "Picture #${current_picture} is empty: $f"
