@@ -18,14 +18,14 @@ read answer
 for suffix in jpg gif png jpeg; do
   find -iname "*.${suffix}" -type f | while read f; do
     if [ ! -s "$f" ]; then
-      echo "Empty file, length is zero:  $f"
+      echo "Empty file, the length of $f is zero."
       continue
     fi
     
     if [ $(identify -verbose "$f" | \
       grep Colorspace | \
       grep CMYK | wc -l) -gt 0 ]; then
-      echo "$f is using the CMYK colour space, converting it to RGB ..."
+      echo "CMYK color profile detected, converting $f to RGB ..."
       (
         cd $(dirname "$f")
         file=$(basename "$f")
