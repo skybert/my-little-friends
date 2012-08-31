@@ -33,6 +33,7 @@ function remove_previous_completion_string() {
   for ((i=0; i < ${#previous_completion_string}; i++)); do
     echo -n -e "\b"
   done
+  previous_completion_string=""
 }  
 
 previous_completion_string=""
