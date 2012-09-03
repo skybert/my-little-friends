@@ -31,6 +31,11 @@ function remove_lock_file() {
 }
 
 function sync_directory() {
+  if [ ! -d $dir ]; then
+    echo $(basename $0) "$dir doesn't exist, so syncing." >> $log_file
+    return
+  fi
+  
   local target_dir=$(echo $dir | sed "s#${HOME}/##g")
   echo $(basename $0) \
     $dir "->" ${target_user_and_server}:${target_dir} \
