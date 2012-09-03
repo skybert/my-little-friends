@@ -158,7 +158,7 @@ Control Shift r :Raise
 Control Shift l :Lower
 
 # Lock the screen
-Control Shift x :ExecCommand xscreensaver-command -lock
+Control Shift x :ExecCommand xtrlock
 
 # 'w' for web browser
 Control Shift w :Exec opera
