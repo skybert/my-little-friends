@@ -30,6 +30,7 @@ export FIGNORE=.svn
 l="
 $HOME/src/my-little-friends/bash_completion.d/tkj
 $HOME/src/ece-scripts/etc/bash_completion.d/ece
+/etc/bash_completion.d/subversion
 "
 for el in $l; do
   if [ -r $el ]; then

@@ -15,17 +15,76 @@ To abort, press Ctrl + c now.
 EOF
 read answer
 
-for suffix in jpg gif png jpeg; do
-  find -iname "*.${suffix}" -type f | while read f; do
-    if [ $(identify -verbose "$f" | \
-      grep Colorspace | \
-      grep CMYK | wc -l) -gt 0 ]; then
-      echo "$f is using the CMYK colour space, converting it to RGB ..."
-      (
-        cd $(dirname "$f")
-        file=$(basename "$f")
-        convert "$file" -colorspace rgb "$file"
-      )
-    fi
+log=$(pwd)/$(basename $0).log
+
+function get_picture_file_list() {
+  find -L . \
+    -iname "*.jpg" -o \
+    -iname "*.jpeg" -o \
+    -iname "*.png" -o \
+    -iname "*.gif"
+}
+
+picture_list=$(get_picture_file_list)
+total_number=$(echo "$picture_list" | wc -l)
+current_picture=0
+
+function remove_previous_completion_string() {
+  for ((i=0; i < ${#previous_completion_string}; i++)); do
+    echo -n -e "\b"
   done
+  previous_completion_string=""
+}
+
+function print_and_log() {
+  remove_previous_completion_string
+  echo "$@"
+  echo "$@" >> $log
+}
+
+previous_completion_string=""
+
+print_and_log "Started: $(date)"
+print_and_log "Number of pictures in $(pwd):" $total_number 
+
+# can't re-use the picture_list as it will fail for special charcters
+# :-(
+echo "$(get_picture_file_list)" | while read f; do
+  current_picture=$(( $current_picture + 1 ))
+  percent_completion=$(
+    echo "scale=2;" $current_picture / $total_number | bc -l | sed 's/^\.//g'
+  )
+
+  if [ $percent_completion == 1.00 ]; then
+    percent_completion=100
+  fi
+  
+  completion_string="Completion: ${percent_completion}%"
+  remove_previous_completion_string
+  
+  echo -n "$completion_string"
+  previous_completion_string="$completion_string"
+  
+  if [ ! -s "$f" ]; then
+    print_and_log "Picture #${current_picture} is empty: $f"
+    continue
+  fi
+  
+  if [ $(identify -verbose "$f" | \
+    grep Colorspace | \
+    grep CMYK | wc -l) -gt 0 ]; then
+    remove_previous_completion_string
+    print_and_log "Picture #${current_picture} uses CMYK color profile," \
+      "converting it to RGB ..."
+    (
+      cd $(dirname "$f")
+      file=$(basename "$f")
+      convert "$file" -colorspace rgb "$file"
+    )
+  fi
+  
+  if [ $current_picture -eq $total_number ]; then
+    print_and_log "Finished: $(date)"
+  fi
 done
+
