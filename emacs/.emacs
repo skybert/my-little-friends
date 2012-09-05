@@ -159,6 +159,10 @@
 (global-unset-key "\C-x\C-b")
 (global-set-key "\C-x\C-b" 'tkj-list-buffers)
 
+(defun close-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
 ;; make unique buffer names
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward
@@ -497,13 +501,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-diff-options "-w")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Close all buffers
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun close-all-buffers ()
-  (interactive)
-  (mapc 'kill-buffer (buffer-list)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; outline/wiki
