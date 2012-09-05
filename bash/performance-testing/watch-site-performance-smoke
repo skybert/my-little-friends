@@ -2,7 +2,7 @@
 
 source ~/src/my-little-friends/bash/common/alexandria
 
-site=beta.newindianexpress.com
+site=www.aftenposten.no
 
 if [ $1 ]; then
    site=$1
