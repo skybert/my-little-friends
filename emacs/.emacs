@@ -17,10 +17,6 @@
   (tool-bar-mode 0)
   (fringe-mode 0))
 
-;; (set-background-color "black")
-;; (set-foreground-color "#aad6b1")
-;; (set-cursor-color "red")
-
 (setq frame-background-mode nil
       column-number-mode t
       frame-title-format (concat invocation-name "@" (system-name) " {%f}")
@@ -28,6 +24,10 @@
       visible-bell nil
       ring-bell-function (lambda nil (message ""))
       show-paren-mode t)
+
+;; themes
+(add-to-list 'custom-theme-load-path
+             "$HOME/.emacs.d/themes")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts in all modes
@@ -75,18 +75,29 @@
              (flyspell-mode)))
 (setq longlines-show-hard-newlines t)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Loading other general init files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; then load Emacs 24 specific settings
-(if (>= emacs-major-version 24)
-    (load "~/.emacs.d/tkj-emacs24.el"))
-
 ;; load all locally installed packages
 (let ((default-directory "/usr/local/src/emacs"))
   (normal-top-level-add-subdirs-to-load-path))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs package repositories
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+
+;; loading packages installed via the emacs24 package repositories
+;; here
+(let ((default-directory "~/.emacs.d/elpa"))
+  (normal-top-level-add-subdirs-to-load-path))
+(require 'mic-paren)
+(require 'magit)
+(require 'twittering-mode)
+
+;; twittering 
+(setq twittering-use-master-password t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
@@ -158,7 +169,7 @@
       gnus-cache-directory "~/mail/cache"
       gnus-directory "~/mail"
       gnus-dribble-directory "~/mail/dribble"
-      gnus-local-organization "Vizrt Online A/S"
+      gnus-local-organization "Vizrt Online"
       mail-default-directory "~/mail"
       mail-from-style 'angles
       mail-interactive nil
@@ -166,11 +177,12 @@
       message-directory "~/mail"
 )
 
+(load "~/.emacs.d/tkj-mu4e.el")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Display the time on the status line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq display-time-24hr-format t)       
-;; (display-time)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tell emacs to skip backup files
@@ -198,21 +210,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq load-path
-      (append (list
-               "/usr/share/emacs23/site-lisp/auto-complete"
-               "/mnt/debian/usr/share/emacs/site-lisp/auto-complete"
-               "/usr/local/src/html5-el"
-               "/mnt/debian/usr/local/src/html5-el"
-               )
-              load-path))
 (require 'auto-complete)
-
+(require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories
              "~/.emacs.d/auto-complete/dict"
              )
 
-(require 'auto-complete-config)
 (ac-config-default)
 (ac-flyspell-workaround)
 
@@ -229,14 +232,7 @@
 
 (defun hexcolour-add-to-font-lock ()
   (font-lock-add-keywords nil hexcolour-keywords))
-
-(defun my-css-mode-hook()
-  (setq compile-command
-        "cp -r ~/src/p4/branches/personal/torstein/memento/src/main/webapp/{template,css}/ /opt/tomcat-dev1/webapps/g/"
-        ))
-
 (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
-(add-hook 'css-mode-hook 'my-css-mode-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Associate different modes with different file types.
@@ -300,7 +296,7 @@
          )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; hippe expansion
+;; Hippe expansion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'hippie-exp)
 
@@ -309,8 +305,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH is handled by regular etags
 (setq tags-table-list '(
-                        "/home/torstein/src/ece-scripts"
-                        "/home/torstein/src/my-little-friends"
+                        "~/src/ece-scripts"
+                        "~/src/my-little-friends"
                         ))
 
 ;; C style like languages like Java are handled by gtags (from GNU Global)
@@ -319,8 +315,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq yas/root-directory '( "~/.emacs.d/snippets"
-                               ))
+(require 'yasnippet)
+(setq yas/root-directory '("~/.emacs.d/snippets"))
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
 
@@ -342,8 +338,6 @@
         c-label-offset 0
         indent-tabs-mode nil
         compile-command "cd ~/src/p4/escenic/plugins/community/trunk/community-core; mvn test -Dtest=OpenIDProviderTest"
-;;        compile-command "cd ~/src/p4/escenic/plugins/viziwyg/trunk/viziwyg-ws; mvn -o compile war:war"
-;;        compile-command "cd ~/src/p4/main/tip-manager/tip-studio; mvn -o compile && sh ~/src/p4/main/tip-manager/tip-studio/src/main/bash/tip-studio.sh"
         require-final-newline nil)
   (auto-fill-mode)
   (c-set-offset 'substatement-open 0)
@@ -351,6 +345,7 @@
   (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (subword-mode)
   (gtags-mode)
+  (electric-pair-mode)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
@@ -379,9 +374,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; loading the nxhtml-mode
-;; (load "/usr/local/emacs/nxhtml/autostart.el")
-
 ;; doesn't work 2008-04-14 17:51
 ;; (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
 (setq sgml-set-face t
@@ -396,7 +388,6 @@
       rng-schema-locating-files
       (quote ("/usr/share/emacs/23.3/etc/schema/schemas.xml"
               "/usr/local/src/html5-el/schemas.xml"
-              "/mnt/debian/usr/local/src/html5-el/schemas.xml"
               "~/.emacs.d/schemas.xml"))
       rng-validate-delay 3
       nxml-slash-auto-complete-flag t
@@ -443,18 +434,6 @@
 (ad-activate 'js2-parse-statement)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Uncomment if you want to use `xslide-process' in `xml-mode'.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (autoload 'xsl-process "xslide-process" "Process an XSL stylesheet." t)
-;; (add-hook 'xml-mode-hook
-;;          (lambda ()
-;;            (define-key xml-mode-map [(control c) (meta control p)]
-;;              'xsl-process)))
-;; (global-set-key [ (control tab) ] 'xsl-complete)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Unfill
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun unfill-paragraph ()
@@ -474,14 +453,6 @@
 (defun tkj-load-jdibug ()
   (interactive)
   (load "~/.emacs.d/tkj-jdibug.el"))
-
-(defun tkj-load-malabar ()
-  (interactive)
-  (load "~/.emacs.d/tkj-malabar.el"))
-
-(defun tkj-load-jdee ()
-  (interactive)
-  (load "~/.emacs.d/tkj-jdee.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto insert file templates
@@ -511,21 +482,12 @@
 (global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; insert date
+;; Insert date
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun insert-date ()
    (interactive)
    (let (( time (current-time-string) ))
      (insert (format-time-string "%Y-%m-%d"))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Edit text areas in Google Chrome(ium)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (if (locate-library "edit-server")
-;;    (progn
-;;      (require 'edit-server)
-;;      (setq edit-server-new-frame nil)
-;;      (edit-server-start)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Diff
@@ -557,14 +519,6 @@
              (expand-file-name "/usr/local/share/info"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; vm
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun tkj-load-vm ()
-  (interactive)
-  (load "~/.vm")
-  (vm))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq sh-basic-offset 2)
@@ -575,16 +529,12 @@
 (load "~/.emacs.d/tkj-smart-file-name-completion.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Nagios
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (require 'nagios-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Chat
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load "~/.emacs.d/tkj-chat.el")
-(load "~/.emacs.d/tkj-mu4e.el")
-(load "~/.emacs.d/tkj-jabber.el")
+(defun tkj-load-chat()
+  (interactive)
+  (load "~/.emacs.d/tkj-chat.el")
+  (load "~/.emacs.d/tkj-jabber.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
@@ -595,21 +545,7 @@
  '(canlock-password "e4d772a3afeae6dbcbc7e1dbff60aa2ac44921b2")
  '(css-indent-offset 2)
  '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "d6a00ef5e53adf9b6fe417d2b4404895f26210c52bb8716971be106550cea257" "dfa78f3070e4496c444610310d095fc188d0d274" "bba5884bca1625fe327887e6b5674da2e98995b7" "9cdf9fb94f560902b567b73f65c2ed4e5cfbaafe" default)))
- '(ecb-options-version "2.32")
- '(ecb-tip-of-the-day nil)
- '(fringe-mode 0 nil (fringe))
- '(jde-bug-debugger-host-address "localhost")
- '(jde-bug-server-socket (quote (t . "5005")))
- '(jde-db-option-connect-socket (quote (nil "5005")))
- '(jde-gen-get-set-var-template (quote ("(jde-gen-insert-at-class-top nil t)" "(progn (tempo-save-named 'mypos (point-marker)) nil)" "(progn" "  (jde-gen-get-next-member-pos '(\"private\")) nil)" "(P \"Variable type: \" type t)" "(P \"Variable name: \" name t)" "'&'n'>" "(progn (require 'jde-javadoc) (jde-javadoc-insert-start-block))" "\"* Describe \" (s name) \" here.\" '>'n" "'> (jde-javadoc-insert-end-block)" "'& \"private \" (s type) \" \"" "(s name) \";\" '>" "(progn (goto-char (marker-position (tempo-lookup-named 'mypos))) nil)" "(jde-gen-blank-lines 2 -1)" "'> (jde-javadoc-insert-start-block)" "\"* Get the <code>\" (jde-gen-lookup-and-capitalize 'name) \"</code> value.\" '>'n" "'> (jde-javadoc-insert-empty-line)" "'>" "(let ((type (tempo-lookup-named 'type)))" "  (jde-gen-save-excursion (jde-javadoc-insert 'tempo-template-jde-javadoc-return-tag)))" "'> (jde-javadoc-insert-end-block)" "(jde-gen-method-signature" "  \"public\"" "  (jde-gen-lookup-named 'type)" "  (if (string= \"boolean\" (jde-gen-lookup-named 'type) ) " "    (concat \"is\" (jde-gen-lookup-and-capitalize 'name))" "   (concat \"get\" (jde-gen-lookup-and-capitalize 'name)))" "  nil" " )" "(jde-gen-electric-brace)" "\"return \" (s name) \";\" '>'n \"}\"'>'n" "'n" "'> (jde-javadoc-insert-start-block)" "\"* Set the <code>\" (jmde-gen-lookup-and-capitalize 'name) \"</code> value.\" '>'n" "\"*\" '>'n" "\"* @param new\" (jde-gen-lookup-and-capitalize 'name)" "\" The new \" (jde-gen-lookup-and-capitalize 'name) \" value.\" '>'n" "'> (jde-javadoc-insert-end-block)" "(jde-gen-method-signature " "  \"public\"" "  \"void\"" "  (concat \"set\" (jde-gen-lookup-and-capitalize 'name))" "  (concat (jde-gen-lookup-named 'type) \" new\" " "          (jde-gen-lookup-and-capitalize 'name))" " )" "(jde-gen-electric-brace)" "'>\"this.\" (s name) \" = new\" (jde-gen-lookup-and-capitalize 'name)" "\";\" '>'n \"}\" '>" "(when (looking-at \"\\\\s-*\\n\\\\s-*$\")" "  (forward-line 1) (end-of-line) nil)")))
- '(jde-javadoc-version-tag-template "\"* @version $Revision$ $Date$\"")
- '(jde-jdk-registry (quote (("1.6" . "/usr/lib/jvm/java-6-sun"))))
- '(jde-plugins-directory "/usr/local/emacs/jde/plugins")
- '(jde-wiz-get-set-variable-convention (quote ("m" . "Prefix")))
- '(jde-wiz-get-set-variable-prefix "p")
- '(jde-wiz-tostring-postfix (quote ("\"]\"")))
- '(jde-wiz-tostring-prefix (quote ("getClass().getName() + \"[\""))))
-
+ '(fringe-mode 0 nil (fringe)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
