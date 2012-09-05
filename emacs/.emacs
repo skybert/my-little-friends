@@ -146,6 +146,9 @@
  ;; Automatically reload files was modified by external program
 (global-auto-revert-mode 1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Buffers
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Make C-x C-b maximise the buffer list window, this saves two
 ;; additional shortcuts from the normal behaviour.
 (defun tkj-list-buffers()
