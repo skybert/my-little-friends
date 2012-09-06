@@ -36,7 +36,7 @@ EOF
     cat <<EOF
 $id The file $1 was missing from your import data set.
 $id Perhaps you meant this one: $alternative
-$id Suggested command to fix this: mv "$alternative" "$1"
+$id Suggested command to fix this: cp "$alternative" "$1"
 EOF
   elif [ ! -e $1 ]; then
     cat <<EOF
