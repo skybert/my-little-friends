@@ -128,9 +128,6 @@
 (global-unset-key [ (delete) ])
 (global-set-key [ delete ] 'gnus-summary-delete-article)
 (global-set-key  [ (f12) ] 'gnus-summary-delete-article)
-;; Like F5/refresh in a web browser
-(global-set-key  [ (f5) ] 'revert-buffer)
-(setq revert-without-query (list "\\.java$" "\\.xml$"))
 
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
@@ -144,7 +141,9 @@
 ;; (desktop-save-mode 1)
 
  ;; Automatically reload files was modified by external program
+(global-set-key  [ (f5) ] 'revert-buffer)
 (global-auto-revert-mode 1)
+(setq revert-without-query (list "\\.png$" "\\.svg$"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffers
