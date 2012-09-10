@@ -140,7 +140,7 @@
 ;; useful, so I'll keep the setting just for a while
 ;; (desktop-save-mode 1)
 
- ;; Automatically reload files was modified by external program
+;; Automatically reload files was modified by external program
 (global-set-key  [ (f5) ] 'revert-buffer)
 (global-auto-revert-mode 1)
 (setq revert-without-query (list "\\.png$" "\\.svg$"))
