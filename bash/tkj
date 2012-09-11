@@ -221,6 +221,16 @@ function do_setup-screens() {
   fi
 }
 
+function do_change-clipboard() {
+  if [ $(ps aux| grep clipit | grep -v grep | wc -l) -gt 0 ]; then
+    killall -9 clipit 2>/dev/null
+    xclipboard &
+  else
+    killall -9 xclipboard 2>/dev/null
+    clipit &
+  fi
+}
+
 function do_delete-cache-files()
 {
     local dir_list="
