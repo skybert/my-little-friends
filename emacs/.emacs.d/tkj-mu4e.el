@@ -5,6 +5,7 @@
       ;; care of this
       mu4e-sent-messages-behavior 'trash
 
+      mu4e-view-show-images t
       mu4e-maildir-shortcuts
       '(
         ("/gmailw/saas-alerts" . ?a)
