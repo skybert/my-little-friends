@@ -1,0 +1,16 @@
+# export PS1='\h:\w\$ '
+export PS1="\[\033[1;31m\]\u\[\033[0;0m\]@\h \w # "
+umask 022
+
+export PATH=$HOME/bin:$PATH
+ 
+# Eternal bash history
+# export HISTTIMEFORMAT="%s "
+export HISTTIMEFORMAT="%F %H:%M:%S "
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $$ $USER \
+               "$(history 1)" >> ~/.bash_eternal_history'
+
+alias ls='ls -lh'
+alias df='df -hT'
+alias emacs='emacs -nw'
+
