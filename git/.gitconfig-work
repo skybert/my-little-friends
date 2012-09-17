@@ -6,3 +6,5 @@ email = tkj@vizrt.com
 branch = auto
 diff = auto
 status = auto
+[branch]
+	autosetuprebase = always
