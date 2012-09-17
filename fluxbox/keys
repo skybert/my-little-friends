@@ -140,10 +140,6 @@ Control Shift i :ExecCommand echo `date` >> ~/.interruptions/`date --iso`.log
 # 'd' for (show) desktop
 Control Shift d :ShowDesktop
 
-# 'e' for emacs, I use the full path to differentiate between the
-# package installed and self compiled version of emacs.
-Control Shift e :Exec /usr/bin/emacs -fn 7x14 &
-
 # 't' for terminal
 Control Shift a :Exec caterm +sb -cr red -tr -fg white -fn 7x14 -tint blue -sl 10000
 # Control Shift t :Exec urxvt +sb -cr red -sl 10000 -bg "#3f3f3f" -fg "#dcdccc" -fn 7x14
