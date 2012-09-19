@@ -182,7 +182,7 @@ function do_update-sources()
     (
       cd $el
       if [ -d $el/.git ]; then
-        git pull
+        git pull --rebase
       elif [ -d $el/.svn ]; then
         svn up
       elif [ -d $el/CVS ]; then
