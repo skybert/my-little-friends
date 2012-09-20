@@ -4,7 +4,7 @@ import_base_dir=/var/spool/escenic/import/dn
 
 function get_user_options() {
   local previous_was_dir=0
-  
+
   for el in "$@"; do
     if [[ $el == "-d" || $el == "--dir" ]]; then
       previous_was_dir=1
@@ -36,15 +36,30 @@ previous_new_count=$new_count
 previous_error_count=$error_count
 previous_archive_count=$archive_count
 EOF
+  local speed=$(( (${previous_new_count-${new_count}} - new_count) / seconds_since_last ))
 
   echo "New    :" ${new_count} \
-    "since last:" $(( new_count - previous_new_count )) \
-    "speed:" $(( (${previous_new_count-${new_count}} - new_count) / seconds_since_last )) \
-    "files/s"
+    "since last:" $(( new_count - previous_new_count ))
   echo "Error  :" ${error_count} \
     "since last:" $(( error_count - ${previous_error_count-0} ))
   echo "Archive:" ${archive_count} \
     "since last:" $(( archive_count - ${previous_archive_count-${archive_count}} ))
+  echo "Speed  :" ${speed} "files/s"
+  echo "Estimated finish:" $(get_estimated_finish ${new_count} ${speed})
+}
+
+## $1 :: current count
+## $2 :: speed
+function get_estimated_finish() {
+  if [ $speed -eq 0 ]; then
+    echo "n/a"
+    return
+  fi
+  
+  local seconds_to_finish=$(echo "scale=0;" $1 / $2 | bc -l)
+  local hours=$(( $seconds_to_finish / (60 * 60) ))
+  local minutes=$(( ($seconds_to_finish - (hours * 60 * 60)) / 60 ))
+  echo ${hours}"h" ${minutes}"m"
 }
 
 get_user_options "$@"
