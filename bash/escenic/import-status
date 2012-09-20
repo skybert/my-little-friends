@@ -1,0 +1,51 @@
+#! /usr/bin/env bash
+
+import_base_dir=/var/spool/escenic/import/dn
+state_file=$HOME/.$(basename $0)-$(basename $import_base_dir).state
+
+function get_user_options() {
+  local previous_was_dir=0
+  
+  for el in "$@"; do
+    if [[ $el == "-d" || $el == "--dir" ]]; then
+      previous_was_dir=1
+    else [ $previous_was_dir -eq 1 ];
+      import_base_dir=$el
+      previous_was_dir=0
+    fi
+  done
+}
+
+function get_current_status() {
+  echo "Status of imports in" $import_base_dir
+  local current_date=$(date +%s)
+  if [ -e $state_file ]; then
+    source $state_file
+    local seconds_since_last=$(( current_date - previous_status_date ))
+    echo "Seconds since last import status:" $seconds_since_last
+  else
+    seconds_since_last=1
+  fi
+
+  local new_count=$(ls $import_base_dir/new | wc -l)
+  local error_count=$(ls $import_base_dir/error | wc -l)
+  local archive_count=$(ls $import_base_dir/archive | wc -l)
+  cat >> $state_file <<EOF
+previous_status_date=$current_date
+previous_new_count=$new_count
+previous_error_count=$error_count
+previous_archive_count=$archive_count
+EOF
+
+  echo "New    :" ${new_count} \
+    "since last:" $(( new_count - previous_new_count )) \
+    "speed:" $(( (previous_new_count - new_count) / seconds_since_last )) \
+    "files/s"
+  echo "Error  :" ${error_count} \
+    "since last:" $(( error_count - previous_error_count ))
+  echo "Archive:" ${archive_count} \
+    "since last:" $(( archive_count - previous_archive_count ))
+}
+
+get_user_options "$@"
+get_current_status
