@@ -1,7 +1,6 @@
 #! /usr/bin/env bash
 
 import_base_dir=/var/spool/escenic/import/dn
-state_file=$HOME/.$(basename $0)-$(basename $import_base_dir).state
 
 function get_user_options() {
   local previous_was_dir=0
@@ -14,6 +13,7 @@ function get_user_options() {
       previous_was_dir=0
     fi
   done
+  state_file=$HOME/.$(basename $0)-$(basename $import_base_dir).state
 }
 
 function get_current_status() {
@@ -39,12 +39,12 @@ EOF
 
   echo "New    :" ${new_count} \
     "since last:" $(( new_count - previous_new_count )) \
-    "speed:" $(( (previous_new_count - new_count) / seconds_since_last )) \
+    "speed:" $(( (${previous_new_count-${new_count}} - new_count) / seconds_since_last )) \
     "files/s"
   echo "Error  :" ${error_count} \
-    "since last:" $(( error_count - previous_error_count ))
+    "since last:" $(( error_count - ${previous_error_count-0} ))
   echo "Archive:" ${archive_count} \
-    "since last:" $(( archive_count - previous_archive_count ))
+    "since last:" $(( archive_count - ${previous_archive_count-0} ))
 }
 
 get_user_options "$@"
