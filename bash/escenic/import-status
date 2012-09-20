@@ -44,7 +44,7 @@ EOF
   echo "Error  :" ${error_count} \
     "since last:" $(( error_count - ${previous_error_count-0} ))
   echo "Archive:" ${archive_count} \
-    "since last:" $(( archive_count - ${previous_archive_count-0} ))
+    "since last:" $(( archive_count - ${previous_archive_count-${archive_count}} ))
 }
 
 get_user_options "$@"
