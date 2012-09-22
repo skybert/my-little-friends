@@ -8,7 +8,7 @@
 # telling alexandria to use FHS paths
 pid_dir=/var/run
 log_dir=/var/log
-source $(dirname $0)/alexandria
+source $(dirname $0)/common/alexandria
 
 interface=wlan0
 conf_file=/etc/$(basename $0).conf
