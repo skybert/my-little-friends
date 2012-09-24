@@ -17,6 +17,7 @@
         ("/gmailw/jira" . ?j)
         ("/gmailw/p4" . ?p)
         ("/gmailw/saas" . ?s)
+        ("/gmailw/twitter" . ?t)
         )
       )
 
