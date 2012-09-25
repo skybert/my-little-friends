@@ -165,6 +165,7 @@ function do_update-sources()
   fi
   
   local src_list="
+    $HOME/src/my-writings
     $HOME/src/ece-scripts
     $HOME/src/my-little-friends
     $HOME/src/nie
