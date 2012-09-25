@@ -1,12 +1,11 @@
 ;;                                                      -*- emacs-lisp -*-
 (setq
  org-return-follows-link t 
- org-agenda-files (list "~/doc/work.org"
-                        "~/doc/nie.org"
-                        "~/doc/ece-scripts.org"
-                        "~/doc/saved_for_a_rainy_day.org"
+ org-agenda-files (list "~/src/my-writings/work.org"
+                        "~/src/my-writings/nie.org"
+                        "~/src/my-writings/ece-scripts.org"
                         "~/src/my-little-friends/notes/reading-list.org"
-                        "~/doc/home.org")
+                        "~/src/my-writings/home.org")
  )
 
 (define-key global-map "\C-cl" 'org-store-link)
