@@ -1,0 +1,26 @@
+! ---| codemac old |--- {{{
+! Black (not tango) + DarkGrey
+URxvt*color0: #303430
+URxvt*color8: #8989A9
+! DarkRed + Red
+URxvt*color1: #bf7979
+URxvt*color9: #f4a45f
+! DarkGreen + Green
+URxvt*color2: #97b22b
+URxvt*color10: #c5f779
+! DarkYellow + Yellow
+URxvt*color3: #b6aa58
+URxvt*color11: #fff796
+! DarkBlue + Blue
+URxvt*color4: #86a2be
+URxvt*color12: #98afd9
+! DarkMangenta + Mangenta
+URxvt*color5: #d9b798
+URxvt*color13: #d7d998
+!DarkCyan + Cyan (both not tango)
+URxvt*color6: #a1d5cd
+URxvt*color14: #a1d5cd
+! LightGrey + White
+URxvt*color7: #cccccc
+URxvt*color15: #aeaeae
+!}}}

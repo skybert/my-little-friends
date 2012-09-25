@@ -1,0 +1,29 @@
+! ---| phrakture |--- {{{
+!*foreground: #bbbbbb
+!*background: #000000
+!! Black + DarkGrey
+!*color0: #000000
+!*color8: #222222
+!! DarkRed + Red
+!*color1: #803232
+!*color9: #982b2b
+!! DarkGreen + Green
+!*color2: #5b762f
+!*color10: #89b83f
+!! DarkYellow + Yellow
+!*color3: #aa9943
+!*color11: #efef60
+!! DarkBlue + Blue
+!*color4: #324c80
+!*color12: #2b4f98
+!! DarkMangenta + Mangenta
+!*color5: #706c9a
+!*color13: #826ab1
+!!DarkCyan + Cyan
+!*color6: #92b19e
+!*color14: #a1cdcd
+!! LightGrey + White
+!*color7: #ffffff
+!*color15: #dededE
+!}}}
+

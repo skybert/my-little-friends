@@ -1,0 +1,27 @@
+! ---| thayer (tango) |--- {{{
+! Black (not tango) + DarkGrey
+URxvt*color0: #000000
+URxvt*color8: #555753
+! DarkRed + Red
+URxvt*color1: #ff6565
+URxvt*color9: #ff8d8d
+! DarkGreen + Green
+URxvt*color2: #93d44f
+URxvt*color10: #78e758
+! DarkYellow + Yellow
+URxvt*color3: #eab93d
+URxvt*color11: #ffc123
+! DarkBlue + Blue
+URxvt*color4: #204a87
+URxvt*color12: #3465a4
+! DarkMangenta + Mangenta
+URxvt*color5: #ce5c00
+URxvt*color13: #f57900
+!DarkCyan + Cyan (both not tango)
+URxvt*color6: #89b6e2
+URxvt*color14: #46a4ff
+! LightGrey + White
+URxvt*color7: #cccccc
+URxvt*color15: #ffffff
+!}}}
+
