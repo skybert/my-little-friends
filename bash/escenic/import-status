@@ -36,8 +36,12 @@ previous_new_count=$new_count
 previous_error_count=$error_count
 previous_archive_count=$archive_count
 EOF
-  local speed=$(( (${previous_new_count-${new_count}} - new_count) / seconds_since_last ))
-
+  if [ ${seconds_since_last} -eq 0 ]; then
+    local speed=0
+  else
+    local speed=$(( (${previous_new_count-${new_count}} - new_count) / seconds_since_last ))
+  fi
+  
   echo "New    :" ${new_count} \
     "since last:" $(( new_count - previous_new_count ))
   echo "Error  :" ${error_count} \
