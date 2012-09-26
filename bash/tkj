@@ -459,7 +459,7 @@ function do_set-random-wallpaper()
     wallpaper_array=($wallpaper_names)
     number_of_wallpapers=${#wallpaper_array[*]}
     wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
-    display -window root -backdrop $wallpaper
+    display -window root $wallpaper
 }
 
 # try to be smart first
