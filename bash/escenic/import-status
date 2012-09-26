@@ -27,9 +27,9 @@ function get_current_status() {
     seconds_since_last=1
   fi
 
-  local new_count=$(ls $import_base_dir/new | wc -l)
-  local error_count=$(ls $import_base_dir/error | wc -l)
-  local archive_count=$(ls $import_base_dir/archive | wc -l)
+  local new_count=$(ls $import_base_dir/new | grep .xml | wc -l)
+  local error_count=$(ls $import_base_dir/error | grep .xml | wc -l)
+  local archive_count=$(ls $import_base_dir/archive | grep .xml | wc -l)
   cat >> $state_file <<EOF
 previous_status_date=$current_date
 previous_new_count=$new_count
