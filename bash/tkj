@@ -170,6 +170,8 @@ function do_update-sources()
     $HOME/src/my-little-friends
     $HOME/src/nie
     /usr/local/src/emacs/org-mode
+    /usr/local/src/emacs/emacs-eclim
+    /usr/local/src/eclim
   "
 
   for el in $src_list; do
