@@ -5,8 +5,8 @@
 # the date of the pictures.
 
 state_file=$HOME/.$(basename $0).state
-lock_file=/tmp/$(basename $0).lock
-log_file=/tmp/$(basename $0).log
+lock_file=$HOME/.$(basename $0).lock
+log_file=$HOME/.$(basename $0).log
 
 function log() {
   echo "$(date) $@" >> $log_file
