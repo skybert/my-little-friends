@@ -16,3 +16,6 @@ add mod1 = Super_R
 add control = Alt_R
 add control = Caps_Lock
 
+! natural scrolling mode, Mac OS X style
+pointer = 1 2 3 5 4 7 6 8 9 10 11 12 
+

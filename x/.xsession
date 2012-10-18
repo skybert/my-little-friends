@@ -14,5 +14,8 @@ dropbox start &
 
 # exec ck-launch-session gnome-session
 # ck-launch-session is done by the login manager, see ps auxww.
-exec fluxbox
+# exec fluxbox
+
+# trying again
+exec ck-launch-session dbus-launch fluxbox
 
