@@ -42,6 +42,7 @@ done
 PATH=$HOME/src/ece-scripts/usr/bin:\
 $HOME/src/my-little-friends/bash:\
 /opt/maven/bin:\
+/opt/local/bin:\
 $PATH
 
 # p4
