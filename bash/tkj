@@ -11,130 +11,119 @@ LC_ALL=C
 ## report, as well as listing all the response headers.
 function do_test-url()
 {
-    local headers="$(
+  local headers="$(
         wget --quiet \
             --server-response \
             --header='Accept-Encoding: gzip,deflate' \
             $1 \
             2>&1 >/dev/null
     )"
-    
-    if [ $(echo "$headers" | grep "Set-Cookie" | wc -l) -gt 0 ]; then
-        print "Cache-ability: not ok"
-    else
-        print "Cache-ability: ok"
-    fi
-    
-    if [ $(echo "$headers" | grep "Content-Encoding: gzip" | wc -l) -gt 0 ]; then
-        print "Compression:   ok"
-    else
-        print "Compression:   not ok"
-    fi
-    
-    print "Response headers:"
-    echo "$headers"
+  
+  if [ $(echo "$headers" | grep "Set-Cookie" | wc -l) -gt 0 ]; then
+    print "Cache-ability: not ok"
+  else
+    print "Cache-ability: ok"
+  fi
+  
+  if [ $(echo "$headers" | grep "Content-Encoding: gzip" | wc -l) -gt 0 ]; then
+    print "Compression:   ok"
+  else
+    print "Compression:   not ok"
+  fi
+  
+  print "Response headers:"
+  echo "$headers"
 }
 
 function do_help()
 {
-    print "$(basename $0) supports these commands:"
-    declare | grep ^"do_" | cut -d' ' -f1 | cut -d'_' -f2 | sort | \
-        while read f; do
-        echo "  *" $f
-    done
+  print "$(basename $0) supports these commands:"
+  declare | grep ^"do_" | cut -d' ' -f1 | cut -d'_' -f2 | sort | \
+    while read f; do
+    echo "  *" $f
+  done
 }
 
 function do_daily()
 {
-    do_setup-screens
+  do_setup-screens
 
-    print "Putting on some good music ..."
-    mpd 1>/dev/null 2>/dev/null &
-    # mpc play 1>/dev/null 2>/dev/null &
+  print "Putting on some good music ..."
+  mpd 1>/dev/null 2>/dev/null &
 
-    # set up the network
-    if [ $(ping -c 1 vg.no 2>/dev/null | grep received | wc -l) -eq 0 ]; then
-        print "Enter your root password to set up the network"
-        su -c "bash /home/torstein/src/my-little-friends/bash/tkj-ifupd"
-    fi
-
-    # if [ $(/sbin/ifconfig | grep tun0 -A 1 | grep inet | wc -l) -lt 1 ]; then
-    #     TERM=rxvt-color phionvpn
-    # fi
-
-    if [ $(ssh-add -l | grep -v "no identities" | wc -l) -lt 1 ]; then
-        print "Adding your SSH key"
-        ssh-add
-    fi
-    
-    print "Setting a random wallpaper..."
-    do_set-random-wallpaper &
+  if [ $(ssh-add -l | grep -v "no identities" | wc -l) -lt 1 ]; then
+    print "Adding your SSH key"
+    ssh-add
+  fi
+  
+  print "Setting a random wallpaper..."
+  do_set-random-wallpaper &
 
     # the applications that requirethe network to work
-    print "Launching my favourite applications..."
-    app_list="
+  print "Launching my favourite applications..."
+  app_list="
 opera
 emacs
 firefox
 "
-    for el in $app_list; do
-        if [ $(ps aux | grep  $el | grep -v grep | wc -l) -lt 1 ]; then
-            if [ $el = "emacs" ]; then
+  for el in $app_list; do
+    if [ $(ps aux | grep  $el | grep -v grep | wc -l) -lt 1 ]; then
+      if [ $el = "emacs" ]; then
                 # emacs -fn 7x14 -f gnus &
                 # bash ~/src/my-little-friends/bash/create-emacs-file-cache
                 # print "Replacing ~/.emacs.d/file_cache.el ..."
                 # run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
-                do_update-tags
-                emacs -fn 7x14 ~/doc/work.org &
-            else
-                $el 1>/dev/null 2>/dev/null &
-            fi
-        fi
-    done
+        do_update-tags
+        emacs -fn 7x14 ~/doc/work.org &
+      else
+        $el 1>/dev/null 2>/dev/null &
+      fi
+    fi
+  done
 
-    echo -n $id "Start of the day: Getting, building & deploying the latest code"
-    echo "..."
-    do_update-sources
+  echo -n $id "Start of the day: Getting, building & deploying the latest code"
+  echo "..."
+  do_update-sources
 
-    print "Happy hacking :-)"
+  print "Happy hacking :-)"
 }
 
 function do_update-tags()
 {
-    print "Updating ETags ..."
-    (
-        run cd ~/src/ece-scripts
-        find usr -type f | \
-          egrep "bin|share" | \
-          grep -v local | \
-          egrep -v "~|#|swp|html|tex|pdf|diff" | \
-          etags -
-        
-        run cd ~/src/my-little-friends
-        find bash -type f | etags -
-    )
+  print "Updating ETags ..."
+  (
+    run cd ~/src/ece-scripts
+    find usr -type f | \
+      egrep "bin|share" | \
+      grep -v local | \
+      egrep -v "~|#|swp|html|tex|pdf|diff" | \
+      etags -
+    
+    run cd ~/src/my-little-friends
+    find bash -type f | etags -
+  )
 
-    local java_src_list="
+  local java_src_list="
       $HOME/src/cnn/ece-to-nginx-cache
       $HOME/src/p4/escenic/engine/trunk
       $HOME/src/p4/escenic/plugins/community/trunk
       $HOME/src/p4/escenic/plugins/forum/trunk
       $HOME/src/p4/escenic/plugins/analysis/trunk
     "
-    for el in $java_src_list; do
-      if [ ! -d $el ]; then
-        continue
-      fi
+  for el in $java_src_list; do
+    if [ ! -d $el ]; then
+      continue
+    fi
 
-      print "Updating gtags for $el ..."xo
-      run cd $el
-      find . -type f | \
-        egrep ".java|.xml|.pom|.properties" | \
-        egrep -v ".svn|.git|.hg|~|.swp" | \
-        gtags -f -
-      
-    done
+    print "Updating gtags for $el ..."
+    run cd $el
+    find . -type f | \
+      egrep ".java|.xml|.pom|.properties" | \
+      egrep -v ".svn|.git|.hg|~|.swp" | \
+      gtags -f -
     
+  done
+  
     # print "Updaging GTags ..."
     # (
     #     run cd ~/src/p4
@@ -149,11 +138,11 @@ function do_update-tags()
 }
 
 function do_doc() {
-    print "Documentation for method ${1}:"
-    grep -B 5 "^function do_${1}" $(which $0) | grep ^"##" | cut -d' ' -f2- | \
-        while read line; do
-          echo '   '"$line"
-        done
+  print "Documentation for method ${1}:"
+  grep -B 5 "^function do_${1}" $(which $0) | grep ^"##" | cut -d' ' -f2- | \
+    while read line; do
+    echo '   '"$line"
+  done
 }
 
 ## Updates the sources, including p4, git, forks, hg++
@@ -234,95 +223,95 @@ function do_change-clipboard() {
 
 function do_delete-cache-files()
 {
-    local dir_list="
+  local dir_list="
       $HOME/.opera/cache
       $HOME/.mozilla/firefox/1tznm2xo.default/Cache
       $HOME/.java/deployment/cache/6.0
       $HOME/.cache/google-chrome
     "
 
-    for el in $dir_list; do
-        if [ -d $el ]; then
-            rm -r $el
-        fi
-    done
+  for el in $dir_list; do
+    if [ -d $el ]; then
+      rm -r $el
+    fi
+  done
 }
 
 function do_dates()
 {
-    echo "Taipei:    " $(TZ='Asia/Taipei' date)
-    echo "Dhaka:     " $(TZ='Asia/Dhaka' date)
-    echo "Kolkata:   " $(TZ='Asia/Kolkata' date)
-    echo "Oslo:      " $(TZ='Europe/Oslo' date)
-    # echo -n "Argentina: "
-    # TZ='America/Argentina/Buenos_Aires' date
+  echo "Taipei:    " $(TZ='Asia/Taipei' date)
+  echo "Dhaka:     " $(TZ='Asia/Dhaka' date)
+  echo "Kolkata:   " $(TZ='Asia/Kolkata' date)
+  echo "Oslo:      " $(TZ='Europe/Oslo' date)
+  # echo -n "Argentina: "
+  # TZ='America/Argentina/Buenos_Aires' date
 }
 
 function do_hours()
 {
-    if [ $1 ]; then
-        local the_date=$1
-    else
-        the_date=$(date --iso)
-    fi
+  if [ $1 ]; then
+    local the_date=$1
+  else
+    the_date=$(date --iso)
+  fi
 
-    local started_working_string=$(
-      egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
-        head -1 | \
-        sed 's/^[ ]*[0-9]*[ ]*//' | \
-        cut -d' ' -f1-2
-    )
+  local started_working_string=$(
+    egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
+      head -1 | \
+      sed 's/^[ ]*[0-9]*[ ]*//' | \
+      cut -d' ' -f1-2
+  )
 
-    local ended_working_string=$(
-      egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
-        tail -1 | \
-        sed 's/^[ ]*[0-9]*[ ]*//' | \
-        cut -d' ' -f1-2
-    )
+  local ended_working_string=$(
+    egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
+      tail -1 | \
+      sed 's/^[ ]*[0-9]*[ ]*//' | \
+      cut -d' ' -f1-2
+  )
 
-    local seconds_worked=$((
-            $(date +%s -d "$ended_working_string") -
-            $(date +%s -d "$started_working_string") ))
-    local days=$(( seconds_worked / ( 60 * 60 * 24 ) ))
-    local seconds_left=$(( seconds_worked - ( $days * 60 * 60 * 24 ) ))
-    local hours=$(( seconds_left / ( 60 * 60 ) ))
-    local seconds_left=$(( seconds_left - ( $hours * 60 * 60 ) ))
-    local minutes=$(( seconds_left / 60 ))
-    local seconds_left=$(( seconds_left - $minutes * 60 ))
+  local seconds_worked=$((
+      $(date +%s -d "$ended_working_string") -
+      $(date +%s -d "$started_working_string") ))
+  local days=$(( seconds_worked / ( 60 * 60 * 24 ) ))
+  local seconds_left=$(( seconds_worked - ( $days * 60 * 60 * 24 ) ))
+  local hours=$(( seconds_left / ( 60 * 60 ) ))
+  local seconds_left=$(( seconds_left - ( $hours * 60 * 60 ) ))
+  local minutes=$(( seconds_left / 60 ))
+  local seconds_left=$(( seconds_left - $minutes * 60 ))
 
     # echo "It's" ${hours}h ${minutes}m ${seconds_left}s \
     # "since you started working today."$'\n' \
-    echo -n "|" $(date -d "$ended_working_string" --iso) \
-        "|" $(date -d "$started_working_string" +%H:%M) \
-        "->" \
-        $(date -d "$ended_working_string" +%H:%M) \
-        "| and probably some lunch | "
+  echo -n "|" $(date -d "$ended_working_string" --iso) \
+    "|" $(date -d "$started_working_string" +%H:%M) \
+    "->" \
+    $(date -d "$ended_working_string" +%H:%M) \
+    "| and probably some lunch | "
 
-    if [ $minutes -gt 0 ]; then
-        echo ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours |"
-    else
-        echo ${hours}".0 hours |"
-    fi
+  if [ $minutes -gt 0 ]; then
+    echo ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours |"
+  else
+    echo ${hours}".0 hours |"
+  fi
 
-    local previous_date
-    cat $HOME/.bash_eternal_history | \
-      cut -d' ' -f7-8 | \
-      grep $the_date | \
-      uniq | \
-      sort | \
-      while read l; do
-      now=$(date -d "$l" +%s)
-      if [ $previous_date ] ;then
-        since_last=$(( $now - $previous_date ))
+  local previous_date
+  cat $HOME/.bash_eternal_history | \
+    cut -d' ' -f7-8 | \
+    grep $the_date | \
+    uniq | \
+    sort | \
+    while read l; do
+    now=$(date -d "$l" +%s)
+    if [ $previous_date ] ;then
+      since_last=$(( $now - $previous_date ))
 
-        if [ $since_last -gt 2500 ]; then
-          print "No command line action between" $(date -d @${previous_date} +%H:%M:%S) \
-            "and" $(date -d "$l" +%H:%M:%S) \
-            $(get_human_time $since_last)
-        fi
+      if [ $since_last -gt 2500 ]; then
+        print "No command line action between" $(date -d @${previous_date} +%H:%M:%S) \
+          "and" $(date -d "$l" +%H:%M:%S) \
+          $(get_human_time $since_last)
       fi
-      previous_date=$now
-    done
+    fi
+    previous_date=$now
+  done
 }
 
 function get_human_time()
@@ -341,84 +330,84 @@ function get_human_time()
 
 function do_go-home()
 {
-    local hlhyw=$(do_hours)
-    echo "$hlhyw" | head -1 >> ~/doc/hours.org
-    print $hlhyw
-    
-    print "End of the day, generating report ..."
-    make_dir $HOME/.widt
-    local file=$HOME/.widt/$(date --iso).html
-    $HOME/bin/widt > $file
-    opera $file
-    print "You may go home now :-)"
+  local hlhyw=$(do_hours)
+  echo "$hlhyw" | head -1 >> ~/doc/hours.org
+  print $hlhyw
+  
+  print "End of the day, generating report ..."
+  make_dir $HOME/.widt
+  local file=$HOME/.widt/$(date --iso).html
+  $HOME/bin/widt > $file
+  opera $file
+  print "You may go home now :-)"
 }
 
 function do_search-im()
 {
-    logs_dir=$HOME/.purple/logs
-    dirs="$logs_dir/jabber/torsteinkrausework@gmail.com/
+  logs_dir=$HOME/.purple/logs
+  dirs="$logs_dir/jabber/torsteinkrausework@gmail.com/
           $logs_dir/msn/torsteinkrausework@msn.com/
           $logs_dir/irc/torstein@catbert.escenic.com/
           $HOME/.erc/logs
     "
-    for dir in $dirs; do
-        find $dir -name "*.txt" | xargs grep -n -i --color $1
-    done
+  for dir in $dirs; do
+    find $dir -name "*.txt" | xargs grep -n -i --color $1
+  done
 }
 
 function do_search-mailing-list-archive()
 {
-    dir=$HOME/mail/mailing-list-archive
-    url="http://lists.escenic.com"
+  dir=$HOME/mail/mailing-list-archive
+  url="http://lists.escenic.com"
 
-    find $dir -name "*.html" | \
-        grep -i /[0-9]*.html$ | \
-        xargs grep -A 2 -i $1 | \
-        sed "s#${dir}#http\:\/#g" | \
-        sed "s#html:#html #g"
+  find $dir -name "*.html" | \
+    grep -i /[0-9]*.html$ | \
+    xargs grep -A 2 -i $1 | \
+    sed "s#${dir}#http\:\/#g" | \
+    sed "s#html:#html #g"
 
-    local result_html=/tmp/search-results.html
-    echo "" > $result_html
-    
-    find $dir -name "*.html" | \
-        grep -i /[0-9]*.html$ | \
-        xargs grep -A 2 -i $1 | while read f; do
-        sed "s#${dir}#<p><a href='http\:\/#g" | \
-            sed "s#html:#html'>link</a></p>#g" \
-            >> ${result_html}
-    done
-    opera ${result_html}
+  local result_html=/tmp/search-results.html
+  echo "" > $result_html
+  
+  find $dir -name "*.html" | \
+    grep -i /[0-9]*.html$ | \
+    xargs grep -A 2 -i $1 | while read f; do
+    sed "s#${dir}#<p><a href='http\:\/#g" | \
+      sed "s#html:#html'>link</a></p>#g" \
+      >> ${result_html}
+  done
+  opera ${result_html}
 }
 
 function do_jira()
 {
-    opera https://jira.vizrt.com/browse/${1}
+  opera https://jira.vizrt.com/browse/${1}
 }
 
 function search_otrs()
 {
-    url="http://otrs.escenic.com/otrs/index.pl"
-    session_header_file=/tmp/`basename $0`-$USER-otrs.cookie
+  url="http://otrs.escenic.com/otrs/index.pl"
+  session_header_file=/tmp/`basename $0`-$USER-otrs.cookie
 
-    otrs_user=`cat $HOME/.otrs | grep user | cut -d'=' -f2`
-    otrs_password=`cat $HOME/.otrs | grep pass | cut -d'=' -f2`
-    
-    if [ -r $session_header_file ]; then
-        session_header=`cat $session_header_file`
-    else
-        session_header=`wget -S -O /dev/null \
+  otrs_user=`cat $HOME/.otrs | grep user | cut -d'=' -f2`
+  otrs_password=`cat $HOME/.otrs | grep pass | cut -d'=' -f2`
+  
+  if [ -r $session_header_file ]; then
+    session_header=`cat $session_header_file`
+  else
+    session_header=`wget -S -O /dev/null \
             --post-data "Action=Login&RequestedURL=&Lang=en&User=$otrs_user&Password=$otrs_password" \
             $url |& \
             grep Set-Cookie | \
             cut -d':' -f2 | \
             cut -d';' -f1`
-        echo $session_header > $session_header_file
-    fi
+    echo $session_header > $session_header_file
+  fi
 
-    current_year=`date +%Y`
-    last_year=$(( $current_year - 1 ))
+  current_year=`date +%Y`
+  last_year=$(( $current_year - 1 ))
 
-    uri_parameters=`wget -O -\
+  uri_parameters=`wget -O -\
          --post-data "Action=AgentTicketSearch&Subaction=Search&TicketNumber=$1&CustomerID=&CustomerUserLogin=&From=&To=&Cc=&Subject=&Body=&TicketFreeText2=&TicketFreeText4=&TicketFreeText6=&TimeSearchType=&TicketCreateTimePointStart=Last&TicketCreateTimePoint=1&TicketCreateTimePointFormat=day&TicketCreateTimeStartMonth=12&TicketCreateTimeStartDay=5&TicketCreateTimeStartYear=$last_year&TicketCreateTimeStopMonth=1&TicketCreateTimeStopDay=4&TicketCreateTimeStopYear=$this_year&ResultForm=Normal&Profile=" \
          --header "Cookie: ${session_header}" \
          $url \
@@ -426,55 +415,55 @@ function search_otrs()
          grep $1 | \
          cut -d'"' -f2 | \
          cut -d'?' -f2`
-    opera "$url/?$uri_parameters"
+  opera "$url/?$uri_parameters"
 }
 
 function do_play-that-music()
 {
-    mpc clear
-    
-    for el in $@; do
-        if [ $el = "music" ]; then
-            continue
-        fi
+  mpc clear
+  
+  for el in $@; do
+    if [ $el = "music" ]; then
+      continue
+    fi
 
-        mpc add $el
-    done
+    mpc add $el
+  done
 
-    mpc shuffle
-    mpc play
+  mpc shuffle
+  mpc play
 }
 
 function p4_check_that_everythings_ok()
 {
-    find . -type f -name "*" | grep -v target | grep -v easybook | grep -v iml$ | \
-        while read f; do
-        p4 filelog $f 1>/dev/null
-    done
+  find . -type f -name "*" | grep -v target | grep -v easybook | grep -v iml$ | \
+    while read f; do
+    p4 filelog $f 1>/dev/null
+  done
 }
 
 function do_set-random-wallpaper()
 {
-    wallpaper_names=$(ls ~/wallpapers/*.jpg)
-    wallpaper_array=($wallpaper_names)
-    number_of_wallpapers=${#wallpaper_array[*]}
-    wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
-    display -window root $wallpaper
+  wallpaper_names=$(ls ~/wallpapers/*.jpg)
+  wallpaper_array=($wallpaper_names)
+  number_of_wallpapers=${#wallpaper_array[*]}
+  wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
+  display -window root $wallpaper
 }
 
 # try to be smart first
 if [  `echo $1 | sed 's/[0-9]//g' | wc -c` -lt 2 ]; then
-    search_otrs $1
-    exit 0
+  search_otrs $1
+  exit 0
 elif [ `echo $1 | egrep -v -i "VIZIWYG|ECOME|VF|STATS|DASH|ERDQ|FORUM|TM" | wc -c` -lt 1 ]; then
-    do_jira $1
-    exit 0
+  do_jira $1
+  exit 0
 fi
 
 function unknown_command()
 {
-    print "I don't know the command '${1}' :-("
-    exit 1
+  print "I don't know the command '${1}' :-("
+  exit 1
 }
 
 fn=do_${1}
