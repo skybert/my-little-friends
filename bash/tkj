@@ -160,15 +160,13 @@ function do_doc() {
 ## Arguments: takes no arguments.
 function do_update-sources()
 {
-  if [ -d $HOME/src/skybert.net ]; then
-    $HOME/src/skybert.net/bin/wee pull
-  fi
-  
   local src_list="
     $HOME/src/my-writings
     $HOME/src/ece-scripts
     $HOME/src/my-little-friends
     $HOME/src/nie
+    $HOME/src/stv
+    $HOME/src/skybert-net
     /usr/local/src/emacs/org-mode
     /usr/local/src/emacs/emacs-eclim
     /usr/local/src/eclim
