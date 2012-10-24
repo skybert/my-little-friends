@@ -354,7 +354,6 @@
   (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (subword-mode)
   (gtags-mode)
-  (electric-pair-mode)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
