@@ -97,10 +97,6 @@
   (normal-top-level-add-subdirs-to-load-path))
 (require 'mic-paren)
 (require 'magit)
-(require 'twittering-mode)
-
-;; twittering 
-(setq twittering-use-master-password t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts available in all modes
