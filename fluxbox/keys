@@ -42,6 +42,9 @@ Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])  !! FBCV13 !!
 Mod4 Tab :NextTab
 Mod4 Shift Tab :PrevTab
 
+# see all windows
+XF86LaunchA :ClientMenu
+
 # go to a specific tab in the current window
 Mod4 1 :Tab 1
 Mod4 2 :Tab 2
