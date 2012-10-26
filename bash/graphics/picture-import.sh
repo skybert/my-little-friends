@@ -16,6 +16,13 @@ else
   target_dir=/var/gallery
 fi
 
+for el in $src_dir $target_dir; do
+  if [ ! -d $el ]; then
+    echo $el "doesn't exist"
+    exit 1
+  fi
+done
+
 error_dir=/usr/local/src/picture-import/error
 log_file=/usr/local/src/picture-import/log/$(basename $0 .sh).log
 
@@ -71,12 +78,10 @@ function remove_rempty_directories() {
 
 echo "Started picture import @ $(date)"
 
-find $src_dir -iname "*.jpg" | while read f; do
-  sort_and_archive_picture "$f"
-done
-
-find $src_dir -iname "*.png" | while read f; do
-  sort_and_archive_picture "$f"
+for el in jpg jpeg png; do
+  find $src_dir -iname "*.${el}" | while read f; do
+    sort_and_archive_picture "$f"
+  done
 done
 
 remove_rempty_directories
