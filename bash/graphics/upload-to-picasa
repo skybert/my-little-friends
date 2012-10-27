@@ -90,7 +90,7 @@ check_input $@
 create_lock_or_exit_if_exists
 log "Started @ $(date)"
 
-find $dir -iname "*.jpg" 2>/dev/null | while read f; do
+find $dir -iname "*.jp*g" 2>/dev/null | while read f; do
   upload_to_picasa "$f"
 done
 
