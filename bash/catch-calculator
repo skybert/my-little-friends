@@ -1,0 +1,61 @@
+#! /usr/bin/env bash
+
+tag=food
+function bootstrap_thyself() {
+  local common_locations="
+    /usr/local/src/json.sh/lib/json.sh
+  "
+  for el in $common_locations; do
+    source $el
+  done
+}
+
+function read_conf() {
+  local file=$HOME/.$(basename $0 .sh).conf
+  source $file
+}
+
+function get_date() {
+  local first_day_in_current_month=$(date +%Y-%m-01)
+  # Catch API uses milliseconds same as java.util.Date(long), but UNIX
+  # date +%s returns seconds since epoch, hence we're multiplying with
+  # 1000 here. '
+  echo $(( $(date --date=${first_day_in_current_month} +%s) * 1000 ))
+}
+
+function get_stream() {
+  local result=$(
+    curl \
+    -s \
+    -u ${user}:${password} \
+    -X GET "https://api.catch.com/v3/streams/${stream_id}?tags=${tag}&full=1&server_modified_at%24gte=$(get_date)"
+  )
+
+  echo $result  | json
+}
+
+function sum_it_up() {
+  local sum=0
+  verification_string=""
+  for el in $@; do
+    sum=$(( sum + el ))
+    verification_string="${verification_string} + $el"
+  done
+
+  # remove the first character
+  verification_string=${verification_string:3}
+  echo -n 'kr' ${sum},-
+}
+
+bootstrap_thyself
+read_conf
+echo -n "Sum for ${tag} in $(date '+%B %Y'): "
+sum_it_up $(
+  get_stream | \
+    egrep "/result/objects/[0-9]*/text string" | \
+    cut -d' ' -f3 | \
+    cut -d'\' -f1
+)
+echo " ($verification_string)"
+
+
