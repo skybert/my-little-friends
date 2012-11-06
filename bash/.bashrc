@@ -28,9 +28,9 @@ alias mypublicip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>
 # bash completion
 export FIGNORE=.svn
 l="
-$HOME/src/my-little-friends/bash_completion.d/tkj
-$HOME/src/ece-scripts/etc/bash_completion.d/ece
-/etc/bash_completion.d/subversion
+  $HOME/src/my-little-friends/bash_completion.d/tkj
+  $HOME/src/ece-scripts/etc/bash_completion.d/ece
+  /etc/bash_completion.d/subversion
 "
 for el in $l; do
   if [ -r $el ]; then
@@ -47,6 +47,9 @@ $PATH
 
 # p4
 export P4CONFIG=$HOME/.p4config
+
+# java
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
 
 # language & time zone
 export TZ='Europe/Oslo'
