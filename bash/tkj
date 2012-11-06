@@ -181,9 +181,22 @@ function do_update-sources()
         p4 sync ...
       fi
     )
-    
   done
-  
+
+  for el in $HOME/src/forks/*; do
+    if [ ! -d $el ]; then
+      continue
+    fi
+    print "----------------------------------------------"
+    print "Updating fork $(basename $el) ..."
+    print "----------------------------------------------"
+    (
+      cd $el
+      git fetch upstream
+      git merge upstream/master
+      git push
+    )
+  done
 }
 
 function get_primary_screen() {
