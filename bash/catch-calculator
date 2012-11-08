@@ -49,13 +49,62 @@ function sum_it_up() {
 
 bootstrap_thyself
 read_conf
-echo -n "Sum for ${tag} in $(date '+%B %Y'): "
-sum_it_up $(
-  get_stream | \
+
+stream=$(get_stream)
+number_of_entries=$(
+  echo "$stream" | \
+    egrep "/result/objects/[0-9]*/" | \
+    cut -d'/' -f4 | \
+    sort | \
+    uniq | \
+    tail -1
+)
+
+## $1 :: key
+function get_object_value() {
+  echo "$stream" | \
+    egrep "${@}" | \
+    cut -d' ' -f3 | \
+    cut -d'\' -f1
+
+}
+
+cat <<EOF 
+    <h2>Sum for ${tag} in $(date '+%B %Y')</h2>
+    <table>
+      <tr>
+        <th>Dato</th><th>Beløp</th>
+      </tr>
+EOF
+
+for (( i=0; i < $number_of_entries + 1; i++ )); do
+  cat <<EOF
+      <tr>
+        <td>
+          $(get_object_value "/result/objects/${i}/created_at string")
+        </td>
+        <td>
+          $(get_object_value "/result/objects/${i}/text string")
+        </td>
+      </tr>
+EOF
+done
+cat <<EOF
+      <tr>
+        <td>Totalt:</td>
+        <td>
+$(sum_it_up $(
+  echo "$stream" | \
     egrep "/result/objects/[0-9]*/text string" | \
     cut -d' ' -f3 | \
     cut -d'\' -f1
+  )
 )
-echo " ($verification_string)"
+
+        </td>
+      </tr>
+    </table>
+EOF
+
 
 
