@@ -77,33 +77,28 @@ cat <<EOF
       </tr>
 EOF
 
-for (( i=0; i < $number_of_entries + 1; i++ )); do
-  cat <<EOF
-      <tr>
-        <td>
-          $(echo $(get_object_value "/result/objects/${i}/created_at string") | \
-              cut -d'T' -f1
-          )
-        </td>
-        <td>
-          $(get_object_value "/result/objects/${i}/text string")
-        </td>
-      </tr>
+function list_entries() {
+  for (( i=0; i < $number_of_entries + 1; i++ )); do
+cat <<EOF
+      <tr><td>$(echo $(get_object_value "/result/objects/${i}/created_at string") | \
+                         cut -d'T' -f1
+                     )</td><td>$(get_object_value "/result/objects/${i}/text string")</td></tr>
 EOF
-done
+  done
+}
+
+list_entries | sort
+
 cat <<EOF
       <tr>
         <td>Totalt:</td>
-        <td>
-$(sum_it_up $(
+        <td>$(sum_it_up $(
   echo "$stream" | \
     egrep "/result/objects/[0-9]*/text string" | \
     cut -d' ' -f3 | \
     cut -d'\' -f1
   )
-)
-
-        </td>
+)</td>
       </tr>
     </table>
 EOF
