@@ -81,7 +81,9 @@ for (( i=0; i < $number_of_entries + 1; i++ )); do
   cat <<EOF
       <tr>
         <td>
-          $(get_object_value "/result/objects/${i}/created_at string")
+          $(echo $(get_object_value "/result/objects/${i}/created_at string") | \
+              cut -d'T' -f1
+          )
         </td>
         <td>
           $(get_object_value "/result/objects/${i}/text string")
