@@ -253,6 +253,7 @@ function do_delete-cache-files()
 function do_dates()
 {
   echo "Taipei:    " $(TZ='Asia/Taipei' date)
+  echo "Bangkok:   " $(TZ='Asia/Bangkok' date)
   echo "Dhaka:     " $(TZ='Asia/Dhaka' date)
   echo "Kolkata:   " $(TZ='Asia/Kolkata' date)
   echo "Oslo:      " $(TZ='Europe/Oslo' date)
