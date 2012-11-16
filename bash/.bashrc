@@ -37,19 +37,19 @@ for el in $l; do
     source $el
   fi
 done
+# java
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
 
 # path
 PATH=$HOME/src/ece-scripts/usr/bin:\
 $HOME/src/my-little-friends/bash:\
 /opt/maven/bin:\
 /opt/local/bin:\
+$JAVA_HOME/bin:\
 $PATH
 
 # p4
 export P4CONFIG=$HOME/.p4config
-
-# java
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
 
 # language & time zone
 export TZ='Europe/Oslo'
