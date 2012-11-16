@@ -153,7 +153,8 @@ function do_update-sources()
     $HOME/src/my-writings
     $HOME/src/ece-scripts
     $HOME/src/my-little-friends
-    $HOME/src/nie
+    $HOME/src/nie/trunk
+    $HOME/src/nie/branches/5.5
     $HOME/src/stv
     $HOME/src/skybert-net
     /usr/local/src/emacs/org-mode
