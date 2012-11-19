@@ -5,6 +5,7 @@
                         "~/src/my-writings/nie.org"
                         "~/src/my-writings/ece-scripts.org"
                         "~/src/nie/branches/5.5/doc/status.org"
+                        "~/src/stv/trunk/doc/status.org"
                         "~/src/my-little-friends/notes/reading-list.org"
                         "~/src/my-writings/home.org")
  )
