@@ -11,8 +11,8 @@ PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;32m\]what now... \[
 # history
 shopt -s histappend
 HISTCONTROL=ignoredups
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=1000000
+HISTFILESIZE=1000000
 HISTTIMEFORMAT="%F %H:%M:%S "
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 'echo "$(history 1)" >> ~/.bash_eternal_history'
@@ -43,6 +43,7 @@ export JAVA_HOME=/usr/lib/jvm/java-6-sun
 # path
 PATH=$HOME/src/ece-scripts/usr/bin:\
 $HOME/src/my-little-friends/bash:\
+$HOME/src/common-bashing/net:\
 /opt/maven/bin:\
 /opt/local/bin:\
 $JAVA_HOME/bin:\
