@@ -5,14 +5,12 @@
 # Creates the file cache I use with the file-cache and ido-mode Emacs
 # modules.
 
-. $HOME/src/my-little-friends/bash/common/alexandria
-
 dir_list="
 $HOME/.emacs.d
-$HOME/src/cnn
 $HOME/src/ece-scripts
 $HOME/src/my-little-friends
-$HOME/src/nie
+$HOME/src/nie/trunk
+$HOME/src/solartv
 $HOME/doc
 $HOME/src/p4/escenic/common/trunk
 $HOME/src/p4/escenic/engine/trunk
@@ -21,7 +19,6 @@ $HOME/src/p4/escenic/plugins/analysis/trunk
 $HOME/src/p4/escenic/plugins/community/trunk
 $HOME/src/p4/escenic/plugins/dashboard/trunk
 $HOME/src/p4/escenic/plugins/forum/trunk
-$HOME/src/p4/escenic/plugins/semantic/trunk
 $HOME/src/p4/escenic/plugins/viziwyg/trunk
 $HOME/src/p4/escenic/studio/trunk
 "
@@ -32,35 +29,28 @@ $HOME/.emacs
 
 file=~/.emacs.d/file_cache.el
 
-print "Generating new file cache $file"
+echo "Generating new file cache $file"
 echo "(" > $file
 
-for el in $dir_list; do
-  if [ ! -d $el ]; then
-    continue
-  fi
-  
-  find $el -type f | \
-	  egrep -vi "/test/|TAGS|\\.man|elpa|session\\.|\\.hg" | \
-	  egrep -vi "\\.tmp|Catalina|\\.iml|\\.iws|\\.ipr|\#|\\.log" | \
-	  egrep -vi "target|\\.jar|\\.html|\\.png|\\.jpg|\\.bmp|\\.xls" | \
-	  egrep -vi "\\.git|\\.svn|\~|\\.class|\\.swp|\\.pdf|\\.gif|\\.cache" | \
-	  while read f; do
-	  file_name=$(basename "$f")
-	  directory=$(dirname "$f")
-	  echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
+# add .java files
+function create_entry() {
+	echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
+}
+
+for suffix in java properties sh; do
+  find $dir_list -name "*.${suffix}" | while read f; do
+    create_entry $f >> $file
   done
 done
 
-for el in $file_list; do
-	file_name=$(basename "$el")
-	directory=$(dirname "$el")
-	echo "(\""${file_name}"\" \""${directory}"/\")" >> $file
+find $HOME/src/ece-scripts/usr/bin \
+  $HOME/src/ece-scripts/usr/sbin \
+  $HOME/src/my-little-friends/bash \
+  -type f | while read f; do
+  create_entry $f
 done
 
 echo ")" >> $file
 
-print "Done, $file is now ready"
+echo "Done, $file is now ready"
 
-# $HOME/src/p4/projects/poc/memento
-# $HOME/src/p4/projects/poc/inpage-poc
