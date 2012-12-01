@@ -123,10 +123,6 @@
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 (global-set-key  "\C-o" 'ecb-goto-window-methods)
-;; Gnus shortcut B DELETE is way too hard ...
-(global-unset-key [ (delete) ])
-(global-set-key [ delete ] 'gnus-summary-delete-article)
-(global-set-key  [ (f12) ] 'gnus-summary-delete-article)
 
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
