@@ -32,7 +32,7 @@ function remove_lock_file() {
 
 function sync_directory() {
   if [ ! -d $dir ]; then
-    echo $(basename $0) "$dir doesn't exist, so syncing." >> $log_file
+    echo $(basename $0) "$dir doesn't exist, so not syncing." >> $log_file
     return
   fi
   
