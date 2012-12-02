@@ -4,9 +4,11 @@
 #
 # by torstein.k.johansen@gmail.com
 
-echo "Press ENTER to beatify files in $(pwd), Ctrl-c to abort."
-echo -n "You choose> " 
-read ok
+if [[ "$1" != "-q" ]]; then
+  echo "Press ENTER to beatify files in $(pwd), Ctrl-c to abort."
+  echo -n "You choose> " 
+  read ok
+fi
 
 find . -maxdepth 1 | while read f; do
     if [ "$f" = "." -o "$f" = ".." ]; then
