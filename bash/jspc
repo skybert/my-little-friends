@@ -1,0 +1,52 @@
+#! /usr/bin/env bash
+
+tomcat_home=/opt/tomcat
+tomcat_base=/opt/tomcat-pres1
+
+required_class_list="
+com.escenic.analysis.taglib
+javax.el.ExpressionFactory
+javax.servlet.ServletException
+javax.servlet.jsp.JspFactory
+javax.servlet.jsp.jstl.core.ConditionalTagSupport
+neo.taglib.section
+org.apache.el.ExpressionFactoryImpl
+org.apache.jasper.JspC
+org.apache.juli.logging.LogFactory
+org.apache.log4j.Category
+org.apache.taglibs.standard.tag.rt.core.IfTag
+org.apache.tools.ant.AntClassLoader
+widget-framework-core-tags.tld
+neo.util.StringUtil
+"
+
+search_dir_list="
+  $HOME/tmp/2012-11-20/ear
+  /opt/tomcat/lib
+  /opt/tomcat/bin
+  /usr/share/java
+"
+
+## $1 is the class
+function find_jar() {
+  local jar=$(find $search_dir_list -type f -name "*.jar" | \
+    xargs grep "$1" | \
+    cut -d' ' -f3 | \
+    head -1)
+  echo $jar
+
+  echo $jar has $1 >> $HOME/.$(basename $0).log
+}
+
+for el in $required_class_list; do
+  jar=$(find_jar $el)
+  if [ -z "$jar" ]; then
+    continue
+  fi
+  cp=${jar}:${cp}
+done
+
+echo ===
+echo $cp
+echo ===
+java -cp $cp org.apache.jasper.JspC "$@"
