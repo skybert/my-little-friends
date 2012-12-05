@@ -37,7 +37,7 @@ function create_entry() {
 	echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
 }
 
-for suffix in java properties sh; do
+for suffix in java properties sh org; do
   find $dir_list -name "*.${suffix}" | while read f; do
     create_entry $f >> $file
   done
@@ -47,7 +47,7 @@ find $HOME/src/ece-scripts/usr/bin \
   $HOME/src/ece-scripts/usr/sbin \
   $HOME/src/my-little-friends/bash \
   -type f | while read f; do
-  create_entry $f
+  create_entry $f >> $file
 done
 
 echo ")" >> $file
