@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <uri pattern="pom.xml"
+       uri="file:///home/torstein/.emacs.d/xml/maven-v4_0_0.rnc"/>
+  <uri pattern="build.xml"
+      uri="file:///home/torstein/.emacs.d/xml/ant-1.6.rnc"/>
+</locatingRules>
