@@ -1,0 +1,78 @@
+default namespace = ""
+
+start =
+  transactionManager
+  | settings
+  | dataSource
+  | typeAlias
+  | property
+  | typeHandler
+  | element sqlMapConfig {
+      (properties?,
+       settings?,
+       resultObjectFactory?,
+       typeAlias*,
+       typeHandler*,
+       transactionManager?,
+       sqlMap+)+
+    }
+  | sqlMap
+  | properties
+  | resultObjectFactory
+sqlMap =
+  element sqlMap {
+    attribute url { xsd:normalizedString }?,
+    attribute resource { xsd:normalizedString }?
+  }
+settings =
+  element settings {
+    attribute maxTransactions { xsd:normalizedString }?,
+    attribute defaultStatementTimeout { xsd:normalizedString }?,
+    attribute errorTracingEnabled { "true" | "false" }?,
+    attribute maxSessions { xsd:normalizedString }?,
+    attribute enhancementEnabled { "true" | "false" }?,
+    attribute useStatementNamespaces { "true" | "false" }?,
+    attribute cacheModelsEnabled { "true" | "false" }?,
+    attribute statementCachingEnabled { "true" | "false" }?,
+    attribute lazyLoadingEnabled { "true" | "false" }?,
+    attribute classInfoCacheEnabled { "true" | "false" }?,
+    attribute maxRequests { xsd:normalizedString }?
+  }
+typeHandler =
+  element typeHandler {
+    attribute callback { xsd:normalizedString },
+    attribute javaType { xsd:normalizedString },
+    attribute jdbcType { xsd:normalizedString }?
+  }
+resultObjectFactory =
+  element resultObjectFactory {
+    attribute type { xsd:normalizedString },
+    property*
+  }
+properties =
+  element properties {
+    attribute url { xsd:normalizedString }?,
+    attribute resource { xsd:normalizedString }?
+  }
+dataSource =
+  element dataSource {
+    attribute type { xsd:normalizedString },
+    property*
+  }
+typeAlias =
+  element typeAlias {
+    attribute type { xsd:normalizedString },
+    attribute alias { xsd:normalizedString }
+  }
+transactionManager =
+  element transactionManager {
+    attribute type { xsd:normalizedString },
+    attribute commitRequired { "true" | "false" }?,
+    property*,
+    dataSource
+  }
+property =
+  element property {
+    attribute value { xsd:normalizedString },
+    attribute name { xsd:normalizedString }
+  }

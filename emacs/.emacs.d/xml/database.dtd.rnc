@@ -1,0 +1,232 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# Torque XML database schema DTD
+# $Id: database.dtd 584517 2007-10-14 09:00:14Z tfischer $
+
+# For: database.defaultIdMethod and table.idMethod
+# 
+# Do not use autoincrement or sequence. They are deprecated in favor of
+# using native which will use the Connection pool to determine
+# which database it is talking to (yes, it knows that) and then use
+# whatever native database methodology for insert increments that it can.
+# Otherwise, you should use idbroker or none. none is good if you have a
+# table that is just a join table. idbroker is good if you want a
+# centralized repository for brokering out clumps of id's in a database
+# agnostic way.
+
+# 
+# defaultJavaNamingMethod determines how a table or column name,
+# from the name attribute in the xml database file, is converted to a
+# Java class or method name.
+# 
+#      nochange   - indicates not change is performed.
+#      underscore - Underscores and dots are removed, first letter is
+#               capitalized, first letter after an underscore
+#               is capitalized, first letter after a dot is capitalized,
+#               the rest of the letters are converted to lowercase.
+#      underscoreOmitSchema - The section of the name before and including
+#               the last dot in the name is removed. For the remaining part,
+#               underscores are removed, first letter is capitalized,
+#               first letter after an underscore is capitalized,
+#               the rest of the letters are converted to lowercase.
+#      javaname   - same as underscore, but no letters are converted
+#               to lowercase.
+
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+database =
+  element database {
+    attlist.database, option*, external-schema*, domain*, table+
+  }
+attlist.database &=
+  attribute name { text },
+  [ a:defaultValue = "none" ]
+  attribute defaultIdMethod { "idbroker" | "native" | "none" }?,
+  [ a:defaultValue = "primitive" ]
+  attribute defaultJavaType { "object" | "primitive" }?,
+  attribute package { text }?,
+  attribute baseClass { text }?,
+  attribute basePeer { text }?,
+  [ a:defaultValue = "underscore" ]
+  attribute defaultJavaNamingMethod {
+    "nochange" | "underscore" | "underscoreOmitSchema" | "javaname"
+  }?,
+  [ a:defaultValue = "false" ]
+  attribute heavyIndexing { "true" | "false" }?
+option = element option { attlist.option, empty }
+attlist.option &=
+  attribute key { text },
+  attribute value { text }
+external-schema =
+  element external-schema { attlist.external-schema, empty }
+attlist.external-schema &= attribute filename { text }
+domain = element domain { attlist.domain, empty }
+attlist.domain &=
+  attribute name { text },
+  [ a:defaultValue = "VARCHAR" ]
+  attribute type {
+    "BIT"
+    | "TINYINT"
+    | "SMALLINT"
+    | "INTEGER"
+    | "BIGINT"
+    | "FLOAT"
+    | "REAL"
+    | "NUMERIC"
+    | "DECIMAL"
+    | "CHAR"
+    | "VARCHAR"
+    | "LONGVARCHAR"
+    | "DATE"
+    | "TIME"
+    | "TIMESTAMP"
+    | "BINARY"
+    | "VARBINARY"
+    | "LONGVARBINARY"
+    | "NULL"
+    | "OTHER"
+    | "JAVA_OBJECT"
+    | "DISTINCT"
+    | "STRUCT"
+    | "ARRAY"
+    | "BLOB"
+    | "CLOB"
+    | "REF"
+    | "BOOLEANINT"
+    | "BOOLEANCHAR"
+    | "DOUBLE"
+  }?,
+  attribute size { text }?,
+  attribute scale { text }?,
+  attribute default { text }?,
+  attribute description { text }?
+# note: the interface="true", requires that useManagers=true in the
+# properties file.
+table =
+  element table {
+    attlist.table,
+    option*,
+    column+,
+    (foreign-key | index | unique | id-method-parameter)*
+  }
+attlist.table &=
+  attribute name { text },
+  attribute javaName { text }?,
+  [ a:defaultValue = "null" ]
+  attribute idMethod { "idbroker" | "native" | "none" | "null" }?,
+  [ a:defaultValue = "false" ] attribute skipSql { "true" | "false" }?,
+  [ a:defaultValue = "false" ] attribute abstract { "true" | "false" }?,
+  attribute baseClass { text }?,
+  attribute basePeer { text }?,
+  attribute alias { text }?,
+  attribute interface { text }?,
+  attribute javaNamingMethod {
+    "nochange" | "underscore" | "underscoreOmitSchema" | "javaname"
+  }?,
+  attribute heavyIndexing { "true" | "false" }?,
+  attribute description { text }?
+id-method-parameter =
+  element id-method-parameter { attlist.id-method-parameter, empty }
+attlist.id-method-parameter &=
+  [ a:defaultValue = "default" ] attribute name { text }?,
+  attribute value { text }
+column = element column { attlist.column, option*, inheritance* }
+attlist.column &=
+  attribute name { text },
+  attribute javaName { text }?,
+  [ a:defaultValue = "false" ]
+  attribute primaryKey { "true" | "false" }?,
+  [ a:defaultValue = "false" ] attribute required { "true" | "false" }?,
+  [ a:defaultValue = "false" ]
+  attribute protected { "true" | "false" }?,
+  attribute domain { text }?,
+  attribute type {
+    "BIT"
+    | "TINYINT"
+    | "SMALLINT"
+    | "INTEGER"
+    | "BIGINT"
+    | "FLOAT"
+    | "REAL"
+    | "NUMERIC"
+    | "DECIMAL"
+    | "CHAR"
+    | "VARCHAR"
+    | "LONGVARCHAR"
+    | "DATE"
+    | "TIME"
+    | "TIMESTAMP"
+    | "BINARY"
+    | "VARBINARY"
+    | "LONGVARBINARY"
+    | "NULL"
+    | "OTHER"
+    | "JAVA_OBJECT"
+    | "DISTINCT"
+    | "STRUCT"
+    | "ARRAY"
+    | "BLOB"
+    | "CLOB"
+    | "REF"
+    | "BOOLEANINT"
+    | "BOOLEANCHAR"
+    | "DOUBLE"
+  }?,
+  attribute javaType { "object" | "primitive" }?,
+  attribute size { text }?,
+  attribute scale { text }?,
+  attribute default { text }?,
+  attribute autoIncrement { "true" | "false" }?,
+  [ a:defaultValue = "false" ]
+  attribute inheritance { "single" | "false" }?,
+  attribute inputValidator { text }?,
+  attribute javaNamingMethod {
+    "nochange" | "underscore" | "javaname"
+  }?,
+  attribute description { text }?
+inheritance = element inheritance { attlist.inheritance, empty }
+attlist.inheritance &=
+  attribute key { text },
+  attribute class { text },
+  attribute extends { text }?
+foreign-key =
+  element foreign-key { attlist.foreign-key, option*, reference+ }
+attlist.foreign-key &=
+  attribute foreignTable { text },
+  attribute name { text }?,
+  [ a:defaultValue = "none" ]
+  attribute onUpdate { "cascade" | "setnull" | "restrict" | "none" }?,
+  [ a:defaultValue = "none" ]
+  attribute onDelete { "cascade" | "setnull" | "restrict" | "none" }?
+reference = element reference { attlist.reference, empty }
+attlist.reference &=
+  attribute local { text },
+  attribute foreign { text }
+index = element index { attlist.index, option*, index-column+ }
+attlist.index &= attribute name { text }?
+# The index-column's size element is currently ignored
+# and will be removed in a further version.
+index-column = element index-column { attlist.index-column, empty }
+attlist.index-column &=
+  attribute name { text },
+  attribute size { text }?
+unique = element unique { attlist.unique, option*, unique-column+ }
+attlist.unique &= attribute name { text }?
+unique-column = element unique-column { attlist.unique-column, empty }
+attlist.unique-column &= attribute name { text }
+start = database

@@ -1,0 +1,558 @@
+# Copyright (c) 2000 Michel CASABIANCA.  All Rights Reserved.
+# 
+# Permission to use, copy, modify, and distribute this software and its
+# documentation for any purpose and without fee or royalty is hereby
+# granted, provided that both the above copyright notice and this
+# permission notice appear in all copies of the software and
+# documentation or portions thereof, including modifications, that you
+# make.
+# 
+# THIS SOFTWARE IS PROVIDED "AS IS," AND COPYRIGHT HOLDERS MAKE NO
+# REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED. BY WAY OF EXAMPLE,
+# BUT NOT LIMITATION, COPYRIGHT HOLDERS MAKE NO REPRESENTATIONS OR
+# WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE OR
+# THAT THE USE OF THE SOFTWARE OR DOCUMENTATION WILL NOT INFRINGE ANY
+# THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
+# COPYRIGHT HOLDERS WILL BEAR NO LIABILITY FOR ANY USE OF THIS SOFTWARE
+# OR DOCUMENTATION.
+
+# project DTD for Ant
+
+# 2006-02-11
+
+# <!ENTITY % ext-file SYSTEM "project-ext.dtd">
+# %ext-file;
+
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+project =
+  element project {
+    attlist.project,
+    description?,
+    (target
+     | property
+     | available
+     | path
+     | patternset
+     | tstamp
+     | defaultexcludes)*
+  }
+attlist.project &=
+  attribute name { text }?,
+  attribute default { text }?,
+  attribute basedir { text }?
+description = element description { attlist.description, text }
+attlist.description &= empty
+path = element path { attlist.path, (pathelement | fileset)* }
+attlist.path &= attribute id { xsd:ID }?
+classpath =
+  element classpath {
+    attlist.classpath, (pathelement | fileset | dirset | filelist)*
+  }
+attlist.classpath &=
+  attribute path { text }?,
+  attribute refid { text }?
+pathelement = element pathelement { attlist.pathelement, empty }
+attlist.pathelement &=
+  attribute location { text }?,
+  attribute path { text }?
+fileset =
+  element fileset {
+    attlist.fileset, (\include | includesfile | exclude | excludesfile)*
+  }
+attlist.fileset &=
+  attribute dir { text }?,
+  attribute file { text }?,
+  [ a:defaultValue = "yes" ]
+  attribute defaultexcludes { "yes" | "no" }?,
+  attribute includes { text }?,
+  attribute includesfile { text }?,
+  attribute excludes { text }?,
+  attribute excludesfile { text }?,
+  [ a:defaultValue = "yes" ] attribute casesensitive { "yes" | "no" }?,
+  [ a:defaultValue = "yes" ] attribute followsymlinks { "yes" | "no" }?
+dirset =
+  element dirset {
+    attlist.dirset, (\include | includesfile | exclude | excludesfile)*
+  }
+attlist.dirset &=
+  attribute dir { text },
+  attribute includes { text }?,
+  attribute includesfile { text }?,
+  attribute excludes { text }?,
+  attribute excludesfile { text }?,
+  [ a:defaultValue = "yes" ] attribute casesensitive { "yes" | "no" }?,
+  [ a:defaultValue = "yes" ] attribute followsymlinks { "yes" | "no" }?
+patternset =
+  element patternset {
+    attlist.patternset,
+    (\include | includesfile | exclude | excludesfile)*
+  }
+attlist.patternset &=
+  attribute id { xsd:ID }?,
+  attribute refid { xsd:NMTOKEN }?,
+  attribute includes { text }?,
+  attribute includesfile { text }?,
+  attribute excludes { text }?,
+  attribute excludesfile { text }?
+\include = element include { attlist.include, empty }
+attlist.include &=
+  attribute name { text },
+  attribute if { text }?,
+  attribute unless { text }?
+exclude = element exclude { attlist.exclude, empty }
+attlist.exclude &=
+  attribute name { text },
+  attribute if { text }?,
+  attribute unless { text }?
+includesfile = element includesfile { attlist.includesfile, empty }
+attlist.includesfile &=
+  attribute name { text },
+  attribute if { text }?,
+  attribute unless { text }?
+excludesfile = element excludesfile { attlist.excludesfile, empty }
+attlist.excludesfile &=
+  attribute name { text },
+  attribute if { text }?,
+  attribute unless { text }?
+target =
+  element target {
+    attlist.target,
+    (ant
+     | available
+     | chmod
+     | copy
+     | copydir
+     | copyfile
+     | cvs
+     | delete
+     | deltree
+     | echo
+     | exec
+     | expand
+     | filter
+     | get
+     | gzip
+     | fixcrlf
+     | jar
+     | java
+     | javac
+     | javadoc
+     | javadoc2
+     | keysubst
+     | mkdir
+     | native2ascii
+     | property
+     | rename
+     | replace
+     | rmic
+     | tar
+     | taskdef
+     | tstamp
+     | xslt
+     | war
+     | zip)*
+  }
+attlist.target &=
+  attribute name { text },
+  attribute depends { text }?,
+  attribute if { text }?,
+  attribute unless { text }?,
+  attribute description { text }?
+property = element property { attlist.property, empty }
+attlist.property &=
+  attribute name { text },
+  attribute value { text }?,
+  attribute location { text }?,
+  attribute resource { text }?,
+  attribute file { text }?
+ant = element ant { attlist.ant, (property | reference)* }
+attlist.ant &=
+  attribute antfile { text }?,
+  attribute dir { text }?,
+  attribute target { text }?,
+  attribute output { text }?,
+  [ a:defaultValue = "true" ]
+  attribute inheritAll { "true" | "false" }?,
+  [ a:defaultValue = "false" ]
+  attribute inheritRefs { "true" | "false" }?
+reference = element reference { attlist.reference, empty }
+attlist.reference &=
+  attribute refid { text },
+  attribute torefid { text }?
+available = element available { attlist.available, empty }
+attlist.available &=
+  attribute property { text },
+  attribute value { text }?,
+  attribute classname { text }?,
+  attribute file { text }?,
+  attribute resource { text }?,
+  attribute classpath { text }?,
+  attribute filepath { text }?,
+  attribute classpathref { text }?,
+  attribute type { "dir" | "file" }?,
+  [ a:defaultValue = "false" ]
+  attribute ignoresystemclasses { "true" | "false" }?
+chmod = element chmod { attlist.chmod, empty }
+attlist.chmod &=
+  attribute src { text },
+  attribute perm { text }
+copy =
+  element copy {
+    attlist.copy,
+    (fileset+, (globmapper | filterset)?)?
+  }
+attlist.copy &=
+  attribute file { text }?,
+  [ a:defaultValue = "no" ]
+  attribute preservelastmodified { "yes" | "no" }?,
+  attribute tofile { text }?,
+  attribute todir { text }?,
+  [ a:defaultValue = "no" ] attribute overwrite { "yes" | "no" }?,
+  [ a:defaultValue = "no" ]
+  attribute filtering { "yes" | "no" | "off" | "on" }?,
+  [ a:defaultValue = "no" ] attribute flatten { "yes" | "no" }?,
+  [ a:defaultValue = "yes" ]
+  attribute includeEmptyDirs { "yes" | "no" }?,
+  [ a:defaultValue = "yes" ] attribute failonerror { "yes" | "no" }?,
+  [ a:defaultValue = "no" ] attribute verbose { "yes" | "no" }?,
+  attribute encoding { text }?,
+  attribute outputencoding { text }?,
+  [ a:defaultValue = "no" ]
+  attribute enamblemultiplemappings { "yes" | "no" }?,
+  attribute granularity { text }?
+copydir = element copydir { attlist.copydir, empty }
+attlist.copydir &=
+  attribute src { text },
+  attribute dest { text },
+  attribute ignore { text }?,
+  attribute includes { text }?,
+  attribute excludes { text }?,
+  attribute defaultexcludes { text }?,
+  attribute filtering { text }?
+copyfile = element copyfile { attlist.copyfile, empty }
+attlist.copyfile &=
+  attribute src { text },
+  attribute dest { text },
+  attribute filtering { text }?
+cvs = element cvs { attlist.cvs, empty }
+attlist.cvs &=
+  attribute cvsRoot { text },
+  attribute dest { text },
+  attribute package { text },
+  attribute tag { text }?
+defaultexcludes =
+  element defaultexcludes { attlist.defaultexcludes, empty }
+attlist.defaultexcludes &=
+  attribute echo { text }?,
+  attribute default { text }?,
+  attribute add { text }?,
+  attribute remove { text }?
+delete = element delete { attlist.delete, fileset* }
+attlist.delete &=
+  attribute file { text }?,
+  attribute dir { text }?,
+  [ a:defaultValue = "false" ] attribute verbose { "true" | "false" }?,
+  [ a:defaultValue = "false" ] attribute quiet { "true" | "false" }?,
+  [ a:defaultValue = "true" ]
+  attribute failonerror { "true" | "false" }?,
+  [ a:defaultValue = "false" ]
+  attribute includeemptydirs { "true" | "false" }?,
+  [ a:defaultValue = "false" ]
+  attribute deleteonexit { "true" | "false" }?
+echo = element echo { attlist.echo, empty }
+attlist.echo &= attribute message { text }
+exec = element exec { attlist.exec, empty }
+attlist.exec &=
+  attribute command { text },
+  attribute dir { text },
+  attribute os { text }?,
+  attribute output { text }
+expand = element expand { attlist.expand, empty }
+attlist.expand &=
+  attribute src { text },
+  attribute dest { text }
+filter = element filter { attlist.filter, empty }
+attlist.filter &=
+  attribute token { text },
+  attribute value { text }
+get = element get { attlist.get, empty }
+attlist.get &=
+  attribute src { text },
+  attribute dest { text },
+  attribute verbose { text }?
+gzip = element gzip { attlist.gzip, empty }
+attlist.gzip &=
+  attribute src { text },
+  attribute zipfile { text }
+fixcrlf = element fixcrlf { attlist.fixcrlf, empty }
+attlist.fixcrlf &=
+  attribute srcdir { text },
+  attribute destDir { text }?,
+  attribute includes { text }?,
+  attribute excludes { text }?,
+  attribute cr { text }?,
+  attribute tab { text }?,
+  attribute eof { text }?
+jar = element jar { attlist.jar, (\include | exclude | patternset)* }
+attlist.jar &=
+  attribute jarfile { text },
+  attribute basedir { text },
+  attribute items { text }?,
+  attribute ignore { text }?,
+  attribute includes { text }?,
+  attribute excludes { text }?,
+  attribute defaultexcludes { text }?,
+  attribute manifest { text }?
+java = element java { attlist.java, (arg | classpath)* }
+attlist.java &=
+  attribute classname { text }?,
+  attribute jar { text }?,
+  attribute args { text }?,
+  attribute classpath { text }?,
+  attribute classpathref { text }?,
+  [ a:defaultValue = "no" ] attribute fork { "yes" | "no" }?,
+  [ a:defaultValue = "no" ] attribute spawn { "yes" | "no" }?,
+  [ a:defaultValue = "java" ] attribute jvm { text }?,
+  attribute jvmargs { text }?,
+  attribute maxmemory { text }?,
+  [ a:defaultValue = "false" ]
+  attribute failonerror { "true" | "false" }?,
+  attribute resultproperty { text }?,
+  attribute dir { text }?,
+  attribute output { text }?,
+  attribute error { text }?,
+  attribute logError { text }?,
+  [ a:defaultValue = "false" ] attribute append { "true" | "false" }?,
+  attribute outputproperty { text }?,
+  attribute errorproperty { text }?,
+  attribute input { text }?,
+  attribute inputstring { text }?,
+  [ a:defaultValue = "false" ]
+  attribute newenvironment { "true" | "false" }?,
+  attribute timeout { text }?
+arg = element arg { attlist.arg, empty }
+attlist.arg &=
+  attribute value { text }?,
+  attribute pathref { text }?
+javac =
+  element javac {
+    attlist.javac, (patternset | \include | exclude | classpath)*
+  }
+attlist.javac &=
+  attribute description { text }?,
+  attribute srcdir { text },
+  attribute destdir { text }?,
+  attribute includes { text }?,
+  attribute includesfile { text }?,
+  attribute excludes { text }?,
+  attribute excludesfile { text }?,
+  attribute classpath { text }?,
+  attribute sourcepath { text }?,
+  attribute bootclasspath { text }?,
+  attribute classpathref { text }?,
+  attribute bootclasspathref { text }?,
+  attribute extdirs { text }?,
+  attribute encoding { text }?,
+  [ a:defaultValue = "no" ] attribute nowarn { "yes" | "no" }?,
+  attribute debug { text }?,
+  attribute debuglevel { text }?,
+  attribute optimize { text }?,
+  attribute deprecation { text }?,
+  attribute target { text }?,
+  [ a:defaultValue = "no" ] attribute verbose { "yes" | "no" }?,
+  [ a:defaultValue = "no" ] attribute depend { "yes" | "no" }?,
+  [ a:defaultValue = "yes" ]
+  attribute includeAntRuntime { "yes" | "no" }?,
+  [ a:defaultValue = "no" ]
+  attribute includeJavaRuntime { "yes" | "no" }?,
+  [ a:defaultValue = "no" ] attribute fork { "yes" | "no" }?,
+  attribute executable { "yes" | "no" }?,
+  attribute memoryInitialSize { text }?,
+  attribute memoryMaximumSize { text }?,
+  [ a:defaultValue = "true" ]
+  attribute failonerror { "true" | "false" }?,
+  attribute source { text }?,
+  attribute compiler { text }?,
+  [ a:defaultValue = "no" ] attribute listfiles { "yes" | "no" }?,
+  attribute tempdir { text }?
+javadoc = element javadoc { attlist.javadoc, empty }
+attlist.javadoc &=
+  attribute sourcepath { text },
+  attribute destdir { text },
+  attribute sourcefiles { text }?,
+  attribute packagenames { text }?,
+  attribute classpath { text }?,
+  attribute bootclasspath { text }?,
+  attribute extdirs { text }?,
+  attribute overview { text }?,
+  attribute public { text }?,
+  attribute protected { text }?,
+  attribute package { text }?,
+  attribute private { text }?,
+  attribute old { text }?,
+  attribute verbose { text }?,
+  attribute locale { text }?,
+  attribute encoding { text }?,
+  attribute version { text }?,
+  attribute use { text }?,
+  attribute author { text }?,
+  attribute splitindex { text }?,
+  attribute windowtitle { text }?,
+  attribute doctitle { text }?,
+  attribute header { text }?,
+  attribute footer { text }?,
+  attribute bottom { text }?,
+  attribute link { text }?,
+  attribute linkoffline { text }?,
+  attribute group { text }?,
+  attribute nodedeprecated { text }?,
+  attribute nodedeprecatedlist { text }?,
+  attribute notree { text }?,
+  attribute noindex { text }?,
+  attribute nohelp { text }?,
+  attribute nonavbar { text }?,
+  attribute serialwarn { text }?,
+  attribute helpfile { text }?,
+  attribute stylesheetfile { text }?,
+  attribute charset { text }?,
+  attribute docencoding { text }?
+keysubst = element keysubst { attlist.keysubst, empty }
+attlist.keysubst &=
+  attribute src { text },
+  attribute dest { text },
+  attribute sep { text }?,
+  attribute keys { text }
+mkdir = element mkdir { attlist.mkdir, empty }
+attlist.mkdir &= attribute dir { text }
+native2ascii = element native2ascii { attlist.native2ascii, arg* }
+attlist.native2ascii &=
+  attribute dest { text },
+  attribute reverse { text }?,
+  attribute encoding { text }?,
+  attribute src { text }?,
+  attribute ext { text }?,
+  attribute defaultexcludes { text }?,
+  attribute includes { text }?,
+  attribute excludes { text }?,
+  attribute excludesfile { text }?,
+  attribute implementation { text }?
+rename = element rename { attlist.rename, empty }
+attlist.rename &=
+  attribute src { text },
+  attribute dest { text },
+  attribute replace { text }?
+replace = element replace { attlist.replace, empty }
+attlist.replace &=
+  attribute file { text },
+  attribute token { text },
+  attribute value { text }?
+rmic = element rmic { attlist.rmic, empty }
+attlist.rmic &=
+  attribute base { text },
+  attribute classname { text },
+  attribute filtering { text }?
+tar = element tar { attlist.tar, empty }
+attlist.tar &=
+  attribute tarfile { text },
+  attribute basedir { text },
+  attribute includes { text }?,
+  attribute excludes { text }?,
+  attribute defaultexcludes { text }?
+taskdef = element taskdef { attlist.taskdef, empty }
+attlist.taskdef &=
+  attribute name { text },
+  attribute classname { text }
+tstamp = element tstamp { attlist.tstamp, format? }
+attlist.tstamp &= attribute prefix { text }?
+format = element format { attlist.format, empty }
+attlist.format &=
+  attribute property { text },
+  attribute pattern { text },
+  attribute timezone { text }?,
+  attribute offset { text }?,
+  attribute unit { text }?,
+  attribute locale { text }?
+xslt =
+  element xslt {
+    attlist.xslt,
+    (classpath | xmlcatalog | param | outputproperty | factory)*
+  }
+attlist.xslt &=
+  attribute style { text },
+  attribute basedir { text }?,
+  attribute destdir { text }?,
+  attribute extension { text }?,
+  attribute classpath { text }?,
+  attribute classpathref { text }?,
+  attribute force { text }?,
+  attribute processor { text }?,
+  attribute includes { text }?,
+  attribute includesfile { text }?,
+  attribute excludes { text }?,
+  attribute excludesfile { text }?,
+  attribute defaultexcludes { text }?,
+  attribute in { text }?,
+  attribute out { text }?,
+  attribute scanincludeddirectories { text }?,
+  attribute reloadstylesheet { text }?
+xmlcatalog =
+  element xmlcatalog {
+    attlist.xmlcatalog, (dtd | entity | classpath | catalogpath)*
+  }
+attlist.xmlcatalog &= attribute id { xsd:ID }?
+dtd = element dtd { attlist.dtd, empty }
+attlist.dtd &=
+  attribute publicId { text },
+  attribute location { text }
+entity = element entity { attlist.entity, empty }
+attlist.entity &=
+  attribute publicId { text },
+  attribute location { text }
+catalogpath =
+  element catalogpath {
+    attlist.catalogpath, (pathelement | fileset | dirset | filelist)*
+  }
+attlist.catalogpath &=
+  attribute path { text }?,
+  attribute refid { text }?
+war =
+  element war {
+    attlist.war, (\include | exclude | fileset | patternset)*
+  }
+attlist.war &=
+  attribute destfile { text }?,
+  attribute warfile { text }?,
+  attribute webxml { text }?,
+  attribute basedir { text }?,
+  attribute compress { text }?,
+  attribute keepcompression { text }?,
+  attribute encoding { text }?,
+  attribute filesonly { text }?,
+  attribute includes { text }?,
+  attribute includesfile { text }?,
+  attribute excludes { text }?,
+  attribute excludesfile { text }?,
+  attribute defaultexcludes { text }?,
+  attribute manifest { text }?,
+  attribute update { text }?,
+  attribute duplicate { text }?,
+  attribute roundup { text }?
+zip = element zip { attlist.zip, empty }
+attlist.zip &=
+  attribute zipfile { text },
+  attribute basedir { text },
+  attribute items { text }?,
+  attribute ignore { text }?,
+  attribute includes { text }?,
+  attribute excludes { text }?,
+  attribute defaultexcludes { text }?
+deltree |= notAllowed
+factory |= notAllowed
+filelist |= notAllowed
+filterset |= notAllowed
+globmapper |= notAllowed
+javadoc2 |= notAllowed
+outputproperty |= notAllowed
+param |= notAllowed
+start = project

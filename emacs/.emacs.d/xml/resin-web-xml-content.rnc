@@ -1,0 +1,697 @@
+default namespace r = "http://caucho.com/ns/resin"
+namespace l = ""
+
+namespace rcore = "http://caucho.com/ns/resin/core"
+
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+
+include "../resin/env.rnc"
+include "web-xml-content.rnc"
+
+## l_web-app should probably be handled in web-xml.rnc as Servlet 2.3
+l_web-app = element l:web-app { r_any-Group }
+
+## r_boolean-Type = string
+## r_int = string
+## r_period = string
+## r_jndi = string
+## r_class-Type = string
+## r_kbytes = string
+
+r_access-log = element access-log {
+  r_resin-type?
+
+  & r_log-Content
+
+  & (attribute format { string }
+     | element format { string })?
+
+  & (attribute archive-format { string }
+     | element archive-format { string })?
+
+  & r_init?
+}
+
+r_allow-servlet-el =
+  attribute allow-servlet-el { r_boolean-Type }
+  | element allow-servlet-el { r_boolean-Type }
+
+r_auth-constraint = element auth-constraint {
+  r_description*,
+
+  r_role-name*
+}
+
+r_cache-mapping = element cache-mapping {
+  r_url-pattern
+
+  & (attribute expires { r_period }
+     | element expires { r_period })
+}
+
+r_constraint = element constraint {
+  r_resin-type,
+
+  r_any-Group
+}
+
+r_config-file =
+  attribute config-file { string }
+  | element config-file { string }
+
+r_context-param = element context-param {
+  r_init-param-Content
+}
+
+r_context-path =
+  attribute context-path { string }
+  | element context-path { string }
+
+## marks the web-app as distributable
+r_distributable =
+  attribute distributable { string }
+  | element distributable { string }
+
+r_document-directory =
+  attribute document-directory { r_path-Type }
+  | element document-directory { r_path-Type }
+
+r_ear-Content =
+  r_class-loader?,
+
+  (r_env-Content
+
+   & r_config-file*)
+
+r_ear-default = element ear-default {
+  r_ear-Content
+}
+
+r_ear-deploy = element ear-deploy {
+  (attribute url-prefix { string }
+   | element url-prefix { string })?
+
+  & r_path
+
+  & (attribute expand-directory { r_path-Type }
+     | element expand-directory { r_path-Type })?
+
+  & (attribute archive-directory { r_path-Type }
+     | element archive-directory { r_path-Type })?
+
+  & (attribute expand-path { r_path-Type }
+     | element expand-path { r_path-Type })?
+
+  & r_lazy-init?
+
+  & r_ear-default?
+}
+
+r_error-page = element error-page {
+  (attribute error-code { string }
+   | element error-code { string }
+   | attribute exception-type { string }
+   | element exception-type { string })?,
+
+  (attribute location { string }
+   | element location { string })
+}
+
+r_filter = element filter {
+   r_description-Group,
+
+   (attribute filter-name { string }
+    | element filter-name { string }),
+
+   (attribute filter-class { r_class-Type }
+    | element filter-class { r_class-Type }),
+
+   (r_init | r_init-param*)
+}
+
+r_filter-mapping = element filter-mapping {
+  (r_url-pattern
+
+   | attribute url-regexp { string }
+   | element url-regexp { string }
+   | attribute servlet-name { string }
+   | element servlet-name { string }),
+
+  (attribute filter-name { string }
+   | element filter-name { string }),
+
+  (attribute dispatcher { string }
+   | element dispatcher { string }*)
+}
+
+r_form-login-config = element form-login-config {
+  (attribute form-login-page { string }
+   | element form-login-page { string }),
+
+  (attribute form-error-page { string }
+   | element form-error-page { string }),
+
+  (attribute internal-forward { r_boolean-Type }
+   | element internal-forward { r_boolean-Type })?,
+
+  (attribute form-uri-priority { r_boolean-Type }
+   | element form-uri-priority { r_boolean-Type })?
+}
+
+r_jdbc-store = element jdbc-store {
+  (attribute data-source { r_jndi }
+   | element data-source { r_jndi })
+
+  & (attribute table-name { string }
+     | element table-name { string })?
+
+  & (attribute blob-type { string }
+     | element blob-type { string })?
+
+  & (attribute max-idle-time { r_period }
+     | element max-idle-time { r_period })?
+}
+
+r_jsp = element jsp {
+ (attribute auto-compile { r_boolean-Type }
+  | element auto-compile { r_boolean-Type })?
+
+ & (attribute el-ignored { r_boolean-Type }
+    | element el-ignored { r_boolean-Type })?
+
+ & (attribute fast-jstl { r_boolean-Type }
+    | element fast-jstl { r_boolean-Type })?
+
+ & (attribute ide-hack { r_boolean-Type }
+    | element ide-hack { r_boolean-Type })?
+
+ & (attribute ignore-el-exception { r_boolean-Type }
+    | element ignore-el-exception { r_boolean-Type })?
+
+ & (attribute is-xml { r_boolean-Type }
+    | element is-xml { r_boolean-Type })?
+
+ & (attribute jsp-max { r_int }
+    | element jsp-max { r_int })?
+
+ & (attribute page-encoding { string }
+    | element page-encoding { string })?
+
+ & (attribute precompile { r_boolean-Type }
+    | element precompile { r_boolean-Type })?
+
+ & (attribute recompile-on-error { r_boolean-Type }
+    | element recompile-on-error { r_boolean-Type })?
+
+ & (attribute recycle-tags { r_boolean-Type }
+    | element recycle-tags { r_boolean-Type })?
+
+ & (attribute require-source { r_boolean-Type }
+    | element require-source { r_boolean-Type })?
+
+ & (attribute scripting-invalid { r_boolean-Type }
+    | element scripting-invalid { r_boolean-Type })?
+
+ & (attribute session { r_boolean-Type }
+    | element session { r_boolean-Type })?
+
+ & (attribute tld-dir { r_boolean-Type }
+    | element tld-dir { r_boolean-Type })?
+
+ & (attribute velocity-enabled { r_boolean-Type }
+    | element velocity-enabled { r_boolean-Type })?
+}
+
+r_jsp-config = element jsp-config {
+  attribute id { string }?,
+
+  r_taglib*,
+
+  r_jsp-property-group*
+}
+
+r_jsp-property-group = element jsp-property-group {
+  attribute id { string }?,
+
+  r_description-Group,
+
+  r_url-pattern*,
+
+  element el-ignored { j2ee_boolean }?,
+
+  element page-encoding { j2ee_string }?,
+
+  element scripting-invalid { j2ee_boolean }?,
+
+  element is-xml { j2ee_boolean }?,
+
+  element include-prelude { j2ee_path }*,
+
+  element include-coda { j2ee_path }*
+}
+
+r_lazy-init =
+  attribute lazy-init { r_boolean-Type }
+  | element lazy-init { r_boolean-Type }
+
+r_listener = element listener {
+  r_description-Group,
+
+  (attribute listener-class { string }
+   | element listener-class { string }),
+
+  r_init?
+}
+
+r_login-config = element login-config {
+  r_type?,
+
+  (attribute auth-method { string }
+   | element auth-method { string })?,
+
+  (attribute realm-name { string }
+   | element realm-name { string })?,
+
+  r_form-login-config?,
+
+  (attribute authenticator { r_jndi }
+   | element authenticator { r_jndi })?,
+
+  r_init?
+}
+
+r_http-method-Values =
+    "GET"
+  | "POST"
+  | "PUT"
+  | "DELETE"
+  | "HEAD"
+  | "OPTIONS"
+  | "TRACE"
+
+r_http-method =
+  attribute http-method { r_http-method-Values }
+  | element http-method { r_http-method-Values }
+
+r_ip-constraint =
+  (attribute ip-constraint { string }
+   | element ip-constraint { string })*
+
+  | element ip-constraint { 
+      ((element allow { string })*
+       & (element deny { string })*)*
+  }
+
+r_mime-mapping = element mime-mapping {
+  (attribute extension { string }
+   | element extension { string }),
+
+  (attribute mime-type { string }
+   | element mime-type { string })
+}
+
+r_multipart-form = element multipart-form {
+  (attribute enable { r_boolean-Type }
+   | element upload-max { r_boolean-Type })?
+
+  & (attribute upload-max { r_kbytes }
+     | element upload-max { r_kbytes })?
+}
+
+## this doesn't exist in servlet spec?
+r_path-mapping = element path-mapping {
+  (r_url-pattern
+
+   | attribute url-regexp { string }
+   | element url-regexp { string })
+
+  & (attribute real-path { r_path-Type }
+     | element real-path { r_path-Type })
+}
+
+r_persistent_store =
+  attribute persistent-store { string }
+  | element persistent-store { string }
+
+r_redeploy-mode =
+  attribute redeploy-mode { string }
+  | element redeploy-mode { string }
+
+r_run-at =
+   attribute run-at { string }
+   | element run-at {
+      string
+      | (attribute period { string }
+         | element period { string })
+   }
+
+r_secure =
+  attribute secure { r_boolean-Type }
+  | element secure { r_boolean-Type }
+
+r_security-constraint =
+  element security-constraint {
+    (r_display-name?,
+
+     r_web-resource-collection*,
+
+     (r_auth-constraint*
+
+      & r_user-data-constraint*
+
+      & r_ip-constraint*
+
+      & r_constraint*))
+
+    | (r_url-pattern, r_role-name*)
+  }
+
+r_servlet = element servlet {
+  r_description-Group,
+
+  r_servlet-name,
+
+  (attribute servlet-class { string }
+   | element servlet-class { string }
+   | attribute jsp-file { string }
+   | element jsp-file { string }),
+
+  r_servlet-Content
+}
+
+r_servlet-Content =
+  ((r_init | r_init-param*)?,
+
+   (attribute load-on-startup { string }
+    | element load-on-startup { string })?,
+
+   element run-as { string }?,
+
+   r_security-role-ref*,
+
+   r_run-at?)
+
+r_servlet-mapping = element servlet-mapping {
+  (r_url-pattern | r_url-regexp),
+
+  (r_servlet-name 
+
+  | (r_servlet-name?,
+
+     (attribute servlet-class { string }
+      | element servlet-class { string }
+      | attribute jsp-file { string }
+      | element jsp-file { string }),
+
+      r_servlet-Content))
+
+}
+
+r_servlet-regexp = element servlet-regexp {
+  r_url-regexp,
+
+  r_servlet-name?,
+
+  ((attribute servlet-class { string }
+    | element servlet-class { string }
+    | attribute jsp-file { string }
+    | element jsp-file { string }),
+
+   r_servlet-Content)?
+}
+
+r_servlet-name =
+  attribute servlet-name { string }
+  | element servlet-name { string }
+
+r_session-config = element session-config {
+  (attribute always-load-session { r_boolean-Type }
+   | element always-load-session { r_boolean-Type })?
+
+  & (attribute always-save-session { r_boolean-Type }
+     | element always-save-session { r_boolean-Type })?
+
+  & (attribute cookie-domain { string }
+     | element cookie-domain { string })?
+
+  & (attribute cookie-length { r_int }
+     | element cookie-length { r_int })?
+
+  & (attribute cookie-max-age { r_period }
+     | element cookie-max-age { r_period })?
+
+  & (attribute cookie-secure { r_boolean-Type }
+     | element cookie-secure { r_boolean-Type })?
+
+  & (attribute cookie-version { r_int }
+     | element cookie-version { r_int })?
+
+  & (attribute cookie-port { string }
+     | element cookie-port { string })?
+
+  & (attribute enable-cookies { r_boolean-Type }
+     | element enable-cookies { r_boolean-Type })?
+
+  & (attribute enable-url-rewriting { r_boolean-Type }
+     | element enable-url-rewriting { r_boolean-Type })?
+
+  & (attribute ignore-serialization-errors { r_boolean-Type }
+     | element ignore-serialization-errors { r_boolean-Type })?
+
+  & (attribute invalidate-after-listener { r_boolean-Type }
+     | element invalidate-after-listener { r_boolean-Type })?
+
+  & (attribute persistent-path { r_path-Type }
+     | element persistent-path { r_path-Type })?
+
+  & (attribute reuse-session-id { r_boolean-Type }
+     | element reuse-session-id { r_boolean-Type })?
+
+  & (attribute save-on-shutdown { r_boolean-Type }
+     | element save-on-shutdown { r_boolean-Type })?
+
+  & (attribute save-only-on-shutdown { r_boolean-Type }
+     | element save-only-on-shutdown { r_boolean-Type })?
+
+  & (attribute session-max { r_int }
+     | element session-max { r_int })?
+
+  & (attribute session-timeout { r_int }
+     | element session-timeout { r_int })?
+
+  & (attribute use-persistent-store { r_boolean-Type }
+     | element use-persistent-store { r_boolean-Type })?
+}
+
+r_shutdown-wait-max =
+  attribute shutdown-wait-max { r_period }
+  | element shutdown-wait-max { r_period }
+
+r_startup-mode =
+  attribute startup-mode { string }
+  | element startup-mode { string }
+
+r_strict-mapping =
+  attribute strict-mapping { r_boolean-Type }
+  | element strict-mapping { r_boolean-Type }
+
+r_taglib = element taglib {
+  (attribute taglib-uri { string }
+   | element taglib-uri { string }),
+
+  (attribute taglib-location { string }
+   | element taglib-location { string })
+}
+
+r_transport-guarantee =
+  attribute transport-guarantee { r_transport-guarantee-Values }
+  | element transport-guarantee { r_transport-guarantee-Values }
+
+r_transport-guarantee-Values =
+  "NONE"
+  | "INTEGRAL"
+  | "CONFIDENTIAL"
+
+r_url-pattern =
+  attribute url-pattern { string }
+  | element url-pattern { string }
+
+r_url-regexp = 
+  attribute url-regexp { string }
+  | element url-regexp { string }
+
+r_user-data-constraint = element user-data-constraint {
+  r_description*,
+
+  r_transport-guarantee
+}
+
+r_web-app-default = element web-app-default {
+  r_web-app-Content
+}
+
+r_web-app-deploy = element web-app-deploy {
+  (attribute url-prefix { string }
+   | element url-prefix { string })?
+
+  & r_path
+
+  & (attribute archive-directory { r_path-Type }
+     | element archive-directory { r_path-Type })?
+
+  & (attribute expand-directory { r_path-Type }
+     | element expand-directory { r_path-Type })?
+
+  & (attribute expand-path { r_path-Type }
+     | element expand-path { r_path-Type })?
+
+  & r_lazy-init?
+
+  & r_web-app-default*
+
+  & element web-app {
+      r_context-path?,
+
+      r_document-directory,
+
+      r_web-app-Content
+    }*
+}
+
+## basic allowed values for the web-app
+r_web-app-Basis =
+  r_env-Basis
+
+  & r_class-loader-Group
+
+  & r_access-log*
+
+  & r_allow-servlet-el*
+
+  & r_cache-mapping*
+
+  & r_context-param*
+
+  & r_display-name*
+
+  & r_distributable?
+
+  & r_ear-deploy*
+
+  & r_ejb-local-ref*
+
+  & r_ejb-ref*
+
+  & r_error-page*
+
+  & r_filter*
+
+  & r_filter-mapping*
+
+  & (attribute inherit-session { r_boolean-Type }
+     | element inherit-session { r_boolean-Type })?
+
+  & r_jsp?
+
+  & r_jsp-config*
+
+  & r_lazy-init*
+
+  & r_listener*
+
+  & r_login-config?
+
+  & r_message-destination*
+
+  & r_mime-mapping*
+
+  & r_multipart-form*
+
+  & r_resource-env-ref*
+
+  & r_secure?
+
+  & r_security-constraint*
+
+  & r_security-role*
+
+  & r_servlet*
+
+  & r_servlet-mapping*
+
+  & r_servlet-regexp*
+
+  & r_session-config*
+
+  & r_shutdown-wait-max?
+
+  & r_strict-mapping?
+
+  & r_taglib*
+
+  & r_path-mapping*
+
+  & rc_web-app*
+
+  & r_web-app-deploy*
+
+  & r_welcome-file-list?
+
+## web-app allowed tags, including flow control
+r_web-app-Flow =
+  r_web-app-Basis
+
+  & element rcore:env { r_class-loader-Group, r_web-app-Flow }*
+
+  & element rcore:if { rcore_if-Args, r_web-app-Flow }*
+
+  & element rcore:choose {
+      element rcore:when { rcore_when-Args, r_web-app-Flow }+,
+      element rcore:otherwise { r_web-app-Flow }?
+    }*
+
+r_web-app-Content =
+  (r_web-app-Flow
+
+   & r_config-file*)
+
+r_web-app = element web-app {
+  attribute version { string }?,
+  attribute xsi:schemaLocation { string }?,
+
+  r_web-app-Content
+}
+
+rc_web-app = element web-app {
+  (attribute id { string }
+  | attribute url-prefix { string } | element url-prefix { string }
+  | attribute url-regexp { string } | element url-regexp { string }),
+
+  (r_context-path?
+
+  & r_document-directory?
+
+  & r_startup-mode?
+
+  & r_redeploy-mode?),
+
+  r_web-app-Content
+}
+
+r_web-resource-collection = element web-resource-collection {
+  (attribute web-resource-name { string }
+   | element web-resource-name { string })?,
+
+  r_description*,
+
+  r_url-pattern*,
+
+  r_http-method*
+}
+
+
+r_welcome-file-list = element welcome-file-list {
+  string |
+
+  element welcome-file { string }*
+}

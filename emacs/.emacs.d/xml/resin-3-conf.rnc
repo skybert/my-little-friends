@@ -1,0 +1,348 @@
+default namespace r = "http://caucho.com/ns/resin"
+namespace rcore = "http://caucho.com/ns/resin/core"
+namespace local = ""
+namespace l = ""
+
+include "../webapp/resin-web-xml-content.rnc"
+
+l_resin = element l:caucho.com {
+  r_any-Group
+}
+
+r_access-log = element access-log {
+  r_resin-type?
+
+  & r_log-Content
+
+  & (attribute format { string } | element format { string })?
+
+  & (attribute archive-format { string } | element archive-format { string })?
+
+  & r_init?
+}
+
+r_cache = element cache {
+  r_path?
+
+  & (attribute enable { r_boolean-Type }
+     | element enable { r_boolean-Type })?
+
+  & (attribute entries { r_int } | element entries { r_int })?
+
+  & (attribute memory-size { r_int } | element memory-size { r_int })?
+
+  & (attribute disk-size { r_int } | element disk-size { r_int })?
+}
+
+r_document-directory =
+ (attribute document-directory { string }
+
+  | element document-directory { string })
+
+r_host = element host {
+  (attribute id { string }
+   | attribute regexp { string }
+   | element regexp { string })?
+
+  & (attribute host-name { string } | element host-name { string })?
+
+  & (attribute secure-host-name { string }
+    | element secure-host-name { string })?
+
+  & (attribute host-alias { string } | element host-alias { string })*
+
+  & r_lazy-init?
+
+  & r_startup-mode?
+
+  & r_root-directory?
+
+  & r_host-Group
+}
+
+r_host-Content =
+  r_env-Content
+
+  & r_access-log?
+
+  & r_class-loader-Group
+
+  & r_document-directory?
+
+  & r_ear-default*
+
+  & r_ear-deploy*
+
+  & r_error-page*
+
+  & r_web-app-deploy*
+
+  & r_web-app-default*
+
+  & rc_web-app*
+
+## <host> flow control
+r_host-Flow =
+  r_host-Content
+
+  & element rcore:env { rcore_env-Args, r_host-Flow }*
+
+  & element rcore:if { rcore_if-Args, r_host-Flow }*
+
+  & element rcore:choose {
+      element rcore:when { rcore_when-Args, r_host-Flow }+,
+      element rcore:otherwise { r_host-Flow }?
+    }*
+
+## The complete host contents
+r_host-Group = r_host-Flow
+
+r_host-default = element host-default {
+  r_host-Group
+}
+
+r_host-deploy = element host-deploy {
+  r_path
+
+  & (attribute archive-directory { r_path-Type }
+     | element archive-directory { r_path-Type })?
+
+  & (attribute expand-directory { r_path-Type }
+     | element expand-directory { r_path-Type })?
+
+  & (attribute host-name { string }
+     | element host-name { string })?
+
+  & (attribute lazy-init { r_boolean-Type }
+     | element lazy-init { r_boolean-Type })?
+
+  & r_host-default?
+}
+
+r_http = element http {
+  (attribute id { string }
+   | attribute server-id { string }
+   | element server-id { string })?
+
+  & r_port-Content
+
+  & (attribute virtual-host { string } | element virtual-host { string })?
+}
+
+r_ignore-client-disconnect =
+  attribute ignore-client-disconnect { string }
+  | element ignore-client-disconnect { string }
+
+r_keepalive-max =
+  attribute keepalive-max { string }
+  | element keepalive-max { string }
+
+r_keepalive-timeout =
+  attribute keepalive-timeout { string }
+  | element keepalive-timeout { string }
+
+r_min-free-memory =
+  attribute min-free-memory { string }
+  | element min-free-memory { string }
+
+r_persistent-store = element persistent-store {
+  r_jndi-name?
+
+  & (attribute type { string } | element type { string })
+
+  & r_init?
+
+  & (attribute max-idle-time { r_period }
+     | element max-idle-time { r_period })?
+}
+
+r_ping = element ping {
+  r_any-Group*
+}
+
+r_port = element port {
+  (attribute id { string }
+   | attribute server-id { string }
+   | element server-id { string })?
+
+  & r_port-Content
+
+  & (attribute index { string } | element index { string })?
+
+  & (attribute group { string } | element group { string })?
+
+  & (attribute backup { string } | element backup { string })?
+
+  & r_protocol
+}
+
+r_port-Content =
+  ((attribute port { string } | element port { string })
+
+   & (attribute host { string } | element host { string })?
+
+   & (attribute read-timeout { r_period-Type }
+      | element read-timeout { r_period-Type })?
+
+   & (attribute write-timeout { r_period-Type }
+      | element write-timeout { r_period-Type })?
+
+   & (attribute socket-listen-backlog { r_int-Type }
+      | element socket-listen-backlog { r_int-Type })?
+
+   & (attribute tcp-no-delay { string } | element tcp-no-delay { string })?
+
+   & (r_openssl | r_jsse-ssl)?
+   )
+
+r_protocol =
+  element protocol {
+    r_resin-type,
+
+    r_any-Group*
+  }
+
+r_resin = element resin {
+  r_resin-Content
+}
+
+## <resin> basic contents
+r_resin-Basis = 
+  r_env-Basis
+
+  & (attribute user-name { string } | element user-name { string })?
+
+  & (attribute group-name { string } | element group-name { string })?
+
+  & r_min-free-memory?
+
+  & (attribute security-provider { string }
+    | element security-provider { string })*
+
+  & (attribute security-manager { string }
+    | element security-manager { string })*
+
+  & r_server*
+
+  & r_thread-pool?
+
+  & r_transaction-manager?
+
+## <resin> flow control
+r_resin-Flow =
+  r_resin-Basis
+
+  & element rcore:env { rcore_env-Args, r_resin-Flow }*
+
+  & element rcore:if { rcore_if-Args, r_resin-Flow }*
+
+  & element rcore:choose {
+      element rcore:when { rcore_when-Args, r_resin-Flow }+,
+      element rcore:otherwise { r_resin-Flow }?
+    }*
+
+r_resin-Content = r_resin-Flow
+
+r_root-directory =
+  attribute root-directory { string }
+  | element root-directory { string }
+
+r_server = element server {
+  r_root-directory?,
+
+  r_server-Content
+}
+
+## <server> basic contents
+r_server-Basis = 
+  r_env-Basis
+
+  & r_access-log?
+
+  & r_cache?
+
+  & r_ear-default*
+
+  & r_http*
+
+  & r_host*
+
+  & r_host-default*
+
+  & r_host-deploy*
+
+  & r_ignore-client-disconnect?
+
+  & r_keepalive-max?
+
+  & r_keepalive-timeout?
+
+  & r_persistent-store?
+
+  & r_ping*
+
+  & r_port*
+
+  & r_session-cookie?
+
+  & r_session-url-prefix?
+
+  & r_url-character-encoding?
+
+  & r_web-app-default*
+
+## <server> flow control
+r_server-Flow =
+  (r_class-loader-Group?, r_server-Basis)
+
+  & element rcore:env { rcore_env-Args, r_server-Flow }*
+
+  & element rcore:if { rcore_if-Args, r_server-Flow }*
+
+  & element rcore:choose {
+      element rcore:when { rcore_when-Args, r_server-Flow }+,
+      element rcore:otherwise { r_server-Flow }?
+    }*
+
+## complete <server> contents
+r_server-Content = r_server-Flow
+
+r_session-cookie = 
+  attribute session-cookie { string }
+  | element session-cookie { string }
+
+r_session-url-prefix =
+  attribute alternate-session-url-prefix { string }
+  | element alternate-session-url-prefix { string }
+  | attribute session-url-prefix { string }
+  | element session-url-prefix { string }
+
+r_spare-thread-max =
+  attribute spare-thread-max { string }
+  | element spare-thread-max { string }
+
+r_spare-thread-min =
+  attribute spare-thread-min { string }
+  | element spare-thread-min { string }
+
+r_thread-pool = element thread-pool {
+  r_thread-max?
+
+  & r_spare-thread-min?
+}
+
+r_thread-max =
+  attribute thread-max { string }
+  | element thread-max { string }
+
+r_transaction-log = element transaction-log {
+  r_path+
+}
+
+r_transaction-manager = element transaction-manager {
+  r_transaction-log?
+}
+
+r_url-character-encoding =
+  attribute url-character-encoding { string }
+  | element url-character-encoding { string }

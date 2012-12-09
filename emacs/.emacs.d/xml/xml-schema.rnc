@@ -1,0 +1,457 @@
+# DTD for XML Schemas: Part 1: Structures
+# Public Identifier: "-//W3C//DTD XMLSCHEMA 200102//EN"
+# Official Location: http://www.w3.org/2001/XMLSchema.dtd
+
+# $Id: XMLSchema.dtd,v 1.31 2001/10/24 15:50:16 ht Exp $
+
+# Note this DTD is NOT normative, or even definitive.
+
+# d
+
+# prose copy in the structures REC is the definitive version
+
+# d
+
+# (which shouldn't differ from this one except for this
+
+# d
+
+# comment and entity expansions, but just in case)
+
+# d
+
+# With the exception of cases with multiple namespace
+# prefixes for the XML Schema namespace, any XML document which is
+# not valid per this DTD given redefinitions in its internal subset of the
+# 'p' and 's' parameter entities below appropriate to its namespace
+# declaration of the XML Schema namespace is almost certainly not
+# a valid schema.
+
+# The simpleType element and its constituent parts
+# are defined in XML Schema: Part 2: Datatypes
+
+# can be overriden in the internal subset of a
+# schema document to establish a different
+# namespace prefix
+
+# if %p is defined (e.g. as foo:) then you must
+# also define %s as the suffix for the appropriate
+# namespace declaration (e.g. :foo)
+
+# Define all the element names, with optional prefix
+
+# annotation elements
+
+# Customisation entities for the ATTLIST of each element type.
+# Define one of these if your schema takes advantage of the
+# anyAttribute='##other' in the schema for schemas
+
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace xs = "http://www.w3.org/2001/XMLSchema"
+
+schemaAttrs = empty
+complexTypeAttrs = empty
+complexContentAttrs = empty
+simpleContentAttrs = empty
+extensionAttrs = empty
+elementAttrs = empty
+groupAttrs = empty
+allAttrs = empty
+choiceAttrs = empty
+sequenceAttrs = empty
+anyAttrs = empty
+anyAttributeAttrs = empty
+attributeAttrs = empty
+attributeGroupAttrs = empty
+uniqueAttrs = empty
+keyAttrs = empty
+keyrefAttrs = empty
+selectorAttrs = empty
+fieldAttrs = empty
+includeAttrs = empty
+importAttrs = empty
+redefineAttrs = empty
+notationAttrs = empty
+annotationAttrs = empty
+appinfoAttrs = empty
+documentationAttrs = empty
+complexDerivationSet = string
+# #all or space-separated list drawn from derivationChoice
+blockSet = string
+# #all or space-separated list drawn from
+# derivationChoice + 'substitution'
+mgs = element.all | element.choice | element.sequence
+cs = element.choice | element.sequence
+formValues = "qualified" | "unqualified"
+attrDecls =
+  (element.attribute | element.attributeGroup)*, element.anyAttribute?
+particleAndAttrs = (mgs | element.group)?, attrDecls
+# This is used in part2
+restriction1 = (mgs | element.group)?
+include "datatypes.rnc"
+# the duplication below is to produce an unambiguous content model
+# which allows annotation everywhere
+element.schema =
+  element xs:schema {
+    attlist.schema,
+    (element.include
+     | element.import
+     | element.redefine
+     | element.annotation)*,
+    ((element.simpleType
+      | element.complexType
+      | element.element
+      | element.attribute
+      | element.attributeGroup
+      | element.group
+      | element.notation),
+     element.annotation*)*
+  }
+attlist.schema &=
+  attribute targetNamespace { URIref }?,
+  attribute version { text }?,
+  [ a:defaultValue = "" ]
+  attribute finalDefault { complexDerivationSet }?,
+  [ a:defaultValue = "" ] attribute blockDefault { blockSet }?,
+  attribute id { xsd:ID }?,
+  [ a:defaultValue = "unqualified" ]
+  attribute elementFormDefault { formValues }?,
+  [ a:defaultValue = "unqualified" ]
+  attribute attributeFormDefault { formValues }?,
+  attribute xml:lang { text }?,
+  schemaAttrs
+# Note the xmlns declaration is NOT in the Schema for Schemas,
+# because at the Infoset level where schemas operate,
+# xmlns(:prefix) is NOT an attribute!
+
+# The declaration of xmlns is a convenience for schema authors
+
+# The id attribute here and below is for use in external references
+# from non-schemas using simple fragment identifiers.
+# It is NOT used for schema-to-schema reference, internal or
+# external.
+
+#  a type is a named content type specification which allows attribute
+# declarations
+
+#
+element.complexType =
+  element xs:complexType {
+    attlist.complexType,
+    element.annotation?,
+    (element.simpleContent | element.complexContent | particleAndAttrs)
+  }
+attlist.complexType &=
+  attribute name { NCName }?,
+  attribute id { xsd:ID }?,
+  attribute abstract { boolean }?,
+  attribute final { complexDerivationSet }?,
+  attribute block { complexDerivationSet }?,
+  [ a:defaultValue = "false" ] attribute mixed { "true" | "false" }?,
+  complexTypeAttrs
+# particleAndAttrs is shorthand for a root type
+
+# mixed is disallowed if simpleContent, overriden if complexContent
+# has one too.
+
+# If anyAttribute appears in one or more referenced attributeGroups
+# and/or explicitly, the intersection of the permissions is used
+element.complexContent =
+  element xs:complexContent {
+    attlist.complexContent,
+    element.annotation?,
+    (element.restriction | element.extension)
+  }
+attlist.complexContent &=
+  attribute mixed { "true" | "false" }?,
+  attribute id { xsd:ID }?,
+  complexContentAttrs
+# restriction should use the branch defined above, not the simple
+# one from part2; extension should use the full model
+element.simpleContent =
+  element xs:simpleContent {
+    attlist.simpleContent,
+    element.annotation?,
+    (element.restriction | element.extension)
+  }
+attlist.simpleContent &=
+  attribute id { xsd:ID }?,
+  simpleContentAttrs
+# restriction should use the simple branch from part2, not the 
+# one defined above; extension should have no particle
+element.extension =
+  element xs:extension {
+    attlist.extension, element.annotation?, particleAndAttrs
+  }
+attlist.extension &=
+  attribute base { QName },
+  attribute id { xsd:ID }?,
+  extensionAttrs
+# an element is declared by either:
+# a name and a type (either nested or referenced via the type attribute)
+# or a ref to an existing element declaration
+element.element =
+  element xs:element {
+    attlist.element,
+    element.annotation?,
+    (element.complexType | element.simpleType)?,
+    (element.unique | element.key | element.keyref)*
+  }
+# simpleType or complexType only if no type|ref attribute
+
+# ref not allowed at top level
+attlist.element &=
+  attribute name { NCName }?,
+  attribute id { xsd:ID }?,
+  attribute ref { QName }?,
+  attribute type { QName }?,
+  attribute minOccurs { nonNegativeInteger }?,
+  attribute maxOccurs { text }?,
+  attribute nillable { boolean }?,
+  attribute substitutionGroup { QName }?,
+  attribute abstract { boolean }?,
+  attribute final { complexDerivationSet }?,
+  attribute block { blockSet }?,
+  attribute default { text }?,
+  attribute fixed { text }?,
+  attribute form { formValues }?,
+  elementAttrs
+# type and ref are mutually exclusive.
+# name and ref are mutually exclusive, one is required
+
+# In the absence of type AND ref, type defaults to type of
+# substitutionGroup, if any, else the ur-type, i.e. unconstrained
+
+# default and fixed are mutually exclusive
+element.group =
+  element xs:group { attlist.group, element.annotation?, mgs? }
+attlist.group &=
+  attribute name { NCName }?,
+  attribute ref { QName }?,
+  attribute minOccurs { nonNegativeInteger }?,
+  attribute maxOccurs { text }?,
+  attribute id { xsd:ID }?,
+  groupAttrs
+element.all =
+  element xs:all { attlist.all, element.annotation?, element.element* }
+attlist.all &=
+  attribute minOccurs { "1" }?,
+  attribute maxOccurs { "1" }?,
+  attribute id { xsd:ID }?,
+  allAttrs
+element.choice =
+  element xs:choice {
+    attlist.choice,
+    element.annotation?,
+    (element.element | element.group | cs | element.any)*
+  }
+attlist.choice &=
+  attribute minOccurs { nonNegativeInteger }?,
+  attribute maxOccurs { text }?,
+  attribute id { xsd:ID }?,
+  choiceAttrs
+element.sequence =
+  element xs:sequence {
+    attlist.sequence,
+    element.annotation?,
+    (element.element | element.group | cs | element.any)*
+  }
+attlist.sequence &=
+  attribute minOccurs { nonNegativeInteger }?,
+  attribute maxOccurs { text }?,
+  attribute id { xsd:ID }?,
+  sequenceAttrs
+# an anonymous grouping in a model, or
+# a top-level named group definition, or a reference to same
+
+# Note that if order is 'all', group is not allowed inside.
+# If order is 'all' THIS group must be alone (or referenced alone) at
+# the top level of a content model
+
+# If order is 'all', minOccurs==maxOccurs==1 on element/any inside
+
+# Should allow minOccurs=0 inside order='all' . . .
+element.any = element xs:any { attlist.any, element.annotation? }
+attlist.any &=
+  [ a:defaultValue = "##any" ] attribute namespace { text }?,
+  [ a:defaultValue = "strict" ]
+  attribute processContents { "skip" | "lax" | "strict" }?,
+  [ a:defaultValue = "1" ] attribute minOccurs { nonNegativeInteger }?,
+  [ a:defaultValue = "1" ] attribute maxOccurs { text }?,
+  attribute id { xsd:ID }?,
+  anyAttrs
+# namespace is interpreted as follows:
+# ##any      - - any non-conflicting WFXML at all
+# 
+# ##other    - - any non-conflicting WFXML from namespace other
+#                 than targetNamespace
+# 
+# ##local    - - any unqualified non-conflicting WFXML/attribute
+# one or     - - any non-conflicting WFXML from
+# more URI        the listed namespaces
+# references
+# 
+# ##targetNamespace ##local may appear in the above list,
+#   with the obvious meaning
+element.anyAttribute =
+  element xs:anyAttribute { attlist.anyAttribute, element.annotation? }
+attlist.anyAttribute &=
+  [ a:defaultValue = "##any" ] attribute namespace { text }?,
+  [ a:defaultValue = "strict" ]
+  attribute processContents { "skip" | "lax" | "strict" }?,
+  attribute id { xsd:ID }?,
+  anyAttributeAttrs
+# namespace is interpreted as for 'any' above
+
+# simpleType only if no type|ref attribute
+
+# ref not allowed at top level, name iff at top level
+element.attribute =
+  element xs:attribute {
+    attlist.attribute, element.annotation?, element.simpleType?
+  }
+attlist.attribute &=
+  attribute name { NCName }?,
+  attribute id { xsd:ID }?,
+  attribute ref { QName }?,
+  attribute type { QName }?,
+  attribute use { "prohibited" | "optional" | "required" }?,
+  attribute default { text }?,
+  attribute fixed { text }?,
+  attribute form { formValues }?,
+  attributeAttrs
+# type and ref are mutually exclusive.
+# name and ref are mutually exclusive, one is required
+
+# default for use is optional when nested, none otherwise
+
+# default and fixed are mutually exclusive
+
+# type attr and simpleType content are mutually exclusive
+
+# an attributeGroup is a named collection of attribute decls, or a
+# reference thereto
+element.attributeGroup =
+  element xs:attributeGroup {
+    attlist.attributeGroup,
+    element.annotation?,
+    (element.attribute | element.attributeGroup)*,
+    element.anyAttribute?
+  }
+attlist.attributeGroup &=
+  attribute name { NCName }?,
+  attribute id { xsd:ID }?,
+  attribute ref { QName }?,
+  attributeGroupAttrs
+# ref iff no content, no name.  ref iff not top level
+
+# better reference mechanisms
+element.unique =
+  element xs:unique {
+    attlist.unique,
+    element.annotation?,
+    element.selector,
+    element.field+
+  }
+attlist.unique &=
+  attribute name { NCName },
+  attribute id { xsd:ID }?,
+  uniqueAttrs
+element.key =
+  element xs:key {
+    attlist.key, element.annotation?, element.selector, element.field+
+  }
+attlist.key &=
+  attribute name { NCName },
+  attribute id { xsd:ID }?,
+  keyAttrs
+element.keyref =
+  element xs:keyref {
+    attlist.keyref,
+    element.annotation?,
+    element.selector,
+    element.field+
+  }
+attlist.keyref &=
+  attribute name { NCName },
+  attribute refer { QName },
+  attribute id { xsd:ID }?,
+  keyrefAttrs
+element.selector =
+  element xs:selector { attlist.selector, element.annotation? }
+attlist.selector &=
+  attribute xpath { XPathExpr },
+  attribute id { xsd:ID }?,
+  selectorAttrs
+element.field = element xs:field { attlist.field, element.annotation? }
+attlist.field &=
+  attribute xpath { XPathExpr },
+  attribute id { xsd:ID }?,
+  fieldAttrs
+# Schema combination mechanisms
+element.include =
+  element xs:include { attlist.include, element.annotation? }
+attlist.include &=
+  attribute schemaLocation { URIref },
+  attribute id { xsd:ID }?,
+  includeAttrs
+element.import =
+  element xs:import { attlist.import, element.annotation? }
+attlist.import &=
+  attribute namespace { URIref }?,
+  attribute schemaLocation { URIref }?,
+  attribute id { xsd:ID }?,
+  importAttrs
+element.redefine =
+  element xs:redefine {
+    attlist.redefine,
+    (element.annotation
+     | element.simpleType
+     | element.complexType
+     | element.attributeGroup
+     | element.group)*
+  }
+attlist.redefine &=
+  attribute schemaLocation { URIref },
+  attribute id { xsd:ID }?,
+  redefineAttrs
+element.notation =
+  element xs:notation { attlist.notation, element.annotation? }
+attlist.notation &=
+  attribute name { NCName },
+  attribute id { xsd:ID }?,
+  attribute public { text },
+  attribute system { URIref }?,
+  notationAttrs
+# Annotation is either application information or documentation
+
+# By having these here they are available for datatypes as well
+# as all the structures elements
+element.annotation =
+  element xs:annotation {
+    attlist.annotation, (element.appinfo | element.documentation)*
+  }
+attlist.annotation &= annotationAttrs
+# User must define annotation elements in internal subset for this
+# to work
+element.appinfo = element xs:appinfo { attlist.appinfo, any }
+# too restrictive
+attlist.appinfo &=
+  attribute source { URIref }?,
+  attribute id { xsd:ID }?,
+  appinfoAttrs
+element.documentation =
+  element xs:documentation { attlist.documentation, any }
+# too restrictive
+attlist.documentation &=
+  attribute source { URIref }?,
+  attribute id { xsd:ID }?,
+  attribute xml:lang { text }?,
+  documentationAttrs
+start = element.schema
+any =
+  (element * {
+     attribute * { text }*,
+     any
+   }
+   | text)*

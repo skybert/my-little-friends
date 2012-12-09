@@ -1,0 +1,19 @@
+default namespace = ""
+
+start = module | property | metadata
+metadata =
+  element metadata {
+    attribute name { xsd:NMTOKEN },
+    attribute value { xsd:normalizedString }
+  }
+property =
+  element property {
+    attribute default { xsd:normalizedString }?,
+    attribute name { xsd:NMTOKEN },
+    attribute value { xsd:normalizedString }
+  }
+module =
+  element module {
+    attribute name { xsd:NMTOKEN },
+    (module | property | metadata)*
+  }

@@ -1,0 +1,158 @@
+# DTD for XML Schemas: Part 2: Datatypes
+# $Id: datatypes.dtd,v 1.23 2001/03/16 17:36:30 ht Exp $
+# Note this DTD is NOT normative, or even definitive. - - the
+# prose copy in the datatypes REC is the definitive version
+# (which shouldn't differ from this one except for this comment
+# and entity expansions, but just in case)
+
+# This DTD cannot be used on its own, it is intended
+# only for incorporation in XMLSchema.dtd, q.v.
+
+# Define all the element names, with optional prefix
+
+# Customisation entities for the ATTLIST of each element
+# type. Define one of these if your schema takes advantage
+# of the anyAttribute='##other' in the schema for schemas
+
+namespace xs = "http://www.w3.org/2001/XMLSchema"
+
+simpleTypeAttrs = empty
+restrictionAttrs = empty
+listAttrs = empty
+unionAttrs = empty
+maxExclusiveAttrs = empty
+minExclusiveAttrs = empty
+maxInclusiveAttrs = empty
+minInclusiveAttrs = empty
+totalDigitsAttrs = empty
+fractionDigitsAttrs = empty
+lengthAttrs = empty
+minLengthAttrs = empty
+maxLengthAttrs = empty
+enumerationAttrs = empty
+whiteSpaceAttrs = empty
+patternAttrs = empty
+# Define some entities for informative use as attribute
+# types
+URIref = string
+XPathExpr = string
+QName = xsd:NMTOKEN
+QNames = xsd:NMTOKENS
+NCName = xsd:NMTOKEN
+nonNegativeInteger = xsd:NMTOKEN
+boolean = "true" | "false"
+simpleDerivationSet = string
+# #all or space-separated list drawn from derivationChoice
+
+# Note that the use of 'facet' below is less restrictive
+# than is really intended:  There should in fact be no
+# more than one of each of minInclusive, minExclusive,
+# maxInclusive, maxExclusive, totalDigits, fractionDigits,
+# length, maxLength, minLength within datatype,
+# and the min- and max- variants of Inclusive and Exclusive
+# are mutually exclusive. On the other hand,  pattern and
+# enumeration may repeat.
+minBound = element.minInclusive | element.minExclusive
+maxBound = element.maxInclusive | element.maxExclusive
+bounds = minBound | maxBound
+numeric = element.totalDigits | element.fractionDigits
+ordered = bounds | numeric
+unordered =
+  element.pattern
+  | element.enumeration
+  | element.whiteSpace
+  | element.length
+  | element.maxLength
+  | element.minLength
+facet = ordered | unordered
+facetAttr =
+  attribute value { text },
+  attribute id { xsd:ID }?
+fixedAttr = attribute fixed { boolean }?
+facetModel = element.annotation?
+element.simpleType =
+  element xs:simpleType {
+    attlist.simpleType,
+    element.annotation?,
+    (element.restriction | element.list | element.union)
+  }
+attlist.simpleType &=
+  attribute name { NCName }?,
+  attribute final { simpleDerivationSet }?,
+  attribute id { xsd:ID }?,
+  simpleTypeAttrs
+# name is required at top level
+element.restriction =
+  element xs:restriction {
+    attlist.restriction,
+    element.annotation?,
+    (restriction1 | (element.simpleType?, facet*)),
+    attrDecls
+  }
+attlist.restriction &=
+  attribute base { QName }?,
+  attribute id { xsd:ID }?,
+  restrictionAttrs
+# base and simpleType child are mutually exclusive,
+# one is required.
+# 
+# restriction is shared between simpleType and
+# simpleContent and complexContent (in XMLSchema.xsd).
+# restriction1 is for the latter cases, when this
+# is restricting a complex type, as is attrDecls.
+element.list =
+  element xs:list {
+    attlist.list, element.annotation?, element.simpleType?
+  }
+attlist.list &=
+  attribute itemType { QName }?,
+  attribute id { xsd:ID }?,
+  listAttrs
+# itemType and simpleType child are mutually exclusive,
+# one is required
+element.union =
+  element xs:union {
+    attlist.union, element.annotation?, element.simpleType*
+  }
+attlist.union &=
+  attribute id { xsd:ID }?,
+  attribute memberTypes { QNames }?,
+  unionAttrs
+# At least one item in memberTypes or one simpleType
+# child is required
+element.maxExclusive =
+  element xs:maxExclusive { attlist.maxExclusive, facetModel }
+attlist.maxExclusive &= facetAttr, fixedAttr, maxExclusiveAttrs
+element.minExclusive =
+  element xs:minExclusive { attlist.minExclusive, facetModel }
+attlist.minExclusive &= facetAttr, fixedAttr, minExclusiveAttrs
+element.maxInclusive =
+  element xs:maxInclusive { attlist.maxInclusive, facetModel }
+attlist.maxInclusive &= facetAttr, fixedAttr, maxInclusiveAttrs
+element.minInclusive =
+  element xs:minInclusive { attlist.minInclusive, facetModel }
+attlist.minInclusive &= facetAttr, fixedAttr, minInclusiveAttrs
+element.totalDigits =
+  element xs:totalDigits { attlist.totalDigits, facetModel }
+attlist.totalDigits &= facetAttr, fixedAttr, totalDigitsAttrs
+element.fractionDigits =
+  element xs:fractionDigits { attlist.fractionDigits, facetModel }
+attlist.fractionDigits &= facetAttr, fixedAttr, fractionDigitsAttrs
+element.length = element xs:length { attlist.length, facetModel }
+attlist.length &= facetAttr, fixedAttr, lengthAttrs
+element.minLength =
+  element xs:minLength { attlist.minLength, facetModel }
+attlist.minLength &= facetAttr, fixedAttr, minLengthAttrs
+element.maxLength =
+  element xs:maxLength { attlist.maxLength, facetModel }
+attlist.maxLength &= facetAttr, fixedAttr, maxLengthAttrs
+# This one can be repeated
+element.enumeration =
+  element xs:enumeration { attlist.enumeration, facetModel }
+attlist.enumeration &= facetAttr, enumerationAttrs
+element.whiteSpace =
+  element xs:whiteSpace { attlist.whiteSpace, facetModel }
+attlist.whiteSpace &= facetAttr, fixedAttr, whiteSpaceAttrs
+# This one can be repeated
+element.pattern = element xs:pattern { attlist.pattern, facetModel }
+attlist.pattern &= facetAttr, patternAttrs
