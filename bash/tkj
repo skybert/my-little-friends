@@ -6,6 +6,12 @@ LC_ALL=C
 
 . $HOME/src/my-little-friends/bash/common/alexandria
 
+## $1 :: project
+function do_schedule-hudson-build() {
+  print "Scheduled a new build of" $1 "..."
+  curl -s "http://hudson.dev.escenic.com/job/${1}/build?delay=0sec"
+}
+
 ## Method useful for developers and system administrators. It checks
 ## the passed URL for common things interesting, producing a short
 ## report, as well as listing all the response headers.
