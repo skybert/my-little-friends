@@ -44,6 +44,7 @@ Mod4 Shift Tab :PrevTab
 
 # see all windows
 XF86LaunchA :ClientMenu
+F3          :ClientMenu
 
 # go to a specific tab in the current window
 Mod4 1 :Tab 1
