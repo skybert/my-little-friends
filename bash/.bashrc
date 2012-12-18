@@ -6,7 +6,23 @@ PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 TERM=xterm-color
 
 # prompt
-PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;32m\]what now... \[\033[0;39m\]"
+function red() {
+  echo -e "\e[0;31m${@}\e[m"
+}
+
+function green() {
+  echo -e "\e[0;32m${@}\e[m"
+}
+
+function blue() {
+  echo -e "\e[0;34m${@}\e[m"
+}
+
+function purple() {
+  echo -e "\e[0;35m${@}\e[m"
+}
+
+PS1="$(blue {)\w$(blue }) $(green what now)\$(if [ \$? -eq 0 ]; then echo \$(green ...); else echo \$(red ...); fi) "
 
 # history
 shopt -s histappend
