@@ -10,6 +10,8 @@ LC_ALL=C
 function do_schedule-hudson-build() {
   print "Scheduled a new build of" $1 "..."
   curl -s "http://hudson.dev.escenic.com/job/${1}/build?delay=0sec"
+  print "Check back here for progress: " \
+    http://hudson.dev.escenic.com/job/${1}/lastBuild
 }
 
 ## Method useful for developers and system administrators. It checks
