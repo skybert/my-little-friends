@@ -41,7 +41,9 @@ function sync_directory() {
     $dir "->" ${target_user_and_server}:${target_dir} \
     "@" $(date) \
     >> $log_file
-  
+
+  ssh $ssh_opts $target_user_and_server "mkdir -p $target_dir/"
+
   rsync -az \
     -e "ssh $ssh_opts" \
     $dir/ \
