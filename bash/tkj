@@ -218,10 +218,6 @@ function get_secondary_screen() {
 }
 
 function do_setup-screens() {
-  if [ $(grep "Driver.*nvidia" /etc/X11/xorg.conf | wc -l) -gt 0 ]; then
-    return
-  fi
-  
   local screen1=$(get_primary_screen)
   local screen2=$(get_secondary_screen)
 
@@ -231,6 +227,8 @@ function do_setup-screens() {
   if [ -n "$screen2" ]; then
     print "Setting up secondary screen $screen2 ..."
     xrandr --output $screen2 --right-of $screen1 --auto
+    print "Rotating screen $screen2 to the left..."
+    xrandr --output $screen2 --rotate left
   fi
 }
 
