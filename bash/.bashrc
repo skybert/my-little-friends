@@ -6,23 +6,17 @@ PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 TERM=xterm-color
 
 # prompt
-function red() {
-  echo -e "\e[0;31m${@}\e[m"
+function get_prompt() {
+  local prompt="what now "
+  if [ $? -eq 0 ]; then
+    prompt="${prompt} ..."
+  else
+    prompt="${prompt} ..,"
+  fi
+  echo $prompt
 }
 
-function green() {
-  echo -e "\e[0;32m${@}\e[m"
-}
-
-function blue() {
-  echo -e "\e[0;34m${@}\e[m"
-}
-
-function purple() {
-  echo -e "\e[0;35m${@}\e[m"
-}
-
-PS1="$(blue {)\w$(blue }) $(green what now)\$(if [ \$? -eq 0 ]; then echo \$(green ...); else echo \$(red ...); fi) "
+PS1="\$(get_prompt) "
 
 # history
 shopt -s histappend
