@@ -3,7 +3,7 @@
 # Torstein's .xinitrc/.xsession
 
 xmodmap "$HOME/.xmodmaprc"
-unclutter -idle 2 &
+# unclutter -idle 2 &
 setxkbmap -option ctrl:nocaps &
 display -window root ~/pictures/wallpaper &
 
