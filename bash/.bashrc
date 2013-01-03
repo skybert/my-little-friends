@@ -6,17 +6,7 @@ PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 TERM=xterm-color
 
 # prompt
-function get_prompt() {
-  local prompt="what now "
-  if [ $? -eq 0 ]; then
-    prompt="${prompt} ..."
-  else
-    prompt="${prompt} ..,"
-  fi
-  echo $prompt
-}
-
-PS1="\$(get_prompt) "
+PS1="\w what now \$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
 
 # history
 shopt -s histappend
