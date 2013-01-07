@@ -38,7 +38,7 @@ function create_entry() {
 }
 
 for suffix in java properties sh org; do
-  find $dir_list -name "*.${suffix}" | while read f; do
+  find $dir_list -name "*.${suffix}" 2>/dev/null | while read f; do
     create_entry $f >> $file
   done
 done
