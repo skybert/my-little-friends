@@ -8,3 +8,5 @@ diff = auto
 status = auto
 [branch]
 	autosetuprebase = always
+[push]
+	default = simple

@@ -247,6 +247,7 @@
          ("\\.config\\'" . conf-mode) 
          ("\\.cpp\\'" . c++-mode) 
          ("\\.css\\'" . css-mode) 
+         ("\\.diff\\'" . diff-mode)
          ("\\.dtd\\'" . dtd-mode)
          ("\\.ebk\\'" . nxml-mode)
          ("\\.el\\'"  . emacs-lisp-mode)
