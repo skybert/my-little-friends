@@ -51,7 +51,7 @@ function change_link() {
     if [[ $(readlink $to) == "$from" ]]; then
       echo "Java web start version updated $(green successfully) :-)"
     else
-      echo "Coldn't update the Java web start version :-("
+      echo "Couldn't update the Java web start version :-("
     fi
   else
     echo $from "didn't exist, no touching" $to
