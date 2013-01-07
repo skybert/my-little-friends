@@ -7,13 +7,32 @@ javaws_6=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Commands/javaw
 javaws_7=/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/javaws
 javaws_bin=/usr/bin/javaws
 
-function sanity_check() {
-  if [[ $(whoami) != "root" ]]; then
-    echo "You need to run $(basename $0) with sudo first:"
-    echo sudo $0
-    exit 1
-  fi
+# Since this normally will be run by user by clicking on the icon in
+# Finder, we'll keep it open for a a wee while
+function keep_window_open_a_wee_bit() {
+  local seconds=10
+  echo "I will exit in $seconds seconds (or hit Ctrl+c to exit now) ..."
+  sleep $seconds
+  exit 0
+}
 
+function green() {
+  if [[ -t "0" || -p /dev/stdin ]]; then
+    echo -e "\033[01;32m${@}\033[0m"
+  else
+    echo "$@"
+  fi
+}
+
+function red() {
+  if [[ -t "0" || -p /dev/stdin ]]; then
+    echo -e "\033[01;31m${@}\033[0m"
+  else
+    echo "$@"
+  fi
+}
+
+function sanity_check() {
   if [ ! -f $javaws_bin ]; then
     echo $javaws_bin "doesn't exist on" $HOSTNAME "I'll exit"
     exit 1
@@ -27,11 +46,12 @@ function change_link() {
   local to=$2
 
   if [ -f $from ]; then
-    ln -sf $from $to
+    echo "Enter your password to change the Java version"
+    sudo ln -sf $from $to
     if [[ $(readlink $to) == "$from" ]]; then
-      echo OK
+      echo "Java web start version updated $(green successfully) :-)"
     else
-      echo FAILED
+      echo "Coldn't update the Java web start version :-("
     fi
   else
     echo $from "didn't exist, no touching" $to
@@ -41,10 +61,10 @@ function change_link() {
 sanity_check
 
 if [[ $(readlink $javaws_bin) == "$javaws_6" ]]; then
-  echo -n "Java web Start uses Java 6, changing it to Java 7 ... "
+  echo "Java web Start uses $(red Java 6), changing it to $(green Java 7) ... "
   change_link $javaws_7 $javaws_bin
 elif [[ $(readlink $javaws_bin) == "$javaws_7" ]]; then
-  echo -n "Java Web Start uses Java 7, changing it to Java 6 ... "
+  echo "Java Web Start uses $(red Java 7), changing it to $(green Java 6) ... "
   change_link $javaws_6 $javaws_bin
 else
   echo "Java Web Start" \
@@ -52,3 +72,5 @@ else
     "it to point to Java 7 "
   change_link $javaws_7 $javaws_bin
 fi
+
+keep_window_open_a_wee_bit
