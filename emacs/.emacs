@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                                                          ;; 
+;;                                                                          ;;
 ;;           Torstein Krause Johansen's .emacs file                         ;;
 ;;                                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,7 +42,7 @@
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
 ;; minimising Emacs way too many times without wanting to.
-(global-unset-key "\C-z") 
+(global-unset-key "\C-z")
 ;; don't write backslashed to indicate continuous lines
 (set-display-table-slot standard-display-table 'wrap ?\ )
 ;; Treat 'y' or <CR> as yes, 'n' as no.
@@ -60,20 +60,22 @@
 (prefer-coding-system 'utf-8)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Set tabs to 2 spaces and replace all tabs with spaces
+;; Set tabs to 2 spaces, replace all tabs with spaces and remove all
+;; trailing white spaces.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Spell checking 
+;; Spell checking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq ispell-program-name "aspell"
       ispell-list-command "list"
       ispell-dictionary "british")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Pure text settings 
+;; Pure text settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'text-mode-hook
           '(lambda ()
@@ -184,7 +186,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Display the time on the status line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq display-time-24hr-format t)       
+(setq display-time-24hr-format t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tell emacs to skip backup files
@@ -224,7 +226,7 @@
      (0 (put-text-property
          (match-beginning 0)
          (match-end 0)
-         'face (list :background 
+         'face (list :background
                      (match-string-no-properties 0)))))))
 
 (defun hexcolour-add-to-font-lock ()
@@ -240,24 +242,24 @@
        '(("\\.bashrc\\'" . sh-mode)
          ("\\.blockdiag\\'" . perl-mode)
          ("\\.bib\\'" . bibtex-mode)
-         ("\\.c\\'" . c-mode) 
+         ("\\.c\\'" . c-mode)
          ("ChangeLog" . change-log-mode)
-         ("\\.cgi\\'" . python-mode) 
-         ("\\.conf\\'" . conf-mode) 
-         ("\\config\\'" . conf-mode) 
-         ("\\.config\\'" . conf-mode) 
-         ("\\.cpp\\'" . c++-mode) 
-         ("\\.css\\'" . css-mode) 
+         ("\\.cgi\\'" . python-mode)
+         ("\\.conf\\'" . conf-mode)
+         ("\\config\\'" . conf-mode)
+         ("\\.config\\'" . conf-mode)
+         ("\\.cpp\\'" . c++-mode)
+         ("\\.css\\'" . css-mode)
          ("\\.diff\\'" . diff-mode)
          ("\\.dtd\\'" . dtd-mode)
          ("\\.ebk\\'" . nxml-mode)
          ("\\.el\\'"  . emacs-lisp-mode)
          ("\\.emacs\\'" . emacs-lisp-mode)
          ("\\.es$" . c++-mode)
-         ("\\.htm\\'" . html-mode) 
-         ("\\.html\\'" . nxml-mode) 
-         ("\\.jbk\\'" . nxml-mode) 
-         ("\\.shtml\\'" . nxml-mode) 
+         ("\\.htm\\'" . html-mode)
+         ("\\.html\\'" . nxml-mode)
+         ("\\.jbk\\'" . nxml-mode)
+         ("\\.shtml\\'" . nxml-mode)
          ("\\.idl\\'" . c++-mode)
          ("\\.java$" . java-mode)
          ("\\.json$" . js2-mode)
@@ -265,21 +267,21 @@
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.muse$" . planner-mode)
-         ("\\.odl\\'" . c++-mode) 
-         ("\\.org\\'" . org-mode) 
+         ("\\.odl\\'" . c++-mode)
+         ("\\.org\\'" . org-mode)
          ("p4" . sh-mode)
          ("\\.pdf\\'" . doc-view-mode)
-         ("\\.py\\'" . python-mode) 
-         ("\\.php\\'" . php-mode) 
-         ("\\.phtml\\'" . php-mode) 
+         ("\\.py\\'" . python-mode)
+         ("\\.php\\'" . php-mode)
+         ("\\.phtml\\'" . php-mode)
          ("\\.pl\\'" . perl-mode)
          ("\\.properties\\'" . conf-mode)
          ("\\.properties.template\\'" . conf-mode)
          ("\\.py$" . python-mode)
          ("pom.xml" . nxml-mode)
-         ("\\.sh\\'" . sh-mode) 
-         ("\\.sql\\'" . sql-mode) 
-         ("\\.targets$" . nxml-mode) 
+         ("\\.sh\\'" . sh-mode)
+         ("\\.sql\\'" . sql-mode)
+         ("\\.targets$" . nxml-mode)
          ("\\.text\\'" . text-mode)
          ("\\.tld.*\\'" . nxml-mode)
          ("\\.txt\\'" . text-mode)
@@ -410,7 +412,7 @@
       js2-indent-on-enter-key t
       js2-enter-indents-newline t)
 
-;; makes j2-mode work (better) with JSON files. 
+;; makes j2-mode work (better) with JSON files.
 (defadvice js2-reparse (before json)
 	(setq js2-buffer-file-name buffer-file-name))
 (ad-activate 'js2-reparse)
@@ -530,4 +532,3 @@
 ;; Put all Emacs customize variables & faces in its own file
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file 'noerror)
-
