@@ -3,7 +3,11 @@
 # Change your keymap:
 xmodmap "/home/torstein/.xmodmaprc"
 
-unclutter -idle 2 &
+# suspect unclutter makes X crash/reset after locking when using
+# external, portrait monitor with the nVIDIA drivers. (2013-01-10).
+# unclutter -idle 2 &
+
+# turn off caps lock, have never needed it.
 setxkbmap -option ctrl:nocaps &
 
 # wmnd &
