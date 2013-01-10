@@ -31,6 +31,7 @@ l="
   $HOME/src/my-little-friends/bash_completion.d/tkj
   $HOME/src/ece-scripts/etc/bash_completion.d/ece
   /etc/bash_completion.d/subversion
+  /etc/bash_completion.d/git
 "
 for el in $l; do
   if [ -r $el ]; then
