@@ -8,7 +8,7 @@ OnLeftGrip Move1 :StartResizing bottomleft
 OnRightGrip Move1 :StartResizing bottomright
 OnWindowBorder Move1 :StartMoving
 
-# click on the desktop to get menus                           
+# click on the desktop to get menus
 OnDesktop Mouse1 :HideMenus
 OnDesktop Mouse2 :WorkspaceMenu
 OnDesktop Mouse3 :RootMenu
@@ -110,7 +110,7 @@ Control Mod4 F10 :TakeToWorkspace 10
 Control Mod4 F11 :TakeToWorkspace 11
 Control Mod4 F12 :TakeToWorkspace 12
 
-# My addition to $HOME/.fluxbox/keys                
+# My addition to $HOME/.fluxbox/keys
 
 # I want a 7x2 grid
 Control Shift Left :PrevWorkspace
@@ -158,7 +158,7 @@ Control Shift r :Raise
 Control Shift l :Lower
 
 # Lock the screen
-Control Shift x :ExecCommand xtrlock
+Control Shift x :ExecCommand xscreensaver-command -lock
 
 # 'w' for web browser
 Control Shift w :Exec opera
@@ -174,6 +174,3 @@ XF86Eject :ExecCommand eject
 # Brightness
 XF86MonBrightnessDown :ExecCommand /usr/local/sbin/nvidiablctl down
 XF86MonBrightnessUp :ExecCommand /usr/local/sbin/nvidiablctl up
-
-
-
