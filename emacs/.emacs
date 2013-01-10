@@ -248,6 +248,7 @@
          ("\\.config\\'" . conf-mode) 
          ("\\.cpp\\'" . c++-mode) 
          ("\\.css\\'" . css-mode) 
+         ("\\.diff\\'" . diff-mode)
          ("\\.dtd\\'" . dtd-mode)
          ("\\.ebk\\'" . nxml-mode)
          ("\\.el\\'"  . emacs-lisp-mode)
@@ -400,7 +401,7 @@
 (eval-after-load "rng-loc"
   '(add-to-list 'rng-schema-locating-files
                 "/usr/local/src/emacs/html5-el/schemas.xml"))
-(require 'whattf-dt)
+;; (require 'whattf-dt)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Javascript mode
@@ -494,6 +495,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'org-export "~/.emacs.d/tkj-org.el" t)
 (autoload 'org-mode "~/.emacs.d/tkj-org.el" t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
