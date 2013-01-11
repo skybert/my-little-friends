@@ -13,7 +13,7 @@
 (menu-bar-mode 0)
 
 (when window-system
-  ;;  (load-theme 'deeper-blue t)
+  (load-theme 'deeper-blue t)
   (set-scroll-bar-mode nil)
   (tool-bar-mode 0)
   (fringe-mode 0))
