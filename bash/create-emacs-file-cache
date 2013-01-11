@@ -37,7 +37,7 @@ function create_entry() {
 	echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
 }
 
-for suffix in java properties sh org; do
+for suffix in java properties sh org vcl; do
   find $dir_list -name "*.${suffix}" 2>/dev/null | while read f; do
     create_entry $f >> $file
   done
@@ -53,4 +53,3 @@ done
 echo ")" >> $file
 
 echo "Done, $file is now ready"
-
