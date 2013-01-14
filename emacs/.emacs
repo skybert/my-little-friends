@@ -318,6 +318,7 @@
 ;; Yasnippets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'yas/expand "yasnippet" t)
+(autoload 'yas/load-directory "yasnippet" t)
 (setq yas/root-directory '("~/.emacs.d/snippets"))
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
