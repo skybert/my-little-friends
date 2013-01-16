@@ -26,19 +26,19 @@ function do_test-url()
             $1 \
             2>&1 >/dev/null
     )"
-  
+
   if [ $(echo "$headers" | grep "Set-Cookie" | wc -l) -gt 0 ]; then
     print "Cache-ability: not ok"
   else
     print "Cache-ability: ok"
   fi
-  
+
   if [ $(echo "$headers" | grep "Content-Encoding: gzip" | wc -l) -gt 0 ]; then
     print "Compression:   ok"
   else
     print "Compression:   not ok"
   fi
-  
+
   print "Response headers:"
   echo "$headers"
 }
@@ -63,7 +63,7 @@ function do_daily()
     print "Adding your SSH key"
     ssh-add
   fi
-  
+
   print "Setting a random wallpaper..."
   do_set-random-wallpaper &
 
@@ -106,7 +106,7 @@ function do_update-tags()
       grep -v local | \
       egrep -v "~|#|swp|html|tex|pdf|diff" | \
       etags -
-    
+
     run cd ~/src/my-little-friends
     find bash -type f | etags -
   )
@@ -130,9 +130,9 @@ function do_update-tags()
       egrep ".java|.xml|.pom|.properties" | \
       egrep -v ".svn|.git|.hg|~|.swp" | \
       gtags -f -
-    
+
   done
-  
+
     # print "Updaging GTags ..."
     # (
     #     run cd ~/src/p4
@@ -223,13 +223,15 @@ function do_setup-screens() {
 
   print "Setting up primary screen $screen1 ..."
   xrandr --output $screen1 --auto
-  
+
   if [ -n "$screen2" ]; then
     print "Setting up secondary screen $screen2 ..."
     xrandr --output $screen2 --right-of $screen1 --auto
     print "Rotating screen $screen2 to the left..."
     xrandr --output $screen2 --rotate left
   fi
+
+  do_set-random-wallpaper
 }
 
 function do_change-clipboard() {
@@ -339,7 +341,7 @@ function do_hours()
 function get_human_time()
 {
   local seconds_worked=$1
-  
+
   local days=$(( seconds_worked / ( 60 * 60 * 24 ) ))
   local seconds_left=$(( seconds_worked - ( $days * 60 * 60 * 24 ) ))
   local hours=$(( seconds_left / ( 60 * 60 ) ))
@@ -355,7 +357,7 @@ function do_go-home()
   local hlhyw=$(do_hours)
   echo "$hlhyw" | head -1 >> ~/doc/hours.org
   print $hlhyw
-  
+
   print "End of the day, generating report ..."
   make_dir $HOME/.widt
   local file=$HOME/.widt/$(date --iso).html
@@ -390,7 +392,7 @@ function do_search-mailing-list-archive()
 
   local result_html=/tmp/search-results.html
   echo "" > $result_html
-  
+
   find $dir -name "*.html" | \
     grep -i /[0-9]*.html$ | \
     xargs grep -A 2 -i $1 | while read f; do
@@ -413,7 +415,7 @@ function search_otrs()
 
   otrs_user=`cat $HOME/.otrs | grep user | cut -d'=' -f2`
   otrs_password=`cat $HOME/.otrs | grep pass | cut -d'=' -f2`
-  
+
   if [ -r $session_header_file ]; then
     session_header=`cat $session_header_file`
   else
@@ -443,7 +445,7 @@ function search_otrs()
 function do_play-that-music()
 {
   mpc clear
-  
+
   for el in $@; do
     if [ $el = "music" ]; then
       continue
@@ -491,7 +493,7 @@ function unknown_command()
 fn=do_${1}
 
 declare > /dev/null -f "$fn" || unknown_command "$1"
-${fn} ${@:2} 
+${fn} ${@:2}
 
 # remove pid if it exists (created by
 # alexanria/get_seconds_since_start
@@ -511,4 +513,3 @@ exit 0
 # $HOME/src/p4/escenic/plugins/poll
 # $HOME/src/p4/escenic/plugins/analysis
 # $HOME/src/p4/main/tip-manager
-
