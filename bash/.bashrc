@@ -19,6 +19,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 
 # aliases
 alias df='df -hT'
+alias emacs='emacs -fn terminus-12'
 alias eternal='cat ~/.bash_eternal_history | grep'
 alias grep='grep -i --color'
 alias ls='ls -lh'
@@ -61,4 +62,3 @@ export LC_ALL=en_GB.utf8
 if [ -e ~/.bashrc.private ]; then
   source ~/.bashrc.private
 fi
-
