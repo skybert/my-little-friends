@@ -1,3 +1,3 @@
 #! /usr/bin/env bash
 
-# by tkj@vizrt.com
+# by torstein.k.johansen@gmail.com
