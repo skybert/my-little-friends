@@ -239,7 +239,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq auto-mode-alist
       (append
-       '(("\\.bashrc\\'" . sh-mode)
+       '(("\\.awk\\'" . awk-mode)
+         ("\\.bashrc\\'" . sh-mode)
          ("ChangeLog" . change-log-mode)
          ("\\.bib\\'" . bibtex-mode)
          ("\\.blockdiag\\'" . perl-mode)
@@ -275,6 +276,7 @@
          ("\\.properties\\'" . conf-mode)
          ("\\.py$" . python-mode)
          ("\\.py\\'" . python-mode)
+         ("\\.sed\\'" . sh-mode)
          ("\\.sh\\'" . sh-mode)
          ("\\.shtml\\'" . nxml-mode)
          ("\\.sql\\'" . sql-mode)
