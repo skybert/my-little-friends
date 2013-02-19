@@ -7,5 +7,6 @@ email = tkj@conduct.no
 branch = auto
 diff = auto
 status = auto
+
 [branch]
 	autosetuprebase = always
