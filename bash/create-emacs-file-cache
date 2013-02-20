@@ -12,6 +12,7 @@ $HOME/src/DocEngine
 $HOME/src/VLAN-MAN
 "
 file_list="
+$HOME/src/my-little-friends/bash/create-emacs-file-cache
 $HOME/.bashrc
 $HOME/.emacs
 "
