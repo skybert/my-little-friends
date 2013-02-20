@@ -39,7 +39,7 @@ for el in $l; do
   fi
 done
 # java
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 
 # path
 PATH=$HOME/src/ece-scripts/usr/bin:\
