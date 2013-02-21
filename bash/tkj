@@ -160,15 +160,9 @@ function do_doc() {
 function do_update-sources()
 {
   local src_list="
-    $HOME/src/my-writings
-    $HOME/src/ece-scripts
     $HOME/src/my-little-friends
-    $HOME/src/nie/trunk
-    $HOME/src/nie/branches/5.5
-    $HOME/src/solartv
-    $HOME/src/skybert-net
-    /usr/local/src/emacs/org-mode
-    /usr/local/src/emacs/emacs-eclim
+    $HOME/src/DocEngine
+    $HOME/src/VLAN-MAN
     /usr/local/src/eclim
   "
 
