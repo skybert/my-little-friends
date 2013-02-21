@@ -5,8 +5,15 @@ shopt -s checkwinsize
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 TERM=xterm-color
 
+function get_git_status() {
+  local status=$(git status 2>/dev/null | head -1 | cut -d' ' -f4)
+  if [ -n "$status" ]; then
+    echo "<${status}>"
+  fi
+}
+
 # prompt
-PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
+PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;35m\]\$(get_git_status) \[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
 
 # history
 shopt -s histappend
