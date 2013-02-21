@@ -1,7 +1,6 @@
 ;; Add ELPA packages and emacs-eclim to the load path
 (let ((default-directory "~/.emacs.d/elpa"))
   (normal-top-level-add-subdirs-to-load-path))
-(add-to-list 'load-path (expand-file-name "/usr/local/src/emacs/emacs-eclim"))
 
 ;; Variables
 (setq eclim-auto-save t
@@ -30,5 +29,3 @@
 (add-hook 'eclim-mode-hook (lambda ()
                              (add-to-list 'ac-sources 'ac-source-emacs-eclim)
                              (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)))
-
-
