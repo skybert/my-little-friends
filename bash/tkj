@@ -99,38 +99,39 @@ firefox
 function do_update-tags()
 {
   print "Updating ETags ..."
-  (
-    run cd ~/src/ece-scripts
-    find usr -type f | \
-      egrep "bin|share" | \
-      grep -v local | \
-      egrep -v "~|#|swp|html|tex|pdf|diff" | \
-      etags -
+  local dir_list="
+    $HOME/src/my-little-friends/bash
+  "
+  for el in $dir_list; do
+    if [ ! -d $el ]; then
+      continue
+    fi
 
-    run cd ~/src/my-little-friends
-    find bash -type f | etags -
-  )
+    print "Updating gtags for $el ..."
+    (
+      run cd $el
+      find . -type f | \
+        egrep -v ".svn|.git|.hg|~|.swp" | \
+        gtags -f -
+    )
+  done
 
   local java_src_list="
-      $HOME/src/cnn/ece-to-nginx-cache
-      $HOME/src/p4/escenic/engine/trunk
-      $HOME/src/p4/escenic/plugins/community/trunk
-      $HOME/src/p4/escenic/plugins/forum/trunk
-      $HOME/src/p4/escenic/plugins/analysis/trunk
-      $HOME/src/p4/escenic/engine/trunk/engine-taglib
-    "
+    $HOME/src/DocEngine
+    $HOME/src/VLAN-MAN
+  "
   for el in $java_src_list; do
     if [ ! -d $el ]; then
       continue
     fi
 
     print "Updating gtags for $el ..."
-    run cd $el
-    find . -type f | \
-      egrep ".java|.xml|.pom|.properties" | \
-      egrep -v ".svn|.git|.hg|~|.swp" | \
-      gtags -f -
-
+    (
+      run cd $el
+      find . -type f -name "*.java" | \
+        egrep ".java|.xml|.pom|.properties" | \
+        gtags -f -
+    )
   done
 
     # print "Updaging GTags ..."
