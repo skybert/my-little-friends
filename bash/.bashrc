@@ -6,10 +6,12 @@ PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 TERM=xterm-color
 
 function get_git_status() {
+  local old_exit_code=$?
   local status=$(git status 2>/dev/null | head -1 | cut -d' ' -f4)
   if [ -n "$status" ]; then
     echo "<${status}>"
   fi
+  return $old_exit_code
 }
 
 # prompt
