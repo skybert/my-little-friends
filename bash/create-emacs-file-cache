@@ -10,6 +10,7 @@ $HOME/.emacs.d
 $HOME/src/my-little-friends
 $HOME/src/DocEngine
 $HOME/src/VLAN-MAN
+/opt/jboss/standalone/configuration
 "
 file_list="
 $HOME/src/my-little-friends/bash/create-emacs-file-cache
@@ -27,10 +28,14 @@ function create_entry() {
 	echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
 }
 
-for suffix in java properties sh org vcl; do
+for suffix in xml java properties sh org vcl; do
   find $dir_list -name "*.${suffix}" 2>/dev/null | while read f; do
     create_entry $f >> $file
   done
+done
+
+for f in $file_list; do
+  create_entry $f >> $file
 done
 
 echo ")" >> $file
