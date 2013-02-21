@@ -7,7 +7,7 @@
       eclim-executable "/opt/eclipse/eclim"
       eclimd-executable "/opt/eclipse/eclimd"
       eclimd-wait-for-process nil
-      eclimd-default-workspace "~/src"
+      eclimd-default-workspace "~/src/workspace"
       help-at-pt-display-when-idle t
       help-at-pt-timer-delay 0.1
       )
