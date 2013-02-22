@@ -286,6 +286,7 @@
          ("\\.txt\\'" . text-mode)
          ("\\.vcl\\'" . java-mode)
          ("\\.vm\\'" . emacs-lisp-mode)
+         ("\\.yaml\\'" . yaml-mode)
          ("\\.wfcfg\\'" . perl-mode)
          ("\\.wsdd\\'" . nxml-mode)
          ("\\.xml$" . nxml-mode) ;; psgml-mode, nxml-mode
