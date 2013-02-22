@@ -14,7 +14,7 @@ setxkbmap -option ctrl:nocaps &
 # wmsmixer -w &
 # idesk &
 
-# gnome-settings-daemon &
+gnome-settings-daemon &
 # gnome-power-manager &
 killall -9 gnome-screensaver
 xscreensaver &
