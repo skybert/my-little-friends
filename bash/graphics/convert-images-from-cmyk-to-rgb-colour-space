@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# by tkj@vizrt.com
+# by tkj@conduct.no
 
 if [ $(which identify 2>/dev/null | wc -l) -eq 0 ]; then
   echo "You need ImageMagick installed to use $(basename $0) :-("

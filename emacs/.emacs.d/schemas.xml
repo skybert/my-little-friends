@@ -4,4 +4,7 @@
        uri="file:///home/torstein/.emacs.d/xml/maven-v4_0_0.rnc"/>
   <uri pattern="build.xml"
       uri="file:///home/torstein/.emacs.d/xml/ant-1.6.rnc"/>
+  <uri pattern="standalone.xml"
+       uri="file:///home/torstein/.emacs.d/xml/jboss-as-config_1_3.rnc"
+       />
 </locatingRules>

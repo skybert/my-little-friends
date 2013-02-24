@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# by tkj@vizrt.com
+# by tkj@conduct.no
 
 function get_versions_declared_explicitly()
 {

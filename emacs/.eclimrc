@@ -1,0 +1,11 @@
+# Specifies the workspace directory to use
+# See $ECLIPSE_HOME/configuration/config.ini for other osgi properties.
+osgi.instance.area.default=@user.home/src/workspace
+
+# increase heap size
+-Xmx256M
+
+# increase perm gen size
+-XX:PermSize=64m
+-XX:MaxPermSize=128m
+

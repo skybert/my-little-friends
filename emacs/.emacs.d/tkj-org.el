@@ -10,12 +10,8 @@
 
 (setq
  org-return-follows-link t
- org-agenda-files (list "~/src/my-writings/work.org"
-                        "~/src/my-writings/nie.org"
-                        "~/src/my-writings/solartv.org"
-                        "~/src/my-writings/ece-scripts.org"
-                        "~/src/my-little-friends/notes/reading-list.org"
-                        "~/src/my-writings/home.org")
+ org-agenda-files (list "~/doc/2013/conduct.org"
+                        )
  )
 
 (define-key global-map "\C-cl" 'org-store-link)

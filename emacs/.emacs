@@ -5,7 +5,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq user-full-name "Torstein Krause Johansen"
-      user-mail-address "tkj@vizrt.com")
+      user-mail-address "tkj@conduct.no")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
@@ -48,7 +48,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/ece-scripts -type f | egrep -v '.(svn|git)' | xargs grep -n -i -e ")
+      "find ~/src/DocEngine -type f | egrep -v '.(svn|git)' | xargs grep -n -i -e ")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Prefer UTF 8, but don't override current encoding if specified
@@ -65,7 +65,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spell checking
@@ -338,7 +337,7 @@
 ;; My c-mode settings, java specific settings are set in .emacs-java
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-c-mode-hook ()
-  (setq c-basic-offset 2
+  (setq c-basic-offset 4
         c-label-offset 0
         indent-tabs-mode nil
         compile-command "cd ~/src/p4/escenic/plugins/community/trunk/community-core; mvn test -Dtest=OpenIDProviderTest"

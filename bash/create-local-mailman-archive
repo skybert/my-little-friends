@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# tkj@vizrt.com
+# tkj@conduct.no
 
 archive_dir=~/mail/mailing-list-archive
 list_host_url=http://lists.escenic.com/pipermail

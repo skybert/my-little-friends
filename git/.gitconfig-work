@@ -1,10 +1,12 @@
+#                               Hi, Emacs, please use -* conf -*-  mode.
 [user]
 name = Torstein Krause Johansen
-email = tkj@vizrt.com
+email = tkj@conduct.no
 
 [color]
 branch = auto
 diff = auto
 status = auto
+
 [branch]
 	autosetuprebase = always

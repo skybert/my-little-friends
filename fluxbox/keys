@@ -153,10 +153,6 @@ Control Shift h :Exec urxvt -fn xft:Mono +sb -cr red -sl 10000
 # 'u' is the first letter of the Norwegian word for "without", "uten" :-)
 Control Shift u :ToggleDecor
 
-# 'r' and 'l' for raise and lower window
-Control Shift r :Raise
-Control Shift l :Lower
-
 # Lock the screen
 Control Shift x :ExecCommand xscreensaver-command -lock
 
