@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# by tkj@vizrt.com
+# by tkj@conduct.no
 
 site=documentation.vizrt.com
 dir=/tmp/${site}-testing

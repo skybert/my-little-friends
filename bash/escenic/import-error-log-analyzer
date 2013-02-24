@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# by tkj@vizrt.com
+# by tkj@conduct.no
 
 ## Will check the passed log4j for import related errors and attempt
 ## to provide useful information on which actions to take to remedy

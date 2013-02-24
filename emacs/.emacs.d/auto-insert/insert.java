@@ -1,7 +1,7 @@
 /**
  * (>>FILE_NO_EXT<<)
  * 
- * @author <a href="mailto:tkj@vizrt.com">Torstein Krause Johansen</a>
+ * @author <a href="mailto:tkj@conduct.no">Torstein Krause Johansen</a>
  * @author last modified by $Author$
  * @version $Revision$ $Date$
  */
