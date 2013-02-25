@@ -11,6 +11,8 @@
 (setq
  org-return-follows-link t
  org-agenda-files (list "~/doc/2013/conduct.org"
+                        "~/doc/2013/broadnet.org"
+                        "~/doc/2013/work.org"
                         )
  )
 
