@@ -28,8 +28,11 @@ function create_entry() {
 	echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
 }
 
-for suffix in xml java properties sh org vcl; do
+for suffix in yaml xml java properties sh org vcl; do
   find $dir_list -name "*.${suffix}" 2>/dev/null | while read f; do
+    if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
+      continue
+    fi
     create_entry $f >> $file
   done
 done
