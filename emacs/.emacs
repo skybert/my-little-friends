@@ -119,7 +119,6 @@
 (global-set-key [ (super w) ] 'kill-ring-save)
 (global-set-key [ (super x) ] 'execute-extended-command)
 
-(global-set-key "\C-\M-g" 'jde-usages-get-signature-of-thing-at-point)
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
 ;; newline and indent (like other editors, even vi, do).
@@ -275,6 +274,7 @@
          ("\\.properties\\'" . conf-mode)
          ("\\.py$" . python-mode)
          ("\\.py\\'" . python-mode)
+         ("\\.puppet\\'" . puppet-mode)
          ("\\.sed\\'" . sh-mode)
          ("\\.sh\\'" . sh-mode)
          ("\\.shtml\\'" . nxml-mode)
@@ -347,6 +347,7 @@
   (c-set-offset 'substatement-open 0)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
+  (define-key c-mode-base-map "\C-\M-g" 'eclim-java-find-declaration)
   (subword-mode)
   (gtags-mode)
   )
