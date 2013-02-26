@@ -59,6 +59,9 @@ $HOME/src/common-bashing/net:\
 $JAVA_HOME/bin:\
 $PATH
 
+# editor
+export EDITOR=vim
+
 # p4
 export P4CONFIG=$HOME/.p4config
 
@@ -71,3 +74,4 @@ export LC_ALL=en_GB.utf8
 if [ -e ~/.bashrc.private ]; then
   source ~/.bashrc.private
 fi
+
