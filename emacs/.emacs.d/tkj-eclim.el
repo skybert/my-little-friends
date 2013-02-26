@@ -12,7 +12,7 @@
       eclimd-wait-for-process nil
       eclimd-default-workspace "~/src/workspace-eclim"
       help-at-pt-display-when-idle t
-      help-at-pt-timer-delay 0.5
+      help-at-pt-timer-delay 2.5
       )
 
 ;; Call the help framework with the settings above & activate
