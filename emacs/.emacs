@@ -65,7 +65,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
-(add-hook 'before-save-hook 'untabify)
+;; (add-hook 'before-save-hook untabify)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spell checking
@@ -342,7 +342,7 @@
   (setq c-basic-offset 4
         c-label-offset 0
         indent-tabs-mode nil
-        compile-command "cd ~/src/p4/escenic/plugins/community/trunk/community-core; mvn test -Dtest=OpenIDProviderTest"
+        compile-command "cd ~/src/DocEngine; mvn -o package"
         require-final-newline nil)
   (auto-fill-mode)
   (c-set-offset 'substatement-open 0)
