@@ -65,6 +65,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
+;; (add-hook 'before-save-hook untabify)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spell checking
@@ -87,6 +88,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load all locally installed packages
 (let ((default-directory "/usr/local/src/emacs"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+;; Add ELPA packages and emacs-eclim to the load path
+(let ((default-directory "~/.emacs.d/elpa"))
   (normal-top-level-add-subdirs-to-load-path))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -341,7 +346,7 @@
   (setq c-basic-offset 4
         c-label-offset 0
         indent-tabs-mode nil
-        compile-command "cd ~/src/p4/escenic/plugins/community/trunk/community-core; mvn test -Dtest=OpenIDProviderTest"
+        compile-command "cd ~/src/DocEngine; mvn -o package"
         require-final-newline nil)
   (auto-fill-mode)
   (c-set-offset 'substatement-open 0)
