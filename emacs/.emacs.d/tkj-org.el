@@ -25,7 +25,7 @@
 
 
 ;; HTML5 export
-(require 'org-html5presentation)
+;; (require 'org-html5presentation)
 ;; (require 'org-mw)
 
 ;; don't create a footer
