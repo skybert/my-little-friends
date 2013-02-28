@@ -4,3 +4,6 @@
 [app] (name=Navigator) (class=Firefox) (role=browser)
   [Workspace]	{1}
 [end]
+[app] (name=Eclipse) (class=Eclipse)
+  [Workspace]	{5}
+[end]
