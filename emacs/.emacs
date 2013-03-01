@@ -48,7 +48,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine -type f | egrep -v '.(svn|git)' | xargs grep -n -i -e ")
+      "find ~/src/DocEngine -type f | egrep '.(java|xml|html)$' | egrep -v '.(svn|git)' | xargs grep -n -i -e ")
 
 (defun move-line-down ()
   (interactive)
@@ -165,6 +165,25 @@
 (global-set-key  [ (f5) ] 'revert-buffer)
 (global-auto-revert-mode 1)
 (setq revert-without-query (list "\\.png$" "\\.svg$"))
+
+(defun rename-this-buffer-and-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (cond ((get-buffer new-name)
+               (error "A buffer named '%s' already exists!" new-name))
+              (t
+               (rename-file filename new-name 1)
+               (rename-buffer new-name)
+               (set-visited-file-name new-name)
+               (set-buffer-modified-p nil)
+               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+(global-unset-key "\C-x \C-r")
+(global-set-key (kbd "C-x C-r") 'rename-this-buffer-and-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffers
