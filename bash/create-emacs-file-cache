@@ -10,6 +10,7 @@ $HOME/.emacs.d
 $HOME/src/my-little-friends
 $HOME/src/DocEngine
 $HOME/src/VLAN-MAN
+$HOME/doc/$(date +%Y)
 /opt/jboss/standalone/configuration
 "
 file_list="
