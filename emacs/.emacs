@@ -378,6 +378,7 @@
   (define-key c-mode-base-map "\C-q" 'eclim-java-show-documentation-for-current-element)
   (define-key c-mode-base-map (kbd "<M-f7>") 'eclim-java-find-references)
   (define-key c-mode-base-map (kbd "<S-f6>") 'eclim-java-refactor-rename-symbol-at-point)
+  
   (subword-mode)
   (gtags-mode)
   )
