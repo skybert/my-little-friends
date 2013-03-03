@@ -50,6 +50,26 @@
 (setq grep-find-command
       "find ~/src/DocEngine -type f | egrep -v '.(svn|git)' | xargs grep -n -i -e ")
 
+(defun move-line-down ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines 1))
+    (forward-line)
+    (move-to-column col)))
+
+(defun move-line-up ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines -1))
+    (move-to-column col)))
+
+(global-set-key (kbd "<C-s-down>") 'move-line-down)
+(global-set-key (kbd "<C-s-up>") 'move-line-up)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Prefer UTF 8, but don't override current encoding if specified
 ;; (unless you specify a write hook).
@@ -353,6 +373,8 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (define-key c-mode-base-map "\C-\M-g" 'eclim-java-find-declaration)
+  (define-key c-mode-base-map "\C-q" 'eclim-java-show-documentation-for-current-element)
+  (define-key c-mode-base-map (kbd "<M-f7>") 'eclim-java-find-references)
   (subword-mode)
   (gtags-mode)
   )
