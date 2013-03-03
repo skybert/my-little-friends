@@ -3,7 +3,7 @@
 osgi.instance.area.default=@user.home/src/workspace
 
 # increase heap size
--Xmx256M
+-Xmx1024M
 
 # increase perm gen size
 -XX:PermSize=64m
