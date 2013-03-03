@@ -2,8 +2,7 @@
  * (>>FILE_NO_EXT<<)
  * 
  * @author <a href="mailto:tkj@conduct.no">Torstein Krause Johansen</a>
- * @author last modified by $Author$
- * @version $Revision$ $Date$
+ * @version 1.0
  */
 public final class (>>FILE_NO_EXT<<) {
 
