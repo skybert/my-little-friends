@@ -1,3 +1,5 @@
+package net.skybert;
+
 /**
  * (>>FILE_NO_EXT<<)
  * 
