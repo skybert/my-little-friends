@@ -282,8 +282,8 @@
 (setq auto-mode-alist
       (append
        '(("\\.awk\\'" . awk-mode)
-         ("\\.bashrc\\'" . sh-mode)
          ("ChangeLog" . change-log-mode)
+         ("\\.bashrc\\'" . sh-mode)
          ("\\.bib\\'" . bibtex-mode)
          ("\\.blockdiag\\'" . perl-mode)
          ("\\.c\\'" . c-mode)
@@ -307,6 +307,7 @@
          ("\\.json$" . js2-mode)
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
+         ("\\.less\\'" . css-mode)
          ("\\.muse$" . planner-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
@@ -316,9 +317,9 @@
          ("\\.pl\\'" . perl-mode)
          ("\\.properties.template\\'" . conf-mode)
          ("\\.properties\\'" . conf-mode)
+         ("\\.puppet\\'" . puppet-mode)
          ("\\.py$" . python-mode)
          ("\\.py\\'" . python-mode)
-         ("\\.puppet\\'" . puppet-mode)
          ("\\.sed\\'" . sh-mode)
          ("\\.sh\\'" . sh-mode)
          ("\\.shtml\\'" . nxml-mode)
@@ -330,12 +331,12 @@
          ("\\.txt\\'" . text-mode)
          ("\\.vcl\\'" . java-mode)
          ("\\.vm\\'" . emacs-lisp-mode)
-         ("\\.yaml\\'" . yaml-mode)
          ("\\.wfcfg\\'" . perl-mode)
          ("\\.wsdd\\'" . nxml-mode)
          ("\\.xml$" . nxml-mode) ;; psgml-mode, nxml-mode
          ("\\.xsd$" . nxml-mode) ;; xsl-mode
          ("\\.xsl$" . nxml-mode) ;; xsl-mode
+         ("\\.yaml\\'" . yaml-mode)
          ("\\config\\'" . conf-mode)
          ("control" . conf-mode)
          ("feature" . conf-mode)
