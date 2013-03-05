@@ -307,7 +307,7 @@
          ("\\.json$" . js2-mode)
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
-         ("\\.less\\'" . css-mode)
+         ("\\.less\\'" . javascript-mode)
          ("\\.muse$" . planner-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
