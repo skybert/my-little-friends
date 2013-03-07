@@ -54,7 +54,7 @@ function do_help()
 
 function do_daily()
 {
-  do_setup-screens
+  # do_setup-screens
 
   print "Putting on some good music ..."
   mpd 1>/dev/null 2>/dev/null &
