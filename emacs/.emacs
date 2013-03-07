@@ -48,7 +48,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine -type f | egrep -v '.(svn|git)' | xargs grep -n -i -e ")
+      "find ~/src/DocEngine -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
 (defun move-line-down ()
   (interactive)
