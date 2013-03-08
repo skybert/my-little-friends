@@ -1,0 +1,14 @@
+workspace=$HOME/src/workspace
+
+src_dir_list="
+$HOME/src/DocEngine
+"
+for el in $src_dir_list; do
+  (
+    cd $el
+    mvn eclipse:clean \
+      eclipse:configure-workspace \
+      eclipse:eclipse \
+      -Declipse.workspace=${workspace}
+  )
+done
