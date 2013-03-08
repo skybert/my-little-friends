@@ -4,7 +4,7 @@ install_base_dir=/opt
 eclipse_home=/opt/eclipse
 ext_src_base_dir=/usr/local/src
 # 2.2.5 matches the latest Eclipse Juno release
-eclim_tag=2.2.5
+# eclim_tag=2.2.5
 
 function run() {
   "$@"
@@ -34,9 +34,7 @@ function set_up_eclim() {
     run git clone https://github.com/ervandew/eclim.git
   fi
   run cd $ext_src_base_dir/eclim
-  run git checkout master
   run git pull --rebase
-  run git checkout ${eclim_tag}
 
   if [ ! -d $eclipse_home ]; then
     echo "You need to install Eclipse in" $eclipse_home
