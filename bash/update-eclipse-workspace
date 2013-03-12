@@ -6,9 +6,14 @@ $HOME/src/DocEngine
 for el in $src_dir_list; do
   (
     cd $el
-    mvn eclipse:clean \
+    mvn \
+      clean \
+      install \
+      eclipse:clean \
       eclipse:configure-workspace \
       eclipse:eclipse \
-      -Declipse.workspace=${workspace}
+      -Declipse.workspace=${workspace} \
+      -Dpmd.skip=true \
+      -Dfindbugs.skip=true
   )
 done
