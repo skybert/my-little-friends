@@ -50,6 +50,8 @@
 (setq grep-find-command
       "find ~/src/DocEngine -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
+(require 'iedit)
+
 (defun move-line-down ()
   (interactive)
   (let ((col (current-column)))
