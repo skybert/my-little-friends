@@ -18,7 +18,6 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
-
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
@@ -248,18 +247,18 @@
 ;;  "confluence"
 ;;  '(:file-suffix     ".confluence"
 ;;                     :body-line-export-preformated t
-;;                     :body-line-fixed-format	"%s\n"
-;;                     :body-line-fixed-prefix	"{code}\n"
-;;                     :body-line-fixed-suffix	"\n\{code}\n"
+;;                     :body-line-fixed-format  "%s\n"
+;;                     :body-line-fixed-prefix  "{code}\n"
+;;                     :body-line-fixed-suffix  "\n\{code}\n"
 ;;                     :body-line-format "%s\n"
 ;;                     :body-line-wrap   75
-;;                     :body-list-format	"* %s\n"
-;;                     :body-list-suffix	"\n"
-;;                     :body-number-list-format	"# %s\n"
-;;                     :body-number-list-suffix	"\n"
-;;                     :body-section-header-format	"%s\n"
-;;                     :body-section-header-prefix	("h1. " "h2. " "h3. " "\h4. " "h5. " "h6. ")
-;;                     :body-text-prefix	"\n"
-;;                     :body-text-suffix	"\n\n"
+;;                     :body-list-format  "* %s\n"
+;;                     :body-list-suffix  "\n"
+;;                     :body-number-list-format "# %s\n"
+;;                     :body-number-list-suffix "\n"
+;;                     :body-section-header-format  "%s\n"
+;;                     :body-section-header-prefix  ("h1. " "h2. " "h3. " "\h4. " "h5. " "h6. ")
+;;                     :body-text-prefix  "\n"
+;;                     :body-text-suffix  "\n\n"
 ;;                     :key-binding     ?c
 ;;                     ))
