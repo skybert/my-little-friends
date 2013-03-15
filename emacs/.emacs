@@ -50,6 +50,11 @@
 (setq grep-find-command
       "find ~/src/DocEngine -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
+(global-unset-key "M-p")
+(global-set-key "\M-p" 'backward-list)
+(global-unset-key "\M-n")
+(global-set-key "\M-n" 'forward-list)
+
 (defun move-line-down ()
   (interactive)
   (let ((col (current-column)))
@@ -187,6 +192,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Multiple, real time replace
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-unset-key (kbd "C-;"))
 (global-set-key (kbd "C-;") 'iedit-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -374,6 +380,8 @@
 (setq yas/root-directory '("~/.emacs.d/snippets"))
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
+(global-unset-key "\C-]")
+(global-set-key "\C-\]" 'yas/exit-all-snippets)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Advanced paren mode
