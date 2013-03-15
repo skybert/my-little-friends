@@ -370,9 +370,6 @@
                         "~/src/my-little-friends"
                         ))
 
-;; C style like languages like Java are handled by gtags (from GNU Global)
-(autoload 'gtags-mode "gtags" "" t)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -440,6 +437,7 @@
 (add-hook 'nxml-mode-hook
           (lambda ()
             (define-key nxml-mode-map "\C-c\C-i" 'yas/expand)
+            (define-key nxml-mode-map "\M- " 'nxml-complete)
             )
           t)
 
