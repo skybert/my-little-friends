@@ -50,7 +50,8 @@
 (setq grep-find-command
       "find ~/src/DocEngine -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
-(global-unset-key "M-p")
+;; Navigate by code blocks
+(global-unset-key "\M-p")
 (global-set-key "\M-p" 'backward-list)
 (global-unset-key "\M-n")
 (global-set-key "\M-n" 'forward-list)
