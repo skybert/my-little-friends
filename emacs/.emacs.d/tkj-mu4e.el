@@ -24,11 +24,11 @@
       )
 
 (setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("mailosl2.vizrt.internal" 587  nil nil))
-      smtpmail-default-smtp-server "mailosl2.vizrt.internal"
-      smtpmail-smtp-server "mailosl2.vizrt.internal"
-      smtpmail-smtp-service 587
-      smtpmail-local-domain "vizrt.com")
+      user-mail-address "torsteinkrausework@gmail.com"
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
 
 (defun tkj-load-mu4e-private()
   (interactive)
