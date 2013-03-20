@@ -2,9 +2,15 @@
 
 # by torstein.k.johansen@gmail.com
 
+log_file=$HOME/.$(basename $0).log
 LC_ALL=C
 
-. $HOME/src/my-little-friends/bash/common/alexandria
+. $HOME/src/common-bashing/src/common-lib/indispensable.sh
+
+java_src_list="
+  $HOME/src/DocEngine
+  $HOME/src/VLAN-MAN
+"
 
 ## $1 :: project
 function do_schedule-hudson-build() {
@@ -94,8 +100,25 @@ firefox
   echo -n $id "Start of the day: Getting, building & deploying the latest code"
   echo "..."
   do_update-sources
+  do_build-sources
 
   print "Happy hacking :-)"
+}
+
+function do_build-sources() {
+  for el in $java_src_list; do
+    if [ -e $el/pom.xml ]; then
+      (
+        print "Building $el ..."
+        run cd $el
+        run mvn clean install eclipse:eclipse \
+          -Dpmd.skip=true \
+          -Dfindbugs.skip=true \
+          -Dcheckstyle.skip=true \
+          -DskipTests
+      )
+    fi
+  done
 }
 
 function do_update-tags()
@@ -118,10 +141,6 @@ function do_update-tags()
     )
   done
 
-  local java_src_list="
-    $HOME/src/DocEngine
-    $HOME/src/VLAN-MAN
-  "
   for el in $java_src_list; do
     if [ ! -d $el ]; then
       continue
