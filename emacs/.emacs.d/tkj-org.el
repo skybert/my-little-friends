@@ -13,10 +13,13 @@
  org-agenda-files (list "~/doc/2013/conduct.org"
                         "~/doc/2013/broadnet.org"
                         )
+ org-capture-templates(quote (("t" "todo" entry (file "~/doc/2013/notes.org")
+                               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)))
  )
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-ct" 'org-capture)
 
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
