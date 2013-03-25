@@ -4,7 +4,10 @@ header_file=$(dirname $0)/header.html
 footer_file=$(dirname $0)/footer.html
 
 output_file=$(mktemp)
-target_dir=/tmp
+src_dir=$HOME/src/skybert-net/src
+target_dir=$(echo $src_dir | sed 's/src$/target/')
+echo $target_dir
+
 
 cat $header_file > $output_file
 sed -f $(dirname $0)/$(basename $0).sed $1 >> $output_file
