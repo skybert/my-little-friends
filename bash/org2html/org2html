@@ -4,6 +4,8 @@ header_file=$(dirname $0)/header.html
 footer_file=$(dirname $0)/footer.html
 
 output_file=$(mktemp)
+target_dir=/tmp
+
 cat $header_file > $output_file
 sed -f $(dirname $0)/$(basename $0).sed $1 >> $output_file
 cat $footer_file >> $output_file
@@ -14,11 +16,17 @@ function create_file_name() {
 }
 
 function fix_title() {
-  local title=$(sed -n 's/^#+TITLE: \(.*\)/\1/p' $1)
+  title=$(sed -n 's/^#+TITLE: \(.*\)/\1/p' $1)
   sed -i "s~<title>\(.*\)</title>~<title>${title}</title>~" $output_file
 }
 
+function get_title_fn() {
+  echo "$title" | tr '[A-Z]' '[a-z]' | \
+    sed 's/[,!?_ ]/-/g'
+}
 
 fix_title $1
-cat $output_file | xml_pp | xmllint --format -
+final_fn=${target_dir}/$(get_title_fn).html
+cat $output_file | xml_pp | xmllint --format - > $final_fn
 rm $output_file
+echo $final_fn "is now ready"
