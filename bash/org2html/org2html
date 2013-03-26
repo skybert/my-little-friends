@@ -5,17 +5,11 @@ footer_file=$(dirname $0)/footer.html
 
 output_file=$(mktemp)
 src_dir=$HOME/src/skybert-net/src
-target_dir=$(echo $src_dir | sed 's/src$/target/')
-echo $target_dir
 
-
-cat $header_file > $output_file
-sed -f $(dirname $0)/$(basename $0).sed $1 >> $output_file
-cat $footer_file >> $output_file
-
-
-function create_file_name() {
-  echo ""
+function create_target_dir() {
+  local dir_fragment=$(echo $1 | sed "s#${src_dir}/##")
+  target_dir=$(dirname $src_dir)/generated/${dir_fragment}
+  mkdir -p $target_dir
 }
 
 function fix_title() {
@@ -23,13 +17,28 @@ function fix_title() {
   sed -i "s~<title>\(.*\)</title>~<title>${title}</title>~" $output_file
 }
 
-function get_title_fn() {
+function get_file_name() {
   echo "$title" | tr '[A-Z]' '[a-z]' | \
     sed 's/[,!?_ ]/-/g'
 }
 
-fix_title $1
-final_fn=${target_dir}/$(get_title_fn).html
-cat $output_file | xml_pp | xmllint --format - > $final_fn
-rm $output_file
-echo $final_fn "is now ready"
+function convert_org_to_html() {
+  cat $header_file > $output_file
+  sed -f $(dirname $0)/$(basename $0).sed $1 >> $output_file
+  cat $footer_file >> $output_file
+}
+
+function convert_file() {
+  convert_org_to_html $1
+  create_target_dir $1
+  fix_title $1
+
+  final_fn=${target_dir}/$(get_file_name).html
+  cat $output_file | xmllint --format - > $final_fn
+  rm $output_file
+  echo $final_fn "is now ready"
+}
+
+find $src_dir -name "*.org" | while read f; do
+  convert_file "$f"
+done
