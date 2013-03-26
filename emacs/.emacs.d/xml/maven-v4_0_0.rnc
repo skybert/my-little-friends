@@ -1,9 +1,11 @@
 default namespace = "http://maven.apache.org/POM/4.0.0"
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 
 start =
   notAllowed
   | element project {
-      element parent {
+      attribute xsi:schemaLocation { \string }?
+      & element parent {
         element artifactId { \string }?
         & element groupId { \string }?
         & element version { \string }?
