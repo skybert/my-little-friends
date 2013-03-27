@@ -371,7 +371,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH is handled by regular etags
 (setq tags-table-list '(
-                        "~/src/ece-scripts"
                         "~/src/my-little-friends"
                         ))
 
