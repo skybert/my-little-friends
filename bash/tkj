@@ -113,8 +113,20 @@ firefox
   echo "..."
   do_update-sources
   do_build-sources
+  do_restart-eclimd
 
   print "Happy hacking :-)"
+}
+
+function do_restart-eclimd() {
+  local eclimd_bin=/opt/eclipse/eclimd
+  local eclimd_pid=$(ps aux|grep $eclimd_bin | grep -v grep | awk '{print $2;}  ')
+  if [ -n "$eclimd_pid" ]; then
+    print "Stopping eclimd ..."
+    kill -9 $eclimd_pid
+  fi
+  print "Starting eclimd ..."
+  urxvt -e $eclimd_bin &
 }
 
 function do_build-sources() {
