@@ -58,6 +58,17 @@ function do_help()
   done
 }
 
+function do_set-up-vpn() {
+  if [ -x /usr/sbin/vpnc ]; then
+    print "Setting up VPN ..."
+    sudo vpnc default
+  fi
+}
+
+function do_create-emacs-file-cache() {
+  create-emacs-file-cache
+}
+
 function do_daily()
 {
   # do_setup-screens
@@ -73,8 +84,9 @@ function do_daily()
   print "Setting a random wallpaper..."
   do_set-random-wallpaper &
 
+  do_set-up-vpn
   do_update-tags
-  create-emacs-file-cache
+  do_create-emacs-file-cache
 
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
