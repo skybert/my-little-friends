@@ -20,7 +20,7 @@ function check_input() {
   if [ $1 ]; then
     dir=$1
   else
-    dir=$picture_dir/$(date +%Y)/$(date +%Y-%m)
+    dir=$picture_dir/$(date +%Y)
   fi
 }
 
@@ -35,7 +35,7 @@ function sync_directory() {
     echo $(basename $0) "$dir doesn't exist, so not syncing." >> $log_file
     return
   fi
-  
+
   local target_dir=$(echo $dir | sed "s#${HOME}/##g")
   echo $(basename $0) \
     $dir "->" ${target_user_and_server}:${target_dir} \
@@ -55,4 +55,3 @@ check_input $@
 create_lock_or_exit_if_exists
 sync_directory
 remove_lock_file
-
