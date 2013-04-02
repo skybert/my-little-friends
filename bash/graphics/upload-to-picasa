@@ -42,7 +42,7 @@ function create_album_if_doesnt_exist() {
   fi
 
   log "Creating new album $@ ..."
-  
+
   # not running google command in run wrapper, seemed to cause
   # problems with passing string arguments around (containing spaces).
   google picasa create "$@" >>$log_file 2>>$log_file
@@ -61,7 +61,7 @@ function upload_to_picasa() {
       sed 's#:#-#g' | \
       cut -d' ' -f1
   )
-  
+
   local album_name=$(date --date=$file_date "+%B %Y")
   create_album_if_doesnt_exist "$album_name"
   google picasa post "$album_name" "$@" >>$log_file 2>>$log_file
@@ -76,7 +76,7 @@ function check_input() {
   elif [ $1 ]; then
     dir=$1
   else
-    dir=$HOME/pictures/$(date +%Y)/$(date +%Y-%m)
+    dir=$HOME/pictures/$(date +%Y)
   fi
 }
 
