@@ -153,7 +153,6 @@
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
-(global-set-key  "\C-o" 'ecb-goto-window-methods)
 
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
@@ -263,6 +262,11 @@
                     "/usr/share/emacs23/site-lisp/w3m"
                     "/usr/local/src/varnish/varnish-tools/emacs/")
               load-path))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Automatically insert corresponding 'end' characters.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(electric-pair-mode +1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto complete
