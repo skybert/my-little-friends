@@ -93,7 +93,7 @@
 
 (defun tkj-clean-up-whitespace()
   (interactive)
-  (delete-trailing-whitespace)
+  ;;  (delete-trailing-whitespace)
   (untabify (point-min) (point-max)))
 (add-hook 'before-save-hook 'tkj-clean-up-whitespace)
 
