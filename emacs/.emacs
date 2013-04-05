@@ -551,6 +551,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'org-agenda "~/.emacs.d/tkj-org.el" t)
+(autoload 'org-capture "~/.emacs.d/tkj-org.el" t)
 (autoload 'org-export "~/.emacs.d/tkj-org.el" t)
 (autoload 'org-mode "~/.emacs.d/tkj-org.el" t)
 
