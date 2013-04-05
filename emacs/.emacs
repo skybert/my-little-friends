@@ -551,6 +551,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-ct" 'org-capture)
 (autoload 'org-agenda "~/.emacs.d/tkj-org.el" t)
 (autoload 'org-capture "~/.emacs.d/tkj-org.el" t)
 (autoload 'org-export "~/.emacs.d/tkj-org.el" t)
