@@ -1,8 +1,9 @@
 [app] (name=emacs) (class=Emacs24)
-  [Workspace] {2}
+  [Workspace]	{2}
 [end]
 [app] (name=Navigator) (class=Firefox) (role=browser)
+  [Workspace]	{1}
 [end]
 [app] (name=Eclipse) (class=Eclipse)
-  [Workspace] {5}
+  [Workspace]	{5}
 [end]
