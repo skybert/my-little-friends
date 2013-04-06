@@ -76,8 +76,8 @@ directory, select directory. Lastly the file is opened."
 
 (defun file-cache-ido-read (prompt choices)
   (let ((ido-make-buffer-list-hook
-	 (lambda ()
-	   (setq ido-temp-list choices))))
+   (lambda ()
+     (setq ido-temp-list choices))))
     (ido-read-buffer prompt)))
 
 (global-set-key "\C-cf" 'file-cache-ido-find-file)
