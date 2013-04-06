@@ -7,3 +7,6 @@
 [app] (name=Eclipse) (class=Eclipse)
   [Workspace]	{5}
 [end]
+[app] (name=opera) (class=Opera) (role=browser)
+  [Workspace]	{1}
+[end]
