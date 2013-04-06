@@ -48,7 +48,7 @@ For later retrieval using `file-cache-read-cache-from-file'"
   (and buffer-file-name
        (file-exists-p buffer-file-name)
        (file-cache-add-file buffer-file-name)))
-(add-hook 'kill-buffer-hook 'file-cache-add-this-file)
+;; (add-hook 'kill-buffer-hook 'file-cache-add-this-file)
 
 ;; Using ido to open files from file name cache
 
