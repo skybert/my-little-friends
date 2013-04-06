@@ -3,18 +3,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ido)
 
-;; ido-everywhere breaks find-dired, to turning it off until the fix
-;; in emacs/trunk gets into the emacs23 packages.
-(setq ido-everywhere nil
+(setq ido-everywhere t
       ido-enable-flex-matching t
       ido-create-new-buffer 'always
       ido-file-extensions-order '(".java" ".js" ".el")
       ido-use-filename-at-point 'guess)
 
-;; I'm SO tired of ido-mode messing up my C-x C-f (find-file), instead
-;; I use it with "C-c f", see below. Hence, just wanting IDO in buffer
-;; switching.
-(ido-mode 'buffer)
+(ido-mode t)
 
 (require 'filecache)
 (setq tkj-file-cache-file "~/.emacs.d/file_cache.el")
