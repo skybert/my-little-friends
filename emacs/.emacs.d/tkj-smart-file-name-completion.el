@@ -19,7 +19,7 @@
   The file cache can be saved to a file using
   `file-cache-save-cache-to-file'."
   (interactive)
-;;  (interactive "fFile: ")
+  ;;  (interactive "fFile: ")
   (file-cache-clear-cache)
   (save-excursion
     (set-buffer (find-file-noselect tkj-file-cache-file))
@@ -30,7 +30,7 @@
   (interactive)
   "Save contents of `file-cache-alist' to FILE.
 For later retrieval using `file-cache-read-cache-from-file'"
-;;  (interactive "FFile: ")
+  ;;  (interactive "FFile: ")
   (with-temp-file (expand-file-name tkj-file-cache-file)
     (prin1 file-cache-alist (current-buffer))))
 
@@ -71,8 +71,8 @@ directory, select directory. Lastly the file is opened."
 
 (defun file-cache-ido-read (prompt choices)
   (let ((ido-make-buffer-list-hook
-   (lambda ()
-     (setq ido-temp-list choices))))
+         (lambda ()
+           (setq ido-temp-list choices))))
     (ido-read-buffer prompt)))
 
 (global-set-key "\C-cf" 'file-cache-ido-find-file)
