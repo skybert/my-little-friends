@@ -7,7 +7,9 @@
       ido-enable-flex-matching t
       ido-create-new-buffer 'always
       ido-file-extensions-order '(".java" ".js" ".el")
-      ido-use-filename-at-point 'guess)
+      ido-use-filename-at-point 'guess
+      ido-create-new-buffer 'always
+      )
 
 (ido-mode t)
 
