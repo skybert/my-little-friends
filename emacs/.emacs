@@ -26,8 +26,12 @@
       ring-bell-function (lambda nil (message ""))
       show-paren-mode t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; saves the buffer/split configuration, makes it un/re-doable.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (winner-mode 1)
+(global-set-key (kbd "<C-left>") 'winner-undo)
+(global-set-key (kbd "<C-right>") 'winner-redo)
 
 ;; themes
 (add-to-list 'custom-theme-load-path
