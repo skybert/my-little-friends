@@ -101,6 +101,13 @@
   (untabify (point-min) (point-max)))
 (add-hook 'before-save-hook 'tkj-clean-up-whitespace)
 
+(defun tkj-indent-and-fix-whitespace()
+  (interactive)
+  (delete-trailing-whitespace)
+  (untabify (point-min) (point-max))
+  (indent-region (point-min) (point-max)))
+(global-set-key "\C-\M-\\" 'tkj-indent-and-fix-whitespace)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spell checking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
