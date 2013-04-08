@@ -321,7 +321,7 @@
          ("\\.cpp\\'" . c++-mode)
          ("\\.css\\'" . css-mode)
          ("\\.diff\\'" . diff-mode)
-         ("\\.dtd\\'" . dtd-mode)
+         ("\\.dtd\\'" . sgml-mode)
          ("\\.ebk\\'" . nxml-mode)
          ("\\.el\\'"  . emacs-lisp-mode)
          ("\\.emacs\\'" . emacs-lisp-mode)
