@@ -206,9 +206,11 @@ function do_update-sources()
 {
   local src_list="
     $HOME/src/my-little-friends
+    $HOME/src/common-bashing
     $HOME/src/DocEngine
     $HOME/src/VLAN-MAN
     /usr/local/src/eclim
+    /usr/local/src/emacs/emacs-eclim
   "
 
   for el in $src_list; do
