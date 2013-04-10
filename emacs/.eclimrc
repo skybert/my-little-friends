@@ -1,6 +1,6 @@
 # Specifies the workspace directory to use -*- conf -*-
 # See $ECLIPSE_HOME/configuration/config.ini for other osgi properties.
-osgi.instance.area.default=@user.home/src/workspace-eclim
+osgi.instance.area.default=@user.home/src/workspace2
 
 # increase heap size
 -Xmx1024M
