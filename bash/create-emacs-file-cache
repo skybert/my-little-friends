@@ -30,7 +30,7 @@ function create_entry() {
 }
 
 for suffix in yaml xml java properties sh org vcl html; do
-  find $dir_list -name "*.${suffix}" 2>/dev/null | egrep -v "classes|target" | while read f; do
+  find $dir_list -name "*.${suffix}" 2>/dev/null | egrep -v "classes|target|.idea|.git" | while read f; do
     if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
       continue
     fi
