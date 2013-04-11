@@ -12,6 +12,7 @@
         require-final-newline nil)
   (auto-fill-mode)
 
+  (define-key c-mode-base-map "\C-\M-\\" 'eclim-java-format)
   (define-key c-mode-base-map "\C-\M-g" 'eclim-java-find-declaration)
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
   (define-key c-mode-base-map "\C-\M-o" 'eclim-java-import-organize)
