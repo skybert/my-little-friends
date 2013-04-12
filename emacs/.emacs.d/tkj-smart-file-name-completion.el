@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ido)
 
-(setq ido-everywhere t
+(setq ido-everywhere nil
       ido-enable-flex-matching t
       ido-create-new-buffer 'always
       ido-file-extensions-order '(".java" ".js" ".el")
@@ -11,7 +11,7 @@
       ido-create-new-buffer 'always
       )
 
-(ido-mode t)
+(ido-mode 'buffer)
 
 (require 'filecache)
 (setq tkj-file-cache-file "~/.emacs.d/file_cache.el")
