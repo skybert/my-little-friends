@@ -136,8 +136,15 @@ function do_restart-eclimd() {
     print "Stopping eclimd ..."
     kill -9 $eclimd_pid
   fi
+  
   print "Starting eclimd ..."
-  urxvt -e $eclimd_bin &
+  
+  local workspace=@user.home/src/workspace-eclim
+  if [ -n "$1" ]; then
+    workspace=@user.home/src/workspace-${1}
+  fi
+  urxvt -e $eclimd_bin \
+    -Dosgi.instance.area.default=${workspace} &
 }
 
 function do_build-sources() {
