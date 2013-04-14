@@ -63,9 +63,9 @@
   )
 
 ;; quickly change account
-(define-key mu4e-headers-mode-map (kbd "<f1>") 'tkj-load-mu4e-gmail)
-(define-key mu4e-headers-mode-map (kbd "<f2>") 'tkj-load-mu4e-gmailw)
-(define-key mu4e-headers-mode-map (kbd "<f4>") 'tkj-load-mu4e-conduct)
+(define-key mu4e-main-mode-map (kbd "<f1>") 'tkj-load-mu4e-gmail)
+(define-key mu4e-main-mode-map (kbd "<f2>") 'tkj-load-mu4e-gmailw)
+(define-key mu4e-main-mode-map (kbd "<f4>") 'tkj-load-mu4e-conduct)
 
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
