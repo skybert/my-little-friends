@@ -3,17 +3,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ido)
 
-;; ido-everywhere breaks find-dired, to turning it off until the fix
-;; in emacs/trunk gets into the emacs23 packages.
 (setq ido-everywhere nil
       ido-enable-flex-matching t
       ido-create-new-buffer 'always
       ido-file-extensions-order '(".java" ".js" ".el")
-      ido-use-filename-at-point 'guess)
+      ido-use-filename-at-point 'guess
+      ido-create-new-buffer 'always
+      )
 
-;; I'm SO tired of ido-mode messing up my C-x C-f (find-file), instead
-;; I use it with "C-c f", see below. Hence, just wanting IDO in buffer
-;; switching.
 (ido-mode 'buffer)
 
 (require 'filecache)
@@ -24,7 +21,7 @@
   The file cache can be saved to a file using
   `file-cache-save-cache-to-file'."
   (interactive)
-;;  (interactive "fFile: ")
+  ;;  (interactive "fFile: ")
   (file-cache-clear-cache)
   (save-excursion
     (set-buffer (find-file-noselect tkj-file-cache-file))
@@ -35,7 +32,7 @@
   (interactive)
   "Save contents of `file-cache-alist' to FILE.
 For later retrieval using `file-cache-read-cache-from-file'"
-;;  (interactive "FFile: ")
+  ;;  (interactive "FFile: ")
   (with-temp-file (expand-file-name tkj-file-cache-file)
     (prin1 file-cache-alist (current-buffer))))
 
@@ -76,8 +73,8 @@ directory, select directory. Lastly the file is opened."
 
 (defun file-cache-ido-read (prompt choices)
   (let ((ido-make-buffer-list-hook
-	 (lambda ()
-	   (setq ido-temp-list choices))))
+         (lambda ()
+           (setq ido-temp-list choices))))
     (ido-read-buffer prompt)))
 
 (global-set-key "\C-cf" 'file-cache-ido-find-file)

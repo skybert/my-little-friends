@@ -26,8 +26,12 @@
       ring-bell-function (lambda nil (message ""))
       show-paren-mode t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; saves the buffer/split configuration, makes it un/re-doable.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (winner-mode 1)
+(global-set-key (kbd "<M-left>") 'winner-undo)
+(global-set-key (kbd "<M-right>") 'winner-redo)
 
 ;; themes
 (add-to-list 'custom-theme-load-path
@@ -93,9 +97,16 @@
 
 (defun tkj-clean-up-whitespace()
   (interactive)
-  (delete-trailing-whitespace)
+  ;;  (delete-trailing-whitespace)
   (untabify (point-min) (point-max)))
 (add-hook 'before-save-hook 'tkj-clean-up-whitespace)
+
+(defun tkj-indent-and-fix-whitespace()
+  (interactive)
+  (delete-trailing-whitespace)
+  (untabify (point-min) (point-max))
+  (indent-region (point-min) (point-max)))
+(global-set-key "\C-\M-\\" 'tkj-indent-and-fix-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spell checking
@@ -266,11 +277,6 @@
               load-path))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Automatically insert corresponding 'end' characters.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(electric-pair-mode +1)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'auto-complete)
@@ -315,7 +321,7 @@
          ("\\.cpp\\'" . c++-mode)
          ("\\.css\\'" . css-mode)
          ("\\.diff\\'" . diff-mode)
-         ("\\.dtd\\'" . dtd-mode)
+         ("\\.dtd\\'" . sgml-mode)
          ("\\.ebk\\'" . nxml-mode)
          ("\\.el\\'"  . emacs-lisp-mode)
          ("\\.emacs\\'" . emacs-lisp-mode)
@@ -551,8 +557,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'org-export "~/.emacs.d/tkj-org.el" t)
-(autoload 'org-mode "~/.emacs.d/tkj-org.el" t)
+(load "~/.emacs.d/tkj-org.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH
@@ -562,10 +567,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Various packaegs & settings to get smart file name completion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'file-cache-ido-find-file
-  "~/.emacs.d/tkj-smart-file-name-completion.el"
-  t)
-(global-set-key "\C-cf" 'file-cache-ido-find-file)
+(load "~/.emacs.d/tkj-smart-file-name-completion.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Chat

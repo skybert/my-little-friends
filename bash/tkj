@@ -4,13 +4,24 @@
 
 log_file=$HOME/.$(basename $0).log
 LC_ALL=C
+conf_file=$HOME/.$(basename $0).conf
 
 . $HOME/src/common-bashing/src/common-lib/indispensable.sh
 
-java_src_list="
-  $HOME/src/DocEngine
-  $HOME/src/VLAN-MAN
+src_list="
+    $HOME/src/my-little-friends
+    $HOME/src/common-bashing
+    /usr/local/src/eclim
+    /usr/local/src/emacs/emacs-eclim
 "
+java_src_list="
+"
+
+function read_user_conf_if_exists() {
+  if [ -r $conf_file ]; then
+    source $conf_file
+  fi
+}
 
 ## $1 :: project
 function do_schedule-hudson-build() {
@@ -113,8 +124,27 @@ firefox
   echo "..."
   do_update-sources
   do_build-sources
+  do_restart-eclimd
 
   print "Happy hacking :-)"
+}
+
+function do_restart-eclimd() {
+  local eclimd_bin=/opt/eclipse/eclimd
+  local eclimd_pid=$(ps aux|grep $eclimd_bin | grep -v grep | awk '{print $2;}  ')
+  if [ -n "$eclimd_pid" ]; then
+    print "Stopping eclimd ..."
+    kill -9 $eclimd_pid
+  fi
+  
+  print "Starting eclimd ..."
+  
+  local workspace=@user.home/src/workspace-eclim
+  if [ -n "$1" ]; then
+    workspace=@user.home/src/workspace-${1}
+  fi
+  urxvt -e $eclimd_bin \
+    -Dosgi.instance.area.default=${workspace} &
 }
 
 function do_build-sources() {
@@ -192,13 +222,6 @@ function do_doc() {
 ## Arguments: takes no arguments.
 function do_update-sources()
 {
-  local src_list="
-    $HOME/src/my-little-friends
-    $HOME/src/DocEngine
-    $HOME/src/VLAN-MAN
-    /usr/local/src/eclim
-  "
-
   for el in $src_list; do
     if [ ! -d $el ]; then
       continue
@@ -517,6 +540,8 @@ function unknown_command()
   print "I don't know the command '${1}' :-("
   exit 1
 }
+
+read_user_conf_if_exists
 
 fn=do_${1}
 

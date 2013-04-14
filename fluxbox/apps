@@ -2,7 +2,11 @@
   [Workspace]	{2}
 [end]
 [app] (name=Navigator) (class=Firefox) (role=browser)
+  [Workspace]	{1}
 [end]
 [app] (name=Eclipse) (class=Eclipse)
   [Workspace]	{5}
+[end]
+[app] (name=opera) (class=Opera) (role=browser)
+  [Workspace]	{1}
 [end]
