@@ -13,21 +13,21 @@
       message-send-mail-function 'smtpmail-send-it
       smtpmail-smtp-service 587
       smtpmail-stream-type 'starttls
-)
+      )
 
 (defun tkj-load-mu4e-conduct()
   (interactive)
   (setq  mu4e-maildir-shortcuts
-      '(
-        ("/conduct/inbox" . ?i)
-        ("/conduct/techtalk" . ?t)
-        ("/conduct/vizrt-forum" . ?v)
-        ("/conduct/wiki" . ?w)
-        )
-      user-mail-address "tkj@conduct.no"
-      smtpmail-smtp-server "smtp.gmail.com.conduct"
-
-      )
+         '(
+           ("/conduct/inbox" . ?i)
+           ("/conduct/techtalk" . ?t)
+           ("/conduct/vizrt-forum" . ?v)
+           ("/conduct/wiki" . ?w)
+           )
+         user-mail-address "tkj@conduct.no"
+         smtpmail-smtp-server "smtp.gmail.com.conduct"
+         message-signature-file "~/.signature-conduct"
+         )
   )
 
 (defun tkj-load-mu4e-gmail()
@@ -39,6 +39,7 @@
           )
         user-mail-address "torstein.k.johansen@gmail.com"
         smtpmail-smtp-server "smtp.gmail.com.personal"
+        message-signature-file "~/.signature-gmail"
         )
   )
 
@@ -59,6 +60,7 @@
           )
         user-mail-address "torsteinkrausework@gmail.com"
         smtpmail-smtp-server "smtp.gmail.com.work"
+        message-signature-file "~/.signature-conduct"
         )
   )
 
