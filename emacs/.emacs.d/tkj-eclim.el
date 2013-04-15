@@ -1,3 +1,5 @@
+(add-to-list 'load-path "~/src/emacs-eclim")
+
 (require 'eclim)
 (global-eclim-mode)
 
