@@ -233,6 +233,9 @@
 (setq uniquify-buffer-name-style 'post-forward
       uniquify-separator ":")
 
+;; Auto scroll the compilation window
+(setq compilation-scroll-output t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mail (and news), common to both Gnus and VM
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
