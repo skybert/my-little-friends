@@ -52,7 +52,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
+      "find ~/src/DocEngine/ -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
 ;; Navigate by code blocks
 (global-unset-key "\M-p")
@@ -232,6 +232,9 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward
       uniquify-separator ":")
+
+;; Auto scroll the compilation window
+(setq compilation-scroll-output t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mail (and news), common to both Gnus and VM

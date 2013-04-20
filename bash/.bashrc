@@ -8,7 +8,9 @@ TERM=xterm-color
 function get_git_status() {
   local old_exit_code=$?
   local status=$(git status 2>/dev/null | head -1 | cut -d' ' -f4)
-  if [ -n "$status" ]; then
+  if [[ "$status" == "on" ]]; then
+    echo "<tag/$(git describe --always --tag)>"
+  elif [ -n "$status" ]; then
     echo "<${status}>"
   fi
   return $old_exit_code
