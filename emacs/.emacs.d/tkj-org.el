@@ -9,7 +9,8 @@
 (require 'org-e-man)
 
 (setq org-return-follows-link t
-      org-agenda-files (list "~/src/my-writings/work.org"
+      org-agenda-files (list "~/src/my-writings/conduct.org"
+                             "~/src/my-writings/broadnet.org"
                              "~/src/my-writings/home.org"
                              "~/src/my-writings/someday.org"
                              )
