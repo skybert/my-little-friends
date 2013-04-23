@@ -80,6 +80,36 @@ function do_create-emacs-file-cache() {
   create-emacs-file-cache
 }
 
+## $1 :: name
+function do_switch-workspace() {
+  print_and_log "Switching to ${1} ..."
+  
+  local src_dir=$HOME/src/DocEngine-${1}
+  run cd $src_dir
+  
+  print_and_log "Pulling from git ..."
+  run git pull
+  
+  print_and_log "Running Maven install & eclipse setup ..."
+  run mvn clean install eclipse:eclipse \
+    -Dpmd.skip=true \
+    -Dfindbugs.skip=true \
+    -Dcheckstyle.skip=true \
+    -DskipTests
+  do_restart-eclimd ${1}
+
+  print_and_log "Killing all jboss java processes ..."
+  sudo -u jboss killall java 2>/dev/null
+  
+  print_and_log "Removing old WARs ..."
+  sudo -u jboss rm /opt/jboss/standalone/deployments/*.war* 2>/dev/null
+  
+  for el in $(find $src_dir -name '*.war'); do
+    print_and_log "Making JBoss use $el ..."
+    sudo -u jboss ln -s $el /opt/jboss/standalone/deployments/$(basename $el)
+  done
+}
+
 function do_daily()
 {
   # do_setup-screens
@@ -124,7 +154,7 @@ firefox
   echo "..."
   do_update-sources
   do_build-sources
-  do_restart-eclimd
+  do_restart-eclimd develop
 
   print "Happy hacking :-)"
 }
@@ -168,6 +198,8 @@ function do_update-tags()
   print "Updating ETags ..."
   local dir_list="
     $HOME/src/my-little-friends/bash
+    $HOME/src/Docengine-develop
+    $HOME/src/Docengine-ipvpn
   "
   for el in $dir_list; do
     if [ ! -d $el ]; then
