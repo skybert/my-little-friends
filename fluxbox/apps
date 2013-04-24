@@ -10,3 +10,6 @@
 [app] (name=opera) (class=Opera) (role=browser)
   [Workspace]	{1}
 [end]
+[app] (name=emacs) (class=Emacs)
+  [Workspace]	{2}
+[end]
