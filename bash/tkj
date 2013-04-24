@@ -154,7 +154,7 @@ firefox
   echo "..."
   do_update-sources
   do_build-sources
-  do_restart-eclimd develop
+  do_restart-eclimd ipvpn
 
   print "Happy hacking :-)"
 }
