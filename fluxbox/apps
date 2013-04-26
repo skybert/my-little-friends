@@ -13,3 +13,6 @@
 [app] (name=emacs) (class=Emacs)
   [Workspace]	{2}
 [end]
+[app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea-ce)
+  [Workspace]	{5}
+[end]
