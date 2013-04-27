@@ -13,6 +13,7 @@
                              "~/src/my-writings/conduct.org"
                              "~/src/my-writings/broadnet.org"
                              "~/src/my-writings/home.org"
+                             "~/src/my-writings/sameiet.org"
                              "~/src/my-writings/someday.org"
                              )
       org-capture-templates(quote (("t" "todo" entry (file "~/src/my-writings/work.org")
