@@ -162,6 +162,7 @@
 
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
+(global-set-key "\C-z" 'compile) ;; imenu
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 
