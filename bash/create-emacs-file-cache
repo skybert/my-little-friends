@@ -8,13 +8,14 @@
 dir_list="
 $HOME/.emacs.d
 $HOME/src/my-little-friends
-$HOME/src/DocEngine-termination
+$HOME/src/DocEngine-ipvpn
 $HOME/src/VLAN-MAN
 $HOME/doc/$(date +%Y)
 /opt/jboss/standalone/configuration
 "
 file_list="
 $HOME/src/my-little-friends/bash/create-emacs-file-cache
+$HOME/src/my-little-friends/bash/tkj
 $HOME/.bashrc
 $HOME/.eclimrc
 $HOME/.emacs

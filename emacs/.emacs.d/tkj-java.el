@@ -11,6 +11,7 @@
         compile-command "cd ~/src/DocEngine; mvn -o -DskipTests package"
         require-final-newline nil)
   (auto-fill-mode)
+  (gtags-mode)
 
   (define-key c-mode-base-map "\C-\M-\\" 'eclim-java-format)
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
