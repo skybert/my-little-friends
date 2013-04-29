@@ -13,6 +13,7 @@
                              "~/src/my-writings/broadnet.org"
                              "~/src/my-writings/home.org"
                              "~/src/my-writings/someday.org"
+                             "~/src/my-writings/gcal.org"
                              )
       org-capture-templates(quote (("t" "todo" entry (file "~/src/my-writings/work.org")
                                     "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)))
