@@ -9,10 +9,13 @@
 (require 'org-e-man)
 
 (setq org-return-follows-link t
-      org-agenda-files (list "~/src/my-writings/conduct.org"
+      org-agenda-files (list "~/src/my-writings/work.org"
+                             "~/src/my-writings/conduct.org"
                              "~/src/my-writings/broadnet.org"
                              "~/src/my-writings/home.org"
+                             "~/src/my-writings/sameiet.org"
                              "~/src/my-writings/someday.org"
+                             "~/src/my-writings/gcal.org"
                              )
       org-capture-templates(quote (("t" "todo" entry (file "~/src/my-writings/work.org")
                                     "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)))
