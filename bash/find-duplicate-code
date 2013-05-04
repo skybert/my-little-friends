@@ -1,0 +1,19 @@
+#! /usr/bin/env bash
+
+## Command for finding duplicate code using PMD.
+## 
+## by torstein.k.johansen at gmail.com
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage:" $(basename $0) "<dir or file>"
+  exit 1
+fi
+
+pmd_home=/opt/pmd
+$pmd_home/bin/run.sh \
+  cpd \
+  --minimum-tokens 100 \
+  -f emacs \
+  -encoding UTF-8 \
+  --files "$@" 
+
