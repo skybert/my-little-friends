@@ -589,5 +589,5 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Put all Emacs customize variables & faces in its own file
-(setq custom-file "~/.emacs-custom.el")
+(setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
