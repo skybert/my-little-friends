@@ -2,7 +2,7 @@
 (defun tkj-insert-serial-version-uuid()
   (interactive)
   (insert "private static final long serialVersionUID = 1L;")
-)
+  )
 
 (defun my-c-mode-hook ()
   (setq c-basic-offset 4
@@ -12,6 +12,7 @@
         require-final-newline nil)
   (auto-fill-mode)
   (gtags-mode)
+  (flymake-mode)
 
   (define-key c-mode-base-map "\C-\M-\\" 'eclim-java-format)
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
@@ -35,3 +36,16 @@
   (subword-mode)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
+;; General flymake settings
+(require 'flymake)
+(setq flymake-log-level -1) ;; 3 is debug
+
+;; On the fly checkstyle & pmd checking
+(defun my-flymake-init ()
+  (list "my-java-flymake-checks"
+        (list (flymake-init-create-temp-buffer-copy
+               'flymake-create-temp-with-folder-structure))))
+(add-to-list 'flymake-allowed-file-name-masks
+             '("\\.java$" my-flymake-init flymake-simple-cleanup))
+
