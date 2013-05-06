@@ -333,6 +333,7 @@
          ("\\.htm\\'" . html-mode)
          ("\\.html\\'" . nxml-mode)
          ("\\.idl\\'" . c++-mode)
+         ("\\.ini\\'" . conf-mode)
          ("\\.java$" . java-mode)
          ("\\.jbk\\'" . nxml-mode)
          ("\\.js$" . js2-mode)
@@ -371,10 +372,8 @@
          ("\\.yaml\\'" . yaml-mode)
          ("\\config\\'" . conf-mode)
          ("control" . conf-mode)
-         ("feature" . conf-mode)
          ("p4" . sh-mode)
          ("pom.xml" . nxml-mode)
-         ("section-parameter" . conf-mode)
          )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
