@@ -3,10 +3,13 @@
 ## Command for running all the PMD & Checkstyle tests I want,
 ## outputting the results in Emacs friendly format so that it can be
 ## picked up by e.g. compile mode or flymake.
-## 
+##
 ## by torstein.k.johansen at gmail.com
 
-rules="
+pmd_home=/opt/pmd
+
+function run_pmd_5() {
+  local rules="
 java-basic
 java-braces
 java-clone
@@ -34,18 +37,73 @@ java-unnecessary
 java-unusedcode
 "
 
-for el in $rules; do
-  chosen_rules=$"${el},"
-done
+  for el in $rules; do
+    chosen_rules=$"${el},"
+  done
 
-pmd_home=/opt/pmd
-$pmd_home/bin/run.sh \
-  pmd \
-  -f emacs \
-  -rulesets $chosen_rules \
-  -encoding UTF-8 \
-  -d "$@" 
+  $pmd_home/bin/run.sh \
+    pmd \
+    -f emacs \
+    -rulesets $chosen_rules \
+    -encoding UTF-8 \
+    -d "$@"
+}
 
-checkstyle -c /usr/share/checkstyle/sun_checks.xml "$@" 2>/dev/null | \
-  grep -v "Starting audit" | \
-  grep -v "Audit done"
+function run_pmd_4() {
+  local rules="
+basic
+braces
+clone
+codesize
+comments
+controversial
+coupling
+design
+empty
+finalizers
+imports
+j2ee
+javabeans
+junit
+logging-jakarta-commons
+logging-java
+migrating
+naming
+optimizations
+strictexception
+strings
+sunsecure
+typeresolution
+unnecessary
+unusedcode
+"
+
+  for el in $rules; do
+    chosen_rules=$"${el},"
+  done
+
+  # create emacs friendly output with a wee bit of sed
+  $pmd_home/bin/pmd.sh \
+    -encoding UTF-8 \
+    "$@" \
+    text \
+    $chosen_rules | \
+    sed 's/:\([1-9]*\)[ ]*/:\1:/'
+}
+
+function run_checkstyle() {
+  checkstyle -c /usr/share/checkstyle/sun_checks.xml "$@" 2>/dev/null | \
+    grep -v "Starting audit" | \
+    grep -v "Audit done"
+}
+
+if [ -x $pmd_home/bin/pmd.sh ]; then
+  run_pmd_4 "$@"
+elif [ -x $pmd_home/bin/run.sh ]; then
+  run_pmd_5 "$@"
+fi
+
+if [[ $(which checkstyle)FOUND == *"checkstyleFOUND" ]]; then
+  run_checkstyle "$@"
+fi
+
