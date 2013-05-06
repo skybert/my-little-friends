@@ -9,4 +9,14 @@ diff = auto
 status = auto
 
 [branch]
-	autosetuprebase = always
+  autosetuprebase = always
+
+[mergetool "ediff"]
+       cmd = emacsclient --eval \"(git-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
+       trustExitCode = true
+       
+[mergetool]
+    prompt = false
+    
+[merge]
+    tool = ediff
