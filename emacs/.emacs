@@ -52,7 +52,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine/ -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
+      "find ~/src/DocEngine-develop/ -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
 ;; Navigate by code blocks
 (global-unset-key "\M-p")
@@ -162,6 +162,7 @@
 
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
+(global-set-key "\C-z" 'compile) ;; imenu
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 
@@ -332,6 +333,7 @@
          ("\\.htm\\'" . html-mode)
          ("\\.html\\'" . nxml-mode)
          ("\\.idl\\'" . c++-mode)
+         ("\\.ini\\'" . conf-mode)
          ("\\.java$" . java-mode)
          ("\\.jbk\\'" . nxml-mode)
          ("\\.js$" . js2-mode)
@@ -370,10 +372,8 @@
          ("\\.yaml\\'" . yaml-mode)
          ("\\config\\'" . conf-mode)
          ("control" . conf-mode)
-         ("feature" . conf-mode)
          ("p4" . sh-mode)
          ("pom.xml" . nxml-mode)
-         ("section-parameter" . conf-mode)
          )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -386,7 +386,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH is handled by regular etags
 (setq tags-table-list '(
-                        "~/src/DocEngine-ipvpn"
+                        "~/src/DocEngine-develop"
                         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

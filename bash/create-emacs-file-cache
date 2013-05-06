@@ -8,7 +8,7 @@
 dir_list="
 $HOME/.emacs.d
 $HOME/src/my-little-friends
-$HOME/src/DocEngine-ipvpn
+$HOME/src/DocEngine-develop
 $HOME/src/VLAN-MAN
 $HOME/doc/$(date +%Y)
 /opt/jboss/standalone/configuration

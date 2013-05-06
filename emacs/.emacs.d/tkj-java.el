@@ -8,7 +8,7 @@
   (setq c-basic-offset 4
         c-label-offset 0
         indent-tabs-mode nil
-        compile-command "cd ~/src/DocEngine; mvn -o -DskipTests package"
+        compile-command "cd ~/src/DocEngine-develop && mvn -o -DskipTests package"
         require-final-newline nil)
   (auto-fill-mode)
   (gtags-mode)
