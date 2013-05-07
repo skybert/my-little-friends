@@ -7,6 +7,8 @@
 ## by torstein.k.johansen at gmail.com
 
 pmd_home=/opt/pmd
+# checkstyle_xml=/usr/share/checkstyle/sun_checks.xml
+checkstyle_xml=$HOME/src/codestyle/fibr-checkstyle.xml
 
 function run_pmd_5() {
   local rules="
@@ -87,13 +89,14 @@ unusedcode
     "$@" \
     text \
     $chosen_rules | \
-    sed 's/:\([1-9]*\)[ ]*/:\1:/'
+    sed 's/:\([1-9]*\)[ ]*/:\1:/' | \
+    grep -v "No problems found"
 }
 
 function run_checkstyle() {
-  checkstyle -c /usr/share/checkstyle/sun_checks.xml "$@" 2>/dev/null | \
+  checkstyle -c $checkstyle_xml "$@" 2>/dev/null | \
     grep -v "Starting audit" | \
-    grep -v "Audit done"
+    grep -v "Audit done" 
 }
 
 if [ -x $pmd_home/bin/pmd.sh ]; then
