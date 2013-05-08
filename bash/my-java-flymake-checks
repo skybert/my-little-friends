@@ -7,8 +7,9 @@
 ## by torstein.k.johansen at gmail.com
 
 pmd_home=/opt/pmd
-# checkstyle_xml=/usr/share/checkstyle/sun_checks.xml
-checkstyle_xml=$HOME/src/codestyle/fibr-checkstyle.xml
+checkstyle_home=/opt/checkstyle
+checkstyle_xml=$(dirname $0)/../java/tkj-checkstyle.xml
+# checkstyle_xml=$checkstyle_home/my-checkstyle.xml
 
 function run_pmd_5() {
   local rules="
@@ -94,9 +95,20 @@ unusedcode
 }
 
 function run_checkstyle() {
-  checkstyle -c $checkstyle_xml "$@" 2>/dev/null | \
-    grep -v "Starting audit" | \
-    grep -v "Audit done" 
+  if [ ! -d $checkstyle_home ]; then
+    return
+  fi
+  
+  for el in $checkstyle_home/*.jar; do
+    cp=$el:$cp
+  done
+
+  java -cp "$cp" com.puppycrawl.tools.checkstyle.Main \
+    -c $checkstyle_xml \
+    -f plain \
+    -r "$@" | \
+    grep -v 'Starting audit' | \
+    grep -v 'Audit done'
 }
 
 if [ -x $pmd_home/bin/pmd.sh ]; then
@@ -109,3 +121,4 @@ if [[ $(which checkstyle)FOUND == *"checkstyleFOUND" ]]; then
   run_checkstyle "$@"
 fi
 
+exit 0
