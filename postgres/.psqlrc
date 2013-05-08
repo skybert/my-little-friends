@@ -1,0 +1,8 @@
+\set null 'NULL'
+\set HISTSIZE 2000
+\set pager
+\encoding unicode
+\set PROMPT1 '(%n@%M:%>) [%/] > '
+\timing
+
+
