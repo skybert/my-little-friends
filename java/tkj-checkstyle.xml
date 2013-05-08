@@ -116,7 +116,7 @@ Finally, it is worth reading the documentation.
          with long line violations  making it difficult to spot
          the more interesting ones. -->
     <module name="LineLength">
-      <property name="max" value="120"/>
+      <property name="max" value="150"/>
     </module>
     
     <module name="MethodLength"/>
