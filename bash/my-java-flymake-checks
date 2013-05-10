@@ -18,7 +18,6 @@ java-braces
 java-clone
 java-codesize
 java-controversial
-java-coupling
 java-design
 java-empty
 java-finalizers
@@ -40,7 +39,7 @@ java-unusedcode
 "
 
   for el in $rules; do
-    chosen_rules=$"${el},"
+    chosen_rules="${el},${chosen_rules}"
   done
 
   $pmd_home/bin/run.sh \
@@ -48,7 +47,8 @@ java-unusedcode
     -f emacs \
     -rulesets $chosen_rules \
     -encoding UTF-8 \
-    -d "$@"
+    -d "$@" | \
+    sed "s~\(.*\):\([1-9]*\):\(.*\)~\1:\2:pmd>\3~"
 }
 
 function run_pmd_4() {
@@ -81,7 +81,7 @@ unusedcode
 "
 
   for el in $rules; do
-    chosen_rules=$"${el},"
+    chosen_rules="${el},${chosen_rules}"
   done
 
   # create emacs friendly output with a wee bit of sed
@@ -108,7 +108,9 @@ function run_checkstyle() {
     -f plain \
     -r "$@" | \
     grep -v 'Starting audit' | \
-    grep -v 'Audit done'
+    grep -v 'Audit done' | \
+    sed "s~\(.*\):\([1-9]*\):\([1-9]*\):\(.*\)~\1:\2:\3:checkstyle>\4~"
+    
 }
 
 if [ -x $pmd_home/bin/pmd.sh ]; then
