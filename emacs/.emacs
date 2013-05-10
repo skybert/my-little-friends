@@ -13,6 +13,7 @@
 (menu-bar-mode 0)
 
 (when window-system
+  (server-start)
   (load-theme 'deeper-blue t)
   (set-scroll-bar-mode nil)
   (tool-bar-mode 0)
