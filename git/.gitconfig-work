@@ -1,4 +1,4 @@
-#                               Hi, Emacs, please use -* conf -*-  mode.
+#                               Hi, Emacs, please use -*- conf -*-  mode.
 [user]
 name = Torstein Krause Johansen
 email = tkj@conduct.no
@@ -12,11 +12,9 @@ status = auto
   autosetuprebase = always
 
 [mergetool "ediff"]
-       cmd = emacsclient --eval \"(git-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
+       cmd = emacs -q --eval \"(git-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
        trustExitCode = true
        
-[mergetool]
-    prompt = false
-    
 [merge]
     tool = ediff
+
