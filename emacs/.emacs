@@ -98,9 +98,10 @@
 
 (defun tkj-clean-up-whitespace()
   (interactive)
-  ;;  (delete-trailing-whitespace)
+  (delete-trailing-whitespace)
   (untabify (point-min) (point-max)))
-(add-hook 'before-save-hook 'tkj-clean-up-whitespace)
+(global-unset-key "\C-o")
+(global-set-key "\C-o" 'tkj-clean-up-whitespace)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
@@ -230,10 +231,11 @@
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-;; make unique buffer names
+;; buffer names and mini buffer
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward
-      uniquify-separator ":")
+      uniquify-separator ":"
+      read-file-name-completion-ignore-case t)
 
 ;; Auto scroll the compilation window
 (setq compilation-scroll-output t)
