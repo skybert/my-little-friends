@@ -61,6 +61,7 @@
 (global-set-key "\M-p" 'backward-list)
 (global-unset-key "\M-n")
 (global-set-key "\M-n" 'forward-list)
+(global-set-key (kbd "<f1>") 'magit-status)
 
 (defun move-line-down ()
   (interactive)
