@@ -125,7 +125,7 @@ function do_daily()
   print "Setting a random wallpaper..."
   do_set-random-wallpaper &
 
-  do_set-up-vpn
+  # do_set-up-vpn
   do_update-tags
   do_create-emacs-file-cache
 

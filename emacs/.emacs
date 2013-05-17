@@ -13,7 +13,9 @@
 (menu-bar-mode 0)
 
 (when window-system
-  (load-theme 'deeper-blue t)
+  (server-start)
+;;  (load-theme 'deeper-blue t)
+  (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (tool-bar-mode 0)
   (fringe-mode 0))
@@ -59,6 +61,7 @@
 (global-set-key "\M-p" 'backward-list)
 (global-unset-key "\M-n")
 (global-set-key "\M-n" 'forward-list)
+(global-set-key (kbd "<f1>") 'magit-status)
 
 (defun move-line-down ()
   (interactive)
@@ -97,9 +100,10 @@
 
 (defun tkj-clean-up-whitespace()
   (interactive)
-  ;;  (delete-trailing-whitespace)
+  (delete-trailing-whitespace)
   (untabify (point-min) (point-max)))
-(add-hook 'before-save-hook 'tkj-clean-up-whitespace)
+(global-unset-key "\C-o")
+(global-set-key "\C-o" 'tkj-clean-up-whitespace)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
@@ -229,10 +233,11 @@
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-;; make unique buffer names
+;; buffer names and mini buffer
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward
-      uniquify-separator ":")
+      uniquify-separator ":"
+      read-file-name-completion-ignore-case t)
 
 ;; Auto scroll the compilation window
 (setq compilation-scroll-output t)
