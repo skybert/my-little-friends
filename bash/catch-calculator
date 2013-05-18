@@ -74,7 +74,7 @@ bootstrap_thyself
 read_conf
 stream=$(get_stream)
 cat <<EOF 
-<!--#include virtual="/ssi/header.html" -->
+<!--#include virtual="/ssi/header.shtml" -->
   <body>
     <h1>Sum for ${tag} in $(date '+%B %Y')</h1>
     <table>
@@ -97,7 +97,7 @@ cat <<EOF
 )</td>
       </tr>
     </table>
-<!--#include virtual="/ssi/footer.html" -->
+<!--#include virtual="/ssi/footer.shtml" -->
 EOF
 
 
