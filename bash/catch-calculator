@@ -47,19 +47,6 @@ function sum_it_up() {
   echo -n 'kr' ${sum},-
 }
 
-bootstrap_thyself
-read_conf
-
-stream=$(get_stream)
-number_of_entries=$(
-  echo "$stream" | \
-    egrep "/result/objects/[0-9]*/" | \
-    cut -d'/' -f4 | \
-    sort | \
-    uniq | \
-    tail -1
-)
-
 ## $1 :: key
 function get_object_value() {
   echo "$stream" | \
@@ -69,16 +56,12 @@ function get_object_value() {
 
 }
 
-cat <<EOF 
-    <h2>Sum for ${tag} in $(date '+%B %Y')</h2>
-    <table>
-      <tr>
-        <th>Dato</th><th>Beløp</th>
-      </tr>
-EOF
-
 function list_entries() {
-  for (( i=0; i < $number_of_entries + 1; i++ )); do
+  local indexes=$(
+    echo "$stream" | sed -n 's#/result/objects/\([0-9]*\)/.*#\1#p' | sort -n | uniq
+  )
+
+  for i in $indexes; do
 cat <<EOF
       <tr><td>$(echo $(get_object_value "/result/objects/${i}/created_at string") | \
                          cut -d'T' -f1
@@ -86,6 +69,19 @@ cat <<EOF
 EOF
   done
 }
+
+bootstrap_thyself
+read_conf
+stream=$(get_stream)
+cat <<EOF 
+<!--#include virtual="/ssi/header.html" -->
+  <body>
+    <h1>Sum for ${tag} in $(date '+%B %Y')</h1>
+    <table>
+      <tr>
+        <th>Dato</th><th>Beløp</th>
+      </tr>
+EOF
 
 list_entries | sort
 
@@ -101,6 +97,7 @@ cat <<EOF
 )</td>
       </tr>
     </table>
+<!--#include virtual="/ssi/footer.html" -->
 EOF
 
 
