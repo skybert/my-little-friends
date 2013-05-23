@@ -26,6 +26,7 @@
   (define-key c-mode-base-map "\M-i" 'eclim-java-implement) ;; IDEA is C-i
   (define-key c-mode-base-map (kbd "<M-RET>") 'eclim-problems-correct)
   (define-key c-mode-base-map (kbd "<M-f7>") 'eclim-java-find-references)
+  (define-key c-mode-base-map (kbd "<S-f7>") 'gtags-find-tag-from-here)
   (define-key c-mode-base-map (kbd "<S-f6>") 'eclim-java-refactor-rename-symbol-at-point)
 
   ;; fix indentation for anonymous classes
