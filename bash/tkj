@@ -9,10 +9,6 @@ conf_file=$HOME/.$(basename $0).conf
 . $HOME/src/common-bashing/src/common-lib/indispensable.sh
 
 src_list="
-    $HOME/src/my-little-friends
-    $HOME/src/common-bashing
-    /usr/local/src/eclim
-    /usr/local/src/emacs/emacs-eclim
 "
 java_src_list="
 "
@@ -195,23 +191,17 @@ function do_build-sources() {
 
 function do_update-tags()
 {
-  print "Updating ETags ..."
-  local dir_list="
-    $HOME/src/my-little-friends/bash
-    $HOME/src/Docengine-develop
-    $HOME/src/Docengine-ipvpn
-  "
-  for el in $dir_list; do
+  for el in $src_list; do
     if [ ! -d $el ]; then
       continue
     fi
 
-    print "Updating gtags for $el ..."
+    print "Updating etags for $el ..."
     (
       run cd $el
       find . -type f | \
         egrep -v ".svn|.git|.hg|~|.swp" | \
-        gtags -f -
+        etags -
     )
   done
 
