@@ -12,6 +12,8 @@ src_list="
 "
 java_src_list="
 "
+java_build_src_list="
+"
 
 function read_user_conf_if_exists() {
   if [ -r $conf_file ]; then
@@ -174,7 +176,7 @@ function do_restart-eclimd() {
 }
 
 function do_build-sources() {
-  for el in $java_src_list; do
+  for el in $java_build_src_list; do
     if [ -e $el/pom.xml ]; then
       (
         print "Building $el ..."
