@@ -12,11 +12,9 @@
   <rule ref="rulesets/sunsecure.xml/MethodReturnsInternalArray">
     <priority>2</priority>
   </rule>
-  <!--
-      <rule ref="rulesets/design.xml/MissingBreakInSwitch">
-      <priority>2</priority>
-      </rule>
-  -->
+  <rule ref="rulesets/design.xml/MissingBreakInSwitch">
+    <priority>2</priority>
+  </rule>
   <rule ref="rulesets/basic.xml/OverrideBothEqualsAndHashcode">
     <priority>2</priority>
   </rule>
@@ -701,11 +699,9 @@
   <rule ref="rulesets/logging-java.xml/SystemPrintln">
     <priority>3</priority>
   </rule>
-  <!--
-      <rule ref="rulesets/design.xml/SwitchStmtsShouldHaveDefault">
-      <priority>3</priority>
-      </rule>
-  -->
+  <rule ref="rulesets/design.xml/SwitchStmtsShouldHaveDefault">
+    <priority>3</priority>
+  </rule>
   <!--
       <rule ref="rulesets/design.xml/SwitchDensity">
       <priority>3</priority>
