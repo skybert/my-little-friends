@@ -19,6 +19,7 @@ $HOME/src/my-little-friends/bash/tkj
 $HOME/.bashrc
 $HOME/.eclimrc
 $HOME/.emacs
+/opt/jboss/standalone/log/server.log
 "
 
 file=~/.emacs.d/file_cache.el
