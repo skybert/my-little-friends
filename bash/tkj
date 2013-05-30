@@ -202,7 +202,7 @@ function do_update-tags()
     (
       run cd $el
       find . -type f | \
-        egrep -v ".svn|.git|.hg|~|.swp" | \
+        egrep -v ".svn|.git|.hg|~|.swp|.class|target|TAGS" | \
         etags -
     )
   done
