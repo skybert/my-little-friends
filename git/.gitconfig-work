@@ -19,4 +19,5 @@
     tool = ediff
 
 [push]
+    # only push the current branch, not all the local branches.
     default = current
