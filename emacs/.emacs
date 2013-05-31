@@ -54,7 +54,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine-develop/ -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
+      "find ~/src/DocEngine -name "*.*" -file f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
 ;; Navigate by code blocks
 (global-unset-key "\M-p")
@@ -392,7 +392,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH is handled by regular etags
 (setq tags-table-list '(
-                        "~/src/DocEngine-develop"
+                        "~/src/DocEngine"
                         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
