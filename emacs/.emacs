@@ -167,7 +167,9 @@
 
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
-(global-set-key "\C-z" 'compile) ;; imenu
+(global-set-key "\C-z" 'compile) 
+(global-set-key (kbd "<C-S-f10>") 'recompile)
+(global-set-key (kbd "<C-tab>") 'yas-expand)
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 
@@ -597,3 +599,4 @@
 ;; Put all Emacs customize variables & faces in its own file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+(put 'set-goal-column 'disabled nil)
