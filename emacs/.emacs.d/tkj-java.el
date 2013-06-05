@@ -14,9 +14,10 @@
   (gtags-mode)
   (flymake-mode)
 
-  (define-key c-mode-base-map "\C-\M-\\" 'eclim-java-format)
+  ;; Let Eclipse re-format the code
+  ;;  (define-key c-mode-base-map "\C-\M-\\" 'eclim-java-format)
+  
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
-  (define-key c-mode-base-map "\C-c\C-i" 'yas/expand)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
 
   ;; Setting up a number of Java related shortcuts to mimic IDEA.
@@ -29,7 +30,7 @@
   (define-key c-mode-base-map (kbd "<S-f7>") 'gtags-find-tag-from-here)
   (define-key c-mode-base-map (kbd "<S-f6>") 'eclim-java-refactor-rename-symbol-at-point)
 
-  ;; fix indentation for anonymous classes
+  ;; Fix indentation for anonymous classes
   (c-set-offset 'substatement-open 0)
   (if (assoc 'inexpr-class c-offsets-alist)
       (c-set-offset 'inexpr-class 0))
