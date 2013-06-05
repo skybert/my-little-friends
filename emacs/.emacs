@@ -406,7 +406,7 @@
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
 (global-unset-key "\C-]")
-(global-set-key "\C-\]" 'yas/exit-all-snippets)
+(global-set-key "\C-\]" 'yas-exit-all-snippets)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Advanced paren mode
