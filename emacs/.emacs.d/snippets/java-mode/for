@@ -1,5 +1,5 @@
 #name : for (...; ...; ...) { ... }
 # --
-for (${1:Object} $(downcase-word 1) ; ${2:list}) {
+for (${1:Object} ${downcase-word 1} ; ${2:list}) {
   $0
 }
