@@ -108,6 +108,13 @@ function do_switch-workspace() {
   done
 }
 
+function do_lock-screen() {
+  killall gnome-screensaver 2>/dev/null
+  xscreensaver 2>/dev/null &
+  sleep 1
+  xscreensaver-command -lock &
+}
+
 function do_daily()
 {
   # do_setup-screens
