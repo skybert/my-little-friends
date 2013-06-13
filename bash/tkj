@@ -171,7 +171,15 @@ function do_restart-eclimd() {
     print "Stopping eclimd ..."
     kill -9 $eclimd_pid
   fi
-  
+
+  for el in $java_build_src_list; do
+    if [ -e $el/pom.xml ]; then
+      (
+        print "Regenerating eclipse files for $el ..."
+        mvn -o -q mvn eclipse:eclipse > /dev/null 2> /dev/null
+      )
+    fi
+  done
   print "Starting eclimd ..."
   
   local workspace=@user.home/src/workspace-eclim
