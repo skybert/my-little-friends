@@ -32,3 +32,5 @@
         (replace-match "<\\1>"))))
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
 
+;; Spell checking
+(add-hook 'erc-mode-hook 'fly-spell-mode)
