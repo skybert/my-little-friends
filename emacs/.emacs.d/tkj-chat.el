@@ -33,4 +33,4 @@
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
 
 ;; Spell checking
-(add-hook 'erc-mode-hook 'fly-spell-mode)
+(add-hook 'erc-mode-hook 'flyspell-mode)
