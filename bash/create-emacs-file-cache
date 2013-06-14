@@ -8,7 +8,7 @@
 dir_list="
 $HOME/.emacs.d
 $HOME/src/my-little-friends
-$HOME/src/DocEngine-ipvpn
+$HOME/src/DocEngine
 $HOME/src/VLAN-MAN
 $HOME/doc/$(date +%Y)
 /opt/jboss/standalone/configuration
@@ -19,6 +19,7 @@ $HOME/src/my-little-friends/bash/tkj
 $HOME/.bashrc
 $HOME/.eclimrc
 $HOME/.emacs
+/opt/jboss/standalone/log/server.log
 "
 
 file=~/.emacs.d/file_cache.el
@@ -31,7 +32,7 @@ function create_entry() {
   echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
 }
 
-for suffix in yaml xml java properties sh org vcl html; do
+for suffix in bpmn yaml xml java properties sh org vcl html; do
   find $dir_list -name "*.${suffix}" 2>/dev/null | egrep -v "classes|target|.idea|.git" | while read f; do
     if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
       continue

@@ -9,9 +9,10 @@
       eclimd-executable "/opt/eclipse/eclimd"
       eclimd-wait-for-process nil
       eclimd-default-workspace "~/src/workspace-eclim"
+      eclim-use-yasnippet nil
       help-at-pt-display-when-idle t
       help-at-pt-timer-delay 0.1
-      ac-delay 0.5
+      ac-delay 0.1
       )
 
 ;; Call the help framework with the settings above & activate

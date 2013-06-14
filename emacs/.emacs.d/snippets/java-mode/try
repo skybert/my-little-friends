@@ -1,8 +1,7 @@
-#name : try
+#name : try & catch
 # --
 try {
   $0
-}
-catch (${1:Exception} ${2:e}) {
-  mLogger.error($2);
+} catch (${1:Exception} ${2:e}) {
+  LOG.error($2);
 }

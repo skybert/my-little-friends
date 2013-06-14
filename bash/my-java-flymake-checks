@@ -1,0 +1,107 @@
+#! /usr/bin/env bash
+
+## Command for running all the PMD & Checkstyle tests I want,
+## outputting the results in Emacs friendly format so that it can be
+## picked up by e.g. compile mode or flymake.
+##
+## by torstein.k.johansen at gmail.com
+
+pmd_home=/opt/pmd
+checkstyle_home=/opt/checkstyle
+checkstyle_xml=$(dirname $0)/../java/tkj-checkstyle.xml
+pmd_xml=$(dirname $0)/../java/tkj-pmd.xml
+# checkstyle_xml=$checkstyle_home/my-checkstyle.xml
+
+function run_pmd_5() {
+  local rules="
+java-imports
+java-unusedcode
+"
+
+  for el in $rules; do
+    chosen_rules="${el},${chosen_rules}"
+  done
+
+  $pmd_home/bin/run.sh \
+    pmd \
+    -f emacs \
+    -rulesets $chosen_rules \
+    -encoding UTF-8 \
+    -d "$@" | \
+    sed "s~\(.*\):\([1-9]*\):\(.*\)~\1:\2:pmd>\3~"
+}
+
+function run_pmd_4() {
+  local rules="
+basic
+braces
+clone
+codesize
+comments
+controversial
+coupling
+design
+empty
+imports
+j2ee
+javabeans
+junit
+logging-jakarta-commons
+logging-java
+migrating
+naming
+optimizations
+strictexception
+strings
+sunsecure
+typeresolution
+unnecessary
+unusedcode
+"
+
+  for el in $rules; do
+    chosen_rules="${el},${chosen_rules}"
+  done
+
+  # create emacs friendly output with a wee bit of sed
+  $pmd_home/bin/pmd.sh \
+    -encoding UTF-8 \
+    "$@" \
+    text \
+    $pmd_xml | \
+    sed "s~\(.*\):\([0-9]*\)[ ]*\(.*\)~\1:\2:\3~" | \
+    grep -v "No problems found" | \
+    grep -v "NOPMD" | \
+    grep -v "Error while parsing"
+}
+
+function run_checkstyle() {
+  if [ ! -d $checkstyle_home ]; then
+    return
+  fi
+  
+  for el in $checkstyle_home/*.jar; do
+    cp=$el:$cp
+  done
+
+  java -cp "$cp" com.puppycrawl.tools.checkstyle.Main \
+    -c $checkstyle_xml \
+    -f plain \
+    -r "$@" | \
+    grep -v 'Starting audit' | \
+    grep -v 'Audit done' | \
+    sed "s~\(.*\):\([0-9]*\):\([0-9]*\):\(.*\)~\1:\2:\3:checkstyle>\4~"
+    
+}
+
+if [ -x $pmd_home/bin/pmd.sh ]; then
+  run_pmd_4 "$@"
+elif [ -x $pmd_home/bin/run.sh ]; then
+  run_pmd_5 "$@"
+fi
+
+if [[ $(which checkstyle)FOUND == *"checkstyleFOUND" ]]; then
+  run_checkstyle "$@"
+fi
+
+exit 0

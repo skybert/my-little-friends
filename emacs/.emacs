@@ -13,7 +13,9 @@
 (menu-bar-mode 0)
 
 (when window-system
-  (load-theme 'deeper-blue t)
+  (server-start)
+;;  (load-theme 'deeper-blue t)
+  (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (tool-bar-mode 0)
   (fringe-mode 0))
@@ -52,13 +54,14 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine/ -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
+      "find ~/src/DocEngine -name '*.*' -type f | egrep -v '.(class|svn|git)' | xargs grep -n -i -e ")
 
 ;; Navigate by code blocks
 (global-unset-key "\M-p")
 (global-set-key "\M-p" 'backward-list)
 (global-unset-key "\M-n")
 (global-set-key "\M-n" 'forward-list)
+(global-set-key (kbd "<f1>") 'magit-status)
 
 (defun move-line-down ()
   (interactive)
@@ -97,9 +100,10 @@
 
 (defun tkj-clean-up-whitespace()
   (interactive)
-  ;;  (delete-trailing-whitespace)
+  (delete-trailing-whitespace)
   (untabify (point-min) (point-max)))
-(add-hook 'before-save-hook 'tkj-clean-up-whitespace)
+(global-unset-key "\C-o")
+(global-set-key "\C-o" 'tkj-clean-up-whitespace)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
@@ -121,6 +125,7 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (auto-fill-mode 1)
+             (gtags-mode)
              (flyspell-mode)))
 (setq longlines-show-hard-newlines t)
 
@@ -162,6 +167,9 @@
 
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
+(global-set-key "\C-z" 'compile) 
+(global-set-key (kbd "<C-S-f10>") 'recompile)
+(global-set-key (kbd "<C-tab>") 'yas-expand)
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 
@@ -184,21 +192,26 @@
 (defun rename-this-buffer-and-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
+  (let ((filename (buffer-file-name)))
     (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
+        (message "Buffer is not visiting a file!")
       (let ((new-name (read-file-name "New name: " filename)))
-        (cond ((get-buffer new-name)
-               (error "A buffer named '%s' already exists!" new-name))
-              (t
-               (rename-file filename new-name 1)
-               (rename-buffer new-name)
-               (set-visited-file-name new-name)
-               (set-buffer-modified-p nil)
-               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+        (cond
+         ((vc-backend filename) (vc-rename-file filename new-name))
+         (t
+          (rename-file filename new-name t)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'" filename (file-name-nondirectory new-name))))))))
+
 (global-unset-key "\C-x \C-r")
 (global-set-key (kbd "C-x C-r") 'rename-this-buffer-and-file)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Minibuffer
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'minibuffer-setup-hook 'subword-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Multiple, real time replace
@@ -228,10 +241,11 @@
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-;; make unique buffer names
+;; buffer names and mini buffer
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward
-      uniquify-separator ":")
+      uniquify-separator ":"
+      read-file-name-completion-ignore-case t)
 
 ;; Auto scroll the compilation window
 (setq compilation-scroll-output t)
@@ -332,6 +346,7 @@
          ("\\.htm\\'" . html-mode)
          ("\\.html\\'" . nxml-mode)
          ("\\.idl\\'" . c++-mode)
+         ("\\.ini\\'" . conf-mode)
          ("\\.java$" . java-mode)
          ("\\.jbk\\'" . nxml-mode)
          ("\\.js$" . js2-mode)
@@ -370,10 +385,8 @@
          ("\\.yaml\\'" . yaml-mode)
          ("\\config\\'" . conf-mode)
          ("control" . conf-mode)
-         ("feature" . conf-mode)
          ("p4" . sh-mode)
          ("pom.xml" . nxml-mode)
-         ("section-parameter" . conf-mode)
          )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -386,7 +399,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH is handled by regular etags
 (setq tags-table-list '(
-                        "~/src/DocEngine-ipvpn"
+                        "~/src/DocEngine"
                         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -398,7 +411,7 @@
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
 (global-unset-key "\C-]")
-(global-set-key "\C-\]" 'yas/exit-all-snippets)
+(global-set-key "\C-\]" 'yas-exit-all-snippets)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Advanced paren mode
@@ -589,5 +602,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Put all Emacs customize variables & faces in its own file
-(setq custom-file "~/.emacs-custom.el")
+(setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+(put 'set-goal-column 'disabled nil)

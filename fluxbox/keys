@@ -147,14 +147,14 @@ Control Shift d :ShowDesktop
 # 't' for terminal
 Control Shift a :Exec caterm +sb -cr red -tr -fg white -fn 7x14 -tint blue -sl 10000
 # Control Shift t :Exec urxvt +sb -cr red -sl 10000 -bg "#3f3f3f" -fg "#dcdccc" -fn 7x14
-Control Shift t :Exec urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14
+Control Shift t :Exec urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"
 Control Shift h :Exec urxvt -fn xft:Mono +sb -cr red -sl 10000
 
 # 'u' is the first letter of the Norwegian word for "without", "uten" :-)
 Control Shift u :ToggleDecor
 
 # Lock the screen
-Control Shift x :ExecCommand xscreensaver-command -lock
+Control Shift x :ExecCommand ~/src/my-little-friends/bash/tkj lock-screen
 
 # 'w' for web browser
 Control Shift w :Exec opera

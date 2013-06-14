@@ -9,12 +9,10 @@ conf_file=$HOME/.$(basename $0).conf
 . $HOME/src/common-bashing/src/common-lib/indispensable.sh
 
 src_list="
-    $HOME/src/my-little-friends
-    $HOME/src/common-bashing
-    /usr/local/src/eclim
-    /usr/local/src/emacs/emacs-eclim
 "
 java_src_list="
+"
+java_build_src_list="
 "
 
 function read_user_conf_if_exists() {
@@ -110,6 +108,13 @@ function do_switch-workspace() {
   done
 }
 
+function do_lock-screen() {
+  killall gnome-screensaver 2>/dev/null
+  xscreensaver 2>/dev/null &
+  sleep 1
+  xscreensaver-command -lock &
+}
+
 function do_daily()
 {
   # do_setup-screens
@@ -125,7 +130,7 @@ function do_daily()
   print "Setting a random wallpaper..."
   do_set-random-wallpaper &
 
-  do_set-up-vpn
+  # do_set-up-vpn
   do_update-tags
   do_create-emacs-file-cache
 
@@ -154,7 +159,7 @@ firefox
   echo "..."
   do_update-sources
   do_build-sources
-  do_restart-eclimd ipvpn
+  do_restart-eclimd
 
   print "Happy hacking :-)"
 }
@@ -178,7 +183,7 @@ function do_restart-eclimd() {
 }
 
 function do_build-sources() {
-  for el in $java_src_list; do
+  for el in $java_build_src_list; do
     if [ -e $el/pom.xml ]; then
       (
         print "Building $el ..."
@@ -195,23 +200,17 @@ function do_build-sources() {
 
 function do_update-tags()
 {
-  print "Updating ETags ..."
-  local dir_list="
-    $HOME/src/my-little-friends/bash
-    $HOME/src/Docengine-develop
-    $HOME/src/Docengine-ipvpn
-  "
-  for el in $dir_list; do
+  for el in $src_list; do
     if [ ! -d $el ]; then
       continue
     fi
 
-    print "Updating gtags for $el ..."
+    print "Updating etags for $el ..."
     (
       run cd $el
       find . -type f | \
-        egrep -v ".svn|.git|.hg|~|.swp" | \
-        gtags -f -
+        egrep -v ".svn|.git|.hg|~|.swp|.class|target|TAGS" | \
+        etags -
     )
   done
 

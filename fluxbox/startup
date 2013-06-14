@@ -18,7 +18,7 @@ gnome-settings-daemon &
 # gnome-power-manager &
 killall -9 gnome-screensaver
 xscreensaver &
-display -window root ~/pictures/wallpaper &
+# display -window root ~/pictures/wallpaper &
 dropbox start &
 clipit &
 conky &

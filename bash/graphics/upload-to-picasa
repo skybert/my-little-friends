@@ -52,7 +52,6 @@ function create_album_if_doesnt_exist() {
 ## $1: file
 function upload_to_picasa() {
   if [ $(grep "$@" $state_file 2>/dev/null | wc -l) -gt 0 ]; then
-    log "$@" "already uploaded to picasa"
     return
   fi
 
