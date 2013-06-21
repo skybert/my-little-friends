@@ -12,11 +12,13 @@
         require-final-newline nil)
   (auto-fill-mode)
   (gtags-mode)
+  (flyspell-prog-mode)
   (flymake-mode)
+  (subword-mode)
 
   ;; Let Eclipse re-format the code
   ;;  (define-key c-mode-base-map "\C-\M-\\" 'eclim-java-format)
-  
+
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
 
@@ -35,7 +37,6 @@
   (if (assoc 'inexpr-class c-offsets-alist)
       (c-set-offset 'inexpr-class 0))
 
-  (subword-mode)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
@@ -50,4 +51,3 @@
                'flymake-create-temp-with-folder-structure))))
 (add-to-list 'flymake-allowed-file-name-masks
              '("\\.java$" my-flymake-init flymake-simple-cleanup))
-
