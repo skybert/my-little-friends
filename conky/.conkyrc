@@ -23,7 +23,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-alignment top_left
+alignment top_right
 background yes
 border_width 1
 cpu_avg_samples 2
