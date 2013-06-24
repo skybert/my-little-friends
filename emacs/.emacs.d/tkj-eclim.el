@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/src/emacs-eclim")
+;; (add-to-list 'load-path "~/src/emacs-eclim")
 
 (require 'eclim)
 (global-eclim-mode)
