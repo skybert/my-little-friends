@@ -175,8 +175,12 @@ function do_restart-eclimd() {
   for el in $java_build_src_list; do
     if [ -e $el/pom.xml ]; then
       (
-        print "Regenerating eclipse files for $el ..."
-        mvn -o -q mvn eclipse:eclipse > /dev/null 2> /dev/null
+        print "Building source and regenerating eclipse files for $el ..."
+        run mvn clean install eclipse:eclipse \
+          -Dpmd.skip=true \
+          -Dfindbugs.skip=true \
+          -Dcheckstyle.skip=true \
+          -DskipTests
       )
     fi
   done
