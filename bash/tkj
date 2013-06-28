@@ -172,18 +172,7 @@ function do_restart-eclimd() {
     kill -9 $eclimd_pid
   fi
 
-  for el in $java_build_src_list; do
-    if [ -e $el/pom.xml ]; then
-      (
-        print "Building source and regenerating eclipse files for $el ..."
-        run mvn clean install eclipse:eclipse \
-          -Dpmd.skip=true \
-          -Dfindbugs.skip=true \
-          -Dcheckstyle.skip=true \
-          -DskipTests
-      )
-    fi
-  done
+  do_build-sources
   print "Starting eclimd ..."
   
   local workspace=@user.home/src/workspace-eclim
