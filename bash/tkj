@@ -158,7 +158,6 @@ firefox
   echo -n $id "Start of the day: Getting, building & deploying the latest code"
   echo "..."
   do_update-sources
-  do_build-sources
   do_restart-eclimd
 
   print "Happy hacking :-)"
@@ -181,6 +180,35 @@ function do_restart-eclimd() {
   fi
   urxvt -e $eclimd_bin \
     -Dosgi.instance.area.default=${workspace} &
+}
+
+function do_quick-compile() {
+  local module_list="
+    docengine
+  "
+
+  local mvn_opts="
+    -Dfindbugs.skip=true
+    -Dpmd.skip=true
+    -Dcheckstyle.skip=true
+    -DskipTests
+  "
+
+  print "Started @" $(date) 
+
+  for src in $java_build_src_list; do
+    for el in $module_list; do
+      if [ ! -e ${src}/${el}/pom.xml ]; then
+        continue
+      fi
+      
+      echo "Compiling $src/$el ..."
+      time mvn -o -q -f ${src}/${el}/pom.xml $mvn_opts package
+    done
+  done
+  
+  print "Finished @" $(date) 
+  
 }
 
 function do_build-sources() {
