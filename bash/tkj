@@ -194,8 +194,6 @@ function do_quick-compile() {
     -DskipTests
   "
 
-  print "Started @" $(date) 
-
   for src in $java_build_src_list; do
     for el in $module_list; do
       if [ ! -e ${src}/${el}/pom.xml ]; then
@@ -206,9 +204,6 @@ function do_quick-compile() {
       time mvn -o -q -f ${src}/${el}/pom.xml $mvn_opts package
     done
   done
-  
-  print "Finished @" $(date) 
-  
 }
 
 function do_build-sources() {
