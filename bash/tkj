@@ -182,7 +182,7 @@ function do_restart-eclimd() {
     -Dosgi.instance.area.default=${workspace} &
 }
 
-function do_quick-compile() {
+function do_compile() {
   local module_list="
     docengine
   "
