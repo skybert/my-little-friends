@@ -365,7 +365,7 @@
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.less\\'" . javascript-mode)
-         ("\\.muse$" . planner-mode)
+         ("\\.magik$" . ruby-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
          ("\\.pdf\\'" . doc-view-mode)
