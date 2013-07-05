@@ -16,3 +16,6 @@
 [app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea-ce)
   [Workspace]	{5}
 [end]
+[app] (name=xterm) (class=XTerm)
+  [Workspace]	{3}
+[end]
