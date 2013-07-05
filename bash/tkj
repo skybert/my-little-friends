@@ -178,7 +178,7 @@ function do_restart-eclimd() {
   if [ -n "$1" ]; then
     workspace=@user.home/src/workspace-${1}
   fi
-  urxvt -e $eclimd_bin \
+  xterm -e $eclimd_bin \
     -Dosgi.instance.area.default=${workspace} &
 }
 
