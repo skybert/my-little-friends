@@ -419,7 +419,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'yas/expand "yasnippet" t)
 (autoload 'yas/load-directory "yasnippet" t)
-(setq yas/root-directory '("~/.emacs.d/snippets"))
+(setq yas/root-directory '("~/.emacs.d/snippets"
+                           "~/.emacs.d/elpa/emacs-eclim-20130716.1734/snippets"))
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
 (global-unset-key "\C-]")
@@ -438,6 +439,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/.emacs.d/tkj-java.el")
 (load "~/.emacs.d/tkj-eclim.el")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; SQL
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'sql-interactive-mode-hook
+          '(lambda ()
+             (auto-complete-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Default browser
