@@ -14,7 +14,7 @@
 
 (when window-system
   (server-start)
-;;  (load-theme 'deeper-blue t)
+  (load-theme 'sanityinc-solarized-dark)
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (tool-bar-mode 0)
