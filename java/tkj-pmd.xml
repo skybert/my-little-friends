@@ -155,11 +155,11 @@
   <rule ref="rulesets/imports.xml/ImportFromSamePackage">
     <priority>4</priority>
   </rule>
-  <!--
-      <rule ref="rulesets/controversial.xml/UnnecessaryParentheses">
-      <priority>4</priority>
-      </rule>
-  -->
+
+  <rule ref="rulesets/controversial.xml/UnnecessaryParentheses">
+    <priority>4</priority>
+  </rule>
+
   <!--
       <rule ref="rulesets/optimizations.xml/LocalVariableCouldBeFinal">
       <priority>4</priority>
