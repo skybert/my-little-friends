@@ -14,7 +14,6 @@
 
 (when window-system
   (server-start)
-  (load-theme 'sanityinc-solarized-dark)
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (tool-bar-mode 0)
@@ -38,6 +37,7 @@
 ;; themes
 (add-to-list 'custom-theme-load-path
              "$HOME/.emacs.d/themes")
+;; (load-theme 'sanityinc-solarized-dark)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts in all modes
