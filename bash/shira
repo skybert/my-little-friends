@@ -47,7 +47,7 @@
 ##    jira_http_password=youbet
 ##    jira_host=jira.mycompany.com
 
-max_hits=20
+max_hits=200
 conf_file=$HOME/.$(basename $0).conf
 query_fragment_start=""
 required_fields="
@@ -83,6 +83,7 @@ function read_conf_file() {
 assignee_query_prefix=""
 status_query_prefix=""
 query_string_prefix="+AND+"
+show_status_fixed=0
 
 function read_user_input() {
   local next_is_project=0
@@ -103,6 +104,8 @@ function read_user_input() {
       if [[ -z $project && -z $assignee ]]; then
         query_string_prefix=""
       fi
+    elif [[ $el == "--fixed" ]]; then
+      show_status_fixed=1
     elif [[ $next_is_assignee -eq 1 ]]; then
       assignee=$el
       next_is_assignee=0
@@ -141,8 +144,11 @@ function get_query() {
 function get_status() {
   if [ ${all_status-0} -eq 1 ]; then
     return
+  elif [ ${show_status_fixed} -eq 1 ]; then
+    echo "${status_query_prefix}status+in+%28Resolved%2CClosed%29"
+  else
+    echo "${status_query_prefix}status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29"
   fi
-  echo "${status_query_prefix}status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29"
 }
 
 function escape_it() {
