@@ -1,9 +1,12 @@
-;; logging
+;; logging & setting idle
 (require 'erc-log)
+(require 'erc-autoaway)
+
 (setq erc-default-server "localhost"
       erc-default-nicks "tkj"
       erc-log-channels-directory "~/.erc/logs/"
       erc-log-write-after-send t
+      erc-autoaway-idle-seconds 600
       erc-save-buffer-on-part t)
 
 ;; auto join
