@@ -47,6 +47,7 @@
 (global-set-key "\C-\M-f" 'find-file-at-point)
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
+(global-set-key "\M-r" 'join-line)
 ;; minimising Emacs way too many times without wanting to.
 (global-unset-key "\C-z")
 ;; don't write backslashed to indicate continuous lines
