@@ -3,8 +3,12 @@
 log=$HOME/.$(basename $0).log
 lock=$HOME/.$(basename $0).lock
 
+# dirty, but it hangs several times a week
+killall offlineimap 2>/dev/null
+
 if [ -e $lock ]; then
-  exit 0
+  # TODO check age of lock
+  rm $lock
 fi
 
 touch $lock
@@ -15,3 +19,5 @@ sleep 1
 mu index --maildir=~/mail >> $log 2>>$log
 
 rm $lock
+
+exit 0
