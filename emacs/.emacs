@@ -90,7 +90,7 @@
 ;; This seems to solve the problem of Gnus encoding the message as
 ;; utf-16be (64 encoded) when replying to something Bangladeshi.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(prefer-coding-system 'utf-8-unix)
+;; (prefer-coding-system 'utf-8-unix)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; White space
