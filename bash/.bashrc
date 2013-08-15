@@ -56,6 +56,7 @@ export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 # path
 PATH=$HOME/src/ece-scripts/usr/bin:\
 $HOME/src/my-little-friends/bash:\
+$HOME/src/my-little-friends/bash/git:\
 $HOME/src/common-bashing/net:\
 /opt/maven/bin:\
 /opt/local/bin:\
