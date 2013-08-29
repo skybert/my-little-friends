@@ -6,7 +6,9 @@ log_file=$HOME/.$(basename $0).log
 LC_ALL=C
 conf_file=$HOME/.$(basename $0).conf
 
-. $HOME/src/common-bashing/src/common-lib/indispensable.sh
+. $HOME/src/common-bashing/src/common-lib/io/runtime.sh
+. $HOME/src/common-bashing/src/common-lib/text/color.sh
+. $HOME/src/common-bashing/src/common-lib/text/messages.sh
 
 src_list="
 "
@@ -81,13 +83,13 @@ function do_create-emacs-file-cache() {
 ## $1 :: name
 function do_switch-workspace() {
   print_and_log "Switching to ${1} ..."
-  
+
   local src_dir=$HOME/src/DocEngine-${1}
   run cd $src_dir
-  
+
   print_and_log "Pulling from git ..."
   run git pull
-  
+
   print_and_log "Running Maven install & eclipse setup ..."
   run mvn clean install eclipse:eclipse \
     -Dpmd.skip=true \
@@ -98,10 +100,10 @@ function do_switch-workspace() {
 
   print_and_log "Killing all jboss java processes ..."
   sudo -u jboss killall java 2>/dev/null
-  
+
   print_and_log "Removing old WARs ..."
   sudo -u jboss rm /opt/jboss/standalone/deployments/*.war* 2>/dev/null
-  
+
   for el in $(find $src_dir -name '*.war'); do
     print_and_log "Making JBoss use $el ..."
     sudo -u jboss ln -s $el /opt/jboss/standalone/deployments/$(basename $el)
@@ -144,10 +146,10 @@ firefox
   for el in $app_list; do
     if [ $(ps aux | grep  $el | grep -v grep | wc -l) -lt 1 ]; then
       if [ $el = "emacs" ]; then
-                # emacs -fn 7x14 -f gnus &
-                # bash ~/src/my-little-friends/bash/create-emacs-file-cache
-                # print "Replacing ~/.emacs.d/file_cache.el ..."
-                # run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
+        # emacs -fn 7x14 -f gnus &
+        # bash ~/src/my-little-friends/bash/create-emacs-file-cache
+        # print "Replacing ~/.emacs.d/file_cache.el ..."
+        # run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
         emacs -fn 7x14 ~/doc/work.org &
       else
         $el 1>/dev/null 2>/dev/null &
@@ -173,13 +175,22 @@ function do_restart-eclimd() {
 
   do_build-sources
   print "Starting eclimd ..."
-  
+
   local workspace=@user.home/src/workspace-eclim
   if [ -n "$1" ]; then
     workspace=@user.home/src/workspace-${1}
   fi
   xterm -e $eclimd_bin \
     -Dosgi.instance.area.default=${workspace} &
+}
+
+function do_set-mvn-version() {
+  if [ -e pom.xml ]; then
+    mvn versions:set -DnewVersion=${1}
+  fi
+  if [ -e .git ]; then
+    git commit -a -m \'- set version to ${1}\'
+  fi
 }
 
 function do_compile() {
@@ -199,7 +210,7 @@ function do_compile() {
       if [ ! -e ${src}/${el}/pom.xml ]; then
         continue
       fi
-      
+
       print "Compiling $src/$el ..."
       time mvn -o -q -f ${src}/${el}/pom.xml $mvn_opts package
     done
@@ -209,15 +220,13 @@ function do_compile() {
 function do_build-sources() {
   for el in $java_build_src_list; do
     if [ -e $el/pom.xml ]; then
-      (
-        print "Building $el ..."
-        run cd $el
-        run mvn clean install eclipse:eclipse \
-          -Dpmd.skip=true \
-          -Dfindbugs.skip=true \
-          -Dcheckstyle.skip=true \
-          -DskipTests
-      )
+      print "Building $el ..."
+      run cd $el
+      run mvn clean install eclipse:eclipse \
+        -Dpmd.skip=true \
+        -Dfindbugs.skip=true \
+        -Dcheckstyle.skip=true \
+        -DskipTests
     fi
   done
 }
@@ -252,17 +261,17 @@ function do_update-tags()
     )
   done
 
-    # print "Updaging GTags ..."
-    # (
-    #     run cd ~/src/p4
-    #     find /usr/lib/jvm/java-6-sun/src . -type f | \
-    #         grep trunk | \
-    #         grep trunk | \
-    #         egrep -v "dhk|osl|target" | \
-    #         egrep ".java|.xml|.pom|.properties" | \
-    #         egrep -v ".svn|.git|.hg|~|.swp" | \
-    #         gtags -f -
-    # )
+  # print "Updaging GTags ..."
+  # (
+  #     run cd ~/src/p4
+  #     find /usr/lib/jvm/java-6-sun/src . -type f | \
+  #         grep trunk | \
+  #         grep trunk | \
+  #         egrep -v "dhk|osl|target" | \
+  #         egrep ".java|.xml|.pom|.properties" | \
+  #         egrep -v ".svn|.git|.hg|~|.swp" | \
+  #         gtags -f -
+  # )
 }
 
 function do_doc() {
@@ -409,8 +418,8 @@ function do_hours()
   local minutes=$(( seconds_left / 60 ))
   local seconds_left=$(( seconds_left - $minutes * 60 ))
 
-    # echo "It's" ${hours}h ${minutes}m ${seconds_left}s \
-    # "since you started working today."$'\n' \
+  # echo "It's" ${hours}h ${minutes}m ${seconds_left}s \
+  # "since you started working today."$'\n' \
   echo -n "|" $(date -d "$ended_working_string" --iso) \
     "|" $(date -d "$started_working_string" +%H:%M) \
     "->" \
