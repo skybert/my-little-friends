@@ -172,7 +172,7 @@ read_conf_file
 
 curl -u ${jira_http_user}:${jira_http_password} \
   -s \
-"https://${jira_host}/sr/jira.issueviews:searchrequest-rss/temp/SearchRequest.xml?jqlQuery=$(get_project)$(get_assignee)$(get_status)$(get_query $to_query)+ORDER+BY+priority+DESC&tempMax=${max_hits}" | \
+"https://${jira_host}/sr/jira.issueviews:searchrequest-rss/temp/SearchRequest.xml?jqlQuery=$(get_project)$(get_assignee)$(get_status)$(get_query $to_query)&tempMax=${max_hits}" | \
   xml_grep --nowrap \
   --cond rss/channel/item/title \
   --cond rss/channel/item/link \
