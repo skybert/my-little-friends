@@ -141,7 +141,6 @@ function do_daily()
   app_list="
     emacs
     firefox
-    liferea
   "
 
   for el in $app_list; do

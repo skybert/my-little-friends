@@ -454,6 +454,12 @@
       browse-url-browser-function 'browse-url-generic)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; News feeds
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq elfeed-feeds
+      '("https://jira.serv.as2116.net/activity?maxResults=1000&streams=key+IS+VBLS&os_authType=basic&title=Activity%20Stream"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; For some reason, being on different networks (as experienced in
 ;; Dhaka), the p4 integration made all file operation extremely slow,
 ;; hence the explicity loading here).
