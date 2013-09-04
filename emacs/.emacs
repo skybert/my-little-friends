@@ -420,7 +420,7 @@
 (autoload 'yas/expand "yasnippet" t)
 (autoload 'yas/load-directory "yasnippet" t)
 (setq yas/root-directory '("~/.emacs.d/snippets"
-                           "~/.emacs.d/elpa/emacs-eclim-20130716.1734/snippets"))
+                           ))
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
 (global-unset-key "\C-]")

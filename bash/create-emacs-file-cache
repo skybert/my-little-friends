@@ -32,7 +32,7 @@ function create_entry() {
   echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
 }
 
-for suffix in bpmn yaml xml java properties sh org vcl html; do
+for suffix in bpmn yaml xml java properties sh org html; do
   find $dir_list -name "*.${suffix}" 2>/dev/null | egrep -v "classes|target|.idea|.git" | while read f; do
     if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
       continue
