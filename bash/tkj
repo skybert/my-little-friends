@@ -161,8 +161,20 @@ function do_daily()
   echo "..."
   do_update-sources
   do_restart-eclimd
+  do_backup
 
   print "Happy hacking :-)"
+}
+
+function do_backup() {
+  if [ -d ~/src/dbs ]; then
+    run cd ~/src/dbs
+    run ./bin/get-prod-dbs-dumps.sh
+  fi
+
+  if [ -x ~/backup/bin/sync-logs ]; then
+    run ~/backup/bin/sync-logs
+  fi
 }
 
 function do_restart-eclimd() {
