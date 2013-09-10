@@ -35,8 +35,7 @@
 (global-set-key (kbd "<M-right>") 'winner-redo)
 
 ;; themes
-(add-to-list 'custom-theme-load-path
-             "$HOME/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
 ;; (load-theme 'sanityinc-solarized-dark)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
