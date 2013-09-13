@@ -1,8 +1,7 @@
 ;; -*- emacs-lisp -*-
 (defun tkj-insert-serial-version-uuid()
   (interactive)
-  (insert "private static final long serialVersionUID = 1L;")
-  )
+  (insert "private static final long serialVersionUID = 1L;"))
 
 (defun my-c-mode-hook ()
   (setq c-basic-offset 4
@@ -40,7 +39,9 @@
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
-;; General flymake settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Flymake settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'flymake)
 (setq flymake-log-level -1) ;; 3 is debug
 
@@ -51,3 +52,30 @@
                'flymake-create-temp-with-folder-structure))))
 (add-to-list 'flymake-allowed-file-name-masks
              '("\\.java$" my-flymake-init flymake-simple-cleanup))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Interface to eclipse via eclim
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'eclim)
+(global-eclim-mode)
+
+;; Variables
+(setq eclim-auto-save t
+      eclim-executable "/opt/eclipse/eclim"
+      eclimd-executable "/opt/eclipse/eclimd"
+      eclimd-wait-for-process nil
+      eclimd-default-workspace "~/src/workspace-eclim"
+      eclim-use-yasnippet nil
+      help-at-pt-display-when-idle t
+      help-at-pt-timer-delay 0.1
+      )
+
+;; Call the help framework with the settings above & activate
+;; eclim-mode
+(help-at-pt-set-timer)
+
+;; Hook eclim up with auto complete mode
+(require 'auto-complete-config)
+(ac-config-default)
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
