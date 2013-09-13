@@ -36,6 +36,8 @@
   (if (assoc 'inexpr-class c-offsets-alist)
       (c-set-offset 'inexpr-class 0))
 
+  ;; Indent arguments on the next line as indented body.
+  (c-set-offset 'arglist-intro '+)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
