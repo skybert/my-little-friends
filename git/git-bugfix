@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+# There's an annyoing bug in git-flow which makes hotfix not work for
+# me, I'm therefore making one myself.
+
+label=${1}
+
+if [ -z "${label}" ]; then
+  echo "Usage:" $(basename $0) "<version>"
+  exit 1
+fi
+
+git checkout master
+git checkout -b hotfix/${label}
