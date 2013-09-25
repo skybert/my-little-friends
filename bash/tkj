@@ -198,7 +198,7 @@ function do_restart-eclimd() {
 
 function do_set-mvn-version() {
   if [ -e pom.xml ]; then
-    mvn --quitet versions:set -DnewVersion=${1}
+    mvn -q versions:set -DnewVersion=${1}
   fi
   if [ -e .git ]; then
     git commit -a -m "- set version to ${1}"
