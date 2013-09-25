@@ -7,7 +7,7 @@
 (require 'org-list)
 (require 'org-element)
 (require 'org)
-(require 'ox-reveal)
+;; (require 'ox-reveal)
 
 (setq org-return-follows-link t
       org-reveal-root "/usr/local/src/reveal.js"
