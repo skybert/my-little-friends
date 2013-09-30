@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+# fail fast
+set -e
+
+git stash
+git pull
+git stash pop
