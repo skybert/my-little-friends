@@ -10,5 +10,15 @@ if [ -z "${label}" ]; then
   exit 1
 fi
 
+function set_and_commit_version() {
+  if [ -e pom.xml ]; then
+    mvn -q versions:set -DnewVersion=${1}
+  fi
+  if [ -e .git ]; then
+    git commit -a -m "- set version to ${1}"
+  fi
+}
+
 git checkout master
 git checkout -b hotfix/${label}
+set_and_commit_version
