@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-log=/tmp/$(basename $0).log
-lock=/tmp/$(basename $0).lock
+log=$HOME/.$(basename $0).log
+lock=$HOME/.$(basename $0).lock
 
 if [ -e $lock ]; then
   exit 0
