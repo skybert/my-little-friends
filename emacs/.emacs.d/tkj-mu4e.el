@@ -8,6 +8,7 @@
       mu4e-sent-messages-behavior 'trash
 
       mu4e-view-show-images t
+      mu4e-html2text-command "html2text -utf8 -width 72"
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
@@ -29,6 +30,21 @@
          message-signature-file "~/.signature-conduct"
          )
   )
+
+(defun tkj-load-mu4e-broadnet()
+  (interactive)
+  (setq  mu4e-maildir-shortcuts
+         '(
+           ("/broadnet/inbox" . ?i)
+           ("/broadnet/jira" . ?j)
+           )
+         user-mail-address "torsteinkrause.johansen@broadnet.no"
+         smtpmail-smtp-server "smtp.broadnet"
+         smtpmail-smtp-service 1025
+         smtpmail-stream-type 'plain
+         message-signature-file "~/.signature-broadnet"
+         )
+  )                                      ;
 
 (defun tkj-load-mu4e-gmail()
   (interactive)
@@ -68,9 +84,11 @@
 (define-key mu4e-main-mode-map (kbd "<f1>") 'tkj-load-mu4e-gmail)
 (define-key mu4e-main-mode-map (kbd "<f2>") 'tkj-load-mu4e-gmailw)
 (define-key mu4e-main-mode-map (kbd "<f4>") 'tkj-load-mu4e-conduct)
+(define-key mu4e-main-mode-map (kbd "<f6>") 'tkj-load-mu4e-broadnet)
 (define-key mu4e-headers-mode-map (kbd "<f1>") 'tkj-load-mu4e-gmail)
 (define-key mu4e-headers-mode-map (kbd "<f2>") 'tkj-load-mu4e-gmailw)
 (define-key mu4e-headers-mode-map (kbd "<f4>") 'tkj-load-mu4e-conduct)
+(define-key mu4e-headers-mode-map (kbd "<f6>") 'tkj-load-mu4e-broadnet)
 
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
