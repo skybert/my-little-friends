@@ -3,6 +3,9 @@
 # There's an annyoing bug in git-flow which makes hotfix not work for
 # me, I'm therefore making one myself.
 
+# fail fast
+set -e
+
 label=${1}
 
 if [ -z "${label}" ]; then
