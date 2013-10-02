@@ -7,13 +7,11 @@
       ;; care of this
       mu4e-sent-messages-behavior 'trash
 
-      mu4e-view-show-images t
+      mu4e-show-images t
       mu4e-html2text-command "html2text -utf8 -width 72"
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
-      smtpmail-smtp-service 587
-      smtpmail-stream-type 'starttls
       )
 
 (defun tkj-load-mu4e-conduct()
@@ -26,8 +24,10 @@
            ("/conduct/wiki" . ?w)
            )
          user-mail-address "tkj@conduct.no"
-         smtpmail-smtp-server "smtp.gmail.com.conduct"
          message-signature-file "~/.signature-conduct"
+         smtpmail-smtp-server "smtp.gmail.com.conduct"
+         smtpmail-smtp-service 587
+         smtpmail-stream-type 'starttls
          )
   )
 
@@ -42,6 +42,7 @@
          smtpmail-smtp-server "smtp.broadnet"
          smtpmail-smtp-service 1025
          smtpmail-stream-type 'plain
+         mu4e-sent-messages-behavior 'sent
          message-signature-file "~/.signature-broadnet"
          )
   )                                      ;
@@ -55,6 +56,8 @@
           )
         user-mail-address "torstein.k.johansen@gmail.com"
         smtpmail-smtp-server "smtp.gmail.com.personal"
+        smtpmail-smtp-service 587
+        smtpmail-stream-type 'starttls
         message-signature-file "~/.signature-gmail"
         )
   )
@@ -76,6 +79,8 @@
           )
         user-mail-address "torsteinkrausework@gmail.com"
         smtpmail-smtp-server "smtp.gmail.com.work"
+        smtpmail-smtp-service 587
+        smtpmail-stream-type 'starttls
         message-signature-file "~/.signature-conduct"
         )
   )
