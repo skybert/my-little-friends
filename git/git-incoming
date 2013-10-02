@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+# The missing git incoming command :-)
+git fetch
+git log ..@{u}
