@@ -14,7 +14,7 @@
       org-agenda-files (list "~/src/my-writings/work.org"
                              "~/src/my-writings/conduct.org"
                              "~/src/my-writings/conduct-cal.org"
-                             "~/src/my-writings/broadnet.org"
+                             "~/src/my-writings/jira.org"
                              "~/src/my-writings/home.org"
                              "~/src/my-writings/sameiet.org"
                              "~/src/my-writings/someday.org"
