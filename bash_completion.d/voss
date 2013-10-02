@@ -1,0 +1,25 @@
+# auto completion for the voss command.                    -*- sh -*-
+# by torstein.k.johansen@gmail.com
+
+_voss_commands()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local prev=${COMP_WORDS[COMP_CWORD-1]}
+
+    commands=$(
+        voss help | grep "*" | cut -d'*' -f2
+    )
+    
+    # default completions is the list of commands
+    completions=$commands
+    case "$prev" in
+        puburl)
+            completions=""
+            ;;
+    esac
+
+    COMPREPLY=( $(compgen -W "$completions" -- $cur) )
+}
+
+complete -o default -F _voss_commands voss
+
