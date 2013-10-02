@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+# There's an annyoing bug in git-flow which makes hotfix not work for
+# me, I'm therefore making one myself.
+
+# fail fast
+set -e
+
+label=${1}
+
+if [ -z "${label}" ]; then
+  echo "Usage:" $(basename $0) "<version>"
+  exit 1
+fi
+
+git checkout master
+git merge hotfix/${label}
+git tag ${label}
+git checkout develop
+git merge hotfix/${label}
+
+echo "You can now run: git push --tags"
