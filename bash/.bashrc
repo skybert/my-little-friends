@@ -42,7 +42,7 @@ export FIGNORE=.svn
 l="
   $HOME/src/my-little-friends/bash_completion.d/tkj
   $HOME/src/ece-scripts/etc/bash_completion.d/ece
-  $HOME/src/ece-scripts/etc/bash_completion.d/voss
+  $HOME/src/my-little-friends/bash_completion.d/voss
   /usr/share/bash-completion/bash_completion
 "
 for el in $l; do
