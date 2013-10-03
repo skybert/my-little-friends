@@ -345,6 +345,7 @@
          ("\\.cgi\\'" . python-mode)
          ("\\.conf\\'" . conf-mode)
          ("\\.config\\'" . conf-mode)
+         ("\\.config\\'" . conf-mode)
          ("config'" . conf-mode)
          ("\\.cpp\\'" . c++-mode)
          ("\\.css\\'" . css-mode)
