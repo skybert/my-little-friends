@@ -6,5 +6,6 @@ sed -i '/auto wlan0/,/^$/{
 s/^\(.*\)/#\1/
 }' /etc/network/interfaces
 
-ifup -v wlan0
+/etc/init.d/network-manager start
+
 
