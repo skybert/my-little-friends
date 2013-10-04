@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+/etc/init.d/network-manager stop
+
+sed -i '/#auto wlan0/,/^$/{
+s/^#//
+}' /etc/network/interfaces
+
+ifup -v wlan0
+

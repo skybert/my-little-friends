@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+ifdown wlan0
+
+sed -i '/auto wlan0/,/^$/{
+s/^\(.*\)/#\1/
+}' /etc/network/interfaces
+
+ifup -v wlan0
+
