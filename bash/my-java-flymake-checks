@@ -79,7 +79,7 @@ function run_checkstyle() {
   if [ ! -d $checkstyle_home ]; then
     return
   fi
-  
+
   for el in $checkstyle_home/*.jar; do
     cp=$el:$cp
   done
@@ -91,7 +91,16 @@ function run_checkstyle() {
     grep -v 'Starting audit' | \
     grep -v 'Audit done' | \
     sed "s~\(.*\):\([0-9]*\):\([0-9]*\):\(.*\)~\1:\2:\3:checkstyle>\4~"
-    
+
+}
+
+function run_check_white_space_and_encoding() {
+  if [ -d "$1" ]; then
+    grep -n -r '??' $1/*
+  else
+    grep -n '??' /dev/null $1 | \
+      sed 's/\(.*\)/\1 Looks like an encoding problem/'
+  fi
 }
 
 if [ -x $pmd_home/bin/pmd.sh ]; then
@@ -103,5 +112,7 @@ fi
 if [[ $(which checkstyle)FOUND == *"checkstyleFOUND" ]]; then
   run_checkstyle "$@"
 fi
+
+run_check_white_space_and_encoding "$@"
 
 exit 0
