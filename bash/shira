@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-## Command line interface to JIRA by torstein
+## Command line interface to JIRA by torstein.k.johansen @ gmail.com
 ##
 ## Requires xml_grep from xml-twig-tools
 ##
