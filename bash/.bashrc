@@ -42,7 +42,6 @@ export FIGNORE=.svn
 l="
   $HOME/src/my-little-friends/bash_completion.d/tkj
   $HOME/src/ece-scripts/etc/bash_completion.d/ece
-  $HOME/src/my-little-friends/bash_completion.d/voss
   $HOME/src/moria/voss/etc/bash_completion.d/voss
   /usr/share/bash-completion/bash_completion
 "
