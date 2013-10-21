@@ -97,12 +97,21 @@
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 
+(defun gcr/delete-trailing-whitespace ()
+  "Apply delete-trailing-whitespace to everything but the current line."
+  (interactive)
+  (let ((first-part-start (point-min))
+        (first-part-end (point-at-bol))
+        (second-part-start (point-at-eol))
+        (second-part-end (point-max)))
+    (delete-trailing-whitespace first-part-start first-part-end)
+    (delete-trailing-whitespace second-part-start second-part-end)))
+
 (defun tkj-clean-up-whitespace()
   (interactive)
-  (delete-trailing-whitespace)
+  (gcr/delete-trailing-whitespace)
   (untabify (point-min) (point-max)))
-(global-unset-key "\C-o")
-(global-set-key "\C-o" 'tkj-clean-up-whitespace)
+(add-hook 'before-save-hook 'tkj-clean-up-whitespace)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)

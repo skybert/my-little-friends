@@ -15,9 +15,6 @@
   (flymake-mode)
   (subword-mode)
 
-  ;; Let Eclipse re-format the code
-  ;;  (define-key c-mode-base-map "\C-\M-\\" 'eclim-java-format)
-
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (define-key c-mode-base-map (kbd "<f2>") 'eclim-problems)
