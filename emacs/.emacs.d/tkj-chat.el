@@ -6,6 +6,7 @@
       erc-log-channels-directory "~/.erc/logs"
       erc-log-write-after-send t
       erc-autoaway-idle-seconds 600
+      erc-enable-logging t
       erc-save-buffer-on-part t)
 
 ;; general options
