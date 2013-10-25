@@ -15,6 +15,7 @@
                              "~/src/my-writings/conduct.org"
                              "~/src/my-writings/conduct-cal.org"
                              "~/src/my-writings/home.org"
+                             "~/src/my-writings/jira.org"
                              "~/src/my-writings/sameiet.org"
                              "~/src/my-writings/someday.org"
                              "~/src/my-writings/gcal.org"
