@@ -175,7 +175,7 @@
 
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
-(global-set-key "\C-z" 'compile) 
+(global-set-key "\C-z" 'compile)
 (global-set-key (kbd "<C-S-f10>") 'recompile)
 (global-set-key (kbd "<C-tab>") 'yas-expand)
 ;; newline and indent (like other editors, even vi, do).
@@ -385,6 +385,7 @@
          ("\\.php\\'" . php-mode)
          ("\\.phtml\\'" . php-mode)
          ("\\.pl\\'" . perl-mode)
+         ("\\.pp\\'" . ruby-mode)
          ("\\.properties.template\\'" . conf-mode)
          ("\\.properties\\'" . conf-mode)
          ("\\.puppet\\'" . puppet-mode)
