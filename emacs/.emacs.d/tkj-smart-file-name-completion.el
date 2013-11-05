@@ -6,11 +6,17 @@
 (setq ido-everywhere nil
       ido-enable-flex-matching t
       ido-create-new-buffer 'always
-      ido-file-extensions-order '(".java" ".js" ".el")
+      ido-file-extensions-order '(".java" ".js" ".el" ".xml")
       ido-use-filename-at-point 'guess
       )
 
+(define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+(define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+
 (ido-mode 'buffer)
+
+(require 'ido-vertical-mode)
+(ido-vertical-mode)
 
 (require 'filecache)
 (setq tkj-file-cache-file "~/.emacs.d/file_cache.el")
