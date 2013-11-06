@@ -17,6 +17,7 @@ find . -maxdepth 1 | while read f; do
     beautiful_name=$(echo "$f" | \
         sed \
         -e 's/\ /_/g' \
+        -e "s/[!']/_/g" \
         -e 's/&/_/g' \
         -e 's/{/_/g' \
         -e 's/}/_/g' \
