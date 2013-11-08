@@ -10,13 +10,11 @@
       ido-use-filename-at-point 'guess
       )
 
-(define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-(define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
-
 (ido-mode 'buffer)
 
 (require 'ido-vertical-mode)
 (ido-vertical-mode)
+
 
 (require 'filecache)
 (setq tkj-file-cache-file "~/.emacs.d/file_cache.el")
@@ -83,3 +81,6 @@ directory, select directory. Lastly the file is opened."
     (ido-read-buffer prompt)))
 
 (global-set-key "\C-cf" 'file-cache-ido-find-file)
+
+; (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+; (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
