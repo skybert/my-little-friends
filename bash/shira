@@ -5,44 +5,44 @@
 ## Requires xml_grep from xml-twig-tools
 ##
 ## Usage:
-##   
+##
 ## Searches all issues (also the closed ones) with summaries or
 ## titles with all of the three words, 'tomcat', 'garbage' and
 ## 'collection':
-## 
+##
 ##   $ shira --all tomcat garbage collection
-## 
+##
 ## Same as above, but in a specific project:
-## 
+##
 ##   $ shira --project DOGS --all tomcat garbage collection
-## 
+##
 ## Same as above, but also assigned to torstein
-## 
+##
 ##   $ shira --project DOGS --all --assignee torstein tomcat garbage collection
-## 
+##
 ## To only see the open ones, remove the --all parameter:
-## 
+##
 ##   $ shira --project DOGS --assignee torstein tomcat garbage
 ##   collection
-## 
+##
 ## All the parameters can be given in any order, including the
 ## search query string. This:
-## 
+##
 ##   $ shira --project DOGS --assignee torstein tomcat garbage
 ##   collection
-## 
+##
 ## Is the same as:
-## 
+##
 ##   $ shira --assignee torstein tomcat garbage collection
 ##   --project DOGS
-## 
+##
 ## Which is the same as:
-## 
+##
 ##   $ shira --project DOGS tomcat --assignee torstein garbage
 ##   collection
-## 
+##
 ## shira reads $HOME/.shira.conf:
-## 
+##
 ##    jira_http_user=myuser
 ##    jira_http_password=youbet
 ##    jira_host=jira.mycompany.com
@@ -69,7 +69,7 @@ function read_conf_file() {
       ok=0
     fi
   done
-  
+
   if [ $ok -eq 0 ]; then
     exit 1
   fi
@@ -126,7 +126,7 @@ function get_query() {
     return
   fi
   local query=""
-  
+
   for (( i = 1; i <= $#; i++ )); do
     if [ $i -eq 1 ]; then
       query="%22%2B${@:$i:1}"
@@ -136,7 +136,7 @@ function get_query() {
       query="${query}+%2B${@:$i:1}"
     fi
   done
-  
+
   query="${query}%22"
   echo "${query_string_prefix}%28summary+%7E+${query}+OR+description+%7E+${query}%29"
 }
@@ -147,7 +147,26 @@ function get_status() {
   elif [ ${show_status_fixed} -eq 1 ]; then
     echo "${status_query_prefix}status+in+%28Resolved%2CClosed%29"
   else
-    echo "${status_query_prefix}status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29"
+    local open_status_list="
+      %22Development+QA%22
+      %22In+Progress%22
+      CI
+      Development
+      Open
+      Reopened
+      Test
+    "
+    status_query_prefix="${status_query_prefix}status+in+%28"
+    local i=0
+    for el in ${open_status_list}; do
+      if [ $i -eq 0 ]; then
+        status_query_prefix="${status_query_prefix}${el}"
+      else
+        status_query_prefix="${status_query_prefix}%2C${el}"
+      fi
+      ((i++))
+    done
+    echo "${status_query_prefix}%29"
   fi
 }
 
@@ -181,4 +200,4 @@ curl -u ${jira_http_user}:${jira_http_password} \
   sed -e 's/<title>//g' -e 's#</title>#\n#g' | \
   sed -e 's/<link>/\t/g' -e 's#</link>#\n#g' | \
   sed -e 's/<pubDate>/\tUpdated: /g' -e 's#</pubDate>#\n#g' | \
-  sed -e 's/<author>/\tAuthor: /g' -e 's#</author>#\n#g' 
+  sed -e 's/<author>/\tAuthor: /g' -e 's#</author>#\n#g'
