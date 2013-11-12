@@ -17,6 +17,7 @@
 (setq auto-insert-alist '(("\\.muse$" . ["insert.muse"])
                           ("\\.sh$" . ["insert.sh" alexott/auto-update-defaults])
                           ("pom.xml" . ["insert.pom" alexott/auto-update-defaults])
+                          ("\\.awk$" . ["insert.awk" alexott/auto-update-defaults])
                           ("web.xml" . ["insert.web.xml" alexott/auto-update-defaults])
                           ("\\.java$" . ["insert.java" alexott/auto-update-defaults])
                           ("\\.html$" . ["insert.html" alexott/auto-update-defaults])
