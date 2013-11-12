@@ -71,7 +71,7 @@ session.slitlistFile:	/home/torstein/.fluxbox/slitlist
 session.colorsPerChannel:	4
 session.appsFile:	~/.fluxbox/apps
 session.styleOverlay:	~/.fluxbox/overlay
-session.styleFile:	/usr/share/fluxbox/styles/zimek_darkblue
+session.styleFile:	/usr/share/fluxbox/styles/Squared_blue
 session.cacheLife:	5
 session.ignoreBorder:	false
 session.autoRaiseDelay:	250
