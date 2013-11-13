@@ -55,11 +55,6 @@
 (setq grep-find-command
       "find ~/src/DocEngine -name \"*.java\" -type f | egrep -v '.(class|svn|git|pdf)' | xargs grep -n -i -e ")
 
-;; Navigate by code blocks
-(global-unset-key "\M-p")
-(global-set-key "\M-p" 'backward-list)
-(global-unset-key "\M-n")
-(global-set-key "\M-n" 'forward-list)
 (global-set-key (kbd "<f1>") 'magit-status)
 
 (defun move-line-down ()
@@ -418,6 +413,11 @@
 ;; Hippe expansion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'hippie-exp "hippie-exp" t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Navigation
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-smartscan-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tags
