@@ -1,0 +1,920 @@
+
+#####
+#
+# RipIT 3.9.0 configuration file.
+#
+# For further information on ripit configuration / parameters
+# and examples see the manpage or the README provided with ripit
+# or type ripit --help .
+
+
+#####
+#
+# Ripping device & path.
+#
+
+# cddevice: Define ripping device if other than /dev/cdrom.
+# Default: /dev/cdrom
+
+cddevice=/dev/cdrom
+
+# scsidevice: Device name for special devices if the non ripping
+# commands should be executed on a different device node. This might
+# be useful for some old SCSI devices. If not set the cddevice will
+# be used.
+# Example: /dev/sr18
+# Default: not set
+
+scsidevice=
+
+# output: Path for audio files. If not set, $HOME will be used.
+# Default: not set
+
+output=$HOME/music
+
+# directory permissions: Permissions for directories.
+# Default: 0755
+
+dpermission=0755
+
+# file permissions: Permissions for sound and log files.
+# If not set, uses the default system settings.
+# Default: not set
+
+fpermission=
+
+
+#####
+#
+# Ripping options.
+#
+
+# ripper: select CD ripper
+# 0 - dagrab
+# 1 - cdparanoia
+# 2 - cdda2wav
+# 3 - tosha
+# 4 - cdd
+# Default: cdparanoia
+
+ripper=1
+
+# ripopt: User definable options for the CD ripper.
+# Default: not set
+
+ripopt=
+
+# span: Rip only part of a single track or the merged track-interval.
+# Possible values: any in the format hh:mm:ss.ff-hh:mm:ss.ff
+# Example: rip first 30s of each track: 0-30
+# Default: not set
+
+span=
+
+# paranoia: Turn "paranoia" on or off for dagrab and cdparanoia.
+# Possible values: 0 - no paranoia, 1 - use paranoia
+#                  2 - switch paranoia off if ripping fails on one
+#                      track and retry this track without paranoia
+# Default: 1 - use paranoia
+
+paranoia=1
+
+# ghost: Analyze the wavs for possible gaps, split the wav into
+# chunks of sound and delete blank tracks.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+ghost=0
+
+# prepend: Enlarge the the chunk of sound by a number of
+# seconds at the beginning (if possible).
+# Possible values: any positive number and zero; precision in
+# tenths of seconds. Be aware of low numbers, especially when
+# using option cdcue.
+# Default: 2.0
+
+prepend=2
+
+# extend: Enlarge the the chunk of sound by a number of
+# seconds at the end (if possible).
+# Possible values: any positive number and zero; precision in
+# tenths of seconds. Be aware of low numbers.
+# Default: 2.0
+
+extend=2
+
+# resume: Resume a previously started session.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+resume=0
+
+# overwrite: Default behaviour of Ripit is not to overwrite existing
+# directories, a suffix will be added if directory name exists.
+# Use option overwrite to prevent this and either overwrite a previous
+# rip or force Ripit to quit or even eject the disc. If ejection is
+# chosen, the disc will be ejected even if option eject has not been
+# switched on.
+# Possible values: n - off, y - on,
+#                  q - quit, e - quit and force ejection
+# Default: off
+
+overwrite=n
+
+
+#####
+#
+# Encoding options
+#
+
+# encode: Encode the wavs.
+# Possible values: 0 - off, 1 - on
+# Default: on
+
+encode=1
+
+# coder: Select encoders for audio files:
+# 0 - Lame (mp3)
+# 1 - Oggenc (ogg)
+# 2 - Flac (flac)
+# 3 - Faac (m4a)
+# 4 - mp4als (als or mp4)
+# 5 - Musepack (mpc)
+# 6 - Wavpack (wv)
+# 7 - ffmpeg
+# Multiple encoders can be selected by giving a comma separated list
+# Example: coder=0,0,1,2 encodes CD twice to mp3, ogg and flac files
+# Default: Lame
+
+coder=0
+
+###
+#
+# lame (mp3) encoder options
+#
+
+# qualame: Sets audio quality for lame encoder in cbr (lame-option -q)
+# and vbr (lame-option -V) mode, comma separated list if encoder is
+# used several times.
+# Possible values: 0...9, off
+# 0: highest quality
+# 9: lowest quality
+# Can be set to "off" if all options are passed to --lameopt.
+# Example: qualame=off,off
+# Note: default value is the same for cbr and vbr,
+# although vbr-default should be 4.
+# Default: 5
+
+qualame=5
+
+# lameopt: Additional options for lame encoder,
+# use a comma separated list if encoder is used several times.
+# Example: lameopt=-b 128,--preset extreme
+# Default: not set
+
+lameopt=
+
+# vbrmode: Enable variable bitrate for lame encoder.
+# Possible values: "old" or "new"
+# Default: not set
+
+vbrmode=
+
+# bitrate: Sets bitrate for lame encoder.
+# Possible values: 32...320, off
+# Should be set to "off" if vbr is used
+# Default: 128
+
+bitrate=128
+
+# maxrate: Sets maximum bitrate for lame (when using vbr) and oggenc.
+# Possible values: 0 - off, 32...320
+# Default: 0
+
+maxrate=0
+
+# preset: Use lame presets. To set the "fast" switch, use --vbrmode new.
+# Possible values: medium, standard, extreme, insane
+#
+# medium: 160kbps
+# standard: 192kbps
+# extreme: 256kbps
+# insane: 320kbps
+#
+# Default: not set
+
+preset=
+
+###
+#
+# oggenc (ogg) encoder options
+#
+
+# qualoggenc: Sets audio quality for oggenc.
+# Possible values: 1..10, off
+# 1: lowest quality
+# 10: highest quality
+# Can be set to "off"
+# Default: 3
+
+qualoggenc=3
+
+# oggencopt: Additional options for oggenc,
+# use a comma separated list if encoder is used several times.
+# Default: not set
+
+oggencopt= 
+
+###
+#
+# flac (lossless) encoder options
+#
+
+# quaflac: Sets audio compression for flac encoder
+# Possible values: 0...8, off
+# 0: lowest compression
+# 8: highest compression
+# Can be set to "off"
+# Default: 5
+
+quaflac=5
+
+# flacopt: Additional options for flac encoder,
+# use a comma separated list if encoder is used several times.
+# Example of single encoder:
+# flacopt=--padding=8212 --replay-gain
+# Example of multiple encoder:
+# flacopt=--padding=8212 --replay-gain,--padding=8212
+# Note: If using the --replay-gain option the padding option
+# is recommended, otherwise all padding might be lost.
+# Default: not set
+
+flacopt=
+
+###
+#
+# faac (m4a) encoder options
+#
+
+# quafaac: Sets audio quality for faac encoder
+# Possible values: 10...500, off
+# 10: lowest quality
+# 500: highest quality
+# Can be set to "off"
+# Default: 100
+
+quafaac=100
+
+# faacopt: Additional options for faac encoder,
+# comma separated list if encoder is used several times.
+# Default: not set
+
+faacopt=
+
+###
+#
+# mp4als (als or mp4) encoder options
+#
+
+# quamp4als: Set audio compression level for mp4als.
+# Note: Options that influence compression and speed
+# should be used in the mp4als options below.
+# Default: 0
+
+quamp4als=0
+
+# mp4alsopt: Additional options for mp4als encoder,
+# comma separated list if encoder is used several times.
+# Example: -MP4 to allow tagging, mandatory.
+# Example: -a -o30 for faster speed.
+# Default: not set
+
+mp4alsopt=
+
+###
+#
+# Musepack (mpc) encoder options
+#
+
+# musenc: The encoder name on the command line
+# Possible values: any
+# Example: musenc=mppenc for older versions
+# Default: mpcenc
+
+musenc=mpcenc
+
+# quamuse: Sets audio quality for Musepack encoder
+# Possible values: 0...10, off
+# 0: lowest quality
+# 10: highest quality
+# Can be set to "off"
+# Default: 5
+
+quamuse=5
+
+# museopt: Additional options for Musepack encoder,
+# use a comma separated list if encoder is used several times.
+# Default: not set
+
+museopt=
+
+###
+#
+# Wavpack (wv) encoder options
+#
+
+# wavpacopt: Additional options for Wavpack encoder,
+# use a comma separated list if encoder is used several times.
+# Example: -b320chy
+# Default: -y
+
+wavpacopt=-y
+
+###
+#
+#ffmpeg encoder options
+#
+
+# ffmpegopt: Additional options for ffmpeg,
+# use a comma separated list if encoder is used several times.
+# Example if ffmpeg is used twice: -acodec alac,-acodec wmav2
+# Default: off
+
+ffmpegopt=
+
+# ffmpegsuffix: Suffix to be used for ffmpeg,
+# use a comma separated list if encoder is used several times.
+# Example if ffmpeg is used twice: m4a,wma
+# Default: off
+
+ffmpegsuffix=
+
+
+#####
+#
+# Trackname and directory template
+#
+
+# dirtemplate: Template for directory structure
+# The template can be created using any legal
+# character, including slashes (/) for multi-level
+# directory-trees, and the following variables:
+# $album
+# $artist
+# $iletter
+# $genre
+# $quality
+# $suffix
+# $trackname
+# $tracknum
+# $year
+# $trackno
+#
+# The variable $iletter is the initial letter of
+# the artist variable, the $quality is the quality
+# according to the encoding format defined by $suffix.
+# The variable $quality reflects the encoder options,
+# not the arguments of option --quality which may be set
+# to off. The variable $trackno is the total number of tracks
+# of the release.
+#
+# dirtemplate is an array, for each encoder a different
+# dirtemplate may be defined (i. e. for each encoder state
+# a line starting with dirtemplate=...).
+#
+# Example:
+# dirtemplate="$suffix/hard_path/$iletter/$artist/$year - $album"
+#
+# The double quotes (") are mandatory!
+# Default: "$artist - $album"
+
+dirtemplate="$artist/$album"
+
+# tracktemplate: Template for track names
+# "tracktemplate" is used similarly to "dirtemplate"
+# Default:  "$tracknum $trackname"
+
+tracktemplate="$trackname"
+
+# trackoffset: Add an offset to the track counter ($tracknum)
+# Possible values: any integer
+# Default: 0
+
+trackoffset=0
+
+# infolog: Log certain operations to file
+# (e.g. system calls, creation of dirs/files)
+# Possible values: filename (full path, no ~ here!)
+# Default: not set
+
+infolog=
+
+# lowercase: Convert filenames to lowercase
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+lowercase=1
+
+# uppercasefirst: Convert filenames and tags to uppercase first,
+# not recommended. To be used on the command line only if CDDB entry
+# is in uppercase.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+uppercasefirst=0
+
+# underscore: Replace blanks in filenames with underscores
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+underscore=1
+
+# chars: Exclude special characters in file names and path.
+# Note: following characters will always be purged:
+#  ; > < " and \015 .
+# Side note: if calling this option on the command line without
+# argument, following characters will be purged:  |\:*?$  plus
+# blanks and periods at beginning and end of file names and directories.
+# This is identical to the word NTFS passed as argument to the command
+# line or stated here in the config file. The word HFS will purge colons
+# only plus blanks and periods at beginning of file names and
+# directories.
+#
+# No need to escape the special characters here in the config file.
+# Possible values: HFS, NTFS, none, any (?)
+# Default: not set
+
+chars=NTFS
+
+# playlist: Create m3u playlist with or without the full path
+# in the filename.
+# Possible values: 0 - off,
+#                  1 - on with full path
+#                  2 - on with no path (filename only)
+# Default: on (with full path)
+
+playlist=0
+
+
+#####
+#
+# Audio file tagging
+#
+
+# year-tag: State a year (mp3, m4a) or a date (ogg, flac) tag.
+# Possible values: integer
+# Default: not set
+
+year=
+
+# comment-tag: State a comment (mp3, m4a, mpc) or a
+# description (ogg, flac) tag. To write the cddbid used for freedb
+# or the MusicBrainz discid into the comment, use the word "cddbid"
+# or "discid".
+# Possible values: discid, cddbid or any string
+# Default: not set
+
+comment=
+
+# mp3tags: Additional tags for mp3 not passed by the encoder.
+# Example: Force a unofficial compilation frame when using within
+# a certain player: TCMP=1
+# Note: option is an array, for each additional frame/tag to be added
+# state the option once.
+# Possible values: none, any
+# Default: not set
+
+mp3tags=
+
+# utftag: Use Lame-tags in UTF-8 or convert them
+# (but not the filenames) from Unicode to ISO8859-1.
+# Use when your mp3-audio player doesn't support Unicode tags.
+# Recommended with Lame.
+# Possible values: 0 - off, 1 - on
+# Default: on
+
+utftag=1
+
+# coverart: Add cover image to metadata of encoded file if possible.
+# Note: The cover must be available when encoding starts, one might
+# want to use option --precmd to execute a script for downloading and
+# preparing a cover. Argument is a list in same order as encoders with
+# values 0 (no coverart) or 1 (add coverart) for each encoder.
+# Example: 1,0,0,1
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+coverart=0
+
+# coverpath: Path where the cover can be found.
+# Example: ../thumb.png
+# Possible values: string, none
+# Default: none
+
+coverpath=
+
+# copycover: Copy a cover (or any other file) to all
+# directories containing encoded files. Useful e.g. when using Amarok.
+# Example: "$wavdir/cover.jpg"
+# Possible values: none - off, absolute path to image
+# Default: off
+
+copycover=
+
+# vatag: Analyze tracknames for "various artists" style and split
+# the metadata in case one of the delimiters (colon, hyphen, slash or
+# parenthesis) are found. Use unpair numbers for the scheme
+# "artist ? tracktitle" and pair numbers in the opposite case.
+# The artist will be compared to the argument of option --vastring
+# (see below). If the artist must be like vastring and each track have a
+# delimiter, use 1 (2), if the artist must be like vastring while only
+# some tracks contain the delimiter, use 3 (4), if no restrictions
+# apply for the artist but all tracknames must have a delimiter, use
+# 5 (6) and finally, if only a few tracks contain a delimiter to be
+# used as splitting point, set vatag to 7 (8).
+# Example: 5
+# Possible values: 0 - off, 1, 2, 3, 4, 5, 6, 7, 8
+# Default: off
+
+vatag=0
+
+# vastring: the string (regular expression) that defines the
+# "various artists" style
+# Example: Varios|VA
+# Possible values: string, none
+# Default: \bVA\b|Variou*s|Various\sArtists
+
+vastring=\bVA\b|Variou*s|Various Artists
+
+# mp3gain: Add album gain tags to mp3 files using the appropriate
+# command with options and arguments but without infiles.
+# Example: mp3gain -a -c -q -s i
+# Default: not set
+
+mp3gain=
+
+# vorbgain: Add album gain tags to ogg files using the appropriate
+# command with options and arguments but without infiles.
+# Example: vorbisgain -a -q
+# Default: not set
+
+vorbgain=
+
+# flacgain: Add album gain tags to flac files using the appropriate
+# command with options and arguments but without infiles.
+# Example: metaflac --add-replay-gain
+# Default: not set
+
+flacgain=
+
+# aacgain: Add album gain tags to mp4 or m4a files using the appropriate
+# command with options and arguments but without infiles.
+# Example: aacgain -a -c -q
+# Default: not set
+
+aacgain=
+
+# mpcgain: Add album gain tags to mpc files using the appropriate
+# command with options and arguments but without infiles.
+# Example: mpcgain
+# Default: not set
+
+mpcgain=
+
+# wvgain: Add album gain tags to wv files using the appropriate
+# command with options and arguments but without infiles.
+# Example: wvgain -a -q
+# Default: not set
+
+wvgain=
+
+
+#####
+#
+# CDDB options
+#
+
+# mb: Access MusicBrainz DB via WebService::MusicBrainz module instead
+# of the http protocol (see below).
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+mb=0
+
+# CDDBHOST: Specifies the CDDB server
+# Possible values: freedb.org, freedb2.org or musicbrainz.org
+# Note: Full name of the server used is $mirror.$CDDBHOST, except for
+# freedb2.org (no mirror) and musicbrainz.org has freedb as default
+# mirror.
+# E.g. default server is freedb.freedb.org
+# Default: freedb.org
+
+CDDBHOST=freedb.org
+
+# mirror: Selects freedb mirror
+# Possible values: "freedb" or any freedb mirrors
+# See www.freedb.org for mirror list
+# Note: Full name of the server used is $mirror.$CDDBHOST
+# E.g., default server is freedb.freedb.org
+# Default: freedb
+
+mirror=freedb
+
+# transfer: Set transfer mode for cddb queries
+# Possible values: cddb, http
+# Note: CDDB servers freedb2.org and musicbrainz.org may need transfer
+# mode http.
+# Default: cddb
+
+transfer=cddb
+
+# proto: Set CDDP protocol level
+# Possible values: 5, 6
+# Protocol level 6 supports Unicode (UTF-8)
+# Default: 6
+
+proto=6
+
+# proxy: Address of http-proxy, if needed.
+# Default: not set
+
+proxy=
+
+# mailad: Mail address for cddb submissions.
+# Possible values: Valid user email address for submitting cddb entries
+# Default: not set
+
+mailad=
+
+# archive: Read and save cddb data on local machine.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+archive=0
+
+# submission: Submit new or edited cddb entries to freeCDDB.
+# Possible values: 0 - off, 1 - on
+# Default: on
+
+submission=1
+
+# interaction: Turns on or off user interaction in cddb dialog and
+# everywhere else.
+# Possible values: 0 - off, 1 - on
+# Default: on
+
+interaction=1
+
+# isrc: detect track iscrs using icedax and submit them to Musicbrainz
+# if login info is provided. Please check if the device in use is
+# able to read correct ISRCs and submit them if found.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+isrc=0
+
+# mbname: login name to Musicbrainz.org
+# Possible values: string
+# Default: not set
+
+mbname=
+
+# mbpass: password to Musicbrainz.org
+# Possible values: string
+# Default: not set
+
+mbpass=
+
+
+#####
+#
+# LCD options
+#
+
+# lcd: Use lcdproc to display status on LCD
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+lcd=0
+
+# lcdhost: Specify the lcdproc host
+# Default: localhost
+
+lcdhost=localhost
+
+# lcdport: Specify port number for localhost
+# Default: 13666
+
+lcdport=13666
+
+
+#####
+#
+# Distributed ripping options
+#
+
+# sshlist: Comma separated list of remote machines ripit shall use
+# for encoding. The output path must be the same for all machines.
+# Specify the login (login@machine) only if not the
+# same for the remote machine. Else just state the
+# machine names.
+# Default: not set
+
+sshlist=
+
+# scp: Copy files to encode to the remote machine.
+# Use if the fs can not be accessed on the remote machines
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+scp=0
+
+# local: Turn off encoding on local machine, e.g. use only remote
+# machines.
+# Possible values: 0 - off, 1 - on
+# Example: local=0 (off) turns off encoding on the
+# local machine
+# Default: on
+
+local=1
+
+
+#####
+#
+# Misc. options
+#
+
+# verbosity: Run silent (do not output comments, status etc.) (0), with
+# minimal (1), normal without encoder msgs (2), normal (3), verbose (4)
+# or extremely verbose (5).
+# Possible values: 0...5
+# Default: 3 - normal
+
+verbose=3
+
+# eject: Eject cd after finishing encoding.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+eject=1
+
+# ejectcmd: Command used to eject and close CD tray.
+# Possible values: string
+# Example: /usr/sbin/cdcontrol for FreeBSD
+# Default: eject
+
+ejectcmd=eject
+
+# ejectopt: Options to command used to eject or close CD.
+# Possible values: string or "{cddev}" to design the CD
+# device.
+# Note: Don't use options -t / close or eject,
+#       RipIT knows when to eject or load the tray
+# Default: {cddev}
+
+ejectopt={cddev}
+
+# quitnodb: Give up CD if no CDDB entry found.
+# Useful if option --loop or --nointeraction are on.
+# Default behaviour is to let operator enter data or to use default
+# artist, album and track names.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+quitnodb=0
+
+# execmd: Execute a command when done with ripping. Quote the command
+# if needed.
+# Note: The same variables as in the dirtemplate can be used. When
+# using MusicBrainz one might want to use $cd{asin} to get the ASIN
+# if available.
+# Possible values: none - off, string - on
+# Example: execmd="add_db -a \"$artist\" -r \"$album\""
+# Default: off
+
+execmd=
+
+# precmd: Execute a command before starting to rip. Quote the command
+# if needed.
+# Note: The same variables as in the dirtemplate can be used. When
+# using MusicBrainz one might want to use $cd{asin} to get the ASIN
+# if available.
+# Possible values: none - off, string - on
+# Example: precmd="get_cover -a \"$artist\" -r \"$album\" -o \"$wavdir\" -t \"$trackno\""
+# Default: off
+
+precmd=
+
+# book: Create an audiobook, i. e. merge all tracks into one single
+# file, option --ghost will be switched off and file suffix will be
+# m4b. Make sure to use encoder faac, ripit will not check that.
+# A chapter file will be written for chapter marks.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+book=0
+
+# loop: Continue with a new CD when the previous one is done.
+# Option --eject will be forced. To start ripping process immediately
+# after ejection of previous disc, use experimental argument 2. Ripit
+# will restart as child process, one might see the prompt and it will
+# be necessary to manually terminate the process! Use with caution!
+# Possible values: 0 - off, 1 - on, 2 - immediate restart, experimental
+# Default: off
+
+loop=0
+
+# halt: Powers off machine after finishing encoding.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+halt=0
+
+# nice: Sets "nice" value for the encoding process.
+# Possible values: 0..19 for normal users,
+#                  -20..19 for user "root"
+# Default: 0
+
+nice=0
+
+# nicerip: Sets "nice" value for the ripping process.
+# Possible values: 0..19 for normal users,
+#                  -20..19 for user "root"
+# Default: 0
+
+nicerip=0
+
+# threads: Comma separated list of numbers giving maximum
+# of allowed encoder processes to run at the same time
+# (on each machine when using sshlist).
+# Possible values: comma separated integers
+# Default: 1
+
+threads=1
+
+# md5sum: Create file with md5sums for each type of sound files.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+md5sum=0
+
+# wav: Don't delete wave-files after encoding.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+wav=0
+
+# normalize: Normalizes the wave-files to a given dB-value
+# (default: -12dB)
+# See http://normalize.nongnu.org for details.
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+normalize=0
+
+# normcmd: Command to be used to normalize.
+# Possible values: string
+# Example: normalize-audio (when using Debian)
+# Upstream default: normalize
+
+# We are running Debian so set to normalize-audio
+normcmd=normalize-audio
+
+# normopt: Options to pass to normalize
+# Possible values: -a -nndB   : Normalize to -nn dB, default is -12dB,
+#                  Value range: All values <= 0dB
+#                  Example    : normalize -a -20dB *.wav
+#                  -b         : Batch mode - loudness differences
+#                               between individual tracks of a CD are
+#                               maintained
+#                  -m         : Mix mode - all track are normalized to
+#                               the same loudness
+#                  -v         : Verbose operation
+#                  -q         : Quiet operation
+# For further options see normalize documentation.
+# Default: -b
+# The -v option will be added by default according to RipITs verbosity
+
+normopt=-b
+
+# cdtoc: Create a toc file to burn the wavs with
+# cd-text using cdrdao or cdrecord (in dao mode).
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+cdtoc=0
+
+# inf: Create inf files to burn the wavs with
+# cd-text using wodim or cdrecord (in dao mode).
+# Possible values: 0 - off, 1 - on
+# Default: off
+
+inf=0
+
+# cdcue: Create a cue file to burn the wavs with cd-text.
+# Possible values: 0 - off, 1 - on, 2 - on (experimental fallback)
+# Note: Use value 2 only if for whatever reason value 1 should fail.
+# Default: off
+
+cdcue=0
+
