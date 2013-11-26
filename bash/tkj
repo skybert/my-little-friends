@@ -272,18 +272,6 @@ function do_update-tags()
         gtags -f -
     )
   done
-
-  # print "Updaging GTags ..."
-  # (
-  #     run cd ~/src/p4
-  #     find /usr/lib/jvm/java-6-sun/src . -type f | \
-  #         grep trunk | \
-  #         grep trunk | \
-  #         egrep -v "dhk|osl|target" | \
-  #         egrep ".java|.xml|.pom|.properties" | \
-  #         egrep -v ".svn|.git|.hg|~|.swp" | \
-  #         gtags -f -
-  # )
 }
 
 function do_doc() {
