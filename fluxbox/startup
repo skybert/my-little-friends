@@ -10,18 +10,28 @@ xmodmap "/home/torstein/.xmodmaprc"
 # turn off caps lock, have never needed it.
 setxkbmap -option ctrl:nocaps &
 
-# wmnd &
-# wmsmixer -w &
-# idesk &
+# wallpaper
+# display -window root ~/pictures/wallpaper &
 
-gnome-settings-daemon &
+# favourite applications
+app_list="
+  gnome-settings-daemon
+  clipit
+  conky
+  davmail
+"
+for app in ${app_list}; do
+  if [ -x /usr/bin/${app} ]; then
+      ${app} &
+  fi
+done
+
 # gnome-power-manager &
 killall -9 gnome-screensaver
 xscreensaver &
-# display -window root ~/pictures/wallpaper &
-dropbox start &
-clipit &
-conky &
+
+# dropbox
+dropbox start
 
 # touch /tmp/dates
 # root-tail -i 20 -fn 7x14 -g 400x60+0+740 /tmp/dates &
