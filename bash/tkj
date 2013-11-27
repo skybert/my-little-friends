@@ -16,6 +16,7 @@ java_src_list="
 "
 java_build_src_list="
 "
+eclimd_bin=/opt/eclipse/eclimd
 
 function read_user_conf_if_exists() {
   if [ -r $conf_file ]; then
@@ -178,7 +179,6 @@ function do_backup() {
 }
 
 function do_restart-eclimd() {
-  local eclimd_bin=/opt/eclipse/eclimd
   local eclimd_pid=$(ps aux|grep $eclimd_bin | grep -v grep | awk '{print $2;}  ')
   if [ -n "$eclimd_pid" ]; then
     print "Stopping eclimd ..."
@@ -186,6 +186,10 @@ function do_restart-eclimd() {
   fi
 
   do_build-sources
+  do_start-eclimd
+}
+
+function do_start-eclimd() {
   print "Starting eclimd ..."
 
   local workspace=@user.home/src/workspace-eclim
