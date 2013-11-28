@@ -4,8 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     >
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.escenic.memento</groupId>
-  <artifactId>memento-ws</artifactId>
+  <groupId>net.skybert</groupId>
+  <artifactId>app</artifactId>
   <packaging>war</packaging>
   <version>0.1</version>
   <name>
@@ -14,60 +14,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>taglibs</groupId>
-      <artifactId>standard</artifactId>
-      <version>1.1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts-core</artifactId>
-      <version>1.2.9</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-server</artifactId>
-      <version>1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-      <version>1.1.1</version>
-    </dependency>
-    <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.16</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ektorp</groupId>
-      <artifactId>org.ektorp</artifactId>
-      <version>1.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>rome</groupId>
-      <artifactId>rome</artifactId>
-      <version>0.9</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-httpclient</groupId>
-      <artifactId>commons-httpclient</artifactId>
-      <version>3.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.jettison</groupId>
-      <artifactId>jettison</artifactId>
-      <version>1.1</version>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
@@ -76,7 +25,6 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-
   <build>
     <resources>
       <resource>
@@ -91,9 +39,26 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+        <artifactId>maven-java-formatter-plugin</artifactId>
+        <version>0.4</version>
+        <configuration>
+          <configFile>
+            ${project.basedir}/src/main/resources/eclipse-coding-style.xml
+          </configFile>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
