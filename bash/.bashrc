@@ -34,6 +34,7 @@ alias emacs='emacs -fn terminus-12'
 alias eternal='cat ~/.bash_eternal_history | grep'
 alias grep='grep -i --color'
 alias ls='ls -lh'
+alias steam='SDL_AUDIODRIVER=alsa steam'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 
@@ -77,7 +78,7 @@ export LANG=en_GB.utf8
 export LC_ALL=en_GB.utf8
 
 # java settings
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m" 
+export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
 
 # local overrides & private bash settings
 if [ -e ~/.bashrc.private ]; then
