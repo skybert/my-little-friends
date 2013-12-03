@@ -8,5 +8,5 @@
        uri="file:///home/torstein/.emacs.d/xml/jboss-as-config_1_3.rnc"
        />
   <uri pattern="*.html"
-       uri="file:///usr/share/emacs/24.1/etc/schema/xhtml.rnc"/>
+       uri="file:///usr/share/emacs/24.3.50/etc/schema/xhtml.rnc"/>
 </locatingRules>
