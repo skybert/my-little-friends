@@ -14,6 +14,7 @@
   (flyspell-prog-mode)
   (flymake-mode)
   (subword-mode)
+  (smartscan-mode)
 
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
