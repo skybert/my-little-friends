@@ -379,7 +379,7 @@
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.less\\'" . javascript-mode)
-         ("\\.magik$" . ruby-mode)
+         ("\\.magik$" . python-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
          ("\\.pdf\\'" . doc-view-mode)
