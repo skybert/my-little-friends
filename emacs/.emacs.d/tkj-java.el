@@ -3,6 +3,10 @@
   (interactive)
   (insert "private static final long serialVersionUID = 1L;"))
 
+(defun tkj-eclim-maven-run-quick-package()
+  (interactive)
+  (eclim-maven-run "-o -q -DskipTests package"))
+
 (defun my-c-mode-hook ()
   (setq c-basic-offset 4
         c-label-offset 0
@@ -29,6 +33,7 @@
   (define-key c-mode-base-map (kbd "<M-f7>") 'eclim-java-find-references)
   (define-key c-mode-base-map (kbd "<S-f6>") 'eclim-java-refactor-rename-symbol-at-point)
   (define-key c-mode-base-map (kbd "<S-f7>") 'gtags-find-tag-from-here)
+  (define-key c-mode-base-map (kbd "<C-f9>") 'tkj-eclim-maven-run-quick-package)
 
   ;; Fix indentation for anonymous classes
   (c-set-offset 'substatement-open 0)
