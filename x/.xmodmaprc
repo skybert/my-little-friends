@@ -9,11 +9,11 @@
 !
 remove mod4 = Super_L
 remove mod4 = Super_R
-remove mod1 = Alt_R
+! remove mod1 = Alt_R
 ! remove lock = Caps_Lock
 add mod1 = Super_L
 add mod1 = Super_R
-add control = Alt_R
+! add control = Alt_R
 add control = Caps_Lock
 
 ! natural scrolling mode, Mac OS X style, this will make the scroll
