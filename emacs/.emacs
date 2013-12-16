@@ -450,10 +450,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Advanced paren mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;(
-(autoload 'paren-activate "mic-paren" t)
-(setq paren-match-face 'bold)
-(setq paren-sexp-mode t)
-(paren-activate)
+;; (autoload 'paren-activate "mic-paren" t)
+;; (setq paren-match-face 'bold)
+;; (setq paren-sexp-mode t)
+;; (paren-activate)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java
