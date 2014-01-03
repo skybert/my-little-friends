@@ -23,8 +23,17 @@
       frame-title-format (concat invocation-name "@" (system-name) " {%f}")
       ;; no visible or audible bells, please
       visible-bell nil
-      ring-bell-function (lambda nil (message ""))
-      show-paren-mode t)
+      ring-bell-function (lambda nil (message "")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Show paren mode, built-in from Emacs 24.x
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(show-paren-mode t)
+(setq show-paren-style 'expression)
+
+(require 'paren)
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Setting the general load path for Emacs. This load path is for
@@ -446,14 +455,6 @@
 (global-set-key "\C-c\C-i" 'yas/expand)
 (global-unset-key "\C-]")
 (global-set-key "\C-\]" 'yas-exit-all-snippets)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Advanced paren mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;(
-;; (autoload 'paren-activate "mic-paren" t)
-;; (setq paren-match-face 'bold)
-;; (setq paren-sexp-mode t)
-;; (paren-activate)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java
