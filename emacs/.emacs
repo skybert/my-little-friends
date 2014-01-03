@@ -643,3 +643,4 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 (put 'set-goal-column 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
