@@ -336,7 +336,7 @@
 (ac-flyspell-workaround)
 
 (setq ac-delay 0.1
-      ac-auto-start 2)
+      ac-auto-start 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
