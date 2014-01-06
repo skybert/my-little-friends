@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <typeId id="jboss"
+          uri="file:///home/torstein/.emacs.d/xml/jboss_4_0.rnc"/>
+
+  <documentElement localName="jboss" typeId="jboss"/>
+
   <uri pattern="pom.xml"
        uri="file:///home/torstein/.emacs.d/xml/maven-v4_0_0.rnc"/>
   <uri pattern="build.xml"
@@ -9,4 +14,5 @@
        />
   <uri pattern="*.html"
        uri="file:///usr/share/emacs/24.3.50/etc/schema/xhtml.rnc"/>
+
 </locatingRules>
