@@ -60,7 +60,8 @@ PATH=$HOME/src/ece-scripts/usr/bin:\
 $HOME/src/moria/voss/usr/bin:\
 $HOME/src/my-little-friends/bash:\
 $HOME/src/my-little-friends/git:\
-$HOME/src/common-bashing/net:\
+$HOME/src/moria/src/net:\
+$HOME/src/moria/src/java:\
 /opt/maven/bin:\
 /opt/local/bin:\
 $JAVA_HOME/bin:\
@@ -78,7 +79,7 @@ export LANG=en_GB.utf8
 export LC_ALL=en_GB.utf8
 
 # java settings
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
+export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=1024m"
 
 # local overrides & private bash settings
 if [ -e ~/.bashrc.private ]; then
