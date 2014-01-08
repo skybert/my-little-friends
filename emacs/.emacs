@@ -83,7 +83,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine -name \"*.java\" -type f | egrep -v '.(class|svn|git|pdf)' | xargs grep -n -i -e ")
+      "find ~/src/fara -name \"*.java\" -type f | egrep -v '.(class|svn|git|pdf)' | xargs grep -n -i -e ")
 
 (global-set-key (kbd "<f1>") 'magit-status)
 
@@ -450,7 +450,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BASH is handled by regular etags
 (setq tags-table-list '(
-                        "~/src/DocEngine"
+                        "~/src/fara"
                         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -484,6 +484,11 @@
       browse-url-browser-function 'browse-url-generic)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs behaviour
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq warning-suppress-types (quote ((undo discard-info))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; For some reason, being on different networks (as experienced in
 ;; Dhaka), the p4 integration made all file operation extremely slow,
 ;; hence the explicity loading here).
@@ -508,11 +513,12 @@
       popcmp-group-alternatives nil
       ;; using additional schemas for the nxml mode
       rng-schema-locating-files
-      (quote ("/usr/share/emacs/23.3/etc/schema/schemas.xml"
+      (quote ("/usr/share/emacs/24.3/etc/schema/schemas.xml"
               "/usr/local/src/html5-el/schemas.xml"
               "~/.emacs.d/schemas.xml"))
       rng-validate-delay 3
       nxml-slash-auto-complete-flag t
+      nxml-child-indent 4
       )
 
 ;; my special nXML mode settings.
@@ -650,6 +656,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Put all Emacs customize variables & faces in its own file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 (put 'set-goal-column 'disabled nil)
