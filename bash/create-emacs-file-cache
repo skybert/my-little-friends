@@ -8,9 +8,7 @@
 dir_list="
 $HOME/.emacs.d
 $HOME/src/my-little-friends
-$HOME/src/DocEngine
-$HOME/src/smallworld/smallworld-api/src/main/java
-$HOME/src/VLAN-MAN
+$HOME/src/fara
 $HOME/doc/$(date +%Y)
 /opt/jboss/standalone/configuration
 "
