@@ -57,6 +57,7 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
+(load-theme 'deeper-blue)
 ;; (load-theme 'sanityinc-solarized-dark)
 
 ;; navigate between visible buffers (windows in emacs speak)
