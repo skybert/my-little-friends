@@ -6,9 +6,9 @@ log_file=$HOME/.$(basename $0).log
 LC_ALL=C
 conf_file=$HOME/.$(basename $0).conf
 
-. $HOME/src/common-bashing/src/common/io/runtime.sh
-. $HOME/src/common-bashing/src/common/text/color.sh
-. $HOME/src/common-bashing/src/common/text/messages.sh
+. $HOME/src/moria/src/common/io/runtime.sh
+. $HOME/src/moria/src/common/text/color.sh
+. $HOME/src/moria/src/common/text/messages.sh
 
 src_list="
 "
