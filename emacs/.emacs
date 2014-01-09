@@ -59,6 +59,15 @@
 (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
 ;; (load-theme 'sanityinc-solarized-dark)
 
+;; navigate between visible buffers (windows in emacs speak)
+(defun other-window-backward (&optional n)
+  (interactive "p")
+  (if n
+      (other-window (- n))
+    (other-frame -1)))
+(global-set-key "\C-x\C-n" 'other-window)
+(global-set-key "\C-x\C-p" 'other-window-backward)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts in all modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
