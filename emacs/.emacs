@@ -504,33 +504,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; doesn't work 2008-04-14 17:51
-;; (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
-(setq sgml-set-face t
-      sgml-xml-mode t
-      ;; validiting with xmllint, so XML decl. not needed
-      sgml-declaration nil
-      ;; invoke xmllint for external validation
-      sgml-validation-command "xmllint --noout --postvalid %s %s"
-      nxhtml-skip-welcome t
-      popcmp-group-alternatives nil
-      ;; using additional schemas for the nxml mode
-      rng-schema-locating-files
-      (quote ("/usr/share/emacs/24.3/etc/schema/schemas.xml"
-              "/usr/local/src/html5-el/schemas.xml"
-              "~/.emacs.d/schemas.xml"))
-      rng-validate-delay 3
-      nxml-slash-auto-complete-flag t
-      nxml-child-indent 4
-      )
+(load "$HOME/.emacs.d/tkj-xml.el")
 
-;; my special nXML mode settings.
-(add-hook 'nxml-mode-hook
-          (lambda ()
-            (define-key nxml-mode-map "\C-c\C-i" 'yas/expand)
-            (define-key nxml-mode-map "\M- " 'nxml-complete)
-            )
-          t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HTML5 support
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -542,29 +517,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Javascript mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq js2-basic-offset 2
-      js2-indent-on-enter-key t
-      js2-enter-indents-newline t)
-
-;; makes j2-mode work (better) with JSON files.
-(defadvice js2-reparse (before json)
-  (setq js2-buffer-file-name buffer-file-name))
-(ad-activate 'js2-reparse)
-
-(defadvice js2-parse-statement (around json)
-  (if (and (= tt js2-LC)
-      js2-buffer-file-name
-      (string-equal (substring js2-buffer-file-name -5) ".json")
-      (eq (+ (save-excursion
-            (goto-char (point-min))
-            (back-to-indentation)
-            (while (eolp)
-              (next-line)
-              (back-to-indentation))
-            (point)) 1) js2-ts-cursor))
-    (setq ad-return-value (js2-parse-assign-expr))
-    ad-do-it))
-(ad-activate 'js2-parse-statement)
+(load "$HOME/.emacs.d/tkj-js.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Unfill
