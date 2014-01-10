@@ -1,0 +1,96 @@
+# $Id: jboss-client_5_0.dtd 58121 2006-11-04 19:57:58Z thomas.diesler@jboss.com $
+# 
+# <!DOCTYPE jboss-web PUBLIC
+#   "-//JBoss//DTD Web Service Reference 4.0//EN"
+#   "http://www.jboss.org/j2ee/dtd/service-ref_4_0.dtd">      
+
+# The service-ref element provides jboss specific deployment values to
+# the web service reference in application-client.xml.
+# 
+# Example:
+#   <service-ref>
+#       <service-ref-name>OrganizationService</service-ref-name>
+#       <wsdl-override>file:/wsdlRepository/organization-service.wsdl</wsdl-override>
+#   </service-ref>
+# 
+#   <service-ref>
+#       <service-ref-name>OrganizationService</service-ref-name>
+#       <config-name>Secure Client Config</config-name>
+#       <config-file>META-INF/jbossws-client-config.xml</config-file>
+#       <port-component-ref>
+#         <service-endpoint-interface>com.dot.SEI</service-endpoint-interface>
+#         <call-property>
+#           <prop-name>X</prop-name>
+#           <prop-value>Y</prop-value>
+#         </call-property>
+#       </port-component-ref>
+#   </service-ref>
+
+service-ref =
+  element service-ref {
+    attlist.service-ref,
+    service-ref-name,
+    config-name?,
+    config-file?,
+    port-component-ref*,
+    wsdl-override?,
+    call-property*
+  }
+attlist.service-ref &= empty
+# The service-ref-name element gives the ENC relative name used
+# in the ejb-jar.xml service-ref-name element.
+# 
+# Used in: service-ref
+service-ref-name =
+  element service-ref-name { attlist.service-ref-name, text }
+attlist.service-ref-name &= empty
+# The optional config-name element gives the client configuration name that must be present in
+# the configuration given by element config-file. 
+# 
+# The default is: Standard Client
+# 
+# Used in: service-ref
+config-name = element config-name { attlist.config-name, text }
+attlist.config-name &= empty
+# The optional config-file element gives the to a URL or resource name for the client configuration.
+# The default is: META-INF/standard-jbossws-client-config.xml
+# 
+# Used in: service-ref
+config-file = element config-file { attlist.config-file, text }
+attlist.config-file &= empty
+# The port-component-ref element provides additional information about
+# the standard j2ee service-reference/port-component-ref. Currently this includes
+# properties that should be associated with the call/stub for the port.
+# 
+# Used in: service-ref
+port-component-ref =
+  element port-component-ref {
+    attlist.port-component-ref,
+    service-endpoint-interface?,
+    call-property*
+  }
+attlist.port-component-ref &= empty
+# The wsdl-override element the actual wsdl docuement the web service client
+# uses to connect to the remote service. It overrides the value of wsdl-file in ejb-jar.xml.
+# 
+# Used in: service-ref
+wsdl-override = element wsdl-override { attlist.wsdl-override, text }
+attlist.wsdl-override &= empty
+# Fully qualified name of service endpoint interface
+service-endpoint-interface =
+  element service-endpoint-interface {
+    attlist.service-endpoint-interface, text
+  }
+attlist.service-endpoint-interface &= empty
+# Arbitrary jaxrpc property values that should be set on a Call object
+# before it's returned to the web service client. The valid properties can be any
+# properties supported by the jaxrpc Call implementation.
+call-property =
+  element call-property { attlist.call-property, prop-name, prop-value }
+attlist.call-property &= empty
+# The string value of a property name
+prop-name = element prop-name { attlist.prop-name, text }
+attlist.prop-name &= empty
+# The string value of a property value
+prop-value = element prop-value { attlist.prop-value, text }
+attlist.prop-value &= empty
