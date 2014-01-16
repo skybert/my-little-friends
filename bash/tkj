@@ -271,9 +271,7 @@ function do_update-tags()
     print "Updating gtags for $el ..."
     (
       run cd $el
-      find . -type f -name "*.java" | \
-        egrep ".java|.xml|.pom|.properties" | \
-        gtags -f -
+      find . -type f -name "*.java" | gtags -f -
     )
   done
 }

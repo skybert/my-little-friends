@@ -19,3 +19,16 @@
 [app] (name=xterm) (class=XTerm)
   [Workspace]	{3}
 [end]
+[app] (name=skype) (class=Skype) (role=ConversationsWindow)
+  [Workspace]	{0}
+[end]
+[app] (name=skype) (class=Skype)
+  [Workspace]	{0}
+[end]
+[group]
+ [app] (name=skype) (class=Skype)
+ [app] (name=skype) (class=Skype) (role=ConversationsWindow)
+[end]
+[app] (name=Navigator) (class=Iceweasel) (role=browser)
+  [Workspace]	{1}
+[end]
