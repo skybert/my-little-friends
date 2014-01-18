@@ -45,5 +45,8 @@
                       (error nil)))
           (setq path (cons (xmltok-start-tag-local-name) path)))
         (if (called-interactively-p t)
-            (message "/%s" (mapconcat 'identity path "/"))
+            (setq frame-title-format (concat invocation-name "@"
+                                             (system-name)
+                                             " xpath: /"
+                                             (mapconcat 'identity path "/")))
           (format "/%s" (mapconcat 'identity path "/")))))))

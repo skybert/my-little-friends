@@ -8,11 +8,6 @@
   (eclim-maven-run "-o -q -DskipTests package"))
 
 (defun my-c-mode-hook ()
-  (setq c-basic-offset 4
-        c-label-offset 0
-        indent-tabs-mode nil
-        compile-command "cd ~/src/drifting/jms && mvn -q -o -DskipTests package"
-        require-final-newline nil)
   (auto-fill-mode)
   (gtags-mode)
   (flyspell-prog-mode)
@@ -41,9 +36,17 @@
       (c-set-offset 'inexpr-class 0))
 
   ;; Indent arguments on the next line as indented body.
-  (c-set-offset 'arglist-intro '+)
-  )
+  (c-set-offset 'arglist-intro '+))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
+(defun tkj-default-code-style-hook()
+  (setq c-basic-offset 4
+        c-label-offset 0
+        indent-tabs-mode nil
+        compile-command "cd ~/src/drifting/jms && mvn -q -o -DskipTests package"
+        require-final-newline nil))
+
+(add-hook 'c-mode-hook 'tkj-default-code-style-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Flymake settings

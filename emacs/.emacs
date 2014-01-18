@@ -84,7 +84,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/fara -name \"*.java\" -type f | egrep -v '.(class|svn|git|pdf)' | xargs grep -n -i -e ")
+      "find ~/src/fara -name \"*.java\" -type f | egrep -v '.(class|pdf)' | xargs grep -n -i -e ")
 
 (global-set-key (kbd "<f1>") 'magit-status)
 
@@ -445,16 +445,6 @@
 ;; Navigation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'smartscan)
-
-;; (global-smartscan-mode 1)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Tags
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; BASH is handled by regular etags
-(setq tags-table-list '(
-                        "~/src/fara"
-                        ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
