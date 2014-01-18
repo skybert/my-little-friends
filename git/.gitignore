@@ -6,13 +6,13 @@
 *.pmd
 *~
 .classpath
-.idea/
+.idea
 .project
-.settings/
+.settings
 GPATH
 GRTAGS
 GSYMS
 GTAGS
 pmd-eclipse.log
 src/main/webapp/META-INF/MANIFEST.MF
-target/
+target

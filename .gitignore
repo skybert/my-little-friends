@@ -14,6 +14,9 @@ emacs/.emacs.d/custom.el
 emacs/.emacs.d/eshell/history
 emacs/.emacs.d/eshell/lastdir
 emacs/.emacs.d/file_cache.el
+emacs/.emacs.d/ido.last
+emacs/.emacs.d/projectile-bookmarks.eld
+emacs/.emacs.d/projectile.cache
 emacs/.emacs.d/session.107b721178d1e1d2af13630216038135900000170350039
 emacs/.emacs.d/tramp
 emacs/.emacs.d/url/cache
