@@ -32,3 +32,6 @@
 [app] (name=Navigator) (class=Iceweasel) (role=browser)
   [Workspace]	{1}
 [end]
+[app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea)
+  [Workspace]	{5}
+[end]
