@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+# Command which searches google for the (multi word) string passed to
+# it.
+#
+# by torstein.k.johansen at gmail.com
+
+browser_bin=firefox
+google_url="http://google.com/search?ion=1&q="
+
+for el in "$@"; do
+  query+="${el}+"
+done
+
+$browser_bin "${google_url}${query}"
+
+
+
