@@ -47,6 +47,7 @@
         (if (called-interactively-p t)
             (setq frame-title-format (concat invocation-name "@"
                                              (system-name)
+                                             " {%f}"
                                              " xpath: /"
                                              (mapconcat 'identity path "/")))
           (format "/%s" (mapconcat 'identity path "/")))))))
