@@ -8,6 +8,7 @@
 .classpath
 .idea
 .project
+.projectile
 .settings
 GPATH
 GRTAGS
