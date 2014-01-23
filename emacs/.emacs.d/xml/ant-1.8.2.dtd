@@ -2426,7 +2426,6 @@
           torefid CDATA #IMPLIED
           refid CDATA #IMPLIED>
 
-<!ELEMENT target EMPTY>
 <!ATTLIST target
           id ID #IMPLIED
           name CDATA #IMPLIED>
@@ -3082,7 +3081,7 @@
           initialsitecommand CDATA #IMPLIED
           sitecommand CDATA #IMPLIED
           port CDATA #IMPLIED
-          timestampgranularity ( | MINUTE | NONE) #IMPLIED
+          timestampgranularity (MINUTE | NONE) #IMPLIED
           skipfailedtransfers %boolean; #IMPLIED
           retriesallowed CDATA #IMPLIED
           chmod CDATA #IMPLIED
@@ -3096,7 +3095,7 @@
           description CDATA #IMPLIED
           passive %boolean; #IMPLIED
           taskname CDATA #IMPLIED
-          serverlanguagecodeconfig ( | da | de | en | es | fr | it | nl | no | pt | ro | sh | sk | sl | sq | sv) #IMPLIED
+          serverlanguagecodeconfig (da | de | en | es | fr | it | nl | no | pt | ro | sh | sk | sl | sq | sv) #IMPLIED
           recentdateformatconfig CDATA #IMPLIED
           preservelastmodified %boolean; #IMPLIED
           listing CDATA #IMPLIED
