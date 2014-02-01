@@ -91,6 +91,7 @@ $HOME/src/my-little-friends/bash:\
 $HOME/src/my-little-friends/git:\
 $HOME/src/moria/src/net:\
 $HOME/src/moria/src/java:\
+$HOME/src/moria/src/pictures:\
 /opt/maven/bin:\
 /opt/local/bin:\
 $JAVA_HOME/bin:\
@@ -109,7 +110,7 @@ export P4CONFIG=$HOME/.p4config
 ##################################################################
 # language & time zone
 ##################################################################
-export TZ='Europe/Oslo'
+# export TZ='Asia/Taipei'
 export LANG=en_GB.utf8
 export LC_ALL=en_GB.utf8
 
