@@ -1,3 +1,4 @@
+"Turn on syntax highlighting"
 syntax on
 
 "Highlight trailing white space"
