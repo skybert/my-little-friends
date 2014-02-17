@@ -4,6 +4,7 @@
 *.iws
 *.pdf
 *.pmd
+*.tmp
 *~
 .classpath
 .idea
