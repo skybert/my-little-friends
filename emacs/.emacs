@@ -473,7 +473,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Web browser & search
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(reqiure 'google-this)
+(require 'google-this)
 (google-this-mode 1)
 (setq browse-url-generic-program "firefox"
       browse-url-browser-function 'browse-url-generic)
