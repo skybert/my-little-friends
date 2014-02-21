@@ -18,3 +18,10 @@ endfunction
 autocmd BufWritePre *.* :call TrimWhiteSpace()
 
 
+"Spelling"
+set spell
+set spelllang=en
+
+"Text wrapping"
+set formatoptions-=t
+set textwidth=72
