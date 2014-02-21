@@ -35,3 +35,6 @@
 [app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea)
   [Workspace]	{5}
 [end]
+[app] (name=x-www-browser) (class=X-www-browser) (role=browser)
+  [Workspace]	{1}
+[end]
