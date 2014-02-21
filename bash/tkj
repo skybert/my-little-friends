@@ -77,10 +77,6 @@ function do_set-up-vpn() {
   fi
 }
 
-function do_create-emacs-file-cache() {
-  create-emacs-file-cache
-}
-
 ## $1 :: name
 function do_switch-workspace() {
   print_and_log "Switching to ${1} ..."
@@ -135,7 +131,6 @@ function do_daily()
 
   # do_set-up-vpn
   do_update-tags
-  do_create-emacs-file-cache
 
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
