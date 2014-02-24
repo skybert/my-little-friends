@@ -1,0 +1,90 @@
+# auto completion for the mvn command.                    -*- sh -*-
+# by torstein.k.johansen@gmail.com
+
+options="
+  --activate-profiles
+  --also-make
+  --also-make-dependents
+  --batch-mode
+  --check-plugin-updates
+  --debug
+  --define
+  --encrypt-master-password
+  --encrypt-password
+  --fail-at-end
+  --fail-fast
+  --fail-never
+  --file
+  --global-settings
+  --lax-checksums
+  --log-file
+  --no-plugin-registry
+  --no-plugin-updates
+  --no-snapshot-updates
+  --non-recursive
+  --projects
+  --resume-from
+  --settings
+  --show-version
+  --strict-checksums
+  --threads
+  --toolchains
+  --update-plugins
+  --update-snapshots
+  --version
+  -B
+  -C
+  -D
+  -DskipTests
+  -N
+  -P
+  -T
+  -U
+  -V
+  -X
+  -am
+  -amd
+  -c
+  -cpu
+  -e
+  -emp
+  -ep
+  -f
+  -fae
+  -ff
+  -fn
+  -gs
+  -h
+  -l
+  -npr
+  -npu
+  -nsu
+  -o
+  -pl
+  -q
+  -rf
+  -s
+  -t
+  -up
+  -v
+"
+commands="
+  clean
+  compile
+  dependency:tree
+  install
+  test
+"
+
+_mvn_commands()
+{
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  local prev=${COMP_WORDS[COMP_CWORD-1]}
+
+  # default completions is the list of commands
+  completions="${options} ${commands}"
+
+  COMPREPLY=( $(compgen -W "$completions" -- $cur) )
+}
+
+complete -o default -F _mvn_commands mvn
