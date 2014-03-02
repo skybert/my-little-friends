@@ -43,8 +43,8 @@ Mod4 Tab :NextTab
 Mod4 Shift Tab :PrevTab
 
 # see all windows
-XF86LaunchA :ClientMenu
-F3          :ClientMenu
+XF86LaunchA   :ClientMenu
+Super_L       :ClientMenu
 
 # go to a specific tab in the current window
 Mod4 1 :Tab 1
@@ -63,12 +63,6 @@ Mod1 F1 :Exec xterm
 # open a dialog to run programs
 # Mod1 F2 :Exec gnome-do
 # Super_L Space :Exec gnome-do
-
-# volume settings, using common keycodes
-# if these don't work, use xev to find out your real keycodes
-176 :Exec amixer sset Master,0 1+
-174 :Exec amixer sset Master,0 1-
-160 :Exec amixer sset Master,0 toggle
 
 # current window commands
 Mod1 F4 :Close
@@ -135,6 +129,8 @@ XF86AudioNext :ExecCommand mpc next
 XF86AudioPlay :ExecCommand mpc toggle
 
 Control Shift 0 :ExecCommand tkj-setup-screens
+Control Shift 8 :ExecCommand synclient TouchpadOff=1
+Control Shift 9 :ExecCommand synclient TouchpadOff=0
 
 # 'i' for interruption. The challenge is stil to remmeber to hit it
 # when being interrupted. Still, it makes for interesting statistics
@@ -163,6 +159,11 @@ Control Shift w :Exec opera
 XF86AudioRaiseVolume :ExecCommand aumix -v +2
 XF86AudioLowerVolume :ExecCommand aumix -v -2
 XF86AudioMute :ExecCommand aumix -v 0
+
+# keycodes match Zenbook keyboard
+96 :Exec amixer sset Master,0 1+
+95 :Exec amixer sset Master,0 1-
+76 :Exec amixer sset Master,0 toggle
 
 # eject
 XF86Eject :ExecCommand eject
