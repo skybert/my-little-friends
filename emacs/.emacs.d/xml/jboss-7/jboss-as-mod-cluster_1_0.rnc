@@ -1,0 +1,71 @@
+default namespace = "urn:jboss:domain:modcluster:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element mod-cluster-config {
+        attribute domain { xsd:string }?,
+        attribute ttl { xsd:int }?,
+        attribute smax { xsd:int }?,
+        attribute ping { xsd:int }?,
+        attribute flush-wait { xsd:int }?,
+        attribute flush-packets { xsd:boolean }?,
+        attribute max-attempts { xsd:int }?,
+        attribute node-timeout { xsd:int }?,
+        attribute socket-timeout { xsd:int }?,
+        attribute stop-context-timeout { xsd:int }?,
+        attribute auto-enable-contexts { xsd:boolean }?,
+        attribute excluded-contexts { xsd:string }?,
+        attribute sticky-session { xsd:boolean }?,
+        attribute sticky-session-remove { xsd:boolean }?,
+        attribute sticky-session-force { xsd:boolean }?,
+        attribute advertise-security-key { xsd:string }?,
+        attribute advertise { xsd:boolean }?,
+        attribute balancer { xsd:string }?,
+        attribute proxy-url { xsd:string }?,
+        attribute proxy-list { xsd:string }?,
+        attribute advertise-socket { xsd:string }?,
+        (element simple-load-provider {
+           attribute factor { xsd:int }?
+         }
+         | element dynamic-load-provider {
+             attribute decay { xsd:int }?,
+             attribute history { xsd:int }?,
+             (element load-metric {
+                anonymous0,
+                attribute type {
+                  xsd:token "heap"
+                  | xsd:token "requests"
+                  | xsd:token "sessions"
+                  | xsd:token "busyness"
+                  | xsd:token "send-traffic"
+                  | xsd:token "mem"
+                  | xsd:token "cpu"
+                  | xsd:token "receive-traffic"
+                }
+              }
+              | element custom-load-metric {
+                  anonymous0,
+                  attribute class { xsd:string }
+                })*
+           })?,
+        element ssl {
+          attribute ca-revocation-url { xsd:string }?,
+          attribute ca-certificate-file { xsd:string }?,
+          attribute protocol {
+            xsd:token "TLSv1"
+            | xsd:token "SSLv2"
+            | xsd:token "ALL"
+            | xsd:token "SSLv3"
+            | xsd:token "SSLv2+SSLv3"
+          }?,
+          attribute cipher-suite { xsd:string }?,
+          attribute certificate-key-file { xsd:string }?,
+          attribute password { xsd:string }?,
+          attribute key-alias { xsd:string }?
+        }?
+      }?
+    }
+anonymous0 =
+  attribute capacity { xsd:double }?,
+  attribute weight { xsd:int }?

@@ -1,0 +1,112 @@
+default namespace = "urn:jboss:domain:resource-adapters:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element resource-adapters {
+        element resource-adapter {
+          attribute id { xsd:token }?,
+          element archive { \token }?,
+          element module {
+            attribute slot { xsd:token }?,
+            attribute id { xsd:token }
+          }?,
+          element bean-validation-groups {
+            element bean-validation-group { \token }+
+          }?,
+          element bootstrap-context { \token }?,
+          element config-property { config-propertyType }*,
+          element transaction-support {
+            xsd:token "LocalTransaction"
+            | xsd:token "XATransaction"
+            | xsd:token "NoTransaction"
+          }?,
+          element connection-definitions {
+            element connection-definition {
+              common-attribute,
+              attribute use-ccm { xsd:boolean }?,
+              element config-property { config-propertyType }*,
+              (element pool { anonymous0 }
+               | empty
+               | element xa-pool {
+                   anonymous0,
+                   element is-same-rm-override { boolean }?,
+                   element interleaving { boolean-presenceType }?,
+                   element no-tx-separate-pools {
+                     boolean-presenceType
+                   }?,
+                   element pad-xid { boolean }?,
+                   element wrap-xa-resource { boolean }?
+                 }),
+              element security {
+                element application { boolean-presenceType }
+                | empty
+                | element security-domain { \token }
+                | element security-domain-and-application { \token }
+              }?,
+              element timeout {
+                element blocking-timeout-millis { nonNegativeInteger }?,
+                element idle-timeout-minutes { nonNegativeInteger }?,
+                element allocation-retry { nonNegativeInteger }?,
+                element allocation-retry-wait-millis {
+                  nonNegativeInteger
+                }?,
+                element xa-resource-timeout { nonNegativeInteger }?
+              }?,
+              element validation {
+                element background-validation { boolean }?,
+                element background-validation-millis {
+                  nonNegativeInteger
+                }?,
+                element use-fast-fail { boolean }?
+              }?,
+              element recovery {
+                attribute no-recovery { xsd:boolean }?,
+                element recover-credential {
+                  element user-name { \token }?,
+                  element password { \token }?,
+                  element security-domain { \token }?
+                }?,
+                element recover-plugin {
+                  attribute class-name { xsd:token },
+                  element config-property { config-propertyType }
+                }?
+              }?
+            }+
+          }?,
+          element admin-objects {
+            element admin-object {
+              common-attribute,
+              element config-property { config-propertyType }*
+            }+
+          }?
+        }+
+      }?
+    }
+common-attribute =
+  attribute pool-name { xsd:token }?,
+  attribute use-java-context { xsd:boolean }?,
+  attribute enabled { xsd:boolean }?,
+  attribute jndi-name { xsd:token },
+  attribute class-name { xsd:token }?
+anonymous0 =
+  (notAllowed
+   | element min-pool-size { nonNegativeInteger })?,
+  (notAllowed
+   | element max-pool-size { nonNegativeInteger })?,
+  (notAllowed
+   | element prefill { boolean })?,
+  (notAllowed
+   | element use-strict-min { boolean })?,
+  (notAllowed
+   | element flush-strategy { \token })?
+nonNegativeInteger = xsd:nonNegativeInteger
+boolean-presenceType = empty, empty
+\token = xsd:token
+config-propertyType =
+  mixed {
+    attribute name { xsd:token },
+    xsd:token
+  },
+  empty
+boolean = xsd:boolean

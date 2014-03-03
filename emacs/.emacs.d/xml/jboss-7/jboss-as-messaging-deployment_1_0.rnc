@@ -1,0 +1,26 @@
+default namespace = "urn:jboss:messaging-deployment:1.0"
+
+start =
+  notAllowed
+  | element messaging-deployment {
+      element hornetq-server {
+        attribute name { xsd:string }?,
+        element jms-destinations {
+          element jms-queue {
+            attribute name { xsd:string },
+            element entry { entryType }+,
+            element selector {
+              attribute string { xsd:string }
+            }?,
+            element durable { xsd:boolean }?
+          }*,
+          element jms-topic {
+            attribute name { xsd:string },
+            element entry { entryType }+
+          }*
+        }?
+      }*
+    }
+entryType =
+  attribute name { xsd:string },
+  empty

@@ -1,0 +1,89 @@
+default namespace = "urn:jboss:domain:remoting:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element worker-thread-pool {
+        attribute task-limit { xsd:integer }?,
+        attribute task-keepalive { xsd:integer }?,
+        attribute task-max-threads { xsd:integer }?,
+        attribute task-core-threads { xsd:integer }?,
+        attribute write-threads { xsd:integer }?,
+        attribute read-threads { xsd:integer }?
+      }?,
+      element connector {
+        attribute security-realm { xsd:string }?,
+        attribute name { xsd:string },
+        attribute socket-binding {
+          list { xsd:string* }
+        },
+        (element sasl {
+           element include-mechanisms {
+             attribute value {
+               list { xsd:string* }
+             }
+           }?
+           & element qop {
+               attribute value {
+                 list {
+                   (xsd:token "auth-int"
+                    | xsd:token "auth-conf"
+                    | xsd:token "auth")*
+                 }
+               }
+             }?
+           & element strength {
+               list {
+                 (xsd:token "high"
+                  | xsd:token "low"
+                  | xsd:token "medium")*
+               }
+             }?
+           & element reuse-session { boolean-element }?
+           & element server-auth { boolean-element }?
+           & element policy {
+               element forward-secrecy { boolean-element }?
+               & element no-active { boolean-element }?
+               & element no-anonymous { boolean-element }?
+               & element no-dictionary { boolean-element }?
+               & element no-plain-text { boolean-element }?
+               & element pass-credentials { boolean-element }?
+             }?
+           & element properties { properties }?
+         }?
+         & element authentication-provider {
+             attribute name { xsd:string }
+           }?
+         & element properties { properties }?)
+      }*,
+      element outbound-connections {
+        (element local-outbound-connection {
+           anonymous0,
+           attribute outbound-socket-binding-ref { xsd:string }
+         }
+         | element remote-outbound-connection {
+             anonymous0,
+             attribute outbound-socket-binding-ref { xsd:string },
+             attribute username { xsd:string }?,
+             attribute security-realm { xsd:string }?
+           }
+         | element outbound-connection {
+             anonymous0,
+             attribute uri { xsd:anyURI }
+           })*
+      }?
+    }
+boolean-element =
+  attribute value { xsd:boolean },
+  empty
+properties =
+  (notAllowed
+   | element property {
+       attribute value { xsd:string }?,
+       attribute name { xsd:string }
+     })*,
+  empty
+anonymous0 =
+  attribute name { xsd:string },
+  (notAllowed
+   | element properties { properties })?

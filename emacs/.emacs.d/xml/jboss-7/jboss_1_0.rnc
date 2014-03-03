@@ -1,0 +1,5 @@
+default namespace = "urn:jboss:1.0"
+
+start =
+  notAllowed
+  | element jboss { empty }

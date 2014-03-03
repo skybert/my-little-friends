@@ -1,0 +1,12 @@
+default namespace = "urn:jboss:domain:jpa:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element jpa {
+        attribute default-extended-persistence-inheritance {
+          xsd:token "SHALLOW" | xsd:token "DEEP"
+        }?,
+        attribute default-datasource { xsd:string }?
+      }
+    }

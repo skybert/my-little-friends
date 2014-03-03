@@ -1,0 +1,16 @@
+default namespace = "urn:jboss:domain:jmx:1.2"
+
+start =
+  notAllowed
+  | element subsystem {
+      element expose-resolved-model {
+        attribute proper-property-format { xsd:boolean }?,
+        attribute domain-name { xsd:string }?
+      }?,
+      element expose-expression-model {
+        attribute domain-name { xsd:string }?
+      }?,
+      element remoting-connector {
+        attribute use-management-endpoint { xsd:boolean }?
+      }?
+    }

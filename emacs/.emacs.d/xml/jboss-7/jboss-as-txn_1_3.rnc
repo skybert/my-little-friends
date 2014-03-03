@@ -1,0 +1,45 @@
+default namespace = "urn:jboss:domain:transactions:1.3"
+
+start =
+  notAllowed
+  | element subsystem {
+      element core-environment {
+        attribute relative-to { xsd:string }?,
+        attribute path { xsd:string }?,
+        attribute node-identifier { xsd:string }?,
+        element process-id {
+          element uuid { empty }
+          | element socket {
+              attribute socket-process-id-max-ports { xsd:int }?,
+              attribute socket-binding { xsd:string }
+            }
+        }
+      },
+      element recovery-environment {
+        attribute recovery-listener { xsd:boolean }?,
+        attribute status-socket-binding { xsd:string }?,
+        attribute socket-binding { xsd:string }?
+      },
+      element coordinator-environment {
+        attribute default-timeout { xsd:int }?,
+        attribute enable-tsm-status { xsd:boolean }?,
+        attribute enable-statistics { xsd:boolean }?
+      }?,
+      element object-store {
+        attribute relative-to { xsd:string }?,
+        attribute path { xsd:string }?
+      }?,
+      element jts { empty }?,
+      (element use-hornetq-store { empty }
+       | empty
+       | element jdbc-store {
+           attribute datasource-jndi-name { xsd:string },
+           (element action { jdbc-store-settings-Type }?
+            & element communication { jdbc-store-settings-Type }?
+            & element state { jdbc-store-settings-Type }?)
+         })
+    }
+jdbc-store-settings-Type =
+  (attribute drop-table { xsd:boolean }?,
+   attribute table-prefix { xsd:string }?),
+  empty

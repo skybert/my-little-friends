@@ -1,0 +1,12 @@
+default namespace = "urn:jboss:domain:jmx:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element show-model {
+        attribute value { xsd:boolean }?
+      }?,
+      element remoting-connector {
+        attribute use-management-endpoint { xsd:boolean }?
+      }?
+    }

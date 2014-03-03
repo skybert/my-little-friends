@@ -1,0 +1,31 @@
+default namespace = "urn:jboss:domain:jgroups:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      attribute default-stack { xsd:string },
+      element stack {
+        attribute name { xsd:string },
+        element transport {
+          anonymous0,
+          attribute shared { xsd:boolean }?,
+          attribute diagnostics-socket-binding { xsd:string }?,
+          attribute default-executor { xsd:string }?,
+          attribute oob-executor { xsd:string }?,
+          attribute timer-executor { xsd:string }?,
+          attribute thread-factory { xsd:string }?,
+          attribute site { xsd:string }?,
+          attribute rack { xsd:string }?,
+          attribute machine { xsd:string }?
+        },
+        element protocol { anonymous0 }*
+      }+
+    }
+anonymous0 =
+  attribute socket-binding { xsd:string }?,
+  attribute type { xsd:string },
+  (notAllowed
+   | element property {
+       attribute name { xsd:string },
+       xsd:string
+     })*

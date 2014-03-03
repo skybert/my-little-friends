@@ -1,0 +1,16 @@
+default namespace = "urn:jboss:domain:jaxr:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element connection-factory {
+        attribute class { xsd:token }?,
+        attribute jndi-name { xsd:token }
+      }?,
+      element properties {
+        element property {
+          attribute value { text }?,
+          attribute name { text }
+        }+
+      }?
+    }

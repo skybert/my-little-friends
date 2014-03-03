@@ -1,0 +1,62 @@
+default namespace = ""
+namespace ns1 = "urn:jboss:ejb-client:1.2"
+
+start =
+  notAllowed
+  | element ns1:jboss-ejb-client {
+      element client-context {
+        attribute deployment-node-selector { xsd:string }?,
+        attribute invocation-timeout { xsd:long }?,
+        (element ejb-receivers {
+           attribute local-receiver-pass-by-value { xsd:boolean }?,
+           attribute exclude-local-receiver { xsd:boolean }?,
+           element remoting-ejb-receiver {
+             attribute connect-timeout { xsd:long }?,
+             attribute outbound-connection-ref { xsd:string },
+             element channel-creation-options {
+               channel-creation-optionsType
+             }*
+           }*
+         }
+         & element clusters {
+             element cluster {
+               attribute security-realm { xsd:string }?,
+               attribute username { xsd:string }?,
+               attribute cluster-node-selector { xsd:string }?,
+               attribute max-allowed-connected-nodes { xsd:long }?,
+               attribute connect-timeout { xsd:long }?,
+               attribute name { xsd:string },
+               (element channel-creation-options {
+                  channel-creation-optionsType
+                }
+                | element connection-creation-options {
+                    connection-creation-optionsType
+                  }
+                | element node {
+                    attribute security-realm { xsd:string }?,
+                    attribute username { xsd:string }?,
+                    attribute connect-timeout { xsd:long }?,
+                    attribute name { xsd:string },
+                    (element channel-creation-options {
+                       channel-creation-optionsType
+                     }
+                     | element connection-creation-options {
+                         connection-creation-optionsType
+                       })*
+                  }+)*
+             }*
+           })
+      }
+    }
+connection-creation-optionsType =
+  (notAllowed
+   | element property { propertyType })*,
+  empty
+propertyType =
+  (attribute value { xsd:string },
+   attribute name { xsd:string }),
+  empty
+channel-creation-optionsType =
+  (notAllowed
+   | element property { propertyType })*,
+  empty

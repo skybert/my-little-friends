@@ -1,0 +1,5 @@
+default namespace = "urn:jboss:domain:jaxrs:1.0"
+
+start =
+  notAllowed
+  | element subsystem { empty }

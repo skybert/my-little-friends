@@ -1,0 +1,12 @@
+default namespace = ""
+namespace ns1 = "urn:jboss:jboss-jpa:1.0"
+
+start =
+  notAllowed
+  | element ns1:jboss-jpa {
+      element extended-persistence {
+        attribute inheritance {
+          xsd:token "SHALLOW" | xsd:token "DEEP"
+        }?
+      }?
+    }

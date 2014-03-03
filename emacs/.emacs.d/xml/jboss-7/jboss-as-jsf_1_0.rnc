@@ -1,0 +1,7 @@
+default namespace = "urn:jboss:domain:jsf:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      attribute default-jsf-impl-slot { xsd:string }?
+    }

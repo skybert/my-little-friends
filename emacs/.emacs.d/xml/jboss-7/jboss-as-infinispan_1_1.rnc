@@ -1,0 +1,163 @@
+default namespace = "urn:jboss:domain:infinispan:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      attribute default-cache-container { xsd:string },
+      element cache-container {
+        attribute replication-queue-executor { xsd:string }?,
+        attribute eviction-executor { xsd:string }?,
+        attribute listener-executor { xsd:string }?,
+        attribute start { xsd:token "EAGER" | xsd:token "LAZY" }?,
+        attribute default-cache { xsd:string }?,
+        attribute jndi-name { xsd:string }?,
+        attribute aliases {
+          list { xsd:string* }
+        }?,
+        attribute name { xsd:string },
+        element transport {
+          attribute lock-timeout { xsd:long }?,
+          attribute executor { xsd:string }?,
+          attribute stack { xsd:string }?
+        }?,
+        (element local-cache { anonymous1 }
+         | element replicated-cache {
+             anonymous3,
+             element state-transfer { state-transfer }?
+           }
+         | element invalidation-cache { anonymous3 }
+         | element distributed-cache {
+             anonymous3,
+             element state-transfer { state-transfer }?,
+             attribute owners { xsd:int }?,
+             attribute virtual-nodes { xsd:int }?,
+             attribute l1-lifespan { xsd:long }?
+           })+
+      }+
+    }
+anonymous0 =
+  attribute batch-size { xsd:int }?,
+  attribute fetch-size { xsd:int }?,
+  (notAllowed
+   | element id-column {
+       attribute type { xsd:string }?,
+       attribute name { xsd:string }?
+     })?,
+  (notAllowed
+   | element data-column {
+       attribute type { xsd:string }?,
+       attribute name { xsd:string }?
+     })?,
+  (notAllowed
+   | element timestamp-column {
+       attribute type { xsd:string }?,
+       attribute name { xsd:string }?
+     })?
+anonymous1 =
+  attribute jndi-name { xsd:string }?,
+  attribute indexing {
+    xsd:token "LOCAL" | xsd:token "ALL" | xsd:token "NONE"
+  }?,
+  attribute batching { xsd:boolean }?,
+  attribute start { xsd:token "EAGER" | xsd:token "LAZY" }?,
+  attribute name { xsd:string },
+  (notAllowed
+   | element locking {
+       attribute concurrency-level { xsd:int }?,
+       attribute acquire-timeout { xsd:long }?,
+       attribute striping { xsd:boolean }?,
+       attribute isolation {
+         xsd:token "READ_UNCOMMITTED"
+         | xsd:token "SERIALIZABLE"
+         | xsd:token "READ_COMMITTED"
+         | xsd:token "REPEATABLE_READ"
+         | xsd:token "NONE"
+       }?
+     })?,
+  (notAllowed
+   | element transaction {
+       attribute locking {
+         xsd:token "PESSIMISTIC" | xsd:token "OPTIMISTIC"
+       }?,
+       attribute stop-timeout { xsd:long }?,
+       attribute mode {
+         xsd:token "NON_DURABLE_XA"
+         | xsd:token "NON_XA"
+         | xsd:token "FULL_XA"
+         | xsd:token "NONE"
+       }?
+     })?,
+  (notAllowed
+   | element eviction {
+       attribute max-entries { xsd:int }?,
+       attribute strategy {
+         xsd:token "FIFO"
+         | xsd:token "LIRS"
+         | xsd:token "LRU"
+         | xsd:token "UNORDERED"
+         | xsd:token "NONE"
+       }?
+     })?,
+  (notAllowed
+   | element expiration {
+       attribute interval { xsd:long }?,
+       attribute lifespan { xsd:long }?,
+       attribute max-idle { xsd:long }?
+     })?,
+  ((notAllowed
+    | element store {
+        anonymous2,
+        attribute class { xsd:string }
+      })
+   | (notAllowed
+      | element file-store {
+          anonymous2,
+          attribute relative-to { xsd:string }?,
+          attribute path { xsd:string }?
+        })
+   | (notAllowed
+      | element jdbc-store {
+          anonymous2,
+          element bucket-table {
+            anonymous0,
+            attribute prefix { xsd:string }?
+          }?,
+          element entry-table {
+            anonymous0,
+            attribute prefix { xsd:string }?
+          }?,
+          attribute datasource { xsd:string }
+        })
+   | (notAllowed
+      | element remote-store {
+          anonymous2,
+          element remote-server {
+            attribute outbound-socket-binding { xsd:string }
+          }+,
+          attribute cache { xsd:string }?,
+          attribute socket-timeout { xsd:long }?,
+          attribute tcp-no-delay { xsd:boolean }?
+        }))?
+state-transfer =
+  (attribute chunk-size { xsd:integer }?,
+   attribute timeout { xsd:long }?,
+   attribute enabled { xsd:boolean }?),
+  empty
+anonymous2 =
+  attribute singleton { xsd:boolean }?,
+  attribute purge { xsd:boolean }?,
+  attribute fetch-state { xsd:boolean }?,
+  attribute passivation { xsd:boolean }?,
+  attribute preload { xsd:boolean }?,
+  attribute shared { xsd:boolean }?,
+  (notAllowed
+   | element property {
+       attribute name { xsd:string },
+       xsd:string
+     })*
+anonymous3 =
+  anonymous1,
+  attribute mode { xsd:token "SYNC" | xsd:token "ASYNC" },
+  attribute queue-size { xsd:int }?,
+  attribute queue-flush-interval { xsd:long }?,
+  attribute remote-timeout { xsd:long }?

@@ -1,0 +1,75 @@
+default namespace = "urn:jboss:domain:threads:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      (element thread-factory {
+         attribute priority {
+           xsd:integer { minInclusive = "1" maxInclusive = "10" }
+         }?,
+         attribute thread-name-pattern { xsd:string }?,
+         attribute group-name { xsd:string }?,
+         attribute name { xsd:string },
+         element properties { properties }?
+       }
+       | element unbounded-queue-thread-pool {
+           attribute name { xsd:string },
+           (element max-threads { scaled-count }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?
+            & element properties { properties }?)
+         }
+       | element bounded-queue-thread-pool {
+           attribute blocking { xsd:boolean }?,
+           attribute allow-core-timeout { xsd:boolean }?,
+           attribute name { xsd:string },
+           (element core-threads { scaled-count }?
+            & element queue-length { scaled-count }
+            & element max-threads { scaled-count }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?
+            & element handoff-executor { ref }?
+            & element properties { properties }?)
+         }
+       | element queueless-thread-pool {
+           attribute blocking { xsd:boolean }?,
+           attribute name { xsd:string },
+           (element max-threads { scaled-count }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?
+            & element handoff-executor { ref }?
+            & element properties { properties }?)
+         }
+       | element scheduled-thread-pool {
+           attribute name { xsd:string },
+           (element max-threads { scaled-count }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?
+            & element properties { properties }?)
+         })*
+    }
+scaled-count =
+  (attribute per-cpu { xsd:float }?,
+   attribute count { xsd:float }?),
+  empty
+time =
+  (attribute unit {
+     xsd:token "minutes"
+     | xsd:token "days"
+     | xsd:token "seconds"
+     | xsd:token "hours"
+     | xsd:token "nanoseconds"
+     | xsd:token "milliseconds"
+   },
+   attribute time { xsd:long }),
+  empty
+ref =
+  attribute name { xsd:string },
+  empty
+properties =
+  (notAllowed
+   | element property {
+       attribute value { xsd:string }?,
+       attribute name { xsd:string }
+     })*,
+  empty

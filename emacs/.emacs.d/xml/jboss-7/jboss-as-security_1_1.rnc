@@ -1,0 +1,132 @@
+default namespace = "urn:jboss:domain:security:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element security-management {
+        attribute deep-copy-subject-mode { xsd:boolean }?
+      }?
+      & element security-domains {
+          element security-domain {
+            attribute cache-type {
+              xsd:token "default" | xsd:token "infinispan"
+            }?,
+            attribute name { xsd:string },
+            (element authentication {
+               element login-module { loginModuleType }+
+             }
+             | empty
+             | element authentication-jaspi {
+                 element login-module-stack {
+                   attribute name { xsd:string },
+                   element login-module { loginModuleType }+
+                 }+,
+                 element auth-module {
+                   attribute module { xsd:string }?,
+                   attribute login-module-stack-ref { xsd:string }?,
+                   attribute code { xsd:string },
+                   element module-option { propertyType }*
+                 }+
+               }),
+            element authorization {
+              element policy-module {
+                attribute module { xsd:string }?,
+                attribute flag {
+                  xsd:token "sufficient"
+                  | xsd:token "requisite"
+                  | xsd:token "optional"
+                  | xsd:token "required"
+                },
+                attribute code { xsd:string },
+                element module-option { propertyType }*
+              }+
+            }?,
+            element acl {
+              element acl-module {
+                attribute module { xsd:string }?,
+                attribute flag {
+                  xsd:token "sufficient"
+                  | xsd:token "requisite"
+                  | xsd:token "optional"
+                  | xsd:token "required"
+                },
+                attribute code { xsd:string },
+                element module-option { propertyType }*
+              }+
+            }?,
+            element mapping {
+              element mapping-module {
+                attribute module { xsd:string }?,
+                attribute code { xsd:string },
+                attribute type { xsd:string }?,
+                element module-option { propertyType }*
+              }+
+            }?,
+            element audit {
+              element provider-module {
+                attribute module { xsd:string }?,
+                attribute code { xsd:string },
+                element module-option { propertyType }*
+              }+
+            }?,
+            element identity-trust {
+              element trust-module {
+                attribute module { xsd:string }?,
+                attribute flag {
+                  xsd:token "sufficient"
+                  | xsd:token "requisite"
+                  | xsd:token "optional"
+                  | xsd:token "required"
+                },
+                attribute code { xsd:string },
+                element module-option { propertyType }*
+              }+
+            }?,
+            element jsse {
+              attribute protocols { xsd:string }?,
+              attribute cipher-suites { xsd:string }?,
+              attribute client-auth { xsd:boolean }?,
+              attribute service-auth-token { xsd:string }?,
+              attribute server-alias { xsd:string }?,
+              attribute client-alias { xsd:string }?,
+              attribute trust-manager-factory-provider { xsd:string }?,
+              attribute trust-manager-factory-algorithm { xsd:string }?,
+              attribute truststore-provider-argument { xsd:string }?,
+              attribute truststore-provider { xsd:string }?,
+              attribute truststore-url { xsd:string }?,
+              attribute truststore-type { xsd:string }?,
+              attribute truststore-password { xsd:string }?,
+              attribute key-manager-factory-provider { xsd:string }?,
+              attribute key-manager-factory-algorithm { xsd:string }?,
+              attribute keystore-provider-argument { xsd:string }?,
+              attribute keystore-provider { xsd:string }?,
+              attribute keystore-url { xsd:string }?,
+              attribute keystore-type { xsd:string }?,
+              attribute keystore-password { xsd:string }?,
+              element additional-properties {
+                element property { propertyType }+
+              }?
+            }?
+          }*
+        }?
+      & element vault {
+          attribute code { xsd:string }?,
+          element vault-option { propertyType }*
+        }?
+    }
+propertyType =
+  (attribute value { xsd:string },
+   attribute name { xsd:string }),
+  empty
+loginModuleType =
+  (attribute module { xsd:string }?,
+   attribute flag {
+     xsd:token "sufficient"
+     | xsd:token "requisite"
+     | xsd:token "optional"
+     | xsd:token "required"
+   },
+   attribute code { xsd:string },
+   (notAllowed
+    | element module-option { propertyType })*),
+  empty

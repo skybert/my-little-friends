@@ -1,0 +1,45 @@
+default namespace = "urn:jboss:cli:1.1"
+
+start =
+  history
+  | default-controller
+  | ssl
+  | (notAllowed
+     | element jboss-cli {
+         default-controller?,
+         validate-operation-requests?,
+         history?,
+         ssl?
+       })
+  | validate-operation-requests
+int = xsd:int
+boolean = xsd:boolean
+default-controller =
+  notAllowed
+  | element default-controller {
+      element host { \string }?,
+      element port { int }?
+    }
+\string = xsd:string
+history =
+  notAllowed
+  | element history {
+      element enabled { boolean }?,
+      element file-name { \string }?,
+      element file-dir { \string }?,
+      element max-size { int }?
+    }
+ssl =
+  notAllowed
+  | element ssl {
+      element key-store { \string }?,
+      element key-store-password { \string }?,
+      element alias { \string }?,
+      element key-password { \string }?,
+      element trust-store { \string }?,
+      element trust-store-password { \string }?,
+      element modify-trust-store { boolean }?
+    }
+validate-operation-requests =
+  notAllowed
+  | element validate-operation-requests { boolean }

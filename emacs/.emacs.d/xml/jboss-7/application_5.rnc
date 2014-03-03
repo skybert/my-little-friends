@@ -1,0 +1,51 @@
+default namespace = "http://java.sun.com/xml/ns/javaee"
+
+start =
+  notAllowed
+  | element application {
+      attribute id { xsd:ID }?,
+      attribute version { xsd:token "5" },
+      element description { descriptionType }*,
+      element display-name { lang?, anonymous0 }*,
+      element icon {
+        attribute id { xsd:ID }?,
+        lang?,
+        element small-icon { pathType }?,
+        element large-icon { pathType }?
+      }*,
+      element module {
+        attribute id { xsd:ID }?,
+        (element connector { pathType }
+         | element ejb { pathType }
+         | element java { pathType }
+         | element web {
+             attribute id { xsd:ID }?,
+             element web-uri { pathType },
+             element context-root { anonymous0 }
+           }),
+        element alt-dd { pathType }?
+      }+,
+      element security-role {
+        attribute id { xsd:ID }?,
+        element description { descriptionType }*,
+        element role-name {
+          xsd:token,
+          attribute id { ID }?
+        }
+      }*,
+      element library-directory { pathType }?
+    }
+pathType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+anonymous0 =
+  attribute id { ID }?,
+  xsd:token
+ID = xsd:ID
+lang = attribute xml:lang { xsd:language | xsd:string "" }
+descriptionType =
+  (lang?,
+   (attribute id { xsd:ID }?,
+    xsd:string)),
+  empty

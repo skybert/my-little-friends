@@ -1,0 +1,204 @@
+default namespace = "urn:jboss:domain:threads:1.1"
+namespace ns1 = "urn:jboss:domain:ejb3:1.2"
+
+start =
+  (notAllowed
+   | element ns1:subsystem {
+       element ns1:session-bean {
+         element ns1:stateless {
+           element ns1:bean-instance-pool-ref {
+             bean-instance-pool-refType
+           }?
+         }?
+         & element ns1:stateful {
+             attribute clustered-cache-ref { xsd:string }?,
+             attribute cache-ref { xsd:string }?,
+             attribute default-access-timeout { xsd:positiveInteger }?
+           }?
+         & element ns1:singleton {
+             attribute default-access-timeout { xsd:positiveInteger }?
+           }?
+       }?
+       & element ns1:mdb {
+           element ns1:resource-adapter-ref {
+             attribute resource-adapter-name { xsd:string }
+           }?
+           & element ns1:bean-instance-pool-ref {
+               bean-instance-pool-refType
+             }?
+         }?
+       & element ns1:entity-bean {
+           element ns1:bean-instance-pool-ref {
+             bean-instance-pool-refType
+           }?
+           & element ns1:optimistic-locking {
+               attribute enabled { xsd:boolean }
+             }?
+         }?
+       & element ns1:pools {
+           element ns1:bean-instance-pools {
+             element ns1:strict-max-pool {
+               attribute instance-acquisition-timeout-unit {
+                 xsd:token "MILLISECONDS"
+                 | xsd:token "MINUTES"
+                 | xsd:token "DAYS"
+                 | xsd:token "SECONDS"
+                 | xsd:token "MICROSECONDS"
+                 | xsd:token "NANOSECONDS"
+                 | xsd:token "HOURS"
+               }?,
+               attribute instance-acquisition-timeout {
+                 xsd:positiveInteger
+               }?,
+               attribute max-pool-size { xsd:positiveInteger }?,
+               attribute name { xsd:string }
+             }*
+           }?
+         }?
+       & element ns1:caches {
+           element ns1:cache {
+             attribute aliases {
+               list { xsd:string* }
+             }?,
+             attribute passivation-store-ref { xsd:string }?,
+             attribute name { xsd:string }
+           }*
+         }?
+       & element ns1:passivation-stores {
+           (element ns1:file-passivation-store {
+              attribute subdirectory-count { xsd:positiveInteger }?,
+              attribute groups-path { xsd:string }?,
+              attribute sessions-path { xsd:string }?,
+              attribute relative-to { xsd:string }?,
+              attribute max-size { xsd:positiveInteger }?,
+              passivation-common
+            }
+            | element ns1:cluster-passivation-store {
+                attribute client-mappings-cache { xsd:string }?,
+                attribute bean-cache { xsd:string }?,
+                attribute cache-container { xsd:string }?,
+                attribute passivate-events-on-replicate {
+                  xsd:boolean
+                }?,
+                attribute max-size { xsd:positiveInteger }?,
+                passivation-common
+              })*
+         }?
+       & element ns1:async {
+           attribute thread-pool-name { xsd:token }
+         }?
+       & element ns1:timer-service {
+           attribute thread-pool-name { xsd:token },
+           element ns1:data-store {
+             attribute relative-to { xsd:string }?,
+             attribute path { xsd:string }?
+           }?
+         }?
+       & element ns1:remote {
+           attribute thread-pool-name { xsd:token },
+           attribute connector-ref { xsd:string }
+         }?
+       & element ns1:thread-pools {
+           element ns1:thread-pool {
+             attribute name { xsd:string },
+             (element ns1:max-threads { countType }
+              & element ns1:keepalive-time { time }?
+              & element ns1:thread-factory { ref }?)
+           }*
+         }?
+       & element ns1:iiop {
+           attribute use-qualified-name { xsd:boolean },
+           attribute enable-by-default { xsd:boolean }
+         }?
+       & element ns1:in-vm-remote-interface-invocation {
+           attribute pass-by-value { xsd:boolean }
+         }?
+     })
+  | (notAllowed
+     | element subsystem {
+         (element thread-factory {
+            attribute priority {
+              xsd:integer { minInclusive = "1" maxInclusive = "10" }
+            }?,
+            attribute thread-name-pattern { xsd:string }?,
+            attribute group-name { xsd:string }?,
+            attribute name { xsd:string }
+          }
+          | element unbounded-queue-thread-pool {
+              attribute name { xsd:string },
+              (element max-threads { countType }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?)
+            }
+          | element bounded-queue-thread-pool {
+              attribute blocking { xsd:boolean }?,
+              attribute allow-core-timeout { xsd:boolean }?,
+              attribute name { xsd:string },
+              (element core-threads { countType }?
+               & element queue-length { countType }
+               & element max-threads { countType }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?
+               & element handoff-executor { ref }?)
+            }
+          | element blocking-bounded-queue-thread-pool {
+              attribute allow-core-timeout { xsd:boolean }?,
+              attribute name { xsd:string },
+              (element core-threads { countType }?
+               & element queue-length { countType }
+               & element max-threads { countType }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?)
+            }
+          | element queueless-thread-pool {
+              attribute name { xsd:string },
+              (element max-threads { countType }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?
+               & element handoff-executor { ref }?)
+            }
+          | element blocking-queueless-thread-pool {
+              attribute name { xsd:string },
+              (element max-threads { countType }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?)
+            }
+          | element scheduled-thread-pool {
+              attribute name { xsd:string },
+              (element max-threads { countType }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?)
+            })*
+       })
+bean-instance-pool-refType =
+  attribute pool-name { xsd:string },
+  empty
+passivation-common =
+  attribute idle-timeout-unit {
+    xsd:token "MILLISECONDS"
+    | xsd:token "MINUTES"
+    | xsd:token "DAYS"
+    | xsd:token "SECONDS"
+    | xsd:token "MICROSECONDS"
+    | xsd:token "NANOSECONDS"
+    | xsd:token "HOURS"
+  }?,
+  attribute idle-timeout { xsd:positiveInteger }?,
+  attribute name { xsd:string }
+ref =
+  attribute name { xsd:string },
+  empty
+time =
+  (attribute unit {
+     xsd:token "minutes"
+     | xsd:token "days"
+     | xsd:token "seconds"
+     | xsd:token "hours"
+     | xsd:token "nanoseconds"
+     | xsd:token "milliseconds"
+   },
+   attribute time { xsd:long }),
+  empty
+countType =
+  attribute count { xsd:int },
+  empty

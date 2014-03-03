@@ -1,0 +1,9 @@
+default namespace = "urn:jboss:domain:xts:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element xts-environment {
+        attribute url { xsd:string }?
+      }?
+    }

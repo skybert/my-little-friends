@@ -1,0 +1,156 @@
+default namespace = "urn:jboss:domain:web:1.5"
+
+start =
+  valve
+  | virtual-server
+  | connector
+  | (notAllowed
+     | element subsystem {
+         attribute native { xsd:boolean }?,
+         attribute instance-id { text }?,
+         attribute default-virtual-server { text }?,
+         element configuration {
+           element static-resources {
+             attribute disabled { xsd:boolean }?,
+             attribute max-depth { text }?,
+             attribute secret { text }?,
+             attribute webdav { xsd:boolean }?,
+             attribute read-only { xsd:boolean }?,
+             attribute file-encoding { text }?,
+             attribute sendfile { text }?,
+             attribute listings { xsd:boolean }?
+           }?,
+           element jsp-configuration {
+             attribute display-source-fragment { xsd:boolean }?,
+             attribute x-powered-by { xsd:boolean }?,
+             attribute java-encoding { text }?,
+             attribute target-vm { text }?,
+             attribute source-vm { text }?,
+             attribute scratch-dir { text }?,
+             attribute error-on-use-bean-invalid-class-attribute {
+               xsd:boolean
+             }?,
+             attribute generate-strings-as-char-arrays { xsd:boolean }?,
+             attribute dump-smap { xsd:boolean }?,
+             attribute smap { xsd:boolean }?,
+             attribute recompile-on-fail { xsd:boolean }?,
+             attribute modification-test-interval { text }?,
+             attribute check-interval { text }?,
+             attribute mapped-file { xsd:boolean }?,
+             attribute tag-pooling { xsd:boolean }?,
+             attribute trim-spaces { xsd:boolean }?,
+             attribute keep-generated { xsd:boolean }?,
+             attribute disabled { xsd:boolean }?,
+             attribute development { xsd:boolean }?
+           }?,
+           element mime-mapping {
+             attribute value { text }?,
+             attribute name { text }
+           }*,
+           element welcome-file { xsd:string }*
+         }?,
+         connector+,
+         virtual-server+,
+         valve*
+       })
+virtual-server =
+  notAllowed
+  | element virtual-server {
+      attribute default-web-module { text }?,
+      attribute enable-welcome-root { xsd:boolean }?,
+      attribute name { text },
+      element alias {
+        attribute name { xsd:string }
+      }*,
+      element access-log {
+        attribute rotate { xsd:boolean }?,
+        attribute prefix { text }?,
+        attribute extended { xsd:boolean }?,
+        attribute resolve-hosts { xsd:boolean }?,
+        attribute pattern { text }?,
+        element directory {
+          attribute relative-to { xsd:string }?,
+          attribute path { xsd:string }?
+        }
+      }?,
+      element rewrite {
+        attribute flags { text },
+        attribute substitution { text },
+        attribute pattern { text },
+        attribute name { text }?,
+        element condition {
+          attribute flags { text },
+          attribute pattern { text },
+          attribute test { text },
+          attribute name { text }?
+        }
+      }?,
+      element sso {
+        attribute reauthenticate { xsd:boolean }?,
+        attribute domain { xsd:string }?,
+        attribute cache-name { xsd:string }?,
+        attribute cache-container { xsd:string }?
+      }?,
+      valve*
+    }
+valve =
+  notAllowed
+  | element valve {
+      attribute enabled { xsd:boolean }?,
+      attribute module { xsd:string },
+      attribute class-name { xsd:string },
+      element param {
+        attribute param-value { text }?,
+        attribute param-name { text }
+      }*
+    }
+connector =
+  notAllowed
+  | element connector {
+      attribute max-connections { text }?,
+      attribute executor { xsd:string }?,
+      attribute enabled { xsd:boolean }?,
+      attribute max-save-post-size { text }?,
+      attribute max-post-size { text }?,
+      attribute secure { xsd:boolean }?,
+      attribute redirect-port { text }?,
+      attribute proxy-port { text }?,
+      attribute proxy-name { text }?,
+      attribute enable-lookups { xsd:boolean }?,
+      attribute socket-binding { text },
+      attribute scheme { text },
+      attribute protocol { text },
+      attribute name { text },
+      element ssl {
+        attribute ssl-protocol { xsd:string }?,
+        attribute session-timeout { text }?,
+        attribute session-cache-size { text }?,
+        attribute truststore-type {
+          xsd:token "PKCS12" | xsd:token "JKS"
+        }?,
+        attribute keystore-type {
+          xsd:token "PKCS12" | xsd:token "JKS"
+        }?,
+        attribute ca-certificate-password { text }?,
+        attribute ca-revocation-url { text }?,
+        attribute ca-certificate-file { text }?,
+        attribute certificate-file { text }?,
+        attribute verify-depth { text }?,
+        attribute verify-client { text }?,
+        attribute protocol {
+          xsd:token "TLSv1"
+          | xsd:token "SSLv2"
+          | xsd:token "ALL"
+          | xsd:token "SSLv3"
+          | xsd:token "SSLv2+SSLv3"
+        }?,
+        attribute cipher-suite { text }?,
+        attribute certificate-key-file { text }?,
+        attribute password { text }?,
+        attribute key-alias { xsd:string }?,
+        attribute name { xsd:string }
+      }?,
+      element virtual-server {
+        attribute name { xsd:string }
+      }*
+    }

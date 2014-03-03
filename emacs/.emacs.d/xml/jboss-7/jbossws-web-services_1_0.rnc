@@ -1,0 +1,30 @@
+default namespace = "http://www.jboss.com/xml/ns/javaee"
+
+start =
+  notAllowed
+  | element webservices {
+      element context-root { \token }?,
+      element config-name { \token }?,
+      element config-file { \token }?,
+      element port-component { portComponentType }*,
+      element webservice-description {
+        element webservice-description-name { \token },
+        element wsdl-publish-location { \token }?,
+        element port-component { portComponentType }+
+      }*
+    }
+portComponentType =
+  ((notAllowed
+    | element ejb-name { \token }),
+   (notAllowed
+    | element port-component-name { \token }),
+   (notAllowed
+    | element port-component-uri { \token })?,
+   (notAllowed
+    | element auth-method { \token })?,
+   (notAllowed
+    | element transport-guarantee { \token })?,
+   (notAllowed
+    | element secure-wsdl-access { xsd:boolean })?),
+  empty
+\token = xsd:token

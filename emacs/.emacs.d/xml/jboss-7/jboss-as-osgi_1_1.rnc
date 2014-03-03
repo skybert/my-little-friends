@@ -1,0 +1,26 @@
+default namespace = "urn:jboss:domain:osgi:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      attribute activation { xsd:token "eager" | xsd:token "lazy" }?,
+      element configuration {
+        attribute pid { xsd:string },
+        element property {
+          attribute value { xsd:string },
+          attribute name { xsd:string }
+        }*
+      }*,
+      element properties {
+        element property {
+          attribute name { xsd:string },
+          xsd:string
+        }*
+      }?,
+      element capabilities {
+        element capability {
+          attribute startlevel { xsd:integer }?,
+          attribute name { xsd:string }
+        }*
+      }?
+    }

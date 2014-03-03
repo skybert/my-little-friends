@@ -1,0 +1,34 @@
+default namespace = "urn:jboss:domain:webservices:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element modify-wsdl-address { xsd:boolean }?,
+      element wsdl-host { xsd:string }?,
+      element wsdl-port { int }?,
+      element wsdl-secure-port { int }?,
+      element endpoint-config {
+        attribute name { xsd:NMTOKEN },
+        element pre-handler-chain { handlerChainType }*,
+        element post-handler-chain { handlerChainType }*,
+        element property {
+          attribute value { xsd:string }?,
+          attribute name { xsd:NMTOKEN }
+        }*
+      }*
+    }
+handlerChainType =
+  (attribute protocol-bindings {
+     list {
+       (xsd:anyURI
+        | xsd:token { pattern = "##.+" })*
+     }
+   }?,
+   attribute name { xsd:NMTOKEN },
+   (notAllowed
+    | element handler {
+        attribute class { xsd:token },
+        attribute name { xsd:NMTOKEN }
+      })+),
+  empty
+int = xsd:int

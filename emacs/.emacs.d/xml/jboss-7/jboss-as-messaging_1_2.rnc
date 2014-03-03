@@ -1,0 +1,435 @@
+default namespace = "urn:jboss:domain:messaging:1.2"
+
+start =
+  group-address
+  | group-port
+  | (notAllowed
+     | element subsystem {
+         element hornetq-server {
+           attribute name { xsd:string }?,
+           (element clustered { boolean }?
+            & element persistence-enabled { boolean }?
+            & element scheduled-thread-pool-max-size { int }?
+            & element thread-pool-max-size { int }?
+            & element security-domain { \string }?
+            & element security-enabled { boolean }?
+            & element security-invalidation-interval { long }?
+            & element wild-card-routing-enabled { boolean }?
+            & element management-address { \string }?
+            & element management-notification-address { \string }?
+            & element cluster-user { \string }?
+            & element cluster-password { \string }?
+            & element jmx-management-enabled { boolean }?
+            & element jmx-domain { \string }?
+            & element message-counter-enabled { boolean }?
+            & element message-counter-sample-period { long }?
+            & element message-counter-max-day-history { int }?
+            & element connection-ttl-override { long }?
+            & element async-connection-execution-enabled { boolean }?
+            & element transaction-timeout { long }?
+            & element transaction-timeout-scan-period { long }?
+            & element message-expiry-scan-period { long }?
+            & element message-expiry-thread-priority { int }?
+            & element id-cache-size { int }?
+            & element persist-id-cache { boolean }?
+            & element remoting-interceptors {
+                element class-name { \string }+
+              }?
+            & element backup { boolean }?
+            & element allow-failback { boolean }?
+            & element failback-delay { long }?
+            & element failover-on-shutdown { boolean }?
+            & element shared-store { boolean }?
+            & element persist-delivery-count-before-delivery {
+                boolean
+              }?
+            & element live-connector-ref {
+                attribute connector-name { xsd:string }
+              }?
+            & element page-max-concurrent-io { int }?
+            & element create-bindings-dir { boolean }?
+            & element create-journal-dir { boolean }?
+            & element journal-type {
+                xsd:token "NIO" | xsd:token "ASYNCIO"
+              }?
+            & element journal-buffer-timeout { long }?
+            & element journal-buffer-size { long }?
+            & element journal-sync-transactional { boolean }?
+            & element journal-sync-non-transactional { boolean }?
+            & element log-journal-write-rate { boolean }?
+            & element journal-file-size { long }?
+            & element journal-min-files { int }?
+            & element journal-compact-percentage { int }?
+            & element journal-compact-min-files { int }?
+            & element journal-max-io { int }?
+            & element perf-blast-pages { int }?
+            & element run-sync-speed-test { boolean }?
+            & element server-dump-interval { long }?
+            & element memory-warning-threshold { int }?
+            & element memory-measure-interval { long }?
+            & element paging-directory { directoryType }?
+            & element bindings-directory { directoryType }?
+            & element journal-directory { directoryType }?
+            & element large-messages-directory { directoryType }?
+            & element connectors {
+                element netty-connector {
+                  anonymous1,
+                  attribute socket-binding { xsd:string }
+                }*,
+                element in-vm-connector {
+                  anonymous1,
+                  attribute server-id { xsd:int }?
+                }*,
+                element connector {
+                  anonymous1,
+                  element factory-class { \string },
+                  attribute socket-binding { xsd:string }?
+                }*
+              }?
+            & element acceptors {
+                element netty-acceptor {
+                  anonymous0,
+                  attribute socket-binding { xsd:string }
+                }*,
+                element in-vm-acceptor {
+                  anonymous0,
+                  attribute server-id { xsd:int }?
+                }*,
+                element acceptor {
+                  anonymous0,
+                  element factory-class { \string },
+                  attribute socket-binding { xsd:string }?
+                }*
+              }?
+            & element broadcast-groups {
+                element broadcast-group {
+                  attribute name { xsd:string },
+                  (element socket-binding { \string }
+                   | (local-bind-address?,
+                      local-bind-port?,
+                      group-address,
+                      group-port)),
+                  broadcast-period?,
+                  element connector-ref { \string }*
+                }*
+              }?
+            & element discovery-groups {
+                element discovery-group {
+                  attribute name { xsd:string },
+                  (element socket-binding { \string }
+                   | (local-bind-address?, group-address, group-port)),
+                  element refresh-timeout { int }?,
+                  initial-wait-timeout?
+                }*
+              }?
+            & element diverts {
+                element divert {
+                  attribute name { xsd:string },
+                  element routing-name { \string }?,
+                  element address { \string },
+                  element forwarding-address { \string },
+                  element filter {
+                    attribute string { xsd:string }
+                  }?,
+                  element transformer-class-name { \string }?,
+                  element exclusive { boolean }?
+                }*
+              }?
+            & element core-queues {
+                element queue {
+                  attribute name { xsd:string },
+                  (element address { \string }
+                   & element filter {
+                       attribute string { xsd:string }
+                     }?
+                   & element durable { boolean }?)
+                }*
+              }?
+            & element bridges {
+                element bridge {
+                  attribute name { xsd:string },
+                  element queue-name { \string },
+                  element forwarding-address { \string }?,
+                  element ha { boolean }?,
+                  element filter {
+                    attribute string { xsd:string }
+                  }?,
+                  element transformer-class-name { \string }?,
+                  element min-large-message-size { int }?,
+                  element check-period { long }?,
+                  element connection-ttl { long }?,
+                  element retry-interval { long }?,
+                  element retry-interval-multiplier { double }?,
+                  element max-retry-interval { long }?,
+                  element reconnect-attempts { int }?,
+                  element failover-on-server-shutdown { boolean }?,
+                  element use-duplicate-detection { boolean }?,
+                  element confirmation-window-size { int }?,
+                  element user { \string }?,
+                  element password { \string }?,
+                  (element static-connectors {
+                     element connector-ref { \string }+
+                   }
+                   | element discovery-group-ref {
+                       discovery-group-refType
+                     })
+                }*
+              }?
+            & element cluster-connections {
+                element cluster-connection {
+                  attribute name { xsd:string },
+                  element address { \string },
+                  element connector-ref { \string },
+                  element check-period { long }?,
+                  element connection-ttl { long }?,
+                  element min-large-message-size { int }?,
+                  element call-timeout { long }?,
+                  element retry-interval { long }?,
+                  element retry-interval-multiplier { double }?,
+                  element max-retry-interval { long }?,
+                  element reconnect-attempts { long }?,
+                  element use-duplicate-detection { boolean }?,
+                  element forward-when-no-consumers { boolean }?,
+                  element max-hops { int }?,
+                  element confirmation-window-size { int }?,
+                  (element static-connectors {
+                     attribute allow-direct-connections-only {
+                       xsd:boolean
+                     }?,
+                     element connector-ref { \string }*
+                   }
+                   | empty
+                   | element discovery-group-ref {
+                       discovery-group-refType
+                     })
+                }*
+              }?
+            & element grouping-handler {
+                attribute name { xsd:string },
+                element type { xsd:token "REMOTE" | xsd:token "LOCAL" },
+                element address { \string },
+                element timeout { int }?
+              }?
+            & element security-settings {
+                element security-setting {
+                  attribute match { xsd:string },
+                  element permission {
+                    attribute roles { xsd:string },
+                    attribute type { xsd:string }
+                  }*
+                }*
+              }?
+            & element address-settings {
+                element address-setting {
+                  attribute match { xsd:string },
+                  (element dead-letter-address { \string }?
+                   & element expiry-address { \string }?
+                   & element redelivery-delay { long }?
+                   & element max-delivery-attempts { int }?
+                   & element max-size-bytes { long }?
+                   & element page-size-bytes { long }?
+                   & element page-max-cache-size { int }?
+                   & element address-full-policy {
+                       xsd:token "PAGE"
+                       | xsd:token "DROP"
+                       | xsd:token "BLOCK"
+                     }?
+                   & element message-counter-history-day-limit { int }?
+                   & element last-value-queue { boolean }?
+                   & element redistribution-delay { long }?
+                   & element send-to-dla-on-no-route { boolean }?)
+                }*
+              }?
+            & element connector-services {
+                element connector-service {
+                  attribute name { xsd:string }?,
+                  element factory-class { \string },
+                  element param { paramType }*
+                }*
+              }?
+            & element jms-connection-factories {
+                element connection-factory {
+                  attribute name { xsd:string }?,
+                  (element factory-type {
+                     xsd:token "XA_QUEUE"
+                     | xsd:token "XA_GENERIC"
+                     | xsd:token "XA_TOPIC"
+                     | xsd:token "GENERIC"
+                     | xsd:token "TOPIC"
+                     | xsd:token "QUEUE"
+                   }?
+                   & element discovery-group-ref {
+                       discovery-group-refType
+                     }?
+                   & element connectors {
+                       element connector-ref { connector-refType }+
+                     }?
+                   & element entries {
+                       element entry { entryType }+
+                     }?
+                   & element ha { boolean }?
+                   & element client-failure-check-period { long }?
+                   & element connection-ttl { long }?
+                   & element call-timeout { long }?
+                   & element consumer-window-size { int }?
+                   & element consumer-max-rate { int }?
+                   & element confirmation-window-size { int }?
+                   & element producer-window-size { int }?
+                   & element producer-max-rate { int }?
+                   & element cache-large-message-client { boolean }?
+                   & element min-large-message-size { long }?
+                   & element client-id { \string }?
+                   & element dups-ok-batch-size { int }?
+                   & element transaction-batch-size { int }?
+                   & element block-on-acknowledge { boolean }?
+                   & element block-on-non-durable-send { boolean }?
+                   & element block-on-durable-send { boolean }?
+                   & element auto-group { boolean }?
+                   & element pre-acknowledge { boolean }?
+                   & element retry-interval { long }?
+                   & element retry-interval-multiplier { float }?
+                   & element max-retry-interval { long }?
+                   & element reconnect-attempts { int }?
+                   & element failover-on-initial-connection { boolean }?
+                   & element failover-on-server-shutdown { boolean }?
+                   & element connection-load-balancing-policy-class-name {
+                       \string
+                     }?
+                   & element use-global-pools { boolean }?
+                   & element scheduled-thread-pool-max-size { int }?
+                   & element thread-pool-max-size { int }?
+                   & element group-id { \string }?)
+                }*,
+                element pooled-connection-factory {
+                  attribute name { xsd:string }?,
+                  (element inbound-config {
+                     element use-jndi { boolean }?,
+                     element jndi-params { \string }?,
+                     element use-local-tx { boolean }?,
+                     element setup-attempts { xsd:integer }?,
+                     element setup-interval { long }?
+                   }?
+                   & element transaction {
+                       attribute mode {
+                         xsd:token "none"
+                         | xsd:token "xa"
+                         | xsd:token "local"
+                       }
+                     }?
+                   & element user { \string }?
+                   & element password { \string }?
+                   & element min-pool-size { int }?
+                   & element max-pool-size { int }?
+                   & element discovery-group-ref {
+                       discovery-group-refType
+                     }?
+                   & element connectors {
+                       element connector-ref { connector-refType }+
+                     }?
+                   & element entries {
+                       element entry { entryType }+
+                     }?
+                   & element ha { boolean }?
+                   & element client-failure-check-period { long }?
+                   & element connection-ttl { long }?
+                   & element call-timeout { long }?
+                   & element consumer-window-size { int }?
+                   & element consumer-max-rate { int }?
+                   & element confirmation-window-size { int }?
+                   & element producer-window-size { int }?
+                   & element producer-max-rate { int }?
+                   & element cache-large-message-client { boolean }?
+                   & element min-large-message-size { long }?
+                   & element client-id { \string }?
+                   & element dups-ok-batch-size { int }?
+                   & element transaction-batch-size { int }?
+                   & element block-on-acknowledge { boolean }?
+                   & element block-on-non-durable-send { boolean }?
+                   & element block-on-durable-send { boolean }?
+                   & element auto-group { boolean }?
+                   & element pre-acknowledge { boolean }?
+                   & element retry-interval { long }?
+                   & element retry-interval-multiplier { float }?
+                   & element max-retry-interval { long }?
+                   & element reconnect-attempts { int }?
+                   & element failover-on-initial-connection { boolean }?
+                   & element failover-on-server-shutdown { boolean }?
+                   & element connection-load-balancing-policy-class-name {
+                       \string
+                     }?
+                   & element use-global-pools { boolean }?
+                   & element scheduled-thread-pool-max-size { int }?
+                   & element thread-pool-max-size { int }?
+                   & element group-id { \string }?)
+                }*
+              }?
+            & element jms-destinations {
+                element jms-queue {
+                  attribute name { xsd:string },
+                  element entry { entryType }+,
+                  element selector {
+                    attribute string { xsd:string }
+                  }?,
+                  element durable { boolean }?
+                }*,
+                element jms-topic {
+                  attribute name { xsd:string },
+                  element entry { entryType }+
+                }*
+              }?)
+         }*
+       })
+  | local-bind-address
+  | local-bind-port
+  | initial-wait-timeout
+  | broadcast-period
+boolean = xsd:boolean
+broadcast-period =
+  notAllowed
+  | element broadcast-period { long }
+discovery-group-refType =
+  attribute discovery-group-name { xsd:string },
+  empty
+directoryType =
+  (attribute path { xsd:string }?,
+   attribute relative-to { xsd:string }?),
+  empty
+group-address =
+  notAllowed
+  | element group-address { \string }
+\string = xsd:string
+entryType =
+  attribute name { xsd:string },
+  empty
+anonymous0 =
+  attribute name { xsd:string }?,
+  (notAllowed
+   | element param { paramType })*
+connector-refType =
+  (attribute backup-connector-name { xsd:string }?,
+   attribute connector-name { xsd:string }),
+  empty
+anonymous1 =
+  attribute name { xsd:string },
+  (notAllowed
+   | element param { paramType })*
+group-port =
+  notAllowed
+  | element group-port { int }
+long = xsd:long
+local-bind-address =
+  notAllowed
+  | element local-bind-address { \string }
+local-bind-port =
+  notAllowed
+  | element local-bind-port { int }
+initial-wait-timeout =
+  notAllowed
+  | element initial-wait-timeout { int }
+paramType =
+  (attribute value { xsd:string },
+   attribute key { xsd:string }),
+  empty
+double = xsd:double
+int = xsd:int
+float = xsd:float

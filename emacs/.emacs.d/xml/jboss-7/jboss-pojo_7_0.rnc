@@ -1,0 +1,131 @@
+default namespace = "urn:jboss:pojo:7.0"
+
+start =
+  notAllowed
+  | element deployment {
+      element bean {
+        attribute mode {
+          xsd:token "never"
+          | xsd:token "on demand"
+          | xsd:token "passive"
+          | xsd:token "active"
+        }?,
+        attribute class { xsd:string }?,
+        attribute name { xsd:string },
+        element alias { text }*,
+        element classloader {
+          attribute name { xsd:string }
+        }?,
+        element constructor {
+          attribute factory-method { xsd:string }?,
+          attribute factory-class { xsd:string }?,
+          element factory { parameter }?,
+          element parameter { parameter }*
+        }?,
+        element property {
+          attribute name { xsd:string },
+          (element value { value }
+           | element inject { inject }
+           | element value-factory { value-factory }
+           | element list { collection }
+           | element set { collection }
+           | element map { map })?
+        }*,
+        element create { lifecycle }?,
+        element start { lifecycle }?,
+        element stop { lifecycle }?,
+        element destroy { lifecycle }?,
+        element install { install }*,
+        element uninstall { install }*,
+        element incallback { callback }*,
+        element uncallback { callback }*,
+        element depends {
+          attribute state { xsd:string }?
+        }*
+      }*
+    }
+value-factory =
+  (attribute method { xsd:string },
+   attribute bean { xsd:string },
+   (notAllowed
+    | element parameter { parameter })*),
+  empty
+value =
+  mixed {
+    attribute trim { xsd:boolean }?,
+    attribute replace { xsd:boolean }?
+  },
+  empty
+callback =
+  (attribute signature { xsd:string }?,
+   attribute state { xsd:string }?,
+   attribute whenRequired { xsd:string }?,
+   attribute method { xsd:string }),
+  empty
+install =
+  (attribute state { xsd:string }?,
+   attribute whenRequired { xsd:string }?,
+   attribute method { xsd:string },
+   attribute bean { xsd:string }?,
+   (notAllowed
+    | element parameter { parameter })*),
+  empty
+lifecycle =
+  (attribute method { xsd:string }?,
+   (notAllowed
+    | element parameter { parameter })*),
+  empty
+inject =
+  (attribute property { xsd:string }?,
+   attribute service { xsd:string }?,
+   attribute bean { xsd:string }?),
+  empty
+parameter =
+  mixed {
+    attribute class { xsd:string }?,
+    (notAllowed
+     | element value { value })?
+  },
+  empty
+collection =
+  (attribute elementClass { xsd:string }?,
+   attribute class { xsd:string }?,
+   (notAllowed
+    | element value { value }),
+   (notAllowed
+    | element inject { inject }),
+   (notAllowed
+    | element value-factory { value-factory }),
+   (notAllowed
+    | element list { collection }),
+   (notAllowed
+    | element set { collection }),
+   (notAllowed
+    | element map { map })),
+  empty
+value-value =
+  mixed {
+    (notAllowed
+     | element value { value }),
+    (notAllowed
+     | element inject { inject }),
+    (notAllowed
+     | element value-factory { value-factory }),
+    (notAllowed
+     | element list { collection }),
+    (notAllowed
+     | element set { collection }),
+    (notAllowed
+     | element map { map })
+  },
+  empty
+map =
+  (attribute valueClass { xsd:string }?,
+   attribute keyClass { xsd:string }?,
+   attribute class { xsd:string }?,
+   (notAllowed
+    | element entry {
+        element key { value-value },
+        element value { value-value }
+      })),
+  empty
