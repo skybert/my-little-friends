@@ -41,10 +41,11 @@ alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/bod
 # bash completion
 export FIGNORE=.svn
 l="
+  /usr/share/bash-completion/bash_completion
   $HOME/src/my-little-friends/bash_completion.d/tkj
   $HOME/src/ece-scripts/etc/bash_completion.d/ece
   $HOME/src/moria/voss/etc/bash_completion.d/voss
-  /usr/share/bash-completion/bash_completion
+  $HOME/src/my-little-friends/bash_completion.d/mvn
 "
 for el in $l; do
   if [ -r $el ]; then
