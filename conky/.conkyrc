@@ -85,7 +85,7 @@ ${color lightgrey} ${top name 8} ${top pid 8} ${top cpu 8} ${top mem 8}
 ${color lightgrey} ${top name 9} ${top pid 9} ${top cpu 9} ${top mem 9}
 ${color lightgrey} ${top name 10} ${top pid 10} ${top cpu 10} ${top mem 10}
 $hr
-# ${mpd_smart}
+${mpd_smart}
 $hr
 ${exec ~/src/my-little-friends/bash/tkj dates}
 ${color grey}Battery    :${color white} ${battery_percent}% ${battery_bar}
