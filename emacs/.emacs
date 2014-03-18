@@ -3,6 +3,16 @@
 ;;           Torstein Krause Johansen's .emacs file                         ;;
 ;;                                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Initialise the emacs packages in case any of them overrides
+;; built-in Emacs packages.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(package-initialize)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Name and email
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq user-full-name "Torstein Krause Johansen"
       user-mail-address "tkj@conduct.no")
 
@@ -84,7 +94,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/fara/git -name \"*.java\" -type f | egrep -v '.(class|pdf)' | xargs grep -n -i -e ")
+      "find ~/src/fara/git -name \"*.java\" -type f | egrep -v 'target' | xargs grep -n -i -e ")
 
 (global-set-key (kbd "<f1>") 'magit-status)
 
@@ -606,5 +616,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
-(put 'set-goal-column 'disabled nil)
+
+;;Allow interactive narrow-to-region
 (put 'narrow-to-region 'disabled nil)
+

@@ -10,6 +10,7 @@
 ;; (require 'ox-reveal)
 
 (setq org-return-follows-link t
+      org-reveal-theme "blood" ;; serif
       org-reveal-root "http://skybert.net/reveal.js"
       org-agenda-files (list "~/src/my-writings/work.org"
                              "~/src/my-writings/conduct.org"
