@@ -18,7 +18,7 @@ setxkbmap -option ctrl:nocaps &
 syndaemon -t -k -i 2 &
 
 ## set background image
-display -window root ~/pictures/wallpaper &
+display -backdrop -window root ~/pictures/wallpaper &
 
 ## favourite apps
 # mpd &
