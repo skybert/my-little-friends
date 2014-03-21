@@ -411,6 +411,8 @@
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.less\\'" . javascript-mode)
          ("\\.magik$" . python-mode)
+         ("\\.md$" . markdown-mode)
+         ("github.*\\.txt$" . markdown-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
          ("\\.pdf\\'" . doc-view-mode)
