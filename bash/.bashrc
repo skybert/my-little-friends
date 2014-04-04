@@ -2,7 +2,7 @@
 
 # window
 shopt -s checkwinsize
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+PROMPT_COMMAND='echo -ne "\033]0;${USER-${USERNAME}}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 TERM=xterm-color
 
 function get_git_status() {
