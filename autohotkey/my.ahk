@@ -8,5 +8,5 @@ Capslock::Ctrl
    If MX
         WinRestore A
    Else
-	WinMaximize A
+        WinMaximize A
 return
