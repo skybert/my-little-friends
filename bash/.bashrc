@@ -29,6 +29,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 'echo "$(history 1)" >> ~/.bash_eternal_history'
 
 # aliases
+alias de='setxkbmap de'
 alias df='df -hT'
 alias ec='emacsclient'
 alias emacs='emacs -fn terminus-12'
@@ -36,8 +37,10 @@ alias eternal='cat ~/.bash_eternal_history | grep'
 alias grep='grep -i --color'
 alias ls='ls -lh'
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
+alias no='setxkbmap no'
 alias t='urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
+alias us='setxkbmap us'
 
 # bash completion
 export FIGNORE=.svn
