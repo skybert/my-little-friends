@@ -16,8 +16,8 @@
               "~/.emacs.d/schemas.xml"))
       rng-validate-delay 3
       nxml-slash-auto-complete-flag t
-      nxml-child-indent 3
-      nxml-attribute-indent 3
+      nxml-child-indent 2
+      nxml-attribute-indent 2
       )
 
 ;; my special nXML mode settings.
