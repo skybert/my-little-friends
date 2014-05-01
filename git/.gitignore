@@ -15,6 +15,7 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+TAGS
 pmd-eclipse.log
 src/main/webapp/META-INF/MANIFEST.MF
 target
