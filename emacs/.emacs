@@ -25,7 +25,7 @@
   (server-start)
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
-  (setq-default cursor-type '(bar . 2))
+  (setq-default cursor-type 'box)
   (tool-bar-mode 0)
   (fringe-mode 0))
 
