@@ -122,8 +122,8 @@ Control Shift 3 :ExecCommand setxkbmap no -option ctrl:nocaps;
 # ones I use for the keyboard layouts and are quick to access, no
 # other logic than that).
 Control Shift 4 :ExecCommand ~/src/my-little-friends/bash/tkj music-toggle
-Control Shift 6 :ExecCommand ~/src/my-little-firends/bash/tkj music-previous
-Control Shift 7 :ExecCommand ~/src/my-little-firends/bash/tkj music-next
+Control Shift 6 :ExecCommand ~/src/my-little-friends/bash/tkj music-previous
+Control Shift 7 :ExecCommand ~/src/my-little-friends/bash/tkj music-next
 XF86AudioPrev :ExecCommand mpc prev
 XF86AudioNext :ExecCommand mpc next
 XF86AudioPlay :ExecCommand mpc toggle
