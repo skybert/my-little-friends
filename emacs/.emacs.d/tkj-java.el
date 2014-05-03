@@ -40,7 +40,7 @@
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
 (defun tkj-default-code-style-hook()
-  (setq c-basic-offset 4
+  (setq c-basic-offset 2
         c-label-offset 0
         indent-tabs-mode nil
         compile-command "cd ~/src/drifting/jms && mvn -q -o -DskipTests package"
@@ -70,8 +70,8 @@
 
 ;; Variables
 (setq eclim-auto-save t
-      eclim-executable "/opt/eclipse/eclim"
-      eclimd-executable "/opt/eclipse/eclimd"
+;;      eclim-executable "/opt/eclipse/eclim"
+;;      eclimd-executable "/opt/eclipse/eclimd"
       eclimd-wait-for-process nil
       eclimd-default-workspace "~/src/workspace-eclim"
       eclim-use-yasnippet nil
