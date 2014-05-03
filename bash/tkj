@@ -540,6 +540,30 @@ function search_otrs()
   opera "$url/?$uri_parameters"
 }
 
+function do_music-next() {
+  if [ $(ps -u $USER | grep xmms | wc -l) -gt 0 ]; then
+    xmms -f
+  elif [ $(ps -u $USER | grep mpd | wc -l) -gt 0 ]; then
+    mpc next
+  fi
+}
+
+function do_music-previous() {
+  if [ $(ps -u $USER | grep xmms | wc -l) -gt 0 ]; then
+    xmms -r
+  elif [ $(ps -u $USER | grep mpd | wc -l) -gt 0 ]; then
+    mpc prev
+  fi
+}
+
+function do_music-toggle() {
+  if [ $(ps -u $USER | grep xmms | wc -l) -gt 0 ]; then
+    xmms -t
+  elif [ $(ps -u $USER | grep mpd | wc -l) -gt 0 ]; then
+    mpc toggle
+  fi
+}
+
 function do_play-that-music()
 {
   mpc clear
