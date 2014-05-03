@@ -121,9 +121,9 @@ Control Shift 3 :ExecCommand setxkbmap no -option ctrl:nocaps;
 # controlling my music player (the numbers are simply following the
 # ones I use for the keyboard layouts and are quick to access, no
 # other logic than that).
-Control Shift 4 :ExecCommand mpc toggle
-Control Shift 6 :ExecCommand mpc prev
-Control Shift 7 :ExecCommand mpc next
+Control Shift 4 :ExecCommand ~/src/my-little-friends/bash/tkj music-toggle
+Control Shift 6 :ExecCommand ~/src/my-little-firends/bash/tkj music-previous
+Control Shift 7 :ExecCommand ~/src/my-little-firends/bash/tkj music-next
 XF86AudioPrev :ExecCommand mpc prev
 XF86AudioNext :ExecCommand mpc next
 XF86AudioPlay :ExecCommand mpc toggle
