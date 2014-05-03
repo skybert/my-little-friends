@@ -37,6 +37,8 @@ dropbox start &
 # root-tail -i 20 -fn 7x14 -g 400x60+0+740 /tmp/dates &
 # root-tail -i 20 -fn 7x14 -g 400x20+900+780 /tmp/current-music &
 
-# And last but not least we start fluxbox.
-# Because it is the last app you have to run it with ''exec'' before it.
+# Setting the locale here to make fluxbox and everything it starts
+# aware of my preferred locale (setting it in .bashrc is sometimes too
+# late).
+export LC_ALL=en_GB.utf8
 exec fluxbox -log ~/.fluxbox/log
