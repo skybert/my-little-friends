@@ -26,6 +26,9 @@ clipit &
 conky &
 dropbox start &
 
+## set encoding before window manager starts
+export LC_ALL=en_GB.utf8
+
 ## launch window manager
 exec fluxbox
 
