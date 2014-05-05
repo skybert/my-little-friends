@@ -9,7 +9,7 @@
       mu4e-sent-messages-behavior 'trash
 
       mu4e-show-images t
-      mu4e-html2text-command "html2text -utf8 -width 72"
+      mu4e-html2text-command "html2text -width 72"
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
