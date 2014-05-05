@@ -18,6 +18,8 @@ pkill -2 -u $UID mu >> $log
 sleep 1
 mu index --maildir=~/mail >> $log 2>>$log
 
-rm $lock
+if [ -e $lock ]; then
+  rm $lock
+fi
 
 exit 0
