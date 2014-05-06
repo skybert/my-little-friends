@@ -25,6 +25,9 @@ display -backdrop -window root ~/pictures/wallpaper &
 clipit &
 conky &
 dropbox start &
+firefox &
+xmms &
+emacs &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
