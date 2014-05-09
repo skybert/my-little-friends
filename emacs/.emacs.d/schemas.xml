@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
   <typeId id="jboss"
-          uri="file:///home/torstein/.emacs.d/xml/jboss_4_0.rnc"/>
+          uri="file:///home/torstein/.emacs.d/xml/jboss-7/jboss_4_0.rnc"/>
 
   <documentElement localName="jboss" typeId="jboss"/>
 
