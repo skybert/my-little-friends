@@ -18,4 +18,6 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $$ $USER \
 alias ls='ls -lh'
 alias df='df -hT'
 alias emacs='emacs -nw'
+alias vi=vim
+
 
