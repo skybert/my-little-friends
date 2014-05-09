@@ -10,7 +10,7 @@
   <uri pattern="build.xml"
       uri="file:///home/torstein/.emacs.d/xml/ant-1.8.2.rnc"/>
   <uri pattern="standalone.xml"
-       uri="file:///home/torstein/.emacs.d/xml/jboss-as-config_1_3.rnc"
+       uri="file:///home/torstein/.emacs.d/xml/jboss-7/jboss-as-config_1_3.rnc"
        />
   <uri pattern="*.html"
        uri="file:///usr/share/emacs/24.3.50/etc/schema/xhtml.rnc"/>
