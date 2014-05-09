@@ -16,6 +16,7 @@ GRTAGS
 GSYMS
 GTAGS
 TAGS
+derby.log
 pmd-eclipse.log
 src/main/webapp/META-INF/MANIFEST.MF
 target
