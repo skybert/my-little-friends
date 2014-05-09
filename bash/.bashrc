@@ -37,6 +37,8 @@ alias eternal='cat ~/.bash_eternal_history | grep'
 alias grep='grep -i --color'
 alias ls='ls -lh'
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
+alias mp="mvn package -DskipTests"
+alias mc="mvn clean install"
 alias no='setxkbmap no'
 alias t='urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
