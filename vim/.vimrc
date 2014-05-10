@@ -1,3 +1,12 @@
+"Numbered lines"
+set number
+
+"Update the window bar"
+set title
+
+"Highlight searc hits and make the search case insensitive"
+set hlsearch ignorecase
+
 "Turn on syntax highlighting"
 syntax on
 
@@ -16,7 +25,6 @@ function! TrimWhiteSpace()
     call cursor(l, c)
 endfunction
 autocmd BufWritePre *.* :call TrimWhiteSpace()
-
 
 "Spelling"
 set spell
