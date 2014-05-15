@@ -1,0 +1,13 @@
+default namespace = "urn:jboss:domain:configadmin:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element configuration {
+        attribute pid { xsd:string },
+        element property {
+          attribute value { xsd:string },
+          attribute name { xsd:string }
+        }*
+      }*
+    }

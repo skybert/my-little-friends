@@ -1,0 +1,931 @@
+default namespace = "http://java.sun.com/xml/ns/javaee"
+namespace ns1 = "http://www.jboss.com/xml/ns/javaee"
+
+start =
+  (notAllowed
+   | element web-app {
+       attribute metadata-complete { xsd:boolean }?,
+       attribute id { xsd:ID }?,
+       attribute version { xsd:token "3.0" },
+       (element module-name { \string }
+        | empty
+        | descriptionGroup
+        | element name { java-identifierType }
+        | element distributable { emptyType }
+        | element context-param { param-valueType }
+        | element filter {
+            attribute id { xsd:ID }?,
+            descriptionGroup,
+            element filter-name { filter-nameType },
+            element filter-class { fully-qualified-classType }?,
+            element async-supported { true-falseType }?,
+            element init-param { param-valueType }*
+          }
+        | element filter-mapping {
+            attribute id { xsd:ID }?,
+            element filter-name { filter-nameType },
+            (element url-pattern { url-patternType }
+             | element servlet-name { servlet-nameType })+,
+            (anonymous3,
+             (anonymous3,
+              (anonymous3, (anonymous3, anonymous3?)?)?)?)?
+          }
+        | element listener {
+            attribute id { xsd:ID }?,
+            descriptionGroup,
+            element listener-class { fully-qualified-classType }
+          }
+        | element servlet {
+            attribute id { xsd:ID }?,
+            descriptionGroup,
+            element servlet-name { servlet-nameType },
+            (element servlet-class { fully-qualified-classType }
+             | element jsp-file {
+                 xsd:token,
+                 attribute id { ID }?
+               })?,
+            element init-param { param-valueType }*,
+            element load-on-startup { xsd:string "" | xsd:integer }?,
+            element enabled { true-falseType }?,
+            element async-supported { true-falseType }?,
+            element run-as {
+              attribute id { xsd:ID }?,
+              element description { descriptionType }*,
+              element role-name { role-nameType }
+            }?,
+            element security-role-ref {
+              attribute id { xsd:ID }?,
+              element description { descriptionType }*,
+              element role-name { role-nameType },
+              element role-link { role-nameType }?
+            }*,
+            element multipart-config {
+              element location { \string }?,
+              element max-file-size { long }?,
+              element max-request-size { long }?,
+              element file-size-threshold { integer }?
+            }?
+          }
+        | element servlet-mapping {
+            attribute id { xsd:ID }?,
+            element servlet-name { servlet-nameType },
+            element url-pattern { url-patternType }+
+          }
+        | element session-config { session-configType }
+        | element mime-mapping {
+            attribute id { xsd:ID }?,
+            element extension { \string },
+            element mime-type {
+              xsd:token { pattern = "[^\p{Cc}^\s]+/[^\p{Cc}^\s]+" },
+              attribute id { ID }?
+            }
+          }
+        | element welcome-file-list {
+            attribute id { xsd:ID }?,
+            element welcome-file { string2 }+
+          }
+        | element error-page {
+            attribute id { xsd:ID }?,
+            (element error-code {
+               attribute id { xsd:ID }?,
+               xsd:positiveInteger { pattern = "\d{3}" }
+             }
+             | element exception-type { fully-qualified-classType })?,
+            element location { war-pathType }
+          }
+        | element jsp-config {
+            attribute id { xsd:ID }?,
+            element taglib {
+              attribute id { xsd:ID }?,
+              element taglib-uri { \string },
+              element taglib-location { pathType }
+            }*,
+            element jsp-property-group {
+              attribute id { xsd:ID }?,
+              descriptionGroup,
+              element url-pattern { url-patternType }+,
+              element el-ignored { true-falseType }?,
+              element page-encoding { \string }?,
+              element scripting-invalid { true-falseType }?,
+              element is-xml { true-falseType }?,
+              element include-prelude { pathType }*,
+              element include-coda { pathType }*,
+              element deferred-syntax-allowed-as-literal {
+                true-falseType
+              }?,
+              element trim-directive-whitespaces { true-falseType }?,
+              element default-content-type { \string }?,
+              element buffer { \string }?,
+              element error-on-undeclared-namespace { true-falseType }?
+            }*
+          }
+        | element security-constraint {
+            attribute id { xsd:ID }?,
+            element display-name { display-nameType }*,
+            element web-resource-collection {
+              attribute id { xsd:ID }?,
+              element web-resource-name { \string },
+              element description { descriptionType }*,
+              element url-pattern { url-patternType }+,
+              (element http-method { http-methodType }+
+               | element http-method-omission { http-methodType }+)?
+            }+,
+            element auth-constraint {
+              attribute id { xsd:ID }?,
+              element description { descriptionType }*,
+              element role-name { role-nameType }*
+            }?,
+            element user-data-constraint {
+              attribute id { xsd:ID }?,
+              element description { descriptionType }*,
+              element transport-guarantee { transport-guaranteeType }
+            }?
+          }
+        | element login-config {
+            attribute id { xsd:ID }?,
+            element auth-method {
+              xsd:token,
+              attribute id { ID }?
+            }?,
+            element realm-name { \string }?,
+            element form-login-config {
+              attribute id { xsd:ID }?,
+              element form-login-page { war-pathType },
+              element form-error-page { war-pathType }
+            }?
+          }
+        | element security-role {
+            attribute id { xsd:ID }?,
+            element description { descriptionType }*,
+            element role-name { role-nameType }
+          }
+        | (element env-entry {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element env-entry-name { jndi-nameType },
+             element env-entry-type { env-entry-type-valuesType }?,
+             element env-entry-value { xsdStringType }?,
+             resourceGroup2
+           }*,
+           element ejb-ref {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element ejb-ref-name { ejb-ref-nameType },
+             element ejb-ref-type { ejb-ref-typeType }?,
+             element home { homeType }?,
+             element remote { remoteType }?,
+             element ejb-link { ejb-linkType }?,
+             resourceGroup2
+           }*,
+           element ejb-local-ref {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element ejb-ref-name { ejb-ref-nameType },
+             element ejb-ref-type { ejb-ref-typeType }?,
+             element local-home { local-homeType }?,
+             element local { localType }?,
+             element ejb-link { ejb-linkType }?,
+             resourceGroup2
+           }*,
+           element service-ref {
+             attribute id { xsd:ID }?,
+             descriptionGroup,
+             element service-ref-name { jndi-nameType },
+             element service-interface { fully-qualified-classType },
+             element service-ref-type { fully-qualified-classType }?,
+             element wsdl-file {
+               attribute id { xsd:ID }?,
+               xsd:anyURI
+             }?,
+             element jaxrpc-mapping-file { pathType }?,
+             element service-qname { xsdQNameType }?,
+             element port-component-ref {
+               attribute id { xsd:ID }?,
+               element service-endpoint-interface {
+                 fully-qualified-classType
+               },
+               element enable-mtom { true-falseType }?,
+               element mtom-threshold {
+                 attribute id { xsd:ID }?,
+                 xsd:nonNegativeInteger
+               }?,
+               element addressing {
+                 element enabled { true-falseType }?,
+                 element required { true-falseType }?,
+                 element responses {
+                   (xsd:token "NON_ANONYMOUS"
+                    | xsd:token "ALL"
+                    | xsd:token "ANONYMOUS"),
+                   attribute id { ID }?
+                 }?
+               }?,
+               element respect-binding {
+                 element enabled { true-falseType }?
+               }?,
+               element port-component-link { \string }?
+             }*,
+             (element handler { handlerType }+
+              | empty
+              | element handler-chains {
+                  attribute id { xsd:ID }?,
+                  element handler-chain {
+                    attribute id { xsd:ID }?,
+                    (element service-name-pattern { qname-pattern }
+                     | element port-name-pattern { qname-pattern }
+                     | element protocol-bindings {
+                         list {
+                           (xsd:anyURI
+                            | xsd:token { pattern = "##.+" })*
+                         }
+                       })?,
+                    element handler { handlerType }+
+                  }*
+                }),
+             resourceGroup2
+           }*,
+           element resource-ref {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element res-ref-name { jndi-nameType },
+             element res-type { fully-qualified-classType }?,
+             element res-auth { res-authType }?,
+             element res-sharing-scope { res-sharing-scopeType }?,
+             resourceGroup2
+           }*,
+           element resource-env-ref {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element resource-env-ref-name { jndi-nameType },
+             element resource-env-ref-type {
+               fully-qualified-classType
+             }?,
+             resourceGroup2
+           }*,
+           element message-destination-ref {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element message-destination-ref-name { jndi-nameType },
+             element message-destination-type {
+               message-destination-typeType
+             }?,
+             element message-destination-usage {
+               message-destination-usageType
+             }?,
+             element message-destination-link {
+               message-destination-linkType
+             }?,
+             resourceGroup2
+           }*,
+           element persistence-context-ref {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element persistence-context-ref-name { jndi-nameType },
+             element persistence-unit-name { \string }?,
+             element persistence-context-type {
+               persistence-context-typeType
+             }?,
+             element persistence-property { propertyType }*,
+             resourceBaseGroup
+           }*,
+           element persistence-unit-ref {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }*,
+             element persistence-unit-ref-name { jndi-nameType },
+             element persistence-unit-name { \string }?,
+             resourceBaseGroup
+           }*,
+           element post-construct { lifecycle-callbackType2 }*,
+           element pre-destroy { lifecycle-callbackType2 }*,
+           element data-source {
+             attribute id { xsd:ID }?,
+             element description { descriptionType }?,
+             element name { jndi-nameType },
+             element class-name { fully-qualified-classType }?,
+             element server-name { \string }?,
+             element port-number { xsdIntegerType }?,
+             element database-name { \string }?,
+             element url { jdbc-urlType }?,
+             element user { \string }?,
+             element password { \string }?,
+             element property { propertyType }*,
+             element login-timeout { xsdIntegerType }?,
+             element transactional { xsdBooleanType }?,
+             element isolation-level { isolation-levelType }?,
+             element initial-pool-size { xsdIntegerType }?,
+             element max-pool-size { xsdIntegerType }?,
+             element min-pool-size { xsdIntegerType }?,
+             element max-idle-time { xsdIntegerType }?,
+             element max-statements { xsdIntegerType }?
+           }*)
+        | element message-destination {
+            attribute id { xsd:ID }?,
+            descriptionGroup,
+            element message-destination-name { \string },
+            element mapped-name { xsdStringType }?,
+            element lookup-name { xsdStringType }?
+          }
+        | element locale-encoding-mapping-list {
+            attribute id { xsd:ID }?,
+            element locale-encoding-mapping {
+              attribute id { xsd:ID }?,
+              element locale {
+                xsd:string {
+                  pattern = "[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"
+                }
+              },
+              element encoding {
+                xsd:string { pattern = "[^\s]+" }
+              }
+            }+
+          }
+        | element absolute-ordering {
+            (element name { java-identifierType }+
+             | empty
+             | element others {
+                 attribute id { xsd:ID }?
+               })+
+          })+
+     })
+  | (notAllowed
+     | element ns1:jboss-web {
+         attribute version { xsd:token "7.0" },
+         element ns1:context-root {
+           xsd:token,
+           attribute id { ID }?
+         }?,
+         element ns1:virtual-host {
+           xsd:token,
+           attribute id { ID }?
+         }?,
+         element ns1:annotation {
+           element ns1:class-name { \string },
+           element ns1:servlet-security { servlet-securityType }?,
+           element ns1:run-as {
+             element ns1:description { descriptionType }*,
+             element ns1:role-name { \string }
+           }?,
+           element ns1:multipart-config {
+             element ns1:location { \string }?,
+             element ns1:max-file-size { long }?,
+             element ns1:max-request-size { long }?,
+             element ns1:file-size-threshold { integer }?
+           }?
+         }*,
+         element ns1:listener {
+           element ns1:class-name { \string },
+           element ns1:module { \string }?,
+           element ns1:listener-type {
+             (xsd:token "SERVLET_LIFECYCLE"
+              | xsd:token "CONTAINER"
+              | xsd:token "LIFECYCLE"
+              | xsd:token "SERVLET_INSTANCE"
+              | xsd:token "SERVLET_CONTAINER"),
+             attribute id { ID }?
+           },
+           element ns1:param { param-valueType }*
+         }*,
+         element ns1:session-config { session-configType }?,
+         element ns1:valve {
+           element ns1:class-name { \string },
+           element ns1:module { \string }?,
+           element ns1:param { param-valueType }*
+         }*,
+         element ns1:overlay {
+           xsd:token,
+           attribute id { ID }?
+         }*,
+         element ns1:security-domain {
+           xsd:token,
+           attribute id { ID }?
+         }?,
+         element ns1:security-role {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:role-name { role-nameType },
+           element ns1:principal-name {
+             xsd:token,
+             attribute id { ID }?
+           }+
+         }*,
+         element ns1:jacc-star-role-allow {
+           (xsd:token "yes"
+            | xsd:token "no"
+            | xsd:token "false"
+            | xsd:token "true"),
+           attribute id { ID }?
+         }?,
+         element ns1:disable-cross-context {
+           (xsd:token "yes"
+            | xsd:token "no"
+            | xsd:token "false"
+            | xsd:token "true"),
+           attribute id { ID }?
+         }?,
+         element ns1:use-jboss-authorization {
+           (xsd:token "yes"
+            | xsd:token "no"
+            | xsd:token "false"
+            | xsd:token "true"),
+           attribute id { ID }?
+         }?,
+         element ns1:disable-audit {
+           (xsd:token "yes"
+            | xsd:token "no"
+            | xsd:token "false"
+            | xsd:token "true"),
+           attribute id { ID }?
+         }?,
+         element ns1:servlet {
+           element ns1:servlet-name { \string },
+           element ns1:run-as-principal { role-nameType }?,
+           element ns1:servlet-security { servlet-securityType }?
+         }*,
+         element ns1:max-active-sessions { xsdIntegerType }?,
+         element ns1:replication-config {
+           element ns1:cache-name {
+             xsd:token,
+             attribute id { ID }?
+           }?,
+           element ns1:replication-trigger {
+             (xsd:token "ACCESS"
+              | xsd:token "SET"
+              | xsd:token "SET_AND_NON_PRIMITIVE_GET"
+              | xsd:token "SET_AND_GET"),
+             attribute id { ID }?
+           }?,
+           element ns1:replication-granularity {
+             (xsd:token "SESSION" | xsd:token "ATTRIBUTE"),
+             attribute id { ID }?
+           }?,
+           element ns1:replication-mode {
+             (xsd:token "ASYNCHRONOUS" | xsd:token "SYNCHRONOUS"),
+             attribute id { ID }?
+           }?,
+           element ns1:backups { xsd:integer }?,
+           element ns1:use-jk {
+             (xsd:token "yes"
+              | xsd:token "no"
+              | xsd:token "false"
+              | xsd:token "true"),
+             attribute id { ID }?
+           }?,
+           element ns1:max-unreplicated-interval { xsd:integer }?,
+           element ns1:snapshot-mode {
+             (xsd:token "FIELD" | xsd:token "INSTANT"),
+             attribute id { ID }?
+           }?,
+           element ns1:snapshot-interval { xsd:integer }?,
+           element ns1:session-notification-policy {
+             xsd:token,
+             attribute id { ID }?
+           }?
+         }?,
+         element ns1:passivation-config {
+           element ns1:use-session-passivation {
+             (xsd:token "yes"
+              | xsd:token "no"
+              | xsd:token "false"
+              | xsd:token "true"),
+             attribute id { ID }?
+           }?,
+           element ns1:passivation-min-idle-time {
+             passivation-idle-timeType
+           }?,
+           element ns1:passivation-max-idle-time {
+             passivation-idle-timeType
+           }?
+         }?,
+         element ns1:distinct-name {
+           xsd:token,
+           attribute id { ID }?
+         }?,
+         element ns1:env-entry {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:env-entry-name { jndi-nameType },
+           element ns1:env-entry-type { env-entry-type-valuesType }?,
+           element ns1:env-entry-value { xsdStringType }?,
+           resourceGroup
+         }*,
+         element ns1:ejb-ref {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:ejb-ref-name { ejb-ref-nameType }?,
+           element ns1:ejb-ref-type { ejb-ref-typeType }?,
+           element ns1:home { homeType }?,
+           element ns1:remote { remoteType }?,
+           element ns1:ejb-link { ejb-linkType }?,
+           resourceGroup
+         }*,
+         element ns1:ejb-local-ref {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:ejb-ref-name { ejb-ref-nameType }?,
+           element ns1:ejb-ref-type { ejb-ref-typeType }?,
+           element ns1:local-home { local-homeType }?,
+           element ns1:local { localType }?,
+           element ns1:ejb-link { ejb-linkType }?,
+           element ns1:local-jndi-name { jndi-nameType }?,
+           resourceGroup
+         }*,
+         element ns1:service-ref {
+           attribute id { xsd:ID }?,
+           element ns1:service-ref-name { string2 },
+           element ns1:service-impl-class { string2 }?,
+           element ns1:service-qname { string2 }?,
+           element ns1:config-name { string2 }?,
+           element ns1:config-file { string2 }?,
+           element ns1:handler-chain { string2 }?,
+           element ns1:port-component-ref {
+             element ns1:service-endpoint-interface { string2 }?,
+             element ns1:port-qname { string2 }?,
+             element ns1:config-name { string2 }?,
+             element ns1:config-file { string2 }?,
+             element ns1:stub-property {
+               element ns1:prop-name { string2 }?,
+               element ns1:prop-value { string2 }?
+             }*,
+             element ns1:call-property {
+               element ns1:prop-name { string2 }?,
+               element ns1:prop-value { string2 }?
+             }*
+           }*,
+           element ns1:wsdl-override { string2 }?
+         }*,
+         element ns1:resource-ref {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:res-ref-name { jndi-nameType }?,
+           element ns1:res-type { fully-qualified-classType }?,
+           element ns1:res-auth { res-authType }?,
+           element ns1:res-sharing-scope { res-sharing-scopeType }?,
+           (element ns1:resource-name { xsdStringType }
+            | element ns1:jndi-name { xsdStringType }
+            | element ns1:mapped-name { xsdStringType }
+            | element ns1:res-url { xsdStringType }),
+           element ns1:injection-target { injection-targetType }*,
+           element ns1:ignore-dependency { emptyType }?
+         }*,
+         element ns1:resource-env-ref {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:resource-env-ref-name { jndi-nameType },
+           element ns1:resource-env-ref-type {
+             fully-qualified-classType
+           }?,
+           resourceGroup
+         }*,
+         element ns1:message-destination-ref {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:message-destination-ref-name { jndi-nameType },
+           element ns1:message-destination-type {
+             message-destination-typeType
+           }?,
+           element ns1:message-destination-usage {
+             message-destination-usageType
+           }?,
+           element ns1:message-destination-link {
+             message-destination-linkType
+           }?,
+           resourceGroup
+         }*,
+         element ns1:persistence-context-ref {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:persistence-context-ref-name { jndi-nameType },
+           element ns1:persistence-unit-name { \string }?,
+           element ns1:persistence-context-type {
+             persistence-context-typeType
+           }?,
+           element ns1:persistence-property { propertyType }*,
+           resourceGroup
+         }*,
+         element ns1:persistence-unit-ref {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:persistence-unit-ref-name { jndi-nameType },
+           element ns1:persistence-unit-name { \string }?,
+           resourceGroup
+         }*,
+         element ns1:post-construct { lifecycle-callbackType }*,
+         element ns1:pre-destroy { lifecycle-callbackType }*,
+         element ns1:data-source {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }?,
+           element ns1:name { jndi-nameType },
+           element ns1:class-name { fully-qualified-classType }?,
+           element ns1:server-name { \string }?,
+           element ns1:port-number { xsdIntegerType }?,
+           element ns1:database-name { \string }?,
+           element ns1:url { jdbc-urlType }?,
+           element ns1:user { \string }?,
+           element ns1:password { \string }?,
+           element ns1:property { propertyType }*,
+           element ns1:login-timeout { xsdIntegerType }?,
+           element ns1:transactional { xsdBooleanType }?,
+           element ns1:isolation-level { isolation-levelType }?,
+           element ns1:initial-pool-size { xsdIntegerType }?,
+           element ns1:max-pool-size { xsdIntegerType }?,
+           element ns1:min-pool-size { xsdIntegerType }?,
+           element ns1:max-idle-time { xsdIntegerType }?,
+           element ns1:max-statements { xsdIntegerType }?
+         }*,
+         element ns1:message-destination {
+           attribute id { xsd:ID }?,
+           element ns1:description { descriptionType }*,
+           element ns1:display-name { display-nameType }*,
+           element ns1:icon { iconType }*,
+           element ns1:message-destination-name { xsdStringType },
+           (element ns1:jndi-name { xsdStringType }
+            | element ns1:mapped-name { xsdStringType }),
+           element ns1:lookup-name { xsdStringType }
+         }*,
+         element ns1:webservice-description {
+           attribute id { xsd:ID }?,
+           element ns1:webservice-description-name { string2 },
+           element ns1:config-name { string2 }?,
+           element ns1:config-file { string2 }?,
+           element ns1:wsdl-publish-location { string2 }?
+         }*
+       })
+xsdBooleanType =
+  (attribute id { ID2 }?,
+   xsd:boolean),
+  empty
+lifecycle-callbackType =
+  ((notAllowed
+    | element ns1:lifecycle-callback-class {
+        fully-qualified-classType
+      })?,
+   (notAllowed
+    | element ns1:lifecycle-callback-method { java-identifierType })),
+  empty
+res-sharing-scopeType =
+  ((xsd:token "Shareable" | xsd:token "Unshareable"),
+   attribute id { ID }?),
+  empty
+role-nameType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+servlet-securityType =
+  ((notAllowed
+    | element ns1:empty-role-semantic { \string }),
+   (notAllowed
+    | element ns1:transport-guarantee { transport-guaranteeType }),
+   (notAllowed
+    | element ns1:roles-allowed { role-nameType })*,
+   (notAllowed
+    | element ns1:http-method-constraint {
+        element ns1:method { \string },
+        element ns1:empty-role-semantic {
+          (xsd:token "DENY" | xsd:token "PERMIT"),
+          attribute id { ID }?
+        },
+        element ns1:transport-guarantee { transport-guaranteeType },
+        element ns1:roles-allowed { role-nameType }*
+      })*),
+  empty
+ID = xsd:ID
+message-destination-usageType =
+  ((xsd:token "Consumes"
+    | xsd:token "ConsumesProduces"
+    | xsd:token "Produces"),
+   attribute id { ID }?),
+  empty
+resourceBaseGroup =
+  (notAllowed
+   | element mapped-name { xsdStringType })?,
+  (notAllowed
+   | element injection-target {
+       element injection-target-class { fully-qualified-classType },
+       element injection-target-name { java-identifierType }
+     })*
+war-pathType =
+  (xsd:token { pattern = "/.*" },
+   attribute id { ID }?),
+  empty
+pathType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+anonymous0 =
+  xsd:token { minLength = "1" },
+  attribute id { ID }?
+\string = anonymous4, empty
+fully-qualified-classType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+jndi-nameType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+local-homeType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+persistence-context-typeType =
+  ((xsd:token "Transaction" | xsd:token "Extended"),
+   attribute id { ID }?),
+  empty
+filter-nameType = anonymous0, empty
+env-entry-type-valuesType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+ejb-ref-nameType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+transport-guaranteeType =
+  ((xsd:token "CONFIDENTIAL" | xsd:token "INTEGRAL" | xsd:token "NONE"),
+   attribute id { ID }?),
+  empty
+isolation-levelType =
+  xsd:string "TRANSACTION_REPEATABLE_READ"
+  | xsd:string "TRANSACTION_READ_COMMITTED"
+  | xsd:string "TRANSACTION_SERIALIZABLE"
+  | xsd:string "TRANSACTION_READ_UNCOMMITTED"
+http-methodType =
+  xsd:token { pattern = '[!-~-[\(\)<>@,;:"/\[\]?=\{\}\\\p{Z}]]+' }
+resourceGroup =
+  ((notAllowed
+    | element ns1:jndi-name { jndi-nameType })
+   | (notAllowed
+      | element ns1:mapped-name { xsdStringType }))?,
+  (notAllowed
+   | element ns1:injection-target { injection-targetType })*,
+  (notAllowed
+   | element ns1:ignore-dependency { emptyType })?
+ID2 = xsd:ID
+remoteType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+string2 = xsd:string
+param-valueType =
+  (attribute id { xsd:ID }?,
+   (notAllowed
+    | element description { descriptionType })*,
+   (notAllowed
+    | element param-name { \string }),
+   (notAllowed
+    | element param-value { xsdStringType })),
+  empty
+java-identifierType =
+  (xsd:token { pattern = "($|_|\p{L})(\p{L}|\p{Nd}|_|$)*" },
+   attribute id { ID }?),
+  empty
+qname-pattern =
+  xsd:token { pattern = "\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?" }
+descriptionType = (lang?, anonymous2), empty
+localType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+injection-targetType =
+  ((notAllowed
+    | element ns1:injection-target-class { fully-qualified-classType }),
+   (notAllowed
+    | element ns1:injection-target-name { java-identifierType })),
+  empty
+xsdStringType = anonymous2, empty
+anonymous1 =
+  notAllowed
+  | element tracking-mode {
+      (xsd:token "SSL" | xsd:token "URL" | xsd:token "COOKIE"),
+      attribute id { ID }?
+    }
+message-destination-typeType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+emptyType =
+  attribute id { xsd:ID }?,
+  empty
+servlet-nameType = anonymous0, empty
+passivation-idle-timeType = xsd:integer
+propertyType =
+  (attribute id { xsd:ID }?,
+   (notAllowed
+    | element name { xsdStringType }),
+   (notAllowed
+    | element value { xsdStringType })),
+  empty
+resourceGroup2 =
+  resourceBaseGroup,
+  (notAllowed
+   | element lookup-name { xsdStringType })?
+long = xsd:long
+handlerType =
+  (attribute id { xsd:ID }?,
+   descriptionGroup,
+   (notAllowed
+    | element handler-name { \string }),
+   (notAllowed
+    | element handler-class { fully-qualified-classType }),
+   (notAllowed
+    | element init-param { param-valueType })*,
+   (notAllowed
+    | element soap-header { xsdQNameType })*,
+   (notAllowed
+    | element soap-role { \string })*,
+   (notAllowed
+    | element port-name { \string })*),
+  empty
+true-falseType =
+  (xsd:boolean { pattern = "(true|false)" },
+   attribute id { ID2 }?),
+  empty
+ejb-ref-typeType =
+  ((xsd:token "Session" | xsd:token "Entity"),
+   attribute id { ID }?),
+  empty
+display-nameType = (lang?, anonymous4), empty
+integer = xsd:integer
+jdbc-urlType =
+  (xsd:token { pattern = "jdbc:(.*):(.*)" },
+   attribute id { ID }?),
+  empty
+res-authType =
+  ((xsd:token "Application" | xsd:token "Container"),
+   attribute id { ID }?),
+  empty
+descriptionGroup =
+  (notAllowed
+   | element description { descriptionType })*,
+  (notAllowed
+   | element display-name { display-nameType })*,
+  (notAllowed
+   | element icon { iconType })*
+session-configType =
+  (attribute id { xsd:ID }?,
+   (notAllowed
+    | element session-timeout { xsdIntegerType })?,
+   (notAllowed
+    | element cookie-config {
+        attribute id { xsd:ID }?,
+        element name { anonymous0 }?,
+        element domain { anonymous0 }?,
+        element path { anonymous0 }?,
+        element comment { anonymous0 }?,
+        element http-only { true-falseType }?,
+        element secure { true-falseType }?,
+        element max-age { xsdIntegerType }?
+      })?,
+   (anonymous1, (anonymous1, anonymous1?)?)?),
+  empty
+homeType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+xsdQNameType =
+  (attribute id { xsd:ID }?,
+   xsd:QName),
+  empty
+ejb-linkType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+xsdIntegerType =
+  (attribute id { xsd:ID }?,
+   xsd:integer),
+  empty
+message-destination-linkType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+anonymous2 =
+  attribute id { xsd:ID }?,
+  xsd:string
+lang = attribute xml:lang { xsd:language | xsd:string "" }
+url-patternType = xsd:string, empty
+anonymous3 =
+  notAllowed
+  | element dispatcher {
+      (xsd:token "FORWARD"
+       | xsd:token "ERROR"
+       | xsd:token "ASYNC"
+       | xsd:token "REQUEST"
+       | xsd:token "INCLUDE"),
+      attribute id { ID }?
+    }
+anonymous4 =
+  attribute id { ID }?,
+  xsd:token
+lifecycle-callbackType2 =
+  ((notAllowed
+    | element lifecycle-callback-class { fully-qualified-classType })?,
+   (notAllowed
+    | element lifecycle-callback-method { java-identifierType })),
+  empty
+iconType =
+  (attribute id { xsd:ID }?,
+   lang?,
+   (notAllowed
+    | element small-icon { pathType })?,
+   (notAllowed
+    | element large-icon { pathType })?),
+  empty

@@ -2,7 +2,7 @@
 # See $ECLIPSE_HOME/configuration/config.ini for other osgi properties.
 
 # overridden from the command line: tkj restart-eclim <workspace short name>
-# osgi.instance.area.default=@user.home/src/workspace-eclim
+osgi.instance.area.default=@user.home/src/workspace-eclim
 
 # increase heap size
 -Xmx2048M

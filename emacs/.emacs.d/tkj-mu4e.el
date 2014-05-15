@@ -2,13 +2,14 @@
 
 (setq mu4e-maildir "~/mail"
       mu4e-get-mail-command "offlineimap"
+      mu4e-debug nil
 
       ;; don't save messages to Sent Messages, Gmail/IMAP will take
       ;; care of this
       mu4e-sent-messages-behavior 'trash
 
       mu4e-show-images t
-      mu4e-html2text-command "html2text -utf8 -width 72"
+      mu4e-html2text-command "html2text -width 72"
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it

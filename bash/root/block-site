@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+# Simple blocking of sites, must be run as root
+# Example: block-site facebook.com
+#
+# by torstein
+
+if [ $# -gt 1 ]; then
+  exit 1
+fi
+
+if [ $(grep $1 /etc/hosts | grep -v ^# | wc -l) -gt 0 ]; then
+  echo $1 "already blocked"
+  exit 0
+fi
+
+echo 127.0.0.1 $1 >> /etc/hosts
+

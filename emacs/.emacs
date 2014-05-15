@@ -4,6 +4,15 @@
 ;;                                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Initialise the emacs packages in case any of them overrides
+;; built-in Emacs packages.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(package-initialize)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Name and email
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq user-full-name "Torstein Krause Johansen"
       user-mail-address "tkj@conduct.no")
 
@@ -16,6 +25,7 @@
   (server-start)
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
+  (setq-default cursor-type 'box)
   (tool-bar-mode 0)
   (fringe-mode 0))
 
@@ -24,8 +34,30 @@
       frame-title-format (concat invocation-name "@" (system-name) " {%f}")
       ;; no visible or audible bells, please
       visible-bell nil
-      ring-bell-function (lambda nil (message ""))
-      show-paren-mode t)
+      ring-bell-function (lambda nil (message "")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Show paren mode, built-in from Emacs 24.x
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(show-paren-mode t)
+(setq show-paren-style 'expression)
+
+(require 'paren)
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Setting the general load path for Emacs. This load path is for
+;; packages that only have one .el file and hence reside in a
+;; directory with other smaller modes.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq load-path
+      (append (list (expand-file-name "/usr/local/emacs/")
+                    "/usr/share/emacs/site-lisp/w3m"
+                    "/usr/share/emacs/site-lisp/mu4e"
+                    "/usr/share/emacs/site-lisp/global"
+                    "/usr/local/src/varnish/varnish-tools/emacs")
+              load-path))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; saves the buffer/split configuration, makes it un/re-doable.
@@ -36,7 +68,17 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
+(load-theme 'deeper-blue)
 ;; (load-theme 'sanityinc-solarized-dark)
+
+;; navigate between visible buffers (windows in emacs speak)
+(defun other-window-backward (&optional n)
+  (interactive "p")
+  (if n
+      (other-window (- n))
+    (other-frame -1)))
+(global-set-key "\C-x\C-n" 'other-window)
+(global-set-key "\C-x\C-p" 'other-window-backward)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts in all modes
@@ -53,13 +95,8 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/DocEngine -name \"*.java\" -type f | egrep -v '.(class|svn|git|pdf)' | xargs grep -n -i -e ")
+      "find ~/src/fara/git -name \"*.java\" -type f | egrep -v 'target' | xargs grep -n -i -e ")
 
-;; Navigate by code blocks
-(global-unset-key "\M-p")
-(global-set-key "\M-p" 'backward-list)
-(global-unset-key "\M-n")
-(global-set-key "\M-n" 'forward-list)
 (global-set-key (kbd "<f1>") 'magit-status)
 
 (defun move-line-down ()
@@ -128,6 +165,11 @@
       ispell-dictionary "british")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tag lookup/auto completion based on GNU Global
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'gtags)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pure text settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'text-mode-hook
@@ -152,6 +194,7 @@
 ;; Emacs package repositories
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -213,7 +256,6 @@
           (set-buffer-modified-p nil)
           (message "File '%s' successfully renamed to '%s'" filename (file-name-nondirectory new-name))))))))
 
-(global-unset-key "\C-x \C-r")
 (global-set-key (kbd "C-x C-r") 'rename-this-buffer-and-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -231,6 +273,7 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C->") 'mc/mark-all-like-this-dwim)
 
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -294,21 +337,11 @@
       backup-by-copying-when-linked t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Setting the general load path for Emacs. This load path is for
-;; packages that only have one .el file and hence reside in a
-;; directory with other smaller modes.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq load-path
-      (append (list (expand-file-name "/usr/local/emacs/")
-                    "/usr/share/emacs23/site-lisp/w3m"
-                    "/usr/local/src/varnish/varnish-tools/emacs/")
-              load-path))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'auto-complete)
 (require 'auto-complete-config)
+(require 'auto-complete-nxml)
 (add-to-list 'ac-dictionary-directories
              "~/.emacs.d/auto-complete/dict"
              )
@@ -317,7 +350,7 @@
 (ac-flyspell-workaround)
 
 (setq ac-delay 0.1
-      ac-auto-start 2)
+      ac-auto-start 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
@@ -378,7 +411,9 @@
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.less\\'" . javascript-mode)
-         ("\\.magik$" . ruby-mode)
+         ("\\.magik$" . python-mode)
+         ("\\.md$" . markdown-mode)
+         ("github.*\\.txt$" . markdown-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
          ("\\.pdf\\'" . doc-view-mode)
@@ -420,12 +455,9 @@
 (autoload 'hippie-exp "hippie-exp" t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Tags
+;; Navigation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; BASH is handled by regular etags
-(setq tags-table-list '(
-                        "~/src/DocEngine"
-                        ))
+(require 'smartscan)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
@@ -440,14 +472,6 @@
 (global-set-key "\C-\]" 'yas-exit-all-snippets)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Advanced paren mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;(
-(autoload 'paren-activate "mic-paren" t)
-(setq paren-match-face 'bold)
-(setq paren-sexp-mode t)
-(paren-activate)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/.emacs.d/tkj-java.el")
@@ -460,10 +484,17 @@
              (auto-complete-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Default browser
+;; Web browser & search
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'google-this)
+(google-this-mode 1)
 (setq browse-url-generic-program "firefox"
       browse-url-browser-function 'browse-url-generic)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs behaviour
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq warning-suppress-types (quote ((undo discard-info))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; For some reason, being on different networks (as experienced in
@@ -478,32 +509,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; doesn't work 2008-04-14 17:51
-;; (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
-(setq sgml-set-face t
-      sgml-xml-mode t
-      ;; validiting with xmllint, so XML decl. not needed
-      sgml-declaration nil
-      ;; invoke xmllint for external validation
-      sgml-validation-command "xmllint --noout --postvalid %s %s"
-      nxhtml-skip-welcome t
-      popcmp-group-alternatives nil
-      ;; using additional schemas for the nxml mode
-      rng-schema-locating-files
-      (quote ("/usr/share/emacs/23.3/etc/schema/schemas.xml"
-              "/usr/local/src/html5-el/schemas.xml"
-              "~/.emacs.d/schemas.xml"))
-      rng-validate-delay 3
-      nxml-slash-auto-complete-flag t
-      )
-
-;; my special nXML mode settings.
-(add-hook 'nxml-mode-hook
-          (lambda ()
-            (define-key nxml-mode-map "\C-c\C-i" 'yas/expand)
-            (define-key nxml-mode-map "\M- " 'nxml-complete)
-            )
-          t)
+(load "$HOME/.emacs.d/tkj-xml.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HTML5 support
@@ -516,29 +522,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Javascript mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq js2-basic-offset 2
-      js2-indent-on-enter-key t
-      js2-enter-indents-newline t)
-
-;; makes j2-mode work (better) with JSON files.
-(defadvice js2-reparse (before json)
-  (setq js2-buffer-file-name buffer-file-name))
-(ad-activate 'js2-reparse)
-
-(defadvice js2-parse-statement (around json)
-  (if (and (= tt js2-LC)
-      js2-buffer-file-name
-      (string-equal (substring js2-buffer-file-name -5) ".json")
-      (eq (+ (save-excursion
-            (goto-char (point-min))
-            (back-to-indentation)
-            (while (eolp)
-              (next-line)
-              (back-to-indentation))
-            (point)) 1) js2-ts-cursor))
-    (setq ad-return-value (js2-parse-assign-expr))
-    ad-do-it))
-(ad-activate 'js2-parse-statement)
+(load "$HOME/.emacs.d/tkj-js.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Unfill
@@ -632,6 +616,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Put all Emacs customize variables & faces in its own file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
-(put 'set-goal-column 'disabled nil)
+
+;;Allow interactive narrow-to-region
+(put 'narrow-to-region 'disabled nil)
+

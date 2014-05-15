@@ -22,9 +22,6 @@
 
 (require 'find-lisp)
 (mapc 'tkj-read-jar (find-lisp-find-files "/usr/lib/jvm/java-6-sun/jre/lib" "\\.jar$"))
-(mapc 'tkj-read-jar (find-lisp-find-files "/opt/tomcat/lib" "\\.jar$"))
-(mapc 'tkj-read-jar (find-lisp-find-files "/opt/tomcat-dev1" "\\.jar$"))
-(mapc 'tkj-read-jar (find-lisp-find-files "/opt/tomcat-dev1/" "classes"))
 
 (defun flymake-java-ecj-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy

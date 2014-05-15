@@ -16,6 +16,7 @@ fi
 function set_and_commit_version() {
   if [ -e pom.xml ]; then
     mvn -q versions:set -DnewVersion=${label}
+    mvn -q versions:commit
   fi
   if [ -e .git ]; then
     git commit -a -m "- set version to ${label}"

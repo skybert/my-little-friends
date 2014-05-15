@@ -1,0 +1,59 @@
+default namespace = "urn:jboss:service:7.0"
+
+start =
+  notAllowed
+  | element server {
+      attribute mode {
+        xsd:token "never"
+        | xsd:token "on demand"
+        | xsd:token "passive"
+        | xsd:token "active"
+      }?,
+      element mbean { mbean }*
+    }
+\string = xsd:string
+mbean =
+  (attribute code { xsd:string },
+   attribute name { xsd:string },
+   (notAllowed
+    | element constructor {
+        element arg {
+          attribute value { xsd:string },
+          attribute type { xsd:string }?
+        }*
+      })?,
+   (notAllowed
+    | element attribute {
+        attribute trim { xsd:boolean }?,
+        attribute replace { xsd:boolean }?,
+        attribute name { xsd:string },
+        (element inject {
+           attribute property { xsd:string }?,
+           attribute bean { xsd:string }
+         }
+         | element value-factory {
+             attribute method { xsd:string },
+             attribute bean { xsd:string },
+             element parameter {
+               attribute class { xsd:string }
+             }?
+           })?
+      })*,
+   (notAllowed
+    | element depends {
+        attribute proxy-type { xsd:boolean }?,
+        attribute optional-attribute-name { xsd:string }?,
+        element mbean { mbean }?
+      })*,
+   (notAllowed
+    | element depends-list {
+        attribute optional-attribute-name { xsd:string }?,
+        element depends-list-element {
+          element mbean { mbean }?
+        }?
+      })*,
+   (notAllowed
+    | element alias { \string })*,
+   (notAllowed
+    | element annotation { \string })*),
+  empty

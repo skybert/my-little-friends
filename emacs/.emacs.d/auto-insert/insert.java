@@ -3,9 +3,9 @@ package net.skybert;
 /**
  * (>>FILE_NO_EXT<<)
  *
- * @author <a href="mailto:tkj@conduct.no">Torstein Krause Johansen</a>
+ * @author Torstein Krause Johansen
  * @version 1.0
  */
-public final class (>>FILE_NO_EXT<<) {
-    private static final long serialVersionUID = 1L;
+public class (>>FILE_NO_EXT<<) {
+
 }

@@ -1,0 +1,248 @@
+default namespace = "urn:jboss:domain:logging:1.2"
+
+start =
+  notAllowed
+  | element subsystem {
+      (element logger { loggerType }
+       | element root-logger { rootLoggerType }
+       | element console-handler { consoleHandlerType }
+       | element file-handler { fileHandlerType }
+       | element periodic-rotating-file-handler {
+           periodicFileHandlerType
+         }
+       | element size-rotating-file-handler { sizeFileHandlerType }
+       | element async-handler { asyncHandlerType }
+       | element custom-handler { customHandlerType }
+       | element syslog-handler { syslogHandlerType }
+       | element logging-profiles {
+           element logging-profile {
+             attribute name { xsd:string },
+             (element logger { loggerType }
+              | element root-logger { rootLoggerType }
+              | element console-handler { consoleHandlerType }
+              | element file-handler { fileHandlerType }
+              | element periodic-rotating-file-handler {
+                  periodicFileHandlerType
+                }
+              | element size-rotating-file-handler {
+                  sizeFileHandlerType
+                }
+              | element async-handler { asyncHandlerType }
+              | element custom-handler { customHandlerType }
+              | element syslog-handler { syslogHandlerType })*
+           }*
+         })?+
+    }
+valueType =
+  attribute value { xsd:string },
+  empty
+sizeFileHandlerType =
+  (attribute enabled { xsd:boolean }?,
+   attribute name { xsd:string },
+   attribute autoflush { xsd:boolean }?,
+   ((notAllowed
+     | element level { refType })?
+    & (notAllowed
+       | element encoding { valueType })?
+    & (notAllowed
+       | element filter-spec { valueType })?
+    & (notAllowed
+       | element formatter { formatterType })?
+    & (notAllowed
+       | element file { pathType })
+    & (notAllowed
+       | element rotate-size {
+           attribute value {
+             xsd:string { pattern = "[0-9]+[bkmgtp]" }
+           }?
+         })?
+    & (notAllowed
+       | element max-backup-index { positiveIntType })?
+    & (notAllowed
+       | element append { booleanValueType })?)),
+  empty
+pathType =
+  (attribute path { xsd:string },
+   attribute relative-to { xsd:string }?),
+  empty
+rootLoggerType = anonymous0, empty
+customHandlerType =
+  (attribute enabled { xsd:boolean }?,
+   attribute class { xsd:string },
+   attribute module { xsd:string },
+   attribute name { xsd:string },
+   ((notAllowed
+     | element level { refType })?
+    & (notAllowed
+       | element encoding { valueType })?
+    & (notAllowed
+       | element filter-spec { valueType })?
+    & (notAllowed
+       | element formatter { formatterType })?
+    & (notAllowed
+       | element properties {
+           element property {
+             attribute value { xsd:string }?,
+             attribute name { xsd:string }
+           }*
+         })?)),
+  empty
+syslogHandlerType =
+  (attribute enabled { xsd:boolean }?,
+   attribute name { xsd:string },
+   ((notAllowed
+     | element level { refType })?
+    & (notAllowed
+       | element server-address { valueType })?
+    & (notAllowed
+       | element hostname { valueType })?
+    & (notAllowed
+       | element port { positiveIntType })?
+    & (notAllowed
+       | element app-name { valueType })?
+    & (notAllowed
+       | element formatter {
+           element syslog-format {
+             attribute syslog-type {
+               xsd:token "RFC5424" | xsd:token "RFC3164"
+             }
+           }
+         })?
+    & (notAllowed
+       | element facility {
+           attribute value {
+             xsd:token "system-daemons"
+             | xsd:token "uucp"
+             | xsd:token "clock-daemon2"
+             | xsd:token "security2"
+             | xsd:token "ftp-daemon"
+             | xsd:token "security"
+             | xsd:token "user-level"
+             | xsd:token "local-use-5"
+             | xsd:token "local-use-4"
+             | xsd:token "ntp"
+             | xsd:token "local-use-7"
+             | xsd:token "mail-system"
+             | xsd:token "local-use-6"
+             | xsd:token "syslogd"
+             | xsd:token "local-use-1"
+             | xsd:token "local-use-0"
+             | xsd:token "local-use-3"
+             | xsd:token "local-use-2"
+             | xsd:token "network-news"
+             | xsd:token "line-printer"
+             | xsd:token "clock-daemon"
+             | xsd:token "kernel"
+             | xsd:token "log-alert"
+             | xsd:token "log-audit"
+           }
+         })?)),
+  empty
+handlersType =
+  (notAllowed
+   | element handler { refType })*,
+  empty
+fileHandlerType =
+  (attribute enabled { xsd:boolean }?,
+   attribute name { xsd:string },
+   attribute autoflush { xsd:boolean }?,
+   ((notAllowed
+     | element level { refType })?
+    & (notAllowed
+       | element encoding { valueType })?
+    & (notAllowed
+       | element filter-spec { valueType })?
+    & (notAllowed
+       | element formatter { formatterType })?
+    & (notAllowed
+       | element file { pathType })
+    & (notAllowed
+       | element append { booleanValueType })?)),
+  empty
+booleanValueType =
+  attribute value { xsd:boolean },
+  empty
+consoleHandlerType =
+  (attribute enabled { xsd:boolean }?,
+   attribute name { xsd:string },
+   attribute autoflush { xsd:boolean }?,
+   ((notAllowed
+     | element level { refType })?
+    & (notAllowed
+       | element encoding { valueType })?
+    & (notAllowed
+       | element filter-spec { valueType })?
+    & (notAllowed
+       | element filter { valueType })?
+    & (notAllowed
+       | element formatter { formatterType })?
+    & (notAllowed
+       | element target {
+           attribute name {
+             xsd:token "System.err" | xsd:token "System.out"
+           }
+         })?)),
+  empty
+formatterType =
+  (notAllowed
+   | element pattern-formatter {
+       attribute pattern { xsd:string }
+     }),
+  empty
+loggerType =
+  (anonymous0,
+   attribute use-parent-handlers { xsd:boolean }?,
+   attribute category { xsd:string }),
+  empty
+anonymous0 =
+  (notAllowed
+   | element level { refType })?
+  & (notAllowed
+     | element filter-spec { valueType })?
+  & (notAllowed
+     | element handlers { handlersType })?
+positiveIntType =
+  attribute value { xsd:positiveInteger },
+  empty
+refType =
+  attribute name { xsd:string },
+  empty
+periodicFileHandlerType =
+  (attribute enabled { xsd:boolean }?,
+   attribute name { xsd:string },
+   attribute autoflush { xsd:boolean }?,
+   ((notAllowed
+     | element level { refType })?
+    & (notAllowed
+       | element encoding { valueType })?
+    & (notAllowed
+       | element filter-spec { valueType })?
+    & (notAllowed
+       | element formatter { formatterType })?
+    & (notAllowed
+       | element file { pathType })
+    & (notAllowed
+       | element suffix { valueType })
+    & (notAllowed
+       | element append { booleanValueType })?)),
+  empty
+asyncHandlerType =
+  (attribute enabled { xsd:boolean }?,
+   attribute name { xsd:string },
+   ((notAllowed
+     | element level { refType })?
+    & (notAllowed
+       | element filter-spec { valueType })?
+    & (notAllowed
+       | element queue-length {
+           attribute value {
+             xsd:positiveInteger { minExclusive = "1" }
+           }
+         })
+    & (notAllowed
+       | element overflow-action {
+           attribute value { xsd:token "block" | xsd:token "discard" }
+         })?
+    & (notAllowed
+       | element subhandlers { handlersType }))),
+  empty

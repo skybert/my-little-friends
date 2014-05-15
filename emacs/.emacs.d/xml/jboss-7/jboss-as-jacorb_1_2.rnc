@@ -1,0 +1,101 @@
+default namespace = "urn:jboss:domain:jacorb:1.2"
+
+start =
+  notAllowed
+  | element subsystem {
+      element orb {
+        attribute ssl-socket-binding { xsd:string }?,
+        attribute socket-binding { xsd:string }?,
+        attribute giop-minor-version { xsd:integer }?,
+        attribute cache-poa-names { xsd:token "off" | xsd:token "on" }?,
+        attribute cache-typecodes { xsd:token "off" | xsd:token "on" }?,
+        attribute use-bom { xsd:token "off" | xsd:token "on" }?,
+        attribute use-imr { xsd:token "off" | xsd:token "on" }?,
+        attribute print-version { xsd:token "off" | xsd:token "on" }?,
+        attribute name { xsd:string }?,
+        element connection {
+          attribute outbuf-cache-timeout { xsd:integer }?,
+          attribute outbuf-size { xsd:integer }?,
+          attribute max-managed-buf-size { xsd:integer }?,
+          attribute max-server-connections { xsd:integer }?,
+          attribute server-timeout { xsd:integer }?,
+          attribute client-timeout { xsd:integer }?,
+          attribute retry-interval { xsd:integer }?,
+          attribute retries { xsd:integer }?
+        }?,
+        element initializers {
+          attribute transactions {
+            xsd:token "spec" | xsd:token "off" | xsd:token "on"
+          }?,
+          attribute security { xsd:token "off" | xsd:token "on" }?
+        }?
+      }?,
+      element poa {
+        attribute queue-max { xsd:integer }?,
+        attribute queue-min { xsd:integer }?,
+        attribute queue-wait { xsd:token "off" | xsd:token "on" }?,
+        attribute monitoring { xsd:token "off" | xsd:token "on" }?,
+        element request-processors {
+          attribute max-threads { xsd:integer }?,
+          attribute pool-size { xsd:integer }?
+        }?
+      }?,
+      element naming {
+        attribute export-corbaloc { xsd:token "off" | xsd:token "on" }?,
+        attribute root-context { xsd:string }?
+      }?,
+      element interop {
+        attribute strict-check-on-tc-creation {
+          xsd:token "off" | xsd:token "on"
+        }?,
+        attribute indirection-encoding-disable {
+          xsd:token "off" | xsd:token "on"
+        }?,
+        attribute lax-boolean-encoding {
+          xsd:token "off" | xsd:token "on"
+        }?,
+        attribute chunk-custom-rmi-valuetypes {
+          xsd:token "off" | xsd:token "on"
+        }?,
+        attribute iona { xsd:token "off" | xsd:token "on" }?,
+        attribute comet { xsd:token "off" | xsd:token "on" }?,
+        attribute sun { xsd:token "off" | xsd:token "on" }?
+      }?,
+      element security {
+        attribute server-requires {
+          xsd:token "ClientAuth"
+          | xsd:token "None"
+          | xsd:token "ServerAuth"
+          | xsd:token "MutualAuth"
+        }?,
+        attribute server-supports {
+          xsd:token "ClientAuth"
+          | xsd:token "None"
+          | xsd:token "ServerAuth"
+          | xsd:token "MutualAuth"
+        }?,
+        attribute client-requires {
+          xsd:token "ClientAuth"
+          | xsd:token "None"
+          | xsd:token "ServerAuth"
+          | xsd:token "MutualAuth"
+        }?,
+        attribute client-supports {
+          xsd:token "ClientAuth"
+          | xsd:token "None"
+          | xsd:token "ServerAuth"
+          | xsd:token "MutualAuth"
+        }?,
+        attribute add-component-via-interceptor {
+          xsd:token "off" | xsd:token "on"
+        }?,
+        attribute security-domain { xsd:string }?,
+        attribute support-ssl { xsd:token "off" | xsd:token "on" }?
+      }?,
+      element properties {
+        element property {
+          attribute value { xsd:string },
+          attribute name { xsd:string }
+        }*
+      }?
+    }

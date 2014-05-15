@@ -3,17 +3,17 @@
   (interactive)
   (insert "private static final long serialVersionUID = 1L;"))
 
+(defun tkj-eclim-maven-run-quick-package()
+  (interactive)
+  (eclim-maven-run "-o -q -DskipTests package"))
+
 (defun my-c-mode-hook ()
-  (setq c-basic-offset 4
-        c-label-offset 0
-        indent-tabs-mode nil
-        compile-command "cd ~/src/DocEngine/docengine && mvn -o -DskipTests package"
-        require-final-newline nil)
   (auto-fill-mode)
   (gtags-mode)
   (flyspell-prog-mode)
   (flymake-mode)
   (subword-mode)
+  (smartscan-mode)
 
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
@@ -28,6 +28,7 @@
   (define-key c-mode-base-map (kbd "<M-f7>") 'eclim-java-find-references)
   (define-key c-mode-base-map (kbd "<S-f6>") 'eclim-java-refactor-rename-symbol-at-point)
   (define-key c-mode-base-map (kbd "<S-f7>") 'gtags-find-tag-from-here)
+  (define-key c-mode-base-map (kbd "<C-f9>") 'tkj-eclim-maven-run-quick-package)
 
   ;; Fix indentation for anonymous classes
   (c-set-offset 'substatement-open 0)
@@ -35,9 +36,17 @@
       (c-set-offset 'inexpr-class 0))
 
   ;; Indent arguments on the next line as indented body.
-  (c-set-offset 'arglist-intro '+)
-  )
+  (c-set-offset 'arglist-intro '+))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
+(defun tkj-default-code-style-hook()
+  (setq c-basic-offset 2
+        c-label-offset 0
+        indent-tabs-mode nil
+        compile-command "cd ~/src/drifting/jms && mvn -q -o -DskipTests package"
+        require-final-newline nil))
+
+(add-hook 'c-mode-hook 'tkj-default-code-style-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Flymake settings
@@ -61,8 +70,8 @@
 
 ;; Variables
 (setq eclim-auto-save t
-      eclim-executable "/opt/eclipse/eclim"
-      eclimd-executable "/opt/eclipse/eclimd"
+;;      eclim-executable "/opt/eclipse/eclim"
+;;      eclimd-executable "/opt/eclipse/eclimd"
       eclimd-wait-for-process nil
       eclimd-default-workspace "~/src/workspace-eclim"
       eclim-use-yasnippet nil

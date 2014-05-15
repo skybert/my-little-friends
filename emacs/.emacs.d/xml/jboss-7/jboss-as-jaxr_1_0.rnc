@@ -1,0 +1,13 @@
+default namespace = "urn:jboss:domain:jaxr:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element connection-factory {
+        attribute jndi-name { xsd:token }
+      }?
+      & element juddi-server {
+          attribute query-url { xsd:anyURI },
+          attribute publish-url { xsd:anyURI }
+        }?
+    }

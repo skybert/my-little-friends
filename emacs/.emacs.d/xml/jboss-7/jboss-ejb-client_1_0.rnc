@@ -1,0 +1,16 @@
+default namespace = ""
+namespace ns1 = "urn:jboss:ejb-client:1.0"
+
+start =
+  notAllowed
+  | element ns1:jboss-ejb-client {
+      element client-context {
+        element ejb-receivers {
+          attribute local-receiver-pass-by-value { xsd:boolean }?,
+          attribute exclude-local-receiver { xsd:boolean }?,
+          element remoting-ejb-receiver {
+            attribute outbound-connection-ref { xsd:string }
+          }*
+        }
+      }
+    }

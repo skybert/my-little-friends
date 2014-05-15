@@ -1,43 +1,49 @@
 #! /bin/sh
 # firewall.sh - Configurable per-host firewall for workstations and
 # servers.(c) 2003 Tero Karvinen - tero karvinen at iki fi - GPL
-# 
+#
 # Made into an init.d script by Torstein Krause Johansen
 
 ### BEGIN INIT INFO
 # Provides:          firewall
-# Required-Start:	$remote_fs $syslog
-# Required-Stop:	$remote_fs $syslog
-# Default-Start:	2 3 4 5
+# Required-Start: $remote_fs $syslog
+# Required-Stop:  $remote_fs $syslog
+# Default-Start:  2 3 4 5
 # Default-Stop:
 # Short-Description: Start/stop/query the firewall
 ### END INIT INFO
 
-stop_fw() 
+stop_fw()
 {
-    echo -n "stopping `basename $0`..." 
+    echo -n "Stopping `basename $0`..."
     iptables --flush
+    iptables --flush -t nat
     iptables --delete-chain
+    iptables --delete-chain -t nat
     iptables -P FORWARD ACCEPT
     iptables -P INPUT ACCEPT
     iptables -P OUTPUT ACCEPT
     echo "done."
 }
 
-start_fw() 
+start_fw()
 {
-    echo -n "starting `basename $0`..." 
+    echo -n "Starting `basename $0`..."
     # Cleanup old rules # All the time firewall is in a secure, closed state
     iptables -P INPUT DROP
     iptables -P FORWARD DROP
-    iptables --flush        # Flush all rules, but keep policies 
+    # Flush all rules, but keep policies
+    iptables --flush
+    iptables --flush -t nat
     iptables --delete-chain
+    iptables --delete-chain -t nat
+
     ## Workstation Minimal firewall ###
     iptables -P FORWARD DROP
     iptables -P INPUT DROP
     iptables -A INPUT -i lo --source 127.0.0.1 --destination 127.0.0.1 -j ACCEPT
     iptables -A INPUT -i lo --source 127.0.0.1 --destination 127.0.1.1 -j ACCEPT
-    iptables -A INPUT -m state --state "ESTABLISHED,RELATED" -j ACCEPT 
+    iptables -A INPUT -m state --state "ESTABLISHED,RELATED" -j ACCEPT
     iptables -A INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT
     iptables -A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT
     iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
@@ -66,10 +72,10 @@ case "$1" in
         ;;
     stop)
         stop_fw
-	;;
+  ;;
     restart)
-	stop_fw
-	sleep 2
+  stop_fw
+  sleep 2
         start_fw
         ;;
     status)

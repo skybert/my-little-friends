@@ -1,0 +1,22 @@
+default namespace = "urn:jboss:domain:naming:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element bindings {
+        element simple {
+          attribute type { xsd:token }?,
+          attribute value { xsd:string },
+          attribute name { xsd:token }
+        }*,
+        element object-factory {
+          attribute class { xsd:token },
+          attribute module { xsd:token },
+          attribute name { xsd:token }
+        }*,
+        element lookup {
+          attribute lookup { xsd:string },
+          attribute name { xsd:token }
+        }*
+      }?
+    }

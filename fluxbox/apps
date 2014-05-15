@@ -19,3 +19,22 @@
 [app] (name=xterm) (class=XTerm)
   [Workspace]	{3}
 [end]
+[app] (name=skype) (class=Skype) (role=ConversationsWindow)
+  [Workspace]	{0}
+[end]
+[app] (name=skype) (class=Skype)
+  [Workspace]	{0}
+[end]
+[group]
+ [app] (name=skype) (class=Skype)
+ [app] (name=skype) (class=Skype) (role=ConversationsWindow)
+[end]
+[app] (name=Navigator) (class=Iceweasel) (role=browser)
+  [Workspace]	{1}
+[end]
+[app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea)
+  [Workspace]	{5}
+[end]
+[app] (name=x-www-browser) (class=X-www-browser) (role=browser)
+  [Workspace]	{1}
+[end]

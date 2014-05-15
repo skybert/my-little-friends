@@ -1,0 +1,76 @@
+default namespace = "urn:jboss:domain:threads:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      (element thread-factory {
+         attribute priority {
+           xsd:integer { minInclusive = "1" maxInclusive = "10" }
+         }?,
+         attribute thread-name-pattern { xsd:string }?,
+         attribute group-name { xsd:string }?,
+         attribute name { xsd:string }
+       }
+       | element unbounded-queue-thread-pool {
+           attribute name { xsd:string },
+           (element max-threads { countType }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?)
+         }
+       | element bounded-queue-thread-pool {
+           attribute blocking { xsd:boolean }?,
+           attribute allow-core-timeout { xsd:boolean }?,
+           attribute name { xsd:string },
+           (element core-threads { countType }?
+            & element queue-length { countType }
+            & element max-threads { countType }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?
+            & element handoff-executor { ref }?)
+         }
+       | element blocking-bounded-queue-thread-pool {
+           attribute allow-core-timeout { xsd:boolean }?,
+           attribute name { xsd:string },
+           (element core-threads { countType }?
+            & element queue-length { countType }
+            & element max-threads { countType }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?)
+         }
+       | element queueless-thread-pool {
+           attribute name { xsd:string },
+           (element max-threads { countType }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?
+            & element handoff-executor { ref }?)
+         }
+       | element blocking-queueless-thread-pool {
+           attribute name { xsd:string },
+           (element max-threads { countType }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?)
+         }
+       | element scheduled-thread-pool {
+           attribute name { xsd:string },
+           (element max-threads { countType }
+            & element keepalive-time { time }?
+            & element thread-factory { ref }?)
+         })*
+    }
+countType =
+  attribute count { xsd:int },
+  empty
+time =
+  (attribute unit {
+     xsd:token "minutes"
+     | xsd:token "days"
+     | xsd:token "seconds"
+     | xsd:token "hours"
+     | xsd:token "nanoseconds"
+     | xsd:token "milliseconds"
+   },
+   attribute time { xsd:long }),
+  empty
+ref =
+  attribute name { xsd:string },
+  empty

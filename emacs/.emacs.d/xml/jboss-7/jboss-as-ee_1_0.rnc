@@ -1,0 +1,13 @@
+default namespace = "urn:jboss:domain:ee:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element global-modules {
+        element module {
+          attribute slot { xsd:string }?,
+          attribute name { xsd:string }
+        }*
+      }?,
+      element ear-subdeployments-isolated { xsd:boolean }?
+    }

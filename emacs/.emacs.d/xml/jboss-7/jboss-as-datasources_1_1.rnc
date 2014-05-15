@@ -1,0 +1,171 @@
+default namespace = "urn:jboss:domain:datasources:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element datasources {
+        (element datasource {
+           common-datasourceAttributes,
+           attribute jta { xsd:boolean }?,
+           element connection-url { \token },
+           element driver-class { \token }?,
+           element datasource-class { \token }?,
+           element driver { \token }?,
+           element connection-property {
+             mixed {
+               attribute name { xsd:token }
+             }
+           }*,
+           element new-connection-sql { \string }?,
+           element transaction-isolation { transaction-isolationType }?,
+           element url-delimiter { \token }?,
+           element url-selector-strategy-class-name { \token }?,
+           element pool { anonymous0 }?,
+           element security { dsSecurityType }?,
+           element validation { validationType }?,
+           element timeout { timeoutType }?,
+           element statement { statementType }?
+         }
+         | element xa-datasource {
+             common-datasourceAttributes,
+             element xa-datasource-property {
+               mixed {
+                 attribute name { xsd:token }
+               }
+             }+,
+             element xa-datasource-class { \token }?,
+             element driver { \token }?,
+             element url-delimiter { \token }?,
+             element url-selector-strategy-class-name { \token }?,
+             element new-connection-sql { \string }?,
+             element transaction-isolation {
+               transaction-isolationType
+             }?,
+             element xa-pool {
+               anonymous0,
+               element is-same-rm-override { boolean }?,
+               element interleaving { boolean-presenceType }?,
+               element no-tx-separate-pools { boolean-presenceType }?,
+               element pad-xid { boolean }?,
+               element wrap-xa-resource { boolean }?
+             }?,
+             element security { dsSecurityType }?,
+             element validation { validationType }?,
+             element timeout { timeoutType }?,
+             element statement { statementType }?,
+             element recovery {
+               attribute no-recovery { xsd:boolean }?,
+               element recover-credential { dsSecurityType }?,
+               element recover-plugin { extensionType }?
+             }?
+           })*,
+        element drivers {
+          element driver {
+            attribute minor-verion { xsd:int }?,
+            attribute major-version { xsd:int }?,
+            attribute module { xsd:token }?,
+            attribute name { xsd:token },
+            element driver-class { \token }?,
+            element datasource-class { \token }?,
+            element xa-datasource-class { \token }?
+          }+
+        }?
+      }
+    }
+common-datasourceAttributes =
+  attribute use-ccm { xsd:boolean }?,
+  attribute spy { xsd:boolean }?,
+  attribute use-java-context { xsd:boolean }?,
+  attribute enabled { xsd:boolean }?,
+  attribute pool-name { xsd:token },
+  attribute jndi-name { xsd:token }
+extensionType =
+  (attribute class-name { xsd:token },
+   (notAllowed
+    | element config-property {
+        mixed {
+          attribute name { xsd:token },
+          xsd:token
+        }
+      })*),
+  empty
+\string = xsd:string
+statementType =
+  ((notAllowed
+    | element track-statements {
+        xsd:token "false" | xsd:token "true" | xsd:token "nowarn"
+      })?,
+   (notAllowed
+    | element prepared-statement-cache-size { nonNegativeInteger })?,
+   (notAllowed
+    | element share-prepared-statements { boolean-presenceType })?),
+  empty
+anonymous0 =
+  (notAllowed
+   | element min-pool-size { nonNegativeInteger })?,
+  (notAllowed
+   | element max-pool-size { nonNegativeInteger })?,
+  (notAllowed
+   | element prefill { boolean })?,
+  (notAllowed
+   | element use-strict-min { boolean })?,
+  (notAllowed
+   | element flush-strategy { \token })?,
+  (notAllowed
+   | element allow-multiple-users { boolean-presenceType })?
+dsSecurityType =
+  ((notAllowed
+    | element user-name { \token })?,
+   (notAllowed
+    | element password { \token })?,
+   (notAllowed
+    | element security-domain { \token })?,
+   (notAllowed
+    | element reauth-plugin { extensionType })?),
+  empty
+boolean-presenceType = empty, empty
+transaction-isolationType =
+  xsd:token "TRANSACTION_REPEATABLE_READ"
+  | xsd:token "TRANSACTION_READ_COMMITTED"
+  | xsd:token "TRANSACTION_SERIALIZABLE"
+  | xsd:token "TRANSACTION_READ_UNCOMMITTED"
+  | xsd:token "TRANSACTION_NONE"
+boolean = xsd:boolean
+validationType =
+  ((notAllowed
+    | element valid-connection-checker { extensionType })?,
+   (notAllowed
+    | element check-valid-connection-sql { \string })?,
+   (notAllowed
+    | element validate-on-match { boolean })?,
+   (notAllowed
+    | element background-validation { boolean })?,
+   (notAllowed
+    | element background-validation-millis { nonNegativeInteger })?,
+   (notAllowed
+    | element use-fast-fail { boolean })?,
+   (notAllowed
+    | element stale-connection-checker { extensionType })?,
+   (notAllowed
+    | element exception-sorter { extensionType })?),
+  empty
+timeoutType =
+  ((notAllowed
+    | element blocking-timeout-millis { nonNegativeInteger })?,
+   (notAllowed
+    | element idle-timeout-minutes { nonNegativeInteger })?,
+   (notAllowed
+    | element set-tx-query-timeout { boolean-presenceType })?,
+   (notAllowed
+    | element query-timeout { nonNegativeInteger })?,
+   (notAllowed
+    | element use-try-lock { nonNegativeInteger })?,
+   (notAllowed
+    | element allocation-retry { nonNegativeInteger })?,
+   (notAllowed
+    | element allocation-retry-wait-millis { nonNegativeInteger })?,
+   (notAllowed
+    | element xa-resource-timeout { \token })?),
+  empty
+nonNegativeInteger = xsd:nonNegativeInteger
+\token = xsd:token

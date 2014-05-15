@@ -10,14 +10,14 @@ start =
          element paths { specified-pathsType }?,
          element vault { vaultType }?,
          element management {
-           anonymous7,
+           anonymous5,
            element management-interfaces {
              element native-interface {
-               anonymous9,
+               anonymous6,
                element socket { native-management-socketType }
              },
              element http-interface {
-               anonymous9,
+               anonymous6,
                element socket { http-management-socketType },
                attribute console-enabled { xsd:boolean }?
              }?
@@ -60,7 +60,7 @@ start =
                 }?
               & element system-properties { properties-with-boottime }?
               & element jvm {
-                  anonymous5,
+                  anonymous2,
                   attribute debug-enabled { xsd:boolean }?,
                   attribute debug-options { xsd:string }?
                 }?)
@@ -74,7 +74,7 @@ start =
          element system-properties { properties-with-boottime }?,
          element paths {
            element path {
-             anonymous1,
+             anonymous7,
              attribute name { xsd:string }
            }*
          }?,
@@ -101,7 +101,7 @@ start =
          }?,
          element deployments {
            element deployment {
-             anonymous4,
+             anonymous1,
              (element content { contentType }
               | element fs-archive { fs-archiveType }
               | element fs-exploded { fs-explodedType })
@@ -118,7 +118,7 @@ start =
                attribute ref { xsd:string }?
              },
              element deployments {
-               element deployment { anonymous4 }+
+               element deployment { anonymous1 }+
              }?,
              element system-properties { properties-with-boottime }?
            }*
@@ -135,18 +135,18 @@ start =
          element paths { specified-pathsType }?,
          element vault { vaultType }?,
          element management {
-           anonymous7,
+           anonymous5,
            element management-interfaces {
              element native-remoting-interface { empty }?,
              element native-interface {
-               anonymous9,
+               anonymous6,
                (element socket { native-management-socketType }
                 | element socket-binding {
                     attribute native { xsd:string }
                   })
              }?,
              element http-interface {
-               anonymous9,
+               anonymous6,
                (element socket { http-management-socketType }
                 | element socket-binding {
                     attribute https { xsd:string }?,
@@ -169,7 +169,7 @@ start =
          }?,
          element deployments {
            element deployment {
-             anonymous4,
+             anonymous1,
              (element content { contentType }
               | element fs-archive { fs-archiveType }
               | element fs-exploded { fs-explodedType }),
@@ -177,154 +177,18 @@ start =
            }+
          }?
        })
-propertyType = anonymous3, empty
-properties =
-  (notAllowed
-   | element property { propertyType })+,
-  empty
-vaultType =
-  (attribute code { xsd:string }?,
-   (notAllowed
-    | element vault-option { propertyType })*),
-  empty
-anonymous0 = anonymous1
-extensionsType =
-  (notAllowed
-   | element extension {
-       attribute module { xsd:string }
-     })+,
-  empty
-point-to-pointType = empty, empty
-namedJvmType = anonymous5, empty
-loopbackType = empty, empty
-properties-with-boottime =
-  (notAllowed
-   | element property {
-       anonymous3,
-       attribute boot-time { xsd:boolean }?
-     })+,
-  empty
-anonymous1 =
-  attribute relative-to { xsd:string }?,
-  attribute path {
-    xsd:string { minLength = "1" }
-  }?
-interface-criteriaGroup =
-  (notAllowed
-   | element any-address { empty })
-  | (notAllowed
-     | element any-ipv6-address { empty })
-  | (notAllowed
-     | element any-ipv4-address { empty })
-  | ((notAllowed
-      | element inet-address { inet-addressType })
-     | (notAllowed
-        | element loopback { loopbackType })
-     | (notAllowed
-        | element loopback-address { loopback-addressType })
-     | (notAllowed
-        | element multicast { multicastType })
-     | (notAllowed
-        | element point-to-point { point-to-pointType })
-     | (notAllowed
-        | element virtual { interface-virtualType })
-     | (notAllowed
-        | element up { interface-upType })
-     | (notAllowed
-        | element public-address { public-addressType })
-     | (notAllowed
-        | element link-local-address { link-local-addressType })
-     | (notAllowed
-        | element site-local-address { site-local-addressType })
-     | (notAllowed
-        | element nic { nicType })
-     | (notAllowed
-        | element nic-match { nic-matchType })
-     | (notAllowed
-        | element subnet-match { subnet-matchType })
-     | (notAllowed
-        | element not { address-exclusionType })
-     | (notAllowed
-        | element any { address-exclusionType }))+
-nic-matchType =
-  attribute pattern { xsd:string },
-  empty
-inet-addressType =
+namedJvmType = anonymous2, empty
+loopback-addressType =
   attribute value { xsd:string },
   empty
-anonymous2 =
+anonymous0 =
   attribute path { xsd:string },
   attribute relative-to { xsd:string }?
-outbound-socket-bindingType =
-  (attribute fixed-source-port { xsd:boolean }?,
-   attribute source-port { xsd:positiveInteger }?,
-   attribute source-interface { xsd:string }?,
-   attribute name { xsd:string },
-   ((notAllowed
-     | element remote-destination {
-         attribute port { xsd:positiveInteger },
-         attribute host { xsd:string }
-       })
-    | (notAllowed
-       | element local-destination {
-           attribute socket-binding-ref { xsd:string }
-         }))),
-  empty
-specified-interfacesType =
-  (notAllowed
-   | element interface {
-       attribute name { xsd:string },
-       interface-criteriaGroup
-     })*,
-  empty
-http-management-socketType =
-  (anonymous8,
-   attribute port { xsd:int }?,
-   attribute secure-port { xsd:int }?),
-  empty
-subnet-matchType =
-  attribute value { xsd:string },
-  empty
-\string = xsd:string
-socket-bindingType =
-  (attribute multicast-port { xsd:positiveInteger }?,
-   attribute multicast-address { xsd:string }?,
-   attribute fixed-port { xsd:boolean }?,
-   attribute port { xsd:unsignedShort }?,
-   attribute interface { xsd:string }?,
-   attribute name { xsd:string },
-   (notAllowed
-    | element client-mapping {
-        attribute destination-port { xsd:string }?,
-        attribute destination-address { xsd:string },
-        attribute source-network { xsd:string }?
-      })*),
-  empty
-contentType =
-  attribute sha1 { text },
-  empty
-anonymous3 =
-  attribute value { text }?,
-  attribute name { text }
-public-addressType = empty, empty
-plug-inAuthType =
-  (attribute mechanism { xsd:string "PLAIN" | xsd:string "DIGEST" }?,
-   attribute name { xsd:string },
-   (notAllowed
-    | element properties { properties })?),
-  empty
-nicType =
-  attribute name { xsd:string },
-  empty
-anonymous4 =
+multicastType = empty, empty
+anonymous1 =
   attribute runtime-name { text },
   attribute name { text }
-fs-archiveType = anonymous0, empty
-anonymous6 =
-  attribute keystore-password { xsd:string },
-  attribute relative-to { xsd:string }?,
-  attribute path { xsd:string }
-anonymous5 =
+anonymous2 =
   (attribute env-classpath-ignored { xsd:boolean }?,
    attribute type { xsd:token "IBM" | xsd:token "SUN" }?,
    attribute java-home { xsd:string }?,
@@ -365,8 +229,88 @@ anonymous5 =
            element variable { propertyType }+
          })?)),
   attribute name { xsd:string }?
+specified-interfacesType =
+  (notAllowed
+   | element interface {
+       attribute name { xsd:string },
+       interface-criteriaGroup
+     })*,
+  empty
+socket-bindingType =
+  (attribute multicast-port { xsd:positiveInteger }?,
+   attribute multicast-address { xsd:string }?,
+   attribute fixed-port { xsd:boolean }?,
+   attribute port { xsd:unsignedShort }?,
+   attribute interface { xsd:string }?,
+   attribute name { xsd:string },
+   (notAllowed
+    | element client-mapping {
+        attribute destination-port { xsd:string }?,
+        attribute destination-address { xsd:string },
+        attribute source-network { xsd:string }?
+      })*),
+  empty
+propertyType = anonymous4, empty
+link-local-addressType = empty, empty
+nic-matchType =
+  attribute pattern { xsd:string },
+  empty
+point-to-pointType = empty, empty
+outbound-socket-bindingType =
+  (attribute fixed-source-port { xsd:boolean }?,
+   attribute source-port { xsd:positiveInteger }?,
+   attribute source-interface { xsd:string }?,
+   attribute name { xsd:string },
+   ((notAllowed
+     | element remote-destination {
+         attribute port { xsd:positiveInteger },
+         attribute host { xsd:string }
+       })
+    | (notAllowed
+       | element local-destination {
+           attribute socket-binding-ref { xsd:string }
+         }))),
+  empty
+inet-addressType =
+  attribute value { xsd:string },
+  empty
+properties-with-boottime =
+  (notAllowed
+   | element property {
+       anonymous4,
+       attribute boot-time { xsd:boolean }?
+     })+,
+  empty
+subnet-matchType =
+  attribute value { xsd:string },
+  empty
+http-management-socketType =
+  (anonymous9,
+   attribute port { xsd:int }?,
+   attribute secure-port { xsd:int }?),
+  empty
+anonymous3 =
+  attribute keystore-password { xsd:string },
+  attribute relative-to { xsd:string }?,
+  attribute path { xsd:string }
 site-local-addressType = empty, empty
-anonymous7 =
+anonymous4 =
+  attribute value { text }?,
+  attribute name { text }
+fs-archiveType = anonymous8, empty
+fs-explodedType = anonymous8, empty
+interface-virtualType = empty, empty
+properties =
+  (notAllowed
+   | element property { propertyType })+,
+  empty
+extensionsType =
+  (notAllowed
+   | element extension {
+       attribute module { xsd:string }
+     })+,
+  empty
+anonymous5 =
   (notAllowed
    | element security-realms {
        element security-realm {
@@ -380,7 +324,7 @@ anonymous7 =
            element ssl {
              attribute protocol { xsd:string }?,
              element keystore {
-               anonymous6,
+               anonymous3,
                attribute alias { xsd:string }?,
                attribute key-password { xsd:string }?
              }
@@ -390,7 +334,7 @@ anonymous7 =
            }?
          }?,
          element authentication {
-           element truststore { anonymous6 }?,
+           element truststore { anonymous3 }?,
            element local {
              attribute allowed-users { xsd:string }?,
              attribute default-user { xsd:string }?
@@ -412,7 +356,7 @@ anonymous7 =
                    })
               }
             | element properties {
-                anonymous2,
+                anonymous0,
                 attribute plain-text { xsd:boolean }?
               }
             | element users {
@@ -424,7 +368,7 @@ anonymous7 =
             | element plug-in { plug-inAuthType })
          }?,
          element authorization {
-           element properties { anonymous2 }
+           element properties { anonymous0 }
            | empty
            | element plug-in { plug-inAuthType }
          }?
@@ -440,29 +384,10 @@ anonymous7 =
          attribute name { xsd:string }
        }
      })?
-anonymous8 = attribute interface { xsd:string }
-link-local-addressType = empty, empty
-native-management-socketType =
-  (anonymous8,
-   attribute port { xsd:int }),
+contentType =
+  attribute sha1 { text },
   empty
-anonymous9 = attribute security-realm { xsd:string }?
-loopback-addressType =
-  attribute value { xsd:string },
-  empty
-specified-pathsType =
-  (notAllowed
-   | element path {
-       attribute relative-to { xsd:string }?,
-       attribute path {
-         xsd:string { minLength = "1" }
-       },
-       attribute name { xsd:string }
-     })*,
-  empty
-fs-explodedType = anonymous0, empty
-multicastType = empty, empty
-interface-virtualType = empty, empty
+anonymous6 = attribute security-realm { xsd:string }?
 address-exclusionType =
   ((notAllowed
     | element inet-address { inet-addressType })+
@@ -492,4 +417,79 @@ address-exclusionType =
    | (notAllowed
       | element subnet-match { subnet-matchType })+),
   empty
+anonymous7 =
+  attribute relative-to { xsd:string }?,
+  attribute path {
+    xsd:string { minLength = "1" }
+  }?
+public-addressType = empty, empty
+specified-pathsType =
+  (notAllowed
+   | element path {
+       attribute relative-to { xsd:string }?,
+       attribute path {
+         xsd:string { minLength = "1" }
+       },
+       attribute name { xsd:string }
+     })*,
+  empty
+anonymous8 = anonymous7
+\string = xsd:string
+anonymous9 = attribute interface { xsd:string }
+interface-criteriaGroup =
+  (notAllowed
+   | element any-address { empty })
+  | (notAllowed
+     | element any-ipv6-address { empty })
+  | (notAllowed
+     | element any-ipv4-address { empty })
+  | ((notAllowed
+      | element inet-address { inet-addressType })
+     | (notAllowed
+        | element loopback { loopbackType })
+     | (notAllowed
+        | element loopback-address { loopback-addressType })
+     | (notAllowed
+        | element multicast { multicastType })
+     | (notAllowed
+        | element point-to-point { point-to-pointType })
+     | (notAllowed
+        | element virtual { interface-virtualType })
+     | (notAllowed
+        | element up { interface-upType })
+     | (notAllowed
+        | element public-address { public-addressType })
+     | (notAllowed
+        | element link-local-address { link-local-addressType })
+     | (notAllowed
+        | element site-local-address { site-local-addressType })
+     | (notAllowed
+        | element nic { nicType })
+     | (notAllowed
+        | element nic-match { nic-matchType })
+     | (notAllowed
+        | element subnet-match { subnet-matchType })
+     | (notAllowed
+        | element not { address-exclusionType })
+     | (notAllowed
+        | element any { address-exclusionType }))+
 interface-upType = empty, empty
+plug-inAuthType =
+  (attribute mechanism { xsd:string "PLAIN" | xsd:string "DIGEST" }?,
+   attribute name { xsd:string },
+   (notAllowed
+    | element properties { properties })?),
+  empty
+vaultType =
+  (attribute code { xsd:string }?,
+   (notAllowed
+    | element vault-option { propertyType })*),
+  empty
+nicType =
+  attribute name { xsd:string },
+  empty
+loopbackType = empty, empty
+native-management-socketType =
+  (anonymous9,
+   attribute port { xsd:int }),
+  empty

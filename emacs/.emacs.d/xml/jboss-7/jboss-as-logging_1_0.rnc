@@ -1,0 +1,161 @@
+default namespace = "urn:jboss:domain:logging:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      (element logger {
+         anonymous0,
+         attribute use-parent-handlers { xsd:boolean }?,
+         attribute category { xsd:string }
+       }
+       | element root-logger { anonymous0 }
+       | element console-handler {
+           attribute name { xsd:string },
+           attribute autoflush { xsd:boolean }?,
+           (element level { refType }?
+            & element encoding { valueType }?
+            & element filter { filterType }?
+            & element formatter { formatterType }?
+            & element target {
+                attribute name {
+                  xsd:token "System.err" | xsd:token "System.out"
+                }
+              }?)
+         }
+       | element file-handler {
+           attribute name { xsd:string },
+           attribute autoflush { xsd:boolean }?,
+           (element level { refType }?
+            & element encoding { valueType }?
+            & element filter { filterType }?
+            & element formatter { formatterType }?
+            & element file { pathType }
+            & element append { booleanValueType }?)
+         }
+       | element periodic-rotating-file-handler {
+           attribute name { xsd:string },
+           attribute autoflush { xsd:boolean }?,
+           (element level { refType }?
+            & element encoding { valueType }?
+            & element filter { filterType }?
+            & element formatter { formatterType }?
+            & element file { pathType }
+            & element suffix { valueType }
+            & element append { booleanValueType }?)
+         }
+       | element size-rotating-file-handler {
+           attribute name { xsd:string },
+           attribute autoflush { xsd:boolean }?,
+           (element level { refType }?
+            & element encoding { valueType }?
+            & element filter { filterType }?
+            & element formatter { formatterType }?
+            & element file { pathType }
+            & element rotate-size {
+                attribute value {
+                  xsd:string { pattern = "[0-9]+[bkmgtp]" }
+                }?
+              }?
+            & element max-backup-index {
+                attribute value { xsd:positiveInteger }
+              }?
+            & element append { booleanValueType }?)
+         }
+       | element async-handler {
+           attribute name { xsd:string },
+           (element level { refType }?
+            & element filter { filterType }?
+            & element queue-length {
+                attribute value {
+                  xsd:positiveInteger { minExclusive = "1" }
+                }
+              }
+            & element overflow-action {
+                attribute value {
+                  xsd:token "block" | xsd:token "discard"
+                }
+              }?
+            & element subhandlers { handlersType })
+         })*
+    }
+anyType =
+  mixed {
+    (attribute * { text }
+     | element0)*
+  },
+  empty
+multiFilterType = simpleFilterGroup+, empty
+formatterType =
+  (notAllowed
+   | element pattern-formatter {
+       attribute pattern { xsd:string }
+     }),
+  empty
+valueType =
+  attribute value { xsd:string },
+  empty
+refType =
+  attribute name { xsd:string },
+  empty
+simpleFilterGroup =
+  (notAllowed
+   | element all { multiFilterType })
+  | (notAllowed
+     | element any { multiFilterType })
+  | (notAllowed
+     | element accept { anyType })
+  | (notAllowed
+     | element deny { anyType })
+  | (notAllowed
+     | element not { filterType })
+  | (notAllowed
+     | element match {
+         attribute pattern { xsd:string }
+       })
+  | (notAllowed
+     | element replace {
+         attribute replace-all { xsd:boolean }?,
+         attribute replacement { xsd:string },
+         attribute pattern { xsd:string }
+       })
+  | (notAllowed
+     | element level {
+         attribute name { xsd:string }
+       })
+  | (notAllowed
+     | element level-range {
+         attribute max-inclusive { xsd:boolean }?,
+         attribute max-level { xsd:string },
+         attribute min-inclusive { xsd:boolean }?,
+         attribute min-level { xsd:string }
+       })
+  | (notAllowed
+     | element change-level {
+         attribute new-level { xsd:string }
+       })
+filterType = simpleFilterGroup, empty
+pathType =
+  (attribute path { xsd:string },
+   attribute relative-to { xsd:string }?),
+  empty
+element0 =
+  element * {
+    mixed {
+      (attribute * { text }
+       | element0)*
+    }
+  }
+anonymous0 =
+  (notAllowed
+   | element level { refType })?
+  & (notAllowed
+     | element filter { filterType })?
+  & (notAllowed
+     | element handlers { handlersType })?
+handlersType =
+  (notAllowed
+   | element handler { refType })*,
+  empty
+booleanValueType =
+  attribute value { xsd:boolean },
+  empty

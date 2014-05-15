@@ -1,0 +1,10 @@
+default namespace = ""
+namespace ns1 = "urn:jboss:deployment-dependencies:1.0"
+
+start =
+  notAllowed
+  | element ns1:jboss-deployment-dependencies {
+      element dependency {
+        attribute name { xsd:string }
+      }*
+    }

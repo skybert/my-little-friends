@@ -1,0 +1,9 @@
+default namespace = "urn:jboss:domain:jpa:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element jpa {
+        attribute default-datasource { text }?
+      }
+    }

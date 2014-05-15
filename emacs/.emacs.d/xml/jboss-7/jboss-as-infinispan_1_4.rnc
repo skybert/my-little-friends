@@ -1,0 +1,195 @@
+default namespace = "urn:jboss:domain:infinispan:1.4"
+
+start =
+  notAllowed
+  | element subsystem {
+      element cache-container {
+        attribute module { xsd:string }?,
+        attribute replication-queue-executor { xsd:string }?,
+        attribute eviction-executor { xsd:string }?,
+        attribute listener-executor { xsd:string }?,
+        attribute start { xsd:token "EAGER" | xsd:token "LAZY" }?,
+        attribute default-cache { xsd:string }?,
+        attribute jndi-name { xsd:string }?,
+        attribute aliases {
+          list { xsd:string* }
+        }?,
+        attribute name { xsd:string },
+        element transport {
+          attribute lock-timeout { xsd:long }?,
+          attribute executor { xsd:string }?,
+          attribute cluster { xsd:string }?,
+          attribute stack { xsd:string }?
+        }?,
+        (element local-cache { anonymous0 }
+         | element replicated-cache { anonymous4 }
+         | element invalidation-cache { anonymous3 }
+         | element distributed-cache {
+             anonymous4,
+             attribute owners { xsd:int }?,
+             attribute segments { xsd:int }?,
+             attribute l1-lifespan { xsd:long }?
+           })+
+      }+
+    }
+anonymous1 =
+  attribute batch-size { xsd:int }?,
+  attribute fetch-size { xsd:int }?,
+  (notAllowed
+   | element id-column {
+       attribute type { xsd:string }?,
+       attribute name { xsd:string }?
+     })?,
+  (notAllowed
+   | element data-column {
+       attribute type { xsd:string }?,
+       attribute name { xsd:string }?
+     })?,
+  (notAllowed
+   | element timestamp-column {
+       attribute type { xsd:string }?,
+       attribute name { xsd:string }?
+     })?
+anonymous0 =
+  attribute module { xsd:string }?,
+  attribute jndi-name { xsd:string }?,
+  attribute indexing {
+    xsd:token "LOCAL" | xsd:token "ALL" | xsd:token "NONE"
+  }?,
+  attribute batching { xsd:boolean }?,
+  attribute start { xsd:token "EAGER" | xsd:token "LAZY" }?,
+  attribute name { xsd:string },
+  (notAllowed
+   | element locking {
+       attribute concurrency-level { xsd:int }?,
+       attribute acquire-timeout { xsd:long }?,
+       attribute striping { xsd:boolean }?,
+       attribute isolation {
+         xsd:token "READ_UNCOMMITTED"
+         | xsd:token "SERIALIZABLE"
+         | xsd:token "READ_COMMITTED"
+         | xsd:token "REPEATABLE_READ"
+         | xsd:token "NONE"
+       }?
+     })?,
+  (notAllowed
+   | element transaction {
+       attribute locking {
+         xsd:token "PESSIMISTIC" | xsd:token "OPTIMISTIC"
+       }?,
+       attribute stop-timeout { xsd:long }?,
+       attribute mode {
+         xsd:token "NON_DURABLE_XA"
+         | xsd:token "NON_XA"
+         | xsd:token "FULL_XA"
+         | xsd:token "NONE"
+       }?
+     })?,
+  (notAllowed
+   | element eviction {
+       attribute max-entries { xsd:int }?,
+       attribute strategy {
+         xsd:token "FIFO"
+         | xsd:token "LIRS"
+         | xsd:token "LRU"
+         | xsd:token "UNORDERED"
+         | xsd:token "NONE"
+       }?
+     })?,
+  (notAllowed
+   | element expiration {
+       attribute interval { xsd:long }?,
+       attribute lifespan { xsd:long }?,
+       attribute max-idle { xsd:long }?
+     })?,
+  ((notAllowed
+    | element store {
+        anonymous2,
+        attribute class { xsd:string }
+      })
+   | (notAllowed
+      | element file-store {
+          anonymous2,
+          attribute relative-to { xsd:string }?,
+          attribute path { xsd:string }?
+        })
+   | (notAllowed
+      | element string-keyed-jdbc-store {
+          anonymous2,
+          element string-keyed-table { string-keyed-table }?,
+          attribute datasource { xsd:string }
+        })
+   | (notAllowed
+      | element binary-keyed-jdbc-store {
+          anonymous2,
+          element binary-keyed-table { binary-keyed-table }?,
+          attribute datasource { xsd:string }
+        })
+   | (notAllowed
+      | element mixed-keyed-jdbc-store {
+          anonymous2,
+          element binary-keyed-table { binary-keyed-table }?,
+          element string-keyed-table { string-keyed-table }?,
+          attribute datasource { xsd:string }
+        })
+   | empty
+   | (notAllowed
+      | element remote-store {
+          anonymous2,
+          element remote-server {
+            attribute outbound-socket-binding { xsd:string }
+          }+,
+          attribute cache { xsd:string }?,
+          attribute socket-timeout { xsd:long }?,
+          attribute tcp-no-delay { xsd:boolean }?
+        })),
+  (notAllowed
+   | element indexing {
+       attribute index {
+         xsd:token "LOCAL" | xsd:token "ALL" | xsd:token "NONE"
+       }?,
+       element property { property }*
+     })?
+anonymous2 =
+  attribute singleton { xsd:boolean }?,
+  attribute purge { xsd:boolean }?,
+  attribute fetch-state { xsd:boolean }?,
+  attribute passivation { xsd:boolean }?,
+  attribute preload { xsd:boolean }?,
+  attribute shared { xsd:boolean }?,
+  (notAllowed
+   | element write-behind {
+       attribute thread-pool-size { xsd:int }?,
+       attribute shutdown-timeout { xsd:int }?,
+       attribute modification-queue-size { xsd:int }?,
+       attribute flush-lock-timeout { xsd:int }?
+     })?,
+  (notAllowed
+   | element property { property })*
+string-keyed-table =
+  (anonymous1,
+   attribute prefix { xsd:string }?),
+  empty
+anonymous3 =
+  anonymous0,
+  attribute async-marshalling { xsd:boolean }?,
+  attribute mode { xsd:token "SYNC" | xsd:token "ASYNC" },
+  attribute queue-size { xsd:int }?,
+  attribute queue-flush-interval { xsd:long }?,
+  attribute remote-timeout { xsd:long }?
+anonymous4 =
+  anonymous3,
+  (notAllowed
+   | element state-transfer {
+       attribute chunk-size { xsd:integer }?,
+       attribute timeout { xsd:long }?,
+       attribute enabled { xsd:boolean }?
+     })?
+property =
+  (attribute name { xsd:string },
+   xsd:string),
+  empty
+binary-keyed-table =
+  (anonymous1,
+   attribute prefix { xsd:string }?),
+  empty

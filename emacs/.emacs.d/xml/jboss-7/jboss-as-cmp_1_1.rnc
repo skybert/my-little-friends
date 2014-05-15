@@ -1,0 +1,29 @@
+default namespace = "urn:jboss:domain:cmp:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element key-generators {
+        (element uuid {
+           attribute jndi-name { xsd:string }?,
+           attribute name { xsd:string }?
+         }
+         | element hilo {
+             attribute jndi-name { xsd:string }?,
+             attribute name { xsd:string }?,
+             element block-size { xsd:long },
+             element create-table { boolean },
+             element create-table-ddl { \string },
+             element data-source { \token },
+             element drop-table { boolean },
+             element id-column { \token },
+             element select-hi-ddl { \string },
+             element sequence-column { \token },
+             element sequence-name { \token },
+             element table-name { \token }
+           })*
+      }?
+    }
+boolean = xsd:boolean
+\token = xsd:token
+\string = xsd:string

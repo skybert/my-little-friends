@@ -1,0 +1,62 @@
+default namespace = "urn:jboss:domain:jacorb:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element orb {
+        attribute giop-minor-version { xsd:integer }?,
+        attribute cache-poa-names { xsd:string }?,
+        attribute cache-typecodes { xsd:string }?,
+        attribute use-bom { xsd:string }?,
+        attribute use-imr { xsd:string }?,
+        attribute print-version { xsd:string }?,
+        attribute name { xsd:string }?,
+        element connection {
+          attribute outbuf-cache-timeout { xsd:integer }?,
+          attribute outbuf-size { xsd:integer }?,
+          attribute max-managed-buf-size { xsd:integer }?,
+          attribute max-server-connections { xsd:integer }?,
+          attribute server-timeout { xsd:integer }?,
+          attribute client-timeout { xsd:integer }?,
+          attribute retry-interval { xsd:integer }?,
+          attribute retries { xsd:integer }?
+        }?,
+        element naming {
+          attribute export-corbaloc { xsd:string }?,
+          attribute root-context { xsd:string }?
+        }?
+      }?,
+      element poa {
+        attribute queue-max { xsd:integer }?,
+        attribute queue-min { xsd:integer }?,
+        attribute queue-wait { xsd:string }?,
+        attribute monitoring { xsd:string }?,
+        element request-processors {
+          attribute max-threads { xsd:integer }?,
+          attribute pool-size { xsd:integer }?
+        }?
+      }?,
+      element interop {
+        attribute strict-check-on-tc-creation { xsd:string }?,
+        attribute indirection-encoding-disable { xsd:string }?,
+        attribute lax-boolean-encoding { xsd:string }?,
+        attribute chunk-custom-rmi-valuetypes { xsd:string }?,
+        attribute comet { xsd:string }?,
+        attribute sun { xsd:string }?
+      }?,
+      element security {
+        attribute use-domain-server-socket-factory { xsd:string }?,
+        attribute use-domain-socket-factory { xsd:string }?,
+        attribute server-requires { xsd:integer }?,
+        attribute server-supports { xsd:integer }?,
+        attribute client-requires { xsd:integer }?,
+        attribute client-supports { xsd:integer }?,
+        attribute add-component-via-interceptor { xsd:string }?,
+        attribute support-ssl { xsd:string }?
+      }?,
+      element property {
+        attribute value { xsd:string },
+        attribute key { xsd:string }
+      }*,
+      element initializers { xsd:string }?
+    }

@@ -10,23 +10,35 @@ xmodmap "/home/torstein/.xmodmaprc"
 # turn off caps lock, have never needed it.
 setxkbmap -option ctrl:nocaps &
 
-# wmnd &
-# wmsmixer -w &
-# idesk &
+# wallpaper
+# display -window root ~/pictures/wallpaper &
 
-gnome-settings-daemon &
+# favourite applications
+app_list="
+  gnome-settings-daemon
+  clipit
+  conky
+  davmail
+"
+for app in ${app_list}; do
+  if [ -x /usr/bin/${app} ]; then
+      ${app} &
+  fi
+done
+
 # gnome-power-manager &
 killall -9 gnome-screensaver
 xscreensaver &
-# display -window root ~/pictures/wallpaper &
+
+# dropbox
 dropbox start &
-clipit &
-conky &
 
 # touch /tmp/dates
 # root-tail -i 20 -fn 7x14 -g 400x60+0+740 /tmp/dates &
 # root-tail -i 20 -fn 7x14 -g 400x20+900+780 /tmp/current-music &
 
-# And last but not least we start fluxbox.
-# Because it is the last app you have to run it with ''exec'' before it.
+# Setting the locale here to make fluxbox and everything it starts
+# aware of my preferred locale (setting it in .bashrc is sometimes too
+# late).
+export LC_ALL=en_GB.utf8
 exec fluxbox -log ~/.fluxbox/log

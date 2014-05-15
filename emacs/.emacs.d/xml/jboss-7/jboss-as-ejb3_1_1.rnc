@@ -1,0 +1,52 @@
+default namespace = "urn:jboss:domain:ejb3:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      attribute lite { xsd:boolean }?,
+      (element mdb {
+         element resource-adapter-ref {
+           attribute resource-adapter-name { xsd:string }
+         }?
+         & element bean-instance-pool-ref {
+             bean-instance-pool-refType
+           }?
+       }?
+       & element session-bean {
+           element stateless {
+             element bean-instance-pool-ref {
+               bean-instance-pool-refType
+             }?
+           }?
+         }?
+       & element pools {
+           element bean-instance-pools {
+             element strict-max-pool {
+               attribute instance-acquisition-timeout-unit {
+                 xsd:token "MILLISECONDS"
+                 | xsd:token "MINUTES"
+                 | xsd:token "SECONDS"
+                 | xsd:token "HOURS"
+               }?,
+               attribute instance-acquisition-timeout {
+                 xsd:positiveInteger
+               }?,
+               attribute max-pool-size { xsd:positiveInteger }?,
+               attribute name { xsd:string }
+             }*
+           }?
+         }?
+       & element timer-service {
+           element thread-pool {
+             attribute max-threads { xsd:int }?,
+             attribute core-threads { xsd:int }?
+           }?,
+           element data-store {
+             attribute relative-to { xsd:string }?,
+             attribute path { xsd:string }?
+           }?
+         }?)
+    }
+bean-instance-pool-refType =
+  attribute pool-name { xsd:string },
+  empty

@@ -1,0 +1,33 @@
+default namespace = "urn:jboss:domain:transactions:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element core-environment {
+        attribute relative-to { xsd:string }?,
+        attribute path { xsd:string }?,
+        attribute node-identifier { xsd:string }?,
+        element process-id {
+          element uuid { empty }
+          | element socket {
+              attribute socket-process-id-max-ports { xsd:int }?,
+              attribute socket-binding { xsd:string }
+            }
+        }
+      }
+      & element recovery-environment {
+          attribute recovery-listener { xsd:boolean }?,
+          attribute status-socket-binding { xsd:string }?,
+          attribute socket-binding { xsd:string }?
+        }
+      & element coordinator-environment {
+          attribute default-timeout { xsd:int }?,
+          attribute enable-tsm-status { xsd:boolean }?,
+          attribute enable-statistics { xsd:boolean }?
+        }?
+      & element object-store {
+          attribute relative-to { xsd:string }?,
+          attribute path { xsd:string }?
+        }?
+      & element jts { empty }?
+    }

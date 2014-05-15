@@ -1,0 +1,16 @@
+default namespace = "urn:jboss:domain:deployment-scanner:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element deployment-scanner {
+        attribute deployment-timeout { xsd:int }?,
+        attribute auto-deploy-exploded { xsd:boolean }?,
+        attribute auto-deploy-zipped { xsd:boolean }?,
+        attribute scan-enabled { xsd:boolean }?,
+        attribute scan-interval { xsd:int }?,
+        attribute path { text },
+        attribute relative-to { xsd:string }?,
+        attribute name { xsd:string }?
+      }*+
+    }

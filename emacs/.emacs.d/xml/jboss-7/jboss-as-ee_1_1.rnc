@@ -1,0 +1,20 @@
+default namespace = "urn:jboss:domain:ee:1.1"
+
+start =
+  notAllowed
+  | element subsystem {
+      element global-modules {
+        element module {
+          attribute slot { xsd:string }?,
+          attribute name { xsd:string }
+        }*
+      }?,
+      element ear-subdeployments-isolated { xsd:boolean }?,
+      element spec-descriptor-property-replacement {
+        descriptor-property-replacementType
+      }?,
+      element jboss-descriptor-property-replacement {
+        descriptor-property-replacementType
+      }?
+    }
+descriptor-property-replacementType = xsd:boolean

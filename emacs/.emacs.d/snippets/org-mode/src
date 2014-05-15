@@ -1,5 +1,5 @@
-#name : insert a source (BASH) declaration 
+#name : insert a source (BASH) declaration
 # --
-#+BEGIN_SRC text
+#+begin_src text
 $0
-#+END_SRC
+#+end_src

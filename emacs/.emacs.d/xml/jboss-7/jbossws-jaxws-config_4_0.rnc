@@ -1,0 +1,85 @@
+default namespace = "http://java.sun.com/xml/ns/javaee"
+namespace ns1 = "urn:jboss:jbossws-jaxws-config:4.0"
+
+start =
+  notAllowed
+  | element ns1:jaxws-config {
+      element ns1:endpoint-config { anonymous0 }*,
+      element ns1:client-config { anonymous0 }*
+    }
+\string = anonymous2, empty
+anonymous0 =
+  (notAllowed
+   | element ns1:config-name { string2 }),
+  (notAllowed
+   | element ns1:pre-handler-chains { handler-chainsType })?,
+  (notAllowed
+   | element ns1:post-handler-chains { handler-chainsType })?,
+  (notAllowed
+   | element ns1:feature {
+       element ns1:feature-name { string2 }
+     })*,
+  (notAllowed
+   | element ns1:property {
+       element ns1:property-name { string2 },
+       element ns1:property-value { string2 }
+     })*
+handler-chainsType =
+  (attribute id { xsd:ID }?,
+   (notAllowed
+    | element handler-chain {
+        attribute id { xsd:ID }?,
+        (element service-name-pattern { qname-pattern }
+         | element port-name-pattern { qname-pattern }
+         | element protocol-bindings {
+             list {
+               (xsd:anyURI
+                | xsd:token { pattern = "##.+" })*
+             }
+           })?,
+        element handler {
+          attribute id { xsd:ID }?,
+          element description { descriptionType }*,
+          element display-name { lang?, anonymous2 }*,
+          element icon {
+            attribute id { xsd:ID }?,
+            lang?,
+            element small-icon { pathType }?,
+            element large-icon { pathType }?
+          }*,
+          element handler-name { \string },
+          element handler-class {
+            xsd:token,
+            attribute id { ID }?
+          },
+          element init-param {
+            attribute id { xsd:ID }?,
+            element description { descriptionType }*,
+            element param-name { \string },
+            element param-value { anonymous1 }
+          }*,
+          element soap-header {
+            attribute id { xsd:ID }?,
+            xsd:QName
+          }*,
+          element soap-role { \string }*,
+          element port-name { \string }*
+        }+
+      })*),
+  empty
+anonymous1 =
+  attribute id { xsd:ID }?,
+  xsd:string
+pathType =
+  (xsd:token,
+   attribute id { ID }?),
+  empty
+descriptionType = (lang?, anonymous1), empty
+qname-pattern =
+  xsd:token { pattern = "\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?" }
+ID = xsd:ID
+string2 = xsd:string
+lang = attribute xml:lang { xsd:language | xsd:string "" }
+anonymous2 =
+  attribute id { ID }?,
+  xsd:token

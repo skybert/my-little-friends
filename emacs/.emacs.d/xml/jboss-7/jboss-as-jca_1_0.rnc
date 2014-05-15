@@ -1,0 +1,113 @@
+default namespace = "urn:jboss:domain:threads:1.0"
+namespace ns1 = "urn:jboss:domain:jca:1.0"
+
+start =
+  (notAllowed
+   | element ns1:subsystem {
+       element ns1:archive-validation {
+         attribute fail-on-warn { xsd:boolean }?,
+         attribute fail-on-error { xsd:boolean }?,
+         attribute enabled { xsd:boolean }?
+       }?
+       & element ns1:bean-validation {
+           attribute enabled { xsd:boolean }
+         }?
+       & element ns1:default-workmanager {
+           element ns1:short-running-threads { thread-pool }
+           & element ns1:long-running-threads { thread-pool }?
+         }
+       & element ns1:cached-connection-manager {
+           attribute error { xsd:boolean }?,
+           attribute debug { xsd:boolean }?
+         }?
+     })
+  | (notAllowed
+     | element subsystem {
+         (element thread-factory {
+            attribute priority {
+              xsd:integer { minInclusive = "1" maxInclusive = "10" }
+            }?,
+            attribute thread-name-pattern { xsd:string }?,
+            attribute group-name { xsd:string }?,
+            attribute name { xsd:string },
+            element properties { properties }?
+          }
+          | element unbounded-queue-thread-pool {
+              attribute name { xsd:string },
+              (element max-threads { scaled-count }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?
+               & element properties { properties }?)
+            }
+          | element bounded-queue-thread-pool {
+              attribute blocking { xsd:boolean }?,
+              attribute allow-core-timeout { xsd:boolean }?,
+              attribute name { xsd:string },
+              (element core-threads { scaled-count }?
+               & element queue-length { scaled-count }
+               & element max-threads { scaled-count }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?
+               & element handoff-executor { ref }?
+               & element properties { properties }?)
+            }
+          | element queueless-thread-pool {
+              attribute blocking { xsd:boolean }?,
+              attribute name { xsd:string },
+              (element max-threads { scaled-count }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?
+               & element handoff-executor { ref }?
+               & element properties { properties }?)
+            }
+          | element scheduled-thread-pool {
+              attribute name { xsd:string },
+              (element max-threads { scaled-count }
+               & element keepalive-time { time }?
+               & element thread-factory { ref }?
+               & element properties { properties }?)
+            })*
+       })
+scaled-count =
+  (attribute per-cpu { xsd:float }?,
+   attribute count { xsd:float }?),
+  empty
+thread-pool =
+  (attribute blocking { xsd:boolean }?,
+   attribute allow-core-timeout { xsd:boolean }?,
+   ((notAllowed
+     | element ns1:core-threads { scaled-count })?
+    & (notAllowed
+       | element ns1:queue-length { scaled-count })
+    & (notAllowed
+       | element ns1:max-threads { scaled-count })
+    & (notAllowed
+       | element ns1:keepalive-time { time })?
+    & (notAllowed
+       | element ns1:thread-factory { ref })?
+    & (notAllowed
+       | element ns1:handoff-executor { ref })?
+    & (notAllowed
+       | element ns1:properties { properties })?)),
+  empty
+properties =
+  (notAllowed
+   | element property {
+       attribute value { xsd:string }?,
+       attribute name { xsd:string }
+     })*,
+  empty
+time =
+  (attribute unit {
+     xsd:token "minutes"
+     | xsd:token "days"
+     | xsd:token "seconds"
+     | xsd:token "hours"
+     | xsd:token "nanoseconds"
+     | xsd:token "milliseconds"
+   },
+   attribute time { xsd:long }),
+  empty
+ref =
+  attribute name { xsd:string },
+  empty

@@ -1,0 +1,22 @@
+## /etc/default/bitlbee: Auto-generated/updated script.
+##
+## If running in (fork)daemon mode, listen on this TCP port.
+BITLBEE_PORT="6667"
+
+## Use single-process or forking daemon mode? Can't be changed from debconf,
+## but maintainer scripts will save your changes here.
+BITLBEE_OPTS="-F"
+
+## In case you want to stick with inetd mode (or if you just want to disable
+## the init scripts for some other reason), you can disable the init script
+## here. (Just set it to 1)
+BITLBEE_DISABLED=0
+
+## As a server operator, you can use the RESTART command to restart only the
+## master process while keeping all the child processes and their IPC
+## connections. By enabling this, the maintainer scripts won't restart
+## BitlBee during upgrades so you can restart the master process by hand.
+BITLBEE_UPGRADE_DONT_RESTART=0
+
+## Needed for Getting SIP/Lync working
+export NSS_SSL_CBC_RANDOM_IV=0

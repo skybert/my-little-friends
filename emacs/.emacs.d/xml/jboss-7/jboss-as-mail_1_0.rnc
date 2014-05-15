@@ -1,0 +1,27 @@
+default namespace = "urn:jboss:domain:mail:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element mail-session {
+        attribute from { text }?,
+        attribute debug { text }?,
+        attribute jndi-name { text },
+        element smtp-server { server-type }?,
+        element pop3-server { server-type }?,
+        element imap-server { server-type }?
+      }+
+    }
+server-type =
+  mixed {
+    attribute ssl { text }?,
+    attribute outbound-socket-binding-ref { text },
+    (notAllowed
+     | element login {
+         mixed {
+           attribute password { text }?,
+           attribute name { text }?
+         }
+       })?
+  },
+  empty

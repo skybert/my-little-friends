@@ -1,0 +1,10 @@
+default namespace = "urn:jboss:domain:jmx:1.0"
+
+start =
+  notAllowed
+  | element subsystem {
+      element jmx-connector {
+        attribute server-binding { text },
+        attribute registry-binding { text }
+      }
+    }

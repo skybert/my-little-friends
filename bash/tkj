@@ -6,9 +6,9 @@ log_file=$HOME/.$(basename $0).log
 LC_ALL=C
 conf_file=$HOME/.$(basename $0).conf
 
-. $HOME/src/common-bashing/src/common/io/runtime.sh
-. $HOME/src/common-bashing/src/common/text/color.sh
-. $HOME/src/common-bashing/src/common/text/messages.sh
+. $HOME/src/moria/src/common/io/runtime.sh
+. $HOME/src/moria/src/common/text/color.sh
+. $HOME/src/moria/src/common/text/messages.sh
 
 src_list="
 "
@@ -16,6 +16,7 @@ java_src_list="
 "
 java_build_src_list="
 "
+eclimd_bin=/opt/eclipse/eclimd
 
 function read_user_conf_if_exists() {
   if [ -r $conf_file ]; then
@@ -76,10 +77,6 @@ function do_set-up-vpn() {
   fi
 }
 
-function do_create-emacs-file-cache() {
-  create-emacs-file-cache
-}
-
 ## $1 :: name
 function do_switch-workspace() {
   print_and_log "Switching to ${1} ..."
@@ -134,7 +131,6 @@ function do_daily()
 
   # do_set-up-vpn
   do_update-tags
-  do_create-emacs-file-cache
 
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
@@ -178,7 +174,6 @@ function do_backup() {
 }
 
 function do_restart-eclimd() {
-  local eclimd_bin=/opt/eclipse/eclimd
   local eclimd_pid=$(ps aux|grep $eclimd_bin | grep -v grep | awk '{print $2;}  ')
   if [ -n "$eclimd_pid" ]; then
     print "Stopping eclimd ..."
@@ -186,6 +181,10 @@ function do_restart-eclimd() {
   fi
 
   do_build-sources
+  do_start-eclimd
+}
+
+function do_start-eclimd() {
   print "Starting eclimd ..."
 
   local workspace=@user.home/src/workspace-eclim
@@ -267,23 +266,9 @@ function do_update-tags()
     print "Updating gtags for $el ..."
     (
       run cd $el
-      find . -type f -name "*.java" | \
-        egrep ".java|.xml|.pom|.properties" | \
-        gtags -f -
+      find . -type f -name "*.java" | gtags -f -
     )
   done
-
-  # print "Updaging GTags ..."
-  # (
-  #     run cd ~/src/p4
-  #     find /usr/lib/jvm/java-6-sun/src . -type f | \
-  #         grep trunk | \
-  #         grep trunk | \
-  #         egrep -v "dhk|osl|target" | \
-  #         egrep ".java|.xml|.pom|.properties" | \
-  #         egrep -v ".svn|.git|.hg|~|.swp" | \
-  #         gtags -f -
-  # )
 }
 
 function do_doc() {
@@ -555,6 +540,30 @@ function search_otrs()
   opera "$url/?$uri_parameters"
 }
 
+function do_music-next() {
+  if [ $(ps -u $USER | grep xmms | wc -l) -gt 0 ]; then
+    xmms -f
+  elif [ $(ps -u $USER | grep mpd | wc -l) -gt 0 ]; then
+    mpc next
+  fi
+}
+
+function do_music-previous() {
+  if [ $(ps -u $USER | grep xmms | wc -l) -gt 0 ]; then
+    xmms -r
+  elif [ $(ps -u $USER | grep mpd | wc -l) -gt 0 ]; then
+    mpc prev
+  fi
+}
+
+function do_music-toggle() {
+  if [ $(ps -u $USER | grep xmms | wc -l) -gt 0 ]; then
+    xmms -t
+  elif [ $(ps -u $USER | grep mpd | wc -l) -gt 0 ]; then
+    mpc toggle
+  fi
+}
+
 function do_play-that-music()
 {
   mpc clear
@@ -585,7 +594,7 @@ function do_set-random-wallpaper()
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
-  display -window root $wallpaper
+  display -backdrop -window root $wallpaper
 }
 
 # try to be smart first
