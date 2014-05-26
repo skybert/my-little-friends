@@ -293,7 +293,9 @@ function do_update-sources()
     print "----------------------------------------------"
     (
       cd $el
-      if [ -d $el/.git ]; then
+      if [[ -d $el/.git && $(grep svn-remote $el/.git/config | wc -l) -gt 0 ]]; then
+        git svn rebase
+      elif [ -d $el/.git ]; then
         git pull --rebase
       elif [ -d $el/.svn ]; then
         svn up

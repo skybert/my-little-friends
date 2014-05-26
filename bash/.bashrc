@@ -26,7 +26,7 @@ HISTSIZE=1000000
 HISTFILESIZE=1000000
 HISTTIMEFORMAT="%F %H:%M:%S "
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
-'echo "$(history 1)" >> ~/.bash_eternal_history'
+'echo "$(history 1)" >> $HOME/.bash_eternal_history'
 
 # aliases
 alias de='setxkbmap de'
