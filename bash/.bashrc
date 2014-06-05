@@ -87,10 +87,7 @@ export LANG=en_GB.utf8
 export LC_ALL=en_GB.utf8
 
 # java settings
-<<<<<<< variant A
 export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
->>>>>>> variant B
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=1024m"
 
 # radio
 alias radio_absolute_radio="mplayer http://ogg2.as34763.net/vr160.ogg"
@@ -101,9 +98,6 @@ alias radio_metro="mplayer http://stream.21stventure.com:8100"
 alias radio_p1="mplayer http://malxrstream01.nrk.no/nrk-p1-56"
 alias radio_p4="mplayer http://mms-live.online.no/p4_norge_ogg_lq"
 alias radio_paradise="mplayer http://stream-sd.radioparadise.com:9000/rp_96.ogg"
-####### Ancestor
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m" 
-======= end
 
 # local overrides & private bash settings
 if [ -e ~/.bashrc.private ]; then
