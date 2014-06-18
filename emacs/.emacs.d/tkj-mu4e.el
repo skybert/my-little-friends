@@ -8,7 +8,7 @@
       ;; care of this
       mu4e-sent-messages-behavior 'trash
 
-      mu4e-show-images t
+      mu4e-view-show-images t
       mu4e-html2text-command "html2text -width 72"
 
       ;; common SMTP settings for all accounts
