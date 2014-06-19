@@ -9,7 +9,7 @@
       mu4e-sent-messages-behavior 'trash
 
       mu4e-view-show-images t
-      mu4e-html2text-command "html2text -width 72"
+      mu4e-html2text-command "html2text -width 72 -utf8"
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
@@ -32,21 +32,23 @@
          )
   )
 
-(defun tkj-load-mu4e-broadnet()
+(defun tkj-load-mu4e-spk()
   (interactive)
   (setq  mu4e-maildir-shortcuts
          '(
-           ("/broadnet/inbox" . ?i)
-           ("/broadnet/jira" . ?j)
+           ("/spk/inbox" . ?i)
+           ("/spk/inbox.jira" . ?j)
+           ("/spk/inbox.jenkins" . ?e)
+           ("/spk/inbox.crucible" . ?c)
            )
-         user-mail-address "torsteinkrause.johansen@broadnet.no"
-         smtpmail-smtp-server "smtp.broadnet"
+         user-mail-address "torstein.krause.johansen@spk.no"
+         smtpmail-smtp-server "smtp.spk"
          smtpmail-smtp-service 1025
          smtpmail-stream-type 'plain
          mu4e-sent-messages-behavior 'sent
-         message-signature-file "~/.signature-broadnet"
+         message-signature-file "~/.signature-spk"
          )
-  )                                      ;
+  )
 
 (defun tkj-load-mu4e-gmail()
   (interactive)
