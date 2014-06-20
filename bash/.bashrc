@@ -1,10 +1,15 @@
 # Torstein's .bashrc
 
-# window
+##################################################################
+## window
+##################################################################
 shopt -s checkwinsize
 PROMPT_COMMAND='echo -ne "\033]0;${USER-${USERNAME}}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 TERM=xterm-color
 
+##################################################################
+# prompt
+##################################################################
 function get_git_status() {
   local old_exit_code=$?
   local status=$(git status 2>/dev/null | head -1 | cut -d' ' -f3)
@@ -16,10 +21,11 @@ function get_git_status() {
   return $old_exit_code
 }
 
-# prompt
 PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;35m\]\$(get_git_status) \[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
 
+##################################################################
 # history
+##################################################################
 shopt -s histappend
 HISTCONTROL=ignoredups
 HISTSIZE=1000000
@@ -28,7 +34,9 @@ HISTTIMEFORMAT="%F %H:%M:%S "
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 'echo "$(history 1)" >> $HOME/.bash_eternal_history'
 
+##################################################################
 # aliases
+##################################################################
 alias de='setxkbmap de'
 alias df='df -hT'
 alias ec='emacsclient'
@@ -46,7 +54,12 @@ alias t='urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 alias us='setxkbmap us'
 
+##################################################################
 # bash completion
+##################################################################
+# music -> cd music
+shopt -s autocd
+
 export FIGNORE=.svn
 l="
   /usr/share/bash-completion/bash_completion
@@ -61,10 +74,15 @@ for el in $l; do
   fi
 done
 
+##################################################################
 # java
+##################################################################
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
 
+##################################################################
 # path
+##################################################################
 PATH=$HOME/src/ece-scripts/usr/bin:\
 $HOME/src/moria/voss/usr/bin:\
 $HOME/src/my-little-friends/bash:\
@@ -76,21 +94,27 @@ $HOME/src/moria/src/java:\
 $JAVA_HOME/bin:\
 $PATH
 
+##################################################################
 # editor
+##################################################################
 export EDITOR=vim
 
+##################################################################
 # p4
+##################################################################
 export P4CONFIG=$HOME/.p4config
 
+##################################################################
 # language & time zone
+##################################################################
 export TZ='Europe/Oslo'
 export LANG=en_GB.utf8
 export LC_ALL=en_GB.utf8
 
-# java settings
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
 
+##################################################################
 # radio
+##################################################################
 alias radio_absolute_radio="mplayer http://ogg2.as34763.net/vr160.ogg"
 alias radio_classic_rock="mplayer http://ogg2.as34763.net/vc160.ogg"
 alias radio_hinet="mplayer mms://bcr.media.hinet.net/RA00000"
@@ -100,7 +124,9 @@ alias radio_p1="mplayer http://malxrstream01.nrk.no/nrk-p1-56"
 alias radio_p4="mplayer http://mms-live.online.no/p4_norge_ogg_lq"
 alias radio_paradise="mplayer http://stream-sd.radioparadise.com:9000/rp_96.ogg"
 
+##################################################################
 # local overrides & private bash settings
+##################################################################
 if [ -e ~/.bashrc.private ]; then
   source ~/.bashrc.private
 fi
