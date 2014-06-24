@@ -24,12 +24,14 @@
 (ido-ubiquitous)
 
 ;; General project support
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-enable-caching nil
-      projectile-globally-ignored-directories '("target")
-      )
-(global-set-key "\C-cf" 'projectile-find-file)
+(defun tkj-load-projectile()
+   (interactive)
+   (require 'projectile)
+   (projectile-global-mode)
+   (setq projectile-enable-caching nil
+         projectile-globally-ignored-directories '("target")
+         )
+   (global-set-key "\C-cf" 'projectile-find-file))
 
 ;; Enhanced M-x
 (require 'smex)
