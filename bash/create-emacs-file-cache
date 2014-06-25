@@ -8,9 +8,15 @@
 dir_list="
 $HOME/.emacs.d
 $HOME/src/my-little-friends
-$HOME/src/fara
+$HOME/src/git
 $HOME/doc/$(date +%Y)
 /opt/jboss/standalone/configuration
+"
+suffix_list="
+xml
+java
+properties
+sh
 "
 file_list="
 $HOME/src/my-little-friends/bash/create-emacs-file-cache
@@ -31,14 +37,19 @@ function create_entry() {
   echo "(\""$(basename $1)"\" \""$(dirname $1)"/\")"
 }
 
-for suffix in bpmn yaml xml java properties sh org html; do
-  find $dir_list -name "*.${suffix}" 2>/dev/null | egrep -v "classes|target|.idea|.git" | while read f; do
-    if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
-      continue
-    fi
-    create_entry $f >> $file
-  done
+name_string="( -name *.xml"
+for suffix in $suffix_list; do
+  name_string="${name_string} -o -name *.${suffix}"
 done
+
+name_string="${name_string} )"
+find -L $dir_list ${name_string} 2>/dev/null | egrep -v "classes|target|.idea|.git" | while read f; do
+  if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
+    continue
+  fi
+  create_entry $f >> $file
+done
+
 
 for f in $file_list; do
   create_entry $f >> $file

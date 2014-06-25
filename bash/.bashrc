@@ -35,6 +35,7 @@ alias ec='emacsclient'
 alias emacs='emacs -fn terminus-12'
 alias eternal='cat ~/.bash_eternal_history | grep'
 alias grep='grep -i --color'
+alias gb='git branch'
 alias ls='ls -lh'
 alias mc="mvn clean install"
 alias mp="mvn package -DskipTests"
