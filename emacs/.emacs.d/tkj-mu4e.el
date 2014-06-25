@@ -9,7 +9,7 @@
       mu4e-sent-messages-behavior 'trash
 
       mu4e-view-show-images t
-      mu4e-html2text-command "html2text -width 72 -utf8"
+      mu4e-html2text-command "~/src/my-little-friends/bash/tkj-html-to-text.sh"
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
