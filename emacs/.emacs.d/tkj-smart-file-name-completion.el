@@ -23,6 +23,10 @@
 (require 'ido-ubiquitous)
 (ido-ubiquitous)
 
+;; Enhanced M-x
+(require 'smex)
+(global-set-key (kbd "M-x") 'smex)
+
 ;; General project support
 (defun tkj-load-projectile()
   (interactive)
@@ -33,7 +37,9 @@
         )
   (global-set-key "\C-cf" 'projectile-find-file))
 
-
+;; Sometimes, for instance when working on HUGE code bases - or on
+;; windows, it's better to use a good old file cache (I generate mine
+;; with ../../bash/create-emacs-file-cache).
 (defun tkj-load-filecache()
   (interactive)
   (require 'filecache)
@@ -102,6 +108,4 @@ directory, select directory. Lastly the file is opened."
 
   (global-set-key "\C-cf" 'file-cache-ido-find-file)
   )
-;; Enhanced M-x
-(require 'smex)
-(global-set-key (kbd "M-x") 'smex)
+
