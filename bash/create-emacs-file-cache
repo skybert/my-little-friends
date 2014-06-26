@@ -43,7 +43,11 @@ for suffix in $suffix_list; do
 done
 
 name_string="${name_string} )"
-find -L $dir_list ${name_string} 2>/dev/null | egrep -v "classes|target|.idea|.git" | while read f; do
+find -L $dir_list ${name_string} 2>/dev/null | while read f; do
+  if [ $(echo "$f" |  egrep -v "classes|target|.idea|.git" | wc -l) -gt 0 ]; then
+    continue
+  fi
+  
   if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
     continue
   fi
