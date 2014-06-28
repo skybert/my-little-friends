@@ -12,7 +12,7 @@ TERM=xterm-color
 ##################################################################
 function get_git_status() {
   local old_exit_code=$?
-  local status=$(git status 2>/dev/null | head -1 | cut -d' ' -f3)
+  local status=$(git status 2>/dev/null | head -1 | awk '{print $NF}')
   if [[ "$status" == "on" ]]; then
     echo "<tag/$(git describe --always --tag)>"
   elif [ -n "$status" ]; then
