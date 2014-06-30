@@ -27,10 +27,11 @@ $HOME/.emacs
 /opt/jboss/standalone/log/server.log
 "
 
+tmp_file=$(mktemp)
 file=~/.emacs.d/file_cache.el
 
-echo "Generating new file cache $file"
-echo "(" > $file
+echo "Generating new file cache in ${tmp_file} ..."
+echo "(" > $tmp_file
 
 # add .java files
 function create_entry() {
@@ -47,18 +48,20 @@ find -L $dir_list ${name_string} 2>/dev/null | while read f; do
   if [ $(echo "$f" |  egrep -v "classes|target|.idea|.git" | wc -l) -gt 0 ]; then
     continue
   fi
-  
+
   if [ $(echo $f | grep TEST | wc -l) -gt 0 ]; then
     continue
   fi
-  create_entry $f >> $file
+  create_entry $f >> ${tmp_file}
 done
 
 
 for f in $file_list; do
-  create_entry $f >> $file
+  create_entry $f >> ${tmp_file}
 done
 
-echo ")" >> $file
+echo ")" >> ${tmp_file}
 
-echo "Done, $file is now ready"
+mv ${file} ${file}.old
+mv ${tmp_file} ${file}
+printf %s "Done, $file is now ready. (old cache is available as ${file}.old)."
