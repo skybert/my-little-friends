@@ -13,10 +13,12 @@ $HOME/doc/$(date +%Y)
 /opt/jboss/standalone/configuration
 "
 suffix_list="
-xml
 java
+xml
 properties
 sh
+as
+mxml
 "
 file_list="
 $HOME/src/my-little-friends/bash/create-emacs-file-cache
