@@ -39,7 +39,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 ##################################################################
 alias de='setxkbmap de'
 alias df='df -hT'
-alias ec='emacsclient'
+alias e='emacsclient'
 alias emacs='emacs -fn terminus-12'
 alias eternal='cat ~/.bash_eternal_history | grep'
 alias grep='grep -i --color'
