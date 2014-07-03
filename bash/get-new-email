@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 
+# source ../../moria/src/common/indispensable.sh || {
+#   echo $(basename $0) "cannot live without moria"
+#   exit 1
+# }
+
 log=$HOME/.$(basename $0).log
 lock=$HOME/.$(basename $0).lock
 
