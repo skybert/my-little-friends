@@ -5,6 +5,11 @@
 # Creates the file cache I use with the file-cache and ido-mode Emacs
 # modules.
 
+source $HOME/src/moria/src/common/indispensable.sh || {
+  echo "Cannot live without moria :-("
+  exit 1
+}
+
 dir_list="
 $HOME/.emacs.d
 $HOME/src/my-little-friends
@@ -32,7 +37,7 @@ $HOME/.emacs
 tmp_file=$(mktemp)
 file=~/.emacs.d/file_cache.el
 
-echo "Generating new file cache in ${tmp_file} ..."
+print "Generating new file cache in ${tmp_file} ..."
 echo "(" > $tmp_file
 
 # add .java files
@@ -66,4 +71,4 @@ echo ")" >> ${tmp_file}
 
 mv ${file} ${file}.old
 mv ${tmp_file} ${file}
-printf %s "Done, $file is now ready. (old cache is available as ${file}.old)."
+print "Done, $file is now ready. (old cache is available as ${file}.old)."
