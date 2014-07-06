@@ -15,76 +15,76 @@
 
 stop_fw()
 {
-    echo -n "Stopping `basename $0`..."
-    iptables --flush
-    iptables --flush -t nat
-    iptables --delete-chain
-    iptables --delete-chain -t nat
-    iptables -P FORWARD ACCEPT
-    iptables -P INPUT ACCEPT
-    iptables -P OUTPUT ACCEPT
-    echo "done."
+  echo -n "Stopping `basename $0`..."
+  iptables --flush
+  iptables --flush -t nat
+  iptables --delete-chain
+  iptables --delete-chain -t nat
+  iptables -P FORWARD ACCEPT
+  iptables -P INPUT ACCEPT
+  iptables -P OUTPUT ACCEPT
+  echo "done."
 }
 
 start_fw()
 {
-    echo -n "Starting `basename $0`..."
-    # Cleanup old rules # All the time firewall is in a secure, closed state
-    iptables -P INPUT DROP
-    iptables -P FORWARD DROP
-    # Flush all rules, but keep policies
-    iptables --flush
-    iptables --flush -t nat
-    iptables --delete-chain
-    iptables --delete-chain -t nat
+  echo -n "Starting `basename $0`..."
+  # Cleanup old rules # All the time firewall is in a secure, closed state
+  iptables -P INPUT DROP
+  iptables -P FORWARD DROP
+  # Flush all rules, but keep policies
+  iptables --flush
+  iptables --flush -t nat
+  iptables --delete-chain
+  iptables --delete-chain -t nat
 
-    ## Workstation Minimal firewall ###
-    iptables -P FORWARD DROP
-    iptables -P INPUT DROP
-    iptables -A INPUT -i lo --source 127.0.0.1 --destination 127.0.0.1 -j ACCEPT
-    iptables -A INPUT -i lo --source 127.0.0.1 --destination 127.0.1.1 -j ACCEPT
-    iptables -A INPUT -m state --state "ESTABLISHED,RELATED" -j ACCEPT
-    iptables -A INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT
-    iptables -A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT
-    iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
-    iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
-    ####### HOLES ####### Edit holes below, then run this script again
-    iptables -A INPUT -p tcp --dport http -j ACCEPT
-    ##################### Edit above
+  ## Workstation Minimal firewall ###
+  iptables -P FORWARD DROP
+  iptables -P INPUT DROP
+  iptables -A INPUT -i lo --source 127.0.0.1 --destination 127.0.0.1 -j ACCEPT
+  iptables -A INPUT -i lo --source 127.0.0.1 --destination 127.0.1.1 -j ACCEPT
+  iptables -A INPUT -m state --state "ESTABLISHED,RELATED" -j ACCEPT
+  iptables -A INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT
+  iptables -A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT
+  iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+  iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+  ####### HOLES ####### Edit holes below, then run this script again
+  iptables -A INPUT -p tcp --dport http -j ACCEPT
+  ##################### Edit above
 
-    # iptables -A INPUT -j LOG -m limit --limit 40/minute
-    # only warnings in the log, please
-    # iptables -A INPUT -j LOG --log-level 7
-    iptables -A INPUT -j DROP
-    # Save
-    # iptables-save > /etc/sysconfig/iptables
-    echo "done."
+  # iptables -A INPUT -j LOG -m limit --limit 40/minute
+  # only warnings in the log, please
+  # iptables -A INPUT -j LOG --log-level 7
+  iptables -A INPUT -j DROP
+  # Save
+  # iptables-save > /etc/sysconfig/iptables
+  echo "done."
 }
 
 fw_status()
 {
-   iptables -L
+  iptables -L
 }
 
 case "$1" in
-    start)
-        start_fw
-        ;;
-    stop)
-        stop_fw
-  ;;
-    restart)
-  stop_fw
-  sleep 2
-        start_fw
-        ;;
-    status)
-        fw_status
-        ;;
-    *)
-        echo "Usage:" $0 "{start|stop|restart|status}"
-        exit 1
-        ;;
+  start)
+    start_fw
+    ;;
+  stop)
+    stop_fw
+    ;;
+  restart)
+    stop_fw
+    sleep 2
+    start_fw
+    ;;
+  status)
+    fw_status
+    ;;
+  *)
+    echo "Usage:" $0 "{start|stop|restart|status}"
+    exit 1
+    ;;
 esac
 
 exit 0
