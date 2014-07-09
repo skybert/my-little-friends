@@ -94,7 +94,7 @@
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq grep-find-command
-      "find ~/src/fara/git -name \"*.java\" -type f | egrep -v 'target' | xargs grep -n -i -e ")
+      "find ~/src/git/puma -name \"*.java\" -type f | egrep -v 'target|.idea|.git' | xargs grep -n -i -e ")
 
 (global-set-key (kbd "<f1>") 'magit-status)
 
@@ -572,14 +572,6 @@
 <")
   (indent-region (point-min) (point-max)))
 (global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Insert date
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun insert-date ()
-   (interactive)
-   (let (( time (current-time-string) ))
-     (insert (format-time-string "%Y-%m-%d"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Diff

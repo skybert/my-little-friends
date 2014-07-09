@@ -34,6 +34,9 @@
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
+;; restore windows after showing the agenda
+(add-hook 'org-agenda-after-show-hook 'winner-undo)
+
 ;; don't create a footer
 (setq
  org-export-html-style "<link rel=\"stylesheet\" type=\"text/css\" href=\"conduct.css\">"
