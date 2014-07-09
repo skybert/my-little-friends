@@ -74,6 +74,8 @@ commands="
   clean
   compile
   dependency:tree
+  eclipse:eclipse
+  idea:idea
   install
   test
 "
