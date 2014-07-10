@@ -22,7 +22,6 @@
 (menu-bar-mode 0)
 
 (when window-system
-  (server-start)
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (setq-default cursor-type 'box)
