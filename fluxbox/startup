@@ -30,9 +30,6 @@ done
 killall -9 gnome-screensaver
 xscreensaver &
 
-# dropbox
-dropbox start &
-
 # touch /tmp/dates
 # root-tail -i 20 -fn 7x14 -g 400x60+0+740 /tmp/dates &
 # root-tail -i 20 -fn 7x14 -g 400x20+900+780 /tmp/current-music &
