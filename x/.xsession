@@ -24,7 +24,6 @@ display -backdrop -window root ~/pictures/wallpaper &
 # mpd &
 clipit &
 conky &
-dropbox start &
 firefox &
 xmms &
 emacs &

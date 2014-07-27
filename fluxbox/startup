@@ -10,12 +10,14 @@ xmodmap "/home/torstein/.xmodmaprc"
 # turn off caps lock, have never needed it.
 setxkbmap -option ctrl:nocaps &
 
+# turn off bell
+xset -b
+
 # wallpaper
 # display -window root ~/pictures/wallpaper &
 
 # favourite applications
 app_list="
-  gnome-settings-daemon
   clipit
   conky
   davmail
