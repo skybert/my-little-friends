@@ -46,6 +46,7 @@ alias grep='grep -i --color'
 alias gb='git branch'
 alias gg='git log --regexp-ignore-case --grep'
 alias gs='git status'
+alias gsr='git svn rebase'
 alias ls='ls -lh'
 alias mc="mvn clean install"
 alias mp="mvn package -DskipTests"
