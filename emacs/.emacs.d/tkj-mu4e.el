@@ -10,6 +10,7 @@
 
       mu4e-view-show-images t
       mu4e-html2text-command "~/src/my-little-friends/bash/tkj-html-to-text.sh"
+      mu4e-compose-signature t
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
