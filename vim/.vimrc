@@ -27,7 +27,7 @@ endfunction
 autocmd BufWritePre *.* :call TrimWhiteSpace()
 
 "Spelling"
-set spell
+"  set spell
 set spelllang=en
 
 "Text wrapping"
