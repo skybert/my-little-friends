@@ -52,7 +52,7 @@ done
 
 name_string="${name_string} )"
 find -L $dir_list ${name_string} 2>/dev/null | while read f; do
-  if [ $(echo "$f" |  egrep -v "classes|target|.idea|.git" | wc -l) -gt 0 ]; then
+  if [ $(echo "$f" | egrep -v "classes|target|.idea" | wc -l) -gt 0 ]; then
     continue
   fi
 
