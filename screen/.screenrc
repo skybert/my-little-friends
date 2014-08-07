@@ -8,12 +8,9 @@ title "emacs"
 
 # second screen tab
 screen bash
-title "bash"
+title "shell"
 
 # third screen tab
 screen bash
-title "builder"
+title "sdf"
 
-# fourth screen tab
-screen bash
-title "control"
