@@ -42,13 +42,14 @@ alias df='df -hT'
 alias e='emacsclient'
 alias emacs='emacs -fn terminus-12'
 alias eternal='cat ~/.bash_eternal_history | grep'
-alias grep='grep -i --color'
+alias grep='grep --ignore-case --line-number --color --exclude-dir={.svn,.git,.hg,CVS}'
 alias gb='git branch'
 alias gg='git log --regexp-ignore-case --grep'
 alias gs='git status'
 alias gsr='git svn rebase'
 alias ls='ls -lh'
 alias mc="mvn clean install"
+alias mcp="mvn clean package"
 alias mp="mvn package -DskipTests"
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 alias no='setxkbmap no'
