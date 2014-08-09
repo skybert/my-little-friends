@@ -21,12 +21,11 @@ syndaemon -t -k -i 2 &
 display -backdrop -window root ~/pictures/wallpaper &
 
 ## favourite apps
-# mpd &
 clipit &
 conky &
 firefox &
 xmms &
-emacs &
+emacs -fn 7x14 -g 80x60 &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
