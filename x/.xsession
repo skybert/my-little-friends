@@ -3,10 +3,14 @@
 ## Torstein's .xinitrc/.xsession
 
 ## load x settings
-xrdb $HOME/.Xresources
+if [ -r $HOME/.Xresources]; then
+  xrdb $HOME/.Xresources
+fi
 
 ## remap keyboard
-xmodmap "$HOME/.xmodmaprc"
+if [ -r "$HOME/.xmodmaprc" ]; then
+  xmodmap "$HOME/.xmodmaprc"
+fi
 
 ## hide mouse pointer after a couple of seconds
 # unclutter -idle 2 &
@@ -18,7 +22,9 @@ setxkbmap -option ctrl:nocaps &
 syndaemon -t -k -i 2 &
 
 ## set background image
-display -backdrop -window root ~/pictures/wallpaper &
+if [ -e $HOME/pictures/wallpaper ]; then
+  display -backdrop -window root $HOME/pictures/wallpaper &
+fi
 
 ## favourite apps
 clipit &
