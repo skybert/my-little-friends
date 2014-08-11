@@ -57,6 +57,7 @@ alias steam='SDL_AUDIODRIVER=alsa steam'
 alias t='urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
 alias us='setxkbmap us'
+alias vi=vim
 
 ##################################################################
 # bash completion
