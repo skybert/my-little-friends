@@ -11,11 +11,7 @@ source $HOME/src/moria/src/common/indispensable.sh || {
 }
 
 dir_list="
-$HOME/.emacs.d
-$HOME/src/my-little-friends
-$HOME/src/git
-$HOME/doc/$(date +%Y)
-/opt/jboss/standalone/configuration
+$HOME/src
 "
 suffix_list="
 java
@@ -25,20 +21,27 @@ sh
 as
 jrxml
 mxml
+jrxml
 "
 file_list="
 $HOME/src/my-little-friends/bash/create-emacs-file-cache
 $HOME/src/my-little-friends/bash/tkj
-
-
 $HOME/.bashrc
 $HOME/.eclimrc
 $HOME/.emacs
 /opt/jboss/standalone/log/server.log
 "
 
+function read_user_conf() {
+  local conf_file=$HOME/.$(basename $0).conf
+  if [ -r $conf_file ]; then
+    source $conf_file
+  fi
+}
+
 tmp_file=$(mktemp)
 file=~/.emacs.d/file_cache.el
+read_user_conf
 
 print "Generating new file cache in ${tmp_file} ..."
 echo "(" > $tmp_file
@@ -75,3 +78,4 @@ echo ")" >> ${tmp_file}
 mv ${file} ${file}.old
 mv ${tmp_file} ${file}
 print "Done, $file is now ready. (old cache is available as ${file}.old)."
+
