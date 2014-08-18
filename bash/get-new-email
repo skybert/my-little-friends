@@ -8,6 +8,16 @@
 log=$HOME/.$(basename $0).log
 lock=$HOME/.$(basename $0).lock
 
+function get_user_input() {
+  for el in "$@"; do
+    if [[ "$el" == "-v" || "$el" == "--verbose" ]]; then
+      verbose=1
+    fi
+  done
+}
+
+get_user_input "$@"
+
 # dirty, but it hangs several times a week
 killall offlineimap 2>/dev/null
 
@@ -18,10 +28,17 @@ fi
 
 touch $lock
 
-offlineimap >> $log 2>>$log
-pkill -2 -u $UID mu >> $log
-sleep 1
-mu index --maildir=~/mail >> $log 2>>$log
+if [ ${verbose-0} -eq 0 ]; then
+  offlineimap >> $log 2>>$log
+  pkill -2 -u $UID mu >> $log
+  sleep 1
+  mu index --maildir=~/mail >> $log 2>>$log
+else
+  offlineimap
+  pkill -2 -u $UID mu
+  sleep 1
+  mu index --maildir=~/mail
+fi
 
 if [ -e $lock ]; then
   rm $lock
