@@ -4,5 +4,6 @@
 set -e
 
 git stash
-git pull
+git pull --rebase
 git stash pop
+git diff
