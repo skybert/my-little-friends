@@ -23,4 +23,8 @@
     default = current
 
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
+  # especially useful on Windows where the executable bit is
+  # constantly set making git list the file as modified.
+  fileMode = false
+
