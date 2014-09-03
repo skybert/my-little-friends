@@ -28,3 +28,9 @@
   # constantly set making git list the file as modified.
   fileMode = false
 
+  # these settings make the stat calls run in paralell, speeding up git
+  # status and git diff on Windows filesystem since the caching of file
+  # meta data is mediocre and calls to lstat are very slow.
+  preloadindex = true
+  ignoreStat = true
+
