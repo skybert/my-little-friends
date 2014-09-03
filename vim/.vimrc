@@ -10,6 +10,11 @@ set hlsearch ignorecase
 "Turn on syntax highlighting"
 syntax on
 
+"Replace TABs with spaces and use 2 spaces for one level of indentation"
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
 "Highlight trailing white space"
 highlight ExtraWhitespace ctermbg=red guibg=red
 au ColorScheme * highlight ExtraWhitespace guibg=red
