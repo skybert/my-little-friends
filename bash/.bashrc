@@ -43,7 +43,7 @@ alias e='emacsclient'
 alias emacs='emacs -fn terminus-12'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
 alias eternal='cat ~/.bash_eternal_history | grep'
-alias grep='grep --ignore-case --line-number --color --exclude-dir={.svn,.git,.hg,CVS}'
+alias grep='grep --ignore-case --color --exclude-dir={.svn,.git,.hg,CVS}'
 alias ga='git add'
 alias gb='git branch'
 alias gd='git diff'
