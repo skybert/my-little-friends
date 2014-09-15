@@ -17,6 +17,7 @@ java_src_list="
 java_build_src_list="
 "
 eclimd_bin=/opt/eclipse/eclimd
+scm_user_list="h73 tkj"
 
 function read_user_conf_if_exists() {
   if [ -r $conf_file ]; then
@@ -450,6 +451,30 @@ function do_hours()
     fi
     previous_date=$now
   done
+}
+
+function one_week_ago() {
+    date --iso --date=@$(( $(date +%s) - $(( 60 * 60 * 24 * 7 )) ))
+}
+
+function do_last-weeks-issues() {
+    # TODO
+    local from_date=2014-09-01
+    local dir=
+    local author=
+    for dir in $src_list; do
+        echo $(basename $dir)
+        if [ -e $dir/.git ]; then
+            for author in $scm_user_list; do
+                (cd $dir && \
+                    git log --author=${author} --since=$(one_week_ago) | \
+                    sed -n "s#[ ]*\([A-Z]-[0-9]*\)[ ]*.*#\1#p" | \
+                    sort | \
+                    uniq
+                )
+            done
+        fi
+    done
 }
 
 function do_go-home()
