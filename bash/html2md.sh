@@ -14,8 +14,10 @@ fi
 to_file=$dir/$(basename $(dirname $(dirname $file)))/$(basename $(dirname $file)).md
 mkdir -p $(dirname $to_file)
 
+
 change_date=$(
-  stat $file 2>&1 | sed -n 's#Change: \([^ ]*\) .*#\1#p'
+  cd $(dirname $file) &&
+  git log --date=short $(basename $file) | head -3 | tail -1 | cut -d: -f2-
 )
 
 title=$(
