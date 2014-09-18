@@ -52,3 +52,20 @@
                                              " xpath: /"
                                              (mapconcat 'identity path "/")))
           (format "/%s" (mapconcat 'identity path "/")))))))
+
+(defun tkj-html-entities-to-char()
+  (interactive)
+  (save-excursion
+    (goto-char 0)
+    (replace-string "&amp;" "&")
+    (goto-char 0)
+    (replace-string "&lt;" "<")
+    (goto-char 0)
+    (replace-string "&gt;" ">")
+    (goto-char 0)
+    (replace-string "&oslash;" "ø")
+    (goto-char 0)
+    (replace-string "&aring;" "å")
+    (goto-char 0)
+    (replace-string "&aelig;" "æ")
+    ))
