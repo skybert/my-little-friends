@@ -1,6 +1,8 @@
 ;; logging & setting idle
 (require 'erc-log)
 (require 'erc-autoaway)
+(require 'erc-image)
+(require 'erc-colorize)
 
 (setq erc-default-server "localhost"
       erc-log-channels-directory "~/.erc/logs"
