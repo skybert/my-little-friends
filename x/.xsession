@@ -3,9 +3,7 @@
 ## Torstein's .xinitrc/.xsession
 
 ## load x settings
-if [ -r $HOME/.Xresources]; then
-  xrdb $HOME/.Xresources
-fi
+xrdb $HOME/.Xresources
 
 ## remap keyboard
 if [ -r "$HOME/.xmodmaprc" ]; then
@@ -38,4 +36,7 @@ export LC_ALL=en_GB.utf8
 
 ## launch window manager
 exec fluxbox
+# exec mate-session
+# exec gnome-session
+# exec cinnamon-session
 

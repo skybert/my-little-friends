@@ -33,8 +33,8 @@ autocmd BufWritePre *.* :call TrimWhiteSpace()
 
 "Spelling"
 "  set spell
-set spelllang=en
+"  set spelllang=en
 
 "Text wrapping"
-set formatoptions-=t
+set formatoptions=t
 set textwidth=72
