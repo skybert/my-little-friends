@@ -457,24 +457,38 @@ function one_week_ago() {
     date --iso --date=@$(( $(date +%s) - $(( 60 * 60 * 24 * 7 )) ))
 }
 
-function do_last-weeks-issues() {
-    # TODO
-    local from_date=2014-09-01
+## $1 :: since date
+function get_issues_since() {
+    # subtrack one day
+    local from_date=$(( $(date +%s) - $(( 60 * 60 * 24 )) ))
     local dir=
     local author=
     for dir in $src_list; do
-        echo $(basename $dir)
         if [ -e $dir/.git ]; then
             for author in $scm_user_list; do
-                (cd $dir && \
-                    git log --author=${author} --since=$(one_week_ago) | \
-                    sed -n "s#[ ]*\([A-Z]-[0-9]*\)[ ]*.*#\1#p" | \
+                local issues=$(
+                    cd $dir && \
+                    git log --author=${author} --since=${from_date} | \
+                    egrep -o '[A-Z]+-[0-9]+' | \
                     sort | \
                     uniq
                 )
+                if [[ -n "$issues" ]]; then
+                    echo $(basename $dir) ":"
+                    for issue in $issues; do
+                        echo "--" $issue
+                    done
+                fi
             done
         fi
     done
+}
+function do_last-weeks-issues() {
+    get_issues_since $(one_week_ago)
+}
+
+function do_what-have-i-done-today() {
+    get_issues_since $(date --iso)
 }
 
 function do_go-home()
