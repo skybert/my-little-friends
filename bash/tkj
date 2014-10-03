@@ -453,14 +453,14 @@ function do_hours()
   done
 }
 
-function one_week_ago() {
-    date --iso --date=@$(( $(date +%s) - $(( 60 * 60 * 24 * 7 )) ))
+function eight_days_ago() {
+    date --iso --date=@$(( $(date +%s) - $(( 60 * 60 * 24 * 8 )) ))
 }
 
 ## $1 :: since date
 function get_issues_since() {
     # subtrack one day
-    local from_date=$(( $(date +%s) - $(( 60 * 60 * 24 )) ))
+    local from_date=$1
     local dir=
     local author=
     for dir in $src_list; do
@@ -468,27 +468,43 @@ function get_issues_since() {
             for author in $scm_user_list; do
                 local issues=$(
                     cd $dir && \
-                    git log --author=${author} --since=${from_date} | \
+                    git log --author=${author} --since=${from_date} 2>/dev/null | \
                     egrep -o '[A-Z]+-[0-9]+' | \
                     sort | \
                     uniq
                 )
                 if [[ -n "$issues" ]]; then
-                    echo $(basename $dir) ":"
+                    echo $(basename $dir) "(${author}):"
                     for issue in $issues; do
-                        echo "--" $issue
+                        echo "  --" $issue
                     done
                 fi
             done
         fi
     done
 }
-function do_last-weeks-issues() {
-    get_issues_since $(one_week_ago)
+
+## $1 :: date
+function do_what-have-i-done-since() {
+    get_issues_since $(get_issues_since $1)
+}
+
+function do_what-have-i-done-the-last-week() {
+    get_issues_since $(eight_days_ago)
 }
 
 function do_what-have-i-done-today() {
+    printf "I've worked on these issues today:\n"
     get_issues_since $(date --iso)
+
+    local commands_today=$(
+        grep $(date --iso) $HOME/.bash_eternal_history | awk '{print $2 " " $3; }'
+    )
+
+    local first_command=$(echo "$commands_today" | head -1)
+    local last_command=$(echo "$commands_today" | tail -1)
+
+    printf "%s\n" "First command on $HOSTNAME was @ $first_command"
 }
 
 function do_go-home()
