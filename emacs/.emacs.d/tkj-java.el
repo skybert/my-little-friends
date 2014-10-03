@@ -7,7 +7,7 @@
   (interactive)
   (eclim-maven-run "-o -q -DskipTests package"))
 
-(defun my-c-mode-hook ()
+(defun my-java-mode-hook ()
   (auto-fill-mode)
   (gtags-mode)
   (flyspell-prog-mode)
@@ -37,7 +37,7 @@
 
   ;; Indent arguments on the next line as indented body.
   (c-set-offset 'arglist-intro '+))
-(add-hook 'c-mode-common-hook 'my-c-mode-hook)
+(add-hook 'java-mode-hook 'my-java-mode-hook)
 
 (defun tkj-default-code-style-hook()
   (setq c-basic-offset 2
@@ -45,8 +45,7 @@
         indent-tabs-mode nil
         compile-command "cd ~/src/drifting/jms && mvn -q -o -DskipTests package"
         require-final-newline nil))
-
-(add-hook 'c-mode-hook 'tkj-default-code-style-hook)
+(add-hook 'java-mode-hook 'tkj-default-code-style-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Flymake settings
@@ -59,8 +58,8 @@
   (list "my-java-flymake-checks"
         (list (flymake-init-create-temp-buffer-copy
                'flymake-create-temp-with-folder-structure))))
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.java$" my-flymake-init flymake-simple-cleanup))
+;; (add-to-list 'flymake-allowed-file-name-masks
+;;             '("\\.java$" my-flymake-init flymake-simple-cleanup))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interface to eclipse via eclim
