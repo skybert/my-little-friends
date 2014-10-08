@@ -11,6 +11,8 @@
       erc-enable-logging t
       erc-save-buffer-on-part t)
 
+(erc-log-mode)
+
 ;; general options
 (setq erc-default-server "localhost")
 
