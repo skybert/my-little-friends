@@ -10,7 +10,7 @@ if [[ "$1" != "-q" ]]; then
   read ok
 fi
 
-find . -maxdepth 1 | while read f; do
+find . -maxdepth 3 | while read f; do
     if [ "$f" = "." -o "$f" = ".." ]; then
         continue
     fi
