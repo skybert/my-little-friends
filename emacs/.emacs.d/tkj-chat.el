@@ -23,3 +23,6 @@
 
 ;; Spell checking
 (add-hook 'erc-mode-hook 'flyspell-mode)
+
+;; auto completion
+(add-hook 'erc-mode-hook 'auto-complete-mode)
