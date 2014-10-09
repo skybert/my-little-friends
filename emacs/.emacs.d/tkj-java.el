@@ -11,7 +11,7 @@
   (auto-fill-mode)
   (gtags-mode)
   (flyspell-prog-mode)
-  (flymake-mode)
+;;  (flymake-mode)
   (subword-mode)
   (smartscan-mode)
 
