@@ -656,7 +656,7 @@ archive=0
 # Possible values: 0 - off, 1 - on
 # Default: on
 
-submission=1
+submission=0
 
 # interaction: Turns on or off user interaction in cddb dialog and
 # everywhere else.
