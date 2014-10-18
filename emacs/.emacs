@@ -31,6 +31,8 @@
 (setq frame-background-mode nil
       column-number-mode t
       frame-title-format (concat invocation-name "@" (system-name) " {%f}")
+      inhibit-startup-screen t
+      initial-scratch-message ";; Hi Torstein, what do you want to do today?\n\n"
       ;; no visible or audible bells, please
       visible-bell nil
       ring-bell-function (lambda nil (message "")))
