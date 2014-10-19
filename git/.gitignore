@@ -16,9 +16,10 @@ GRTAGS
 GSYMS
 GTAGS
 TAGS
+dependency-reduced-pom.xml
 derby.log
 pmd-eclipse.log
 src/main/webapp/META-INF/MANIFEST.MF
 target
-dependency-reduced-pom.xml
 wget-log
+workbench.xmi
