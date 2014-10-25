@@ -390,24 +390,25 @@ function do_dates()
 
 function do_hours()
 {
-  if [ $1 ]; then
+  if [[ $1 ]]; then
     local the_date=$1
   else
     the_date=$(date --iso)
   fi
 
+  local entries=$(
+    cat $HOME/.bash_eternal_history | \
+        awk '{print $2 " " $3}' | \
+        grep ${the_date} | \
+        sort -n
+  )
+
   local started_working_string=$(
-    egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
-      head -1 | \
-      sed 's/^[ ]*[0-9]*[ ]*//' | \
-      cut -d' ' -f1-2
+    echo "${entries}" | head -1
   )
 
   local ended_working_string=$(
-    egrep "^[ ]*[0-9]*[ ]*$(date --iso)" ~/.bash_eternal_history | \
-      tail -1 | \
-      sed 's/^[ ]*[0-9]*[ ]*//' | \
-      cut -d' ' -f1-2
+    echo "${entries}" | tail -1
   )
 
   local seconds_worked=$((
