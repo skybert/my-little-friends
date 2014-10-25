@@ -87,3 +87,6 @@
 (ac-config-default)
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
+
+;; restore the window configuration after running certain eclim commands
+;; (add-hook 'eclim-problems-mode-hook 'winner-undo)
