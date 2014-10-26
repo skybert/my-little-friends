@@ -1,0 +1,7 @@
+#name : dep
+# --
+<dependency>
+  <artifactId>$1</artifactId>
+  <groupId>$2</groupId>
+  <version>$0</version>
+</dependency>
