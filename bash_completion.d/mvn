@@ -73,6 +73,7 @@ options="
 commands="
   clean
   compile
+  dependency:analyze
   dependency:tree
   eclipse:eclipse
   idea:idea
