@@ -176,8 +176,7 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (auto-fill-mode 1)
-             (gtags-mode)
-             (flyspell-mode)))
+             (gtags-mode)))
 (setq longlines-show-hard-newlines t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
