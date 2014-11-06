@@ -26,3 +26,13 @@
 
 ;; auto completion
 (add-hook 'erc-mode-hook 'auto-complete-mode)
+;; From the bitlbee wiki: Since the server sends wrong JIDs for the
+;; "from" field (123456_chat_name@conf.hipchat.com/real name here),
+;; all you can do is using client scripts to fix this up
+(defun my-reformat-jabber-backlog ()
+  (save-excursion
+    (goto-char (point-min))
+    (if (looking-at
+         "^<root> Message from unknown participant Your Name:")
+        (replace-match "<yournick>"))))
+(add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
