@@ -12,13 +12,13 @@ cat $1 | sort | while read f; do
     if [ $(echo $f | grep "@" | wc -l) -lt 1 ]; then
         continue
     fi
-    
+
     name=$(echo $f | cut -d',' -f1 | sed 's/ /\./g' | tr [A-Z] [a-z])
     email=$(echo $f | cut -d',' -f5 | tr [A-Z] [a-z])
 
     if [ -z "${name}" ]; then
-	name=$(echo $email | cut -d'@' -f1)
+        name=$(echo $email | cut -d'@' -f1)
     fi
-    
+
     echo alias $name $email >> $2
 done
