@@ -38,3 +38,8 @@ autocmd BufWritePre *.* :call TrimWhiteSpace()
 "Text wrapping"
 set formatoptions=t
 set textwidth=72
+
+"fancy vim status line"
+set laststatus=2
+set t_Co=256
+
