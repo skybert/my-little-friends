@@ -16,9 +16,21 @@ $(basename $0) MyTest#myTestMethod
 EOF
 }
 
+show_test_report() {
+    if [ ${show_test_report-1} -eq 1 ]; then
+        local report=$(find target/surefire-reports -name *${1}.txt)
+
+        if [[ -r "$report" && $(cat "$report" | wc -l) -gt 4 ]]; then
+            less $report
+        fi
+    fi
+}
+
 main() {
     clear
-    mvn -o -q test -Dtest=$1
+    echo "Running test" $1 "..."
+    mvn -o -q compile test -Dtest=$1
+    show_test_report $1
 }
 
 if [ $# -lt 1 ]; then
