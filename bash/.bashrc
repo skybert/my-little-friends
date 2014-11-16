@@ -5,7 +5,11 @@
 ##################################################################
 shopt -s checkwinsize
 PROMPT_COMMAND='echo -ne "\033]0;${USER-${USERNAME}}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-TERM=xterm-color
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+  export TERM='xterm-256color'
+else
+  export TERM='xterm-color'
+fi
 
 ##################################################################
 # prompt
@@ -59,6 +63,7 @@ alias mcp="mvn clean package"
 alias mp="mvn package -DskipTests"
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 alias no='setxkbmap no'
+alias nocaps='setxkbmap -option ctrl:nocaps'
 alias steam='SDL_AUDIODRIVER=alsa steam'
 alias t='urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"'
 alias uprompt="unset PROMPT_COMMAND; export PS1='\u@\h \w$ '"
