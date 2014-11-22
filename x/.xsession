@@ -35,9 +35,9 @@ emacs -fn 7x14 -g 80x60 &
 export LC_ALL=en_GB.utf8
 
 ## launch window manager
-# exec fluxbox
+exec fluxbox
 # exec mate-session
-exec gnome-session
+# exec gnome-session
 # exec cinnamon-session
 # exec startkde
 
