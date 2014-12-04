@@ -60,6 +60,7 @@ alias gsr='git svn rebase'
 alias ls='ls -lh'
 alias mc="mvn clean install"
 alias mcp="mvn clean package"
+alias mount="mount | column -t"
 alias mp="mvn package -DskipTests"
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 alias no='setxkbmap no'
