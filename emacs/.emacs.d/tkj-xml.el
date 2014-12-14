@@ -11,7 +11,7 @@
       popcmp-group-alternatives nil
       ;; using additional schemas for the nxml mode
       rng-schema-locating-files
-      (quote ("/usr/share/emacs/24.3/etc/schema/schemas.xml"
+      (quote ("/usr/share/emacs/24.4/etc/schema/schemas.xml"
               "/usr/local/src/html5-el/schemas.xml"
               "~/.emacs.d/schemas.xml"))
       rng-validate-delay 3
