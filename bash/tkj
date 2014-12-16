@@ -298,7 +298,9 @@ function do_update-sources()
         git checkout master && \
         git svn rebase
       elif [ -d $el/.git ]; then
-        git checkout develop && \
+        if [[ $(git branch | grep develop | wc -l) -gt 0 ]]; then
+            git checkout develop
+        fi
         git pull --rebase
       elif [ -d $el/.svn ]; then
         svn up
