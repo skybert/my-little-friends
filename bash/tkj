@@ -468,24 +468,22 @@ function get_issues_since() {
     local from_date=$1
     local dir=
     local author=
-    for dir in $src_list; do
-        if [ -e $dir/.git ]; then
-            for author in $scm_user_list; do
-                local issues=$(
-                    cd $dir && \
+    for dir in $(find $src_list -maxdepth 2 -type d -name .git); do
+        for author in $scm_user_list; do
+            local issues=$(
+                cd $dir && \
                     git log --author=${author} --since=${from_date} 2>/dev/null | \
-                    egrep -o '[A-Z]+-[0-9]+' | \
-                    sort | \
-                    uniq
-                )
-                if [[ -n "$issues" ]]; then
-                    echo $(basename $dir) "(${author}):"
-                    for issue in $issues; do
-                        echo "  --" $issue
-                    done
-                fi
-            done
-        fi
+                        egrep -o '[A-Z]+-[0-9]+' | \
+                        sort | \
+                        uniq
+            )
+            if [[ -n "$issues" ]]; then
+                echo $(basename $(dirname $dir)) "(${author}):"
+                for issue in $issues; do
+                    echo "  --" $issue
+                done
+            fi
+        done
     done
 }
 
