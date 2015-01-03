@@ -23,7 +23,7 @@ the_holy_word_of_the_day() {
 norwegian_news() {
   local news=$(curl -s http://www.nrk.no/nyheter/siste.rss | \
                     grep '<item>' | \
-                    head -10)
+                    head -6)
   cat <<EOF
     <h2>Norwegian News</h2>
     <ul>
@@ -34,7 +34,7 @@ EOF
 }
 
 print_header() {
-  local title="News from ${HOSTNAME} @ $(date)"
+  local title="News for Skybert @ $(date)"
   cat <<EOF
 <!DOCTYPE html PUBLIC
 "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -105,6 +105,25 @@ daily_pictures() {
       ${caption}
     </p>
 EOF
+}
+
+weather_report() {
+  local url=http://www.yr.no/place/Norway/Oslo/Oslo/St._Hanshaugen
+  local report=$(curl -s ${url}/varsel.rss | \
+    grep -A 4 '<item>' | head -4 | tail -3)
+
+  local img_url=$(echo "$report" | sed -n 's#.*enclosure url="\([^"]*\)".*#\1#p')
+  local description=$(echo "$report" | \
+    sed -n 's#<description>\(.*\)</description>#\1#p' | \
+    sed 's#^[ ]*##')
+  cat <<EOF
+    <p>
+      <a href="${url}">
+        <img style="float: left;" src="${img_url}" alt="weather image"/>
+      </a>
+      ${description}
+    </p>
+EOF
 
 
 
@@ -114,6 +133,7 @@ main() {
   trap exit_hook EXIT
 
   print_header
+  weather_report
   norwegian_news
   unix_news
   the_holy_word_of_the_day
