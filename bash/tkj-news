@@ -11,7 +11,7 @@ exit_hook() {
 the_holy_word_of_the_day() {
   lynx -dump http://www.bibel.no/Nettbibel/Service/BibelOrd.aspx | \
       sed -e '/[ ]*Dagens bibelord/d' \
-          -e 's#\[1\]\(.*\)# <h2>\1</h2>\n    <p>#' \
+          -e 's#\[1\]\(.*\)# <h2>Word of the Day from \1</h2>\n    <p>#' \
           -e '/[ ]*Kilde:/d' \
           -e '/BUTTON Input/d' \
           -e '/[ ]*References/d' \
@@ -26,6 +26,7 @@ norwegian_news() {
                     head -10)
   cat <<EOF
     <h2>Norwegian News</h2>
+    <ul>
 EOF
 
   echo "$news" | sed -n \ 's#.*<title>\(.*\)</title>.*<description>\(.*\)</description>.*<link>\(.*\)</link>.*#      <li><a href="\3">\1</a>: \2 </li>#p'
@@ -35,10 +36,18 @@ EOF
 print_header() {
   local title="News from ${HOSTNAME} @ $(date)"
   cat <<EOF
-<html>
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>${title}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style type="text/css">
+      .invisible { display: none; }
+      a { color: black; }
+    </style>
   </head>
   <body>
     <h1>${title}</h1>
@@ -52,12 +61,63 @@ print_footer() {
 EOF
 }
 
+unix_news() {
+  cat <<EOF
+    <h2>UNIX news</h2>
+EOF
+  local tweets=$(curl -s https://twitter.com/nixcraft | sed -n '
+/ProfileTweet-text/,/<\/p>/{
+  p
+}
+  ')
+  local i=0
+  local max_tweets=10
+  echo "    <ul>"
+  echo "$tweets" | grep 'dir="ltr"' | while read line; do
+    i=$(( i + 1 ))
+    echo $line | \
+      sed -e 's#dir="ltr" data-aria-label-part="0">\(.*\)</p>#      <li>\1</li>#' \
+      -e 's#data-pre-embedded="true"##g' \
+      -e 's#data-query-source="hashtag_click"##g'
+
+    if [[ $i -eq $max_tweets ]]; then
+      break
+    fi
+  done
+  echo "    </ul>"
+
+}
+
+daily_pictures() {
+  local url=http://photography.nationalgeographic.com/photography/photo-of-the-day/
+  local img=$(curl -s $url | egrep '<img .*images.national.*' | head -2 | tail -1)
+  local caption=$(echo "$img" | sed 's#.*alt="\([^"]*\)".*#\1#')
+  cat <<EOF
+    <h2>Daily pictures</h2>
+    <p>
+      <a href="${url}">
+        <img
+          $(echo "$img" | sed 's#.*src="\([^"]*\)".*#src="http:\1"#')
+          alt="${caption}"
+        />
+      </a>
+      <br/>
+      ${caption}
+    </p>
+EOF
+
+
+
+}
+
 main() {
   trap exit_hook EXIT
 
   print_header
-  the_holy_word_of_the_day
   norwegian_news
+  unix_news
+  the_holy_word_of_the_day
+  daily_pictures
   print_footer
 }
 
