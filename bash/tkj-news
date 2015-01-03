@@ -1,0 +1,64 @@
+#! /usr/bin/env bash
+
+
+set -euo pipefail
+
+exit_hook() {
+  :
+}
+
+
+the_holy_word_of_the_day() {
+  lynx -dump http://www.bibel.no/Nettbibel/Service/BibelOrd.aspx | \
+      sed -e '/[ ]*Dagens bibelord/d' \
+          -e 's#\[1\]\(.*\)# <h2>\1</h2>\n    <p>#' \
+          -e '/[ ]*Kilde:/d' \
+          -e '/BUTTON Input/d' \
+          -e '/[ ]*References/d' \
+          -e '/www.bibel.no/d'
+  echo "    </p>"
+
+}
+
+norwegian_news() {
+  local news=$(curl -s http://www.nrk.no/nyheter/siste.rss | \
+                    grep '<item>' | \
+                    head -10)
+  cat <<EOF
+    <h2>Norwegian News</h2>
+EOF
+
+  echo "$news" | sed -n \ 's#.*<title>\(.*\)</title>.*<description>\(.*\)</description>.*<link>\(.*\)</link>.*#      <li><a href="\3">\1</a>: \2 </li>#p'
+  echo "    </ul>"
+}
+
+print_header() {
+  local title="News from ${HOSTNAME} @ $(date)"
+  cat <<EOF
+<html>
+  <head>
+    <title>${title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <h1>${title}</h1>
+EOF
+}
+
+print_footer() {
+  cat <<EOF
+  </body>
+</html>
+EOF
+}
+
+main() {
+  trap exit_hook EXIT
+
+  print_header
+  the_holy_word_of_the_day
+  norwegian_news
+  print_footer
+}
+
+main
