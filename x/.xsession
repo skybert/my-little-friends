@@ -11,7 +11,7 @@ if [ -r "$HOME/.xmodmaprc" ]; then
 fi
 
 ## hide mouse pointer after a couple of seconds
-# unclutter -idle 2 &
+unclutter -idle 2 &
 
 ## make caps lock act as control
 setxkbmap -option ctrl:nocaps &
