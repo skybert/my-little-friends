@@ -61,31 +61,53 @@ print_footer() {
 EOF
 }
 
+
+## $1 :: twitter user
+## $2 :: max tweets
+get_twitter_list() {
+  local twitter_user=$1
+  local max_tweets=$2
+
+  local tweets=$(lynx -width 500 -dump https://twitter.com/${twitter_user})
+  local i=0
+  echo "    <p><a href=\"https://twitter.com/${twitter_user}\">@${twitter_user}</a></p>"
+  echo "    <ul>"
+  echo "$tweets" | sed -r -n -f lynx-ascii-to-html.sed | \
+      while read line; do
+
+        if [[ -z "$line" ]]; then
+            continue
+        fi
+
+        i=$(( i + 1 ))
+        echo "      <li>"
+        echo "        "$line
+        echo "      </li>"
+
+        if [[ $i -eq $max_tweets ]]; then
+            break
+        fi
+      done
+  echo "    </ul>"
+}
+
 unix_news() {
   cat <<EOF
-    <h2>UNIX news</h2>
+    <h2>Coding news</h2>
 EOF
-  local tweets=$(curl -s https://twitter.com/nixcraft | sed -n '
-/ProfileTweet-text/,/<\/p>/{
-  p
+
+  get_twitter_list nixcraft 5
+  get_twitter_list mogsie 2
+  get_twitter_list RealPython 3
+  get_twitter_list NRKbeta 2
+  get_twitter_list tlberglund 3
 }
-  ')
-  local i=0
-  local max_tweets=10
-  echo "    <ul>"
-  echo "$tweets" | grep 'dir="ltr"' | while read line; do
-    i=$(( i + 1 ))
-    echo $line | \
-      sed -e 's#dir="ltr" data-aria-label-part="0">\(.*\)</p>#      <li>\1</li>#' \
-      -e 's#data-pre-embedded="true"##g' \
-      -e 's#data-query-source="hashtag_click"##g'
 
-    if [[ $i -eq $max_tweets ]]; then
-      break
-    fi
-  done
-  echo "    </ul>"
-
+international_news() {
+  cat <<EOF
+    <h2>International News</h2>
+EOF
+  get_twitter_list Ed_Husain 4
 }
 
 daily_pictures() {
@@ -105,17 +127,34 @@ daily_pictures() {
       ${caption}
     </p>
 EOF
+
+  local content=$(curl -s http://www.telegraph.co.uk/news/picturegalleries/picturesoftheday/ | \
+                       egrep 'theweekinpictures.*<img' | \
+                       sed -e 's#href="/news#href="http://telegraph.co.uk/news#' -e 's#^[ ]*##'
+        )
+  caption=$(echo "${content}" | sed -n 's#.*alt="\([^"]*\)".*#\1#p')
+
+
+  cat <<EOF
+    <p>
+      ${content}</a>
+      <br/>
+      ${caption}
+    </p>
+
+EOF
+
 }
 
 weather_report() {
   local url=http://www.yr.no/place/Norway/Oslo/Oslo/St._Hanshaugen
   local report=$(curl -s ${url}/varsel.rss | \
-    grep -A 4 '<item>' | head -4 | tail -3)
+                      grep -A 4 '<item>' | head -4 | tail -3)
 
   local img_url=$(echo "$report" | sed -n 's#.*enclosure url="\([^"]*\)".*#\1#p')
   local description=$(echo "$report" | \
-    sed -n 's#<description>\(.*\)</description>#\1#p' | \
-    sed 's#^[ ]*##')
+                           sed -n 's#<description>\(.*\)</description>#\1#p' | \
+                           sed 's#^[ ]*##')
   cat <<EOF
     <p>
       <a href="${url}">
@@ -127,6 +166,7 @@ EOF
 
 
 
+
 }
 
 main() {
@@ -135,6 +175,7 @@ main() {
   print_header
   weather_report
   norwegian_news
+  international_news
   unix_news
   the_holy_word_of_the_day
   daily_pictures
