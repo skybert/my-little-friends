@@ -19,7 +19,7 @@
   # remove any left over link references
   s#[[][0-9][0-9][0-9]+[]]##g
 
-  s#(pic.twitter.com/.*)[ ]?#<img src="http://\1" alt="pic"/>#
+  s#(pic.twitter.com/.*)[ ]?#<a href="http://\1">\1</a>#g
 
   p
 }
