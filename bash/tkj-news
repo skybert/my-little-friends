@@ -72,7 +72,7 @@ get_twitter_list() {
   local i=0
   echo "    <p><a href=\"https://twitter.com/${twitter_user}\">@${twitter_user}</a></p>"
   echo "    <ul>"
-  echo "$tweets" | sed -r -n -f lynx-ascii-to-html.sed | \
+  echo "$tweets" | sed -r -n -f $(dirname $0)/lynx-ascii-to-html.sed | \
       while read line; do
 
         if [[ -z "$line" ]]; then
