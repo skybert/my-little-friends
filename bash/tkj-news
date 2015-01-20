@@ -20,12 +20,12 @@ the_holy_word_of_the_day() {
 
 }
 
-norwegian_news() {
+news() {
   local news=$(curl -s http://www.nrk.no/nyheter/siste.rss | \
                     grep '<item>' | \
                     head -6)
   cat <<EOF
-    <h2>Norwegian News</h2>
+    <h2>News</h2>
     <ul>
 EOF
 
@@ -104,10 +104,14 @@ EOF
 }
 
 international_news() {
-  cat <<EOF
-    <h2>International News</h2>
-EOF
+  echo "    <h2>Politics</h2>"
   get_twitter_list Ed_Husain 4
+  get_twitter_list ingedhanssen 2
+}
+
+music() {
+  echo "    <h2>Music</h2>"
+  get_twitter_list sspu 2
 }
 
 daily_pictures() {
@@ -174,7 +178,7 @@ main() {
 
   print_header
   weather_report
-  norwegian_news
+  news
   international_news
   unix_news
   the_holy_word_of_the_day
