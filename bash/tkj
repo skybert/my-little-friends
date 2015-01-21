@@ -284,7 +284,7 @@ function do_doc() {
 ## Arguments: takes no arguments.
 function do_update-sources()
 {
-  for el in $src_list; do
+  for el in $(find $src_list -maxdepth 1); do
     if [ ! -d $el ]; then
       continue
     fi
@@ -307,7 +307,8 @@ function do_update-sources()
       elif [ -d $el/CVS ]; then
         cvs up -d
       else
-        p4 sync ...
+        # p4 sync ...
+        :
       fi
     )
   done
