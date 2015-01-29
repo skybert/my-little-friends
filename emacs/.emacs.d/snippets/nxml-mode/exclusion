@@ -1,0 +1,6 @@
+#name : exclusion
+# --
+<exclusion>
+  <artifactId>$1</artifactId>
+  <groupId>$2</groupId>
+</exclusion>$0
