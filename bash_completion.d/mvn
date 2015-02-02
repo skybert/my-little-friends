@@ -78,6 +78,7 @@ commands="
   eclipse:eclipse
   idea:idea
   install
+  package
   test
 "
 
