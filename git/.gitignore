@@ -5,6 +5,7 @@
 *.pdf
 *.pmd
 *.tmp
+*.versionsBackup
 *~
 .classpath
 .idea
