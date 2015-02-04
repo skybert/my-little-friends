@@ -94,7 +94,7 @@ done
 ##################################################################
 # java
 ##################################################################
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
 
 ##################################################################
@@ -107,7 +107,6 @@ $HOME/src/my-little-friends/git:\
 $HOME/src/moria/src/net:\
 $HOME/src/moria/src/java:\
 $HOME/src/moria/src/pictures:\
-/opt/maven/bin:\
 /opt/local/bin:\
 $JAVA_HOME/bin:\
 $PATH
@@ -130,9 +129,6 @@ export P4CONFIG=$HOME/.p4config
 # export TZ='Asia/Taipei'
 export LANG=en_GB.utf8
 export LC_ALL=en_GB.utf8
-
-# java settings
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=1024m"
 
 ##################################################################
 # radio
