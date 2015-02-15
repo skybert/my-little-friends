@@ -4,6 +4,7 @@
 *.iws
 *.pdf
 *.pmd
+*.pyc
 *.tmp
 *.versionsBackup
 *~
@@ -17,8 +18,14 @@ GRTAGS
 GSYMS
 GTAGS
 TAGS
+TAGS
+__pycache__
+bin/make.sh
+conf/cache
 dependency-reduced-pom.xml
 derby.log
+generated
+output
 pmd-eclipse.log
 src/main/webapp/META-INF/MANIFEST.MF
 target
