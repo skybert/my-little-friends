@@ -3,7 +3,20 @@
 # fail fast
 set -e
 
+id="[$(basename $0)]"
+old_number_of_stashes=$(git stash list | wc -l)
+echo "${id} Stashing changes ..."
 git stash
+
+remote=$(git remote -v | grep fetch | awk '{print $2;}')
+echo "${id} Pulling latest changes from ${remote} ..."
 git pull --rebase
-git stash pop
-git diff
+
+new_number_of_stashes=$(git stash list | wc -l)
+if [[ ${new_number_of_stashes} -gt ${old_number_of_stashes} ]]; then
+    echo "${id} Popping stashed changes ..."
+    git stash pop
+fi
+
+echo "${id} done, here's your status:"
+git status
