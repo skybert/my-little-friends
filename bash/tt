@@ -21,7 +21,7 @@ show_test_report() {
         local report=$(find target/surefire-reports -name *${1}.txt)
 
         if [[ -r "$report" && $(cat "$report" | wc -l) -gt 4 ]]; then
-            less $report
+            cat $report
         fi
     fi
 }
