@@ -1,6 +1,6 @@
 #name : exclusion
 # --
 <exclusion>
-  <artifactId>$1</artifactId>
-  <groupId>$2</groupId>
+  <groupId>$1</groupId>
+  <artifactId>$2</artifactId>
 </exclusion>$0
