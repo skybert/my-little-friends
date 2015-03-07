@@ -9,7 +9,7 @@ if [ $# -gt 1 ]; then
   exit 1
 fi
 
-if [ $(grep $1 /etc/hosts | grep -v ^# | wc -l) -gt 0 ]; then
+if [ $(grep -w $1 /etc/hosts | grep -v ^# | wc -l) -gt 0 ]; then
   echo $1 "already blocked"
   exit 0
 fi
