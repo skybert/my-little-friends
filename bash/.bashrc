@@ -82,6 +82,7 @@ shopt -s autocd
 
 export FIGNORE=.svn
 l="
+  /etc/bash_completion
   /usr/share/bash-completion/bash_completion
   $HOME/src/my-little-friends/bash_completion.d/tkj
   $HOME/src/ece-scripts/etc/bash_completion.d/ece
