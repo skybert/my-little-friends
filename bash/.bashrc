@@ -56,10 +56,13 @@ alias gg='git log --regexp-ignore-case --grep'
 alias gl='git log'
 alias gp='git pull --rebase'
 alias gs='git status'
+alias gsh='git show'
 alias gsr='git svn rebase'
+alias gbud='git branch --set-upstream-to=origin/develop develop'
 alias ls='ls -lh'
 alias mc="mvn clean install"
 alias mcp="mvn clean package"
+alias mda='mvn dependency:analyze'
 alias mount="mount | column -t"
 alias mp="mvn package -DskipTests"
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
