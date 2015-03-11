@@ -69,3 +69,12 @@
     (goto-char 0)
     (replace-string "&aelig;" "æ")
     ))
+
+(defun tkj-tidy-up-xml()
+  (interactive)
+  (goto-char 0)
+  (replace-string "><" ">
+<")
+  (indent-region (point-min) (point-max)))
+(global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
+
