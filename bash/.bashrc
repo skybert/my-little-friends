@@ -51,10 +51,12 @@ alias grep='grep --text --ignore-case --color --exclude-dir={.svn,.git,.hg,CVS}'
 alias ga='git add'
 alias gb='git branch'
 alias gc='git checkout'
+alias gca='git commit --amend'
 alias gd='git diff'
 alias gg='git log --regexp-ignore-case --grep'
 alias gl='git log'
 alias gpr='git pull --rebase'
+alias glp='git log -p'
 alias gri='git rebase -i'
 alias gs='git status'
 alias gsh='git show'
@@ -62,6 +64,7 @@ alias gsr='git svn rebase'
 alias gbud='git branch --set-upstream-to=origin/develop develop'
 alias ls='ls -lh'
 alias mc="mvn clean install"
+alias mcc="mvn clean compile"
 alias mcp="mvn clean package"
 alias mda='mvn dependency:analyze'
 alias mount="mount | column -t"
