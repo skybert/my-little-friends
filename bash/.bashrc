@@ -82,12 +82,16 @@ shopt -s autocd
 
 export FIGNORE=.svn
 l="
-  /etc/bash_completion
-  /usr/share/bash-completion/bash_completion
   $HOME/src/my-little-friends/bash_completion.d/tkj
   $HOME/src/ece-scripts/etc/bash_completion.d/ece
   $HOME/src/moria/voss/etc/bash_completion.d/voss
   $HOME/src/my-little-friends/bash_completion.d/mvn
+
+  /etc/bash_completion
+  /usr/share/bash-completion/bash_completion
+  /etc/bash_completion.d/maven
+  /etc/bash_completion.d/subversion
+  /usr/share/bash-completion/git
 "
 for el in $l; do
   if [ -r $el ]; then
