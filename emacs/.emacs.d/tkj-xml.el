@@ -46,12 +46,8 @@
                       (error nil)))
           (setq path (cons (xmltok-start-tag-local-name) path)))
         (if (called-interactively-p t)
-            (setq frame-title-format (concat invocation-name "@"
-                                             (system-name)
-                                             " {%f}"
-                                             " xpath: /"
-                                             (mapconcat 'identity path "/")))
-          (format "/%s" (mapconcat 'identity path "/")))))))
+            (message (concat "You are here: "
+             (mapconcat 'identity path " > "))))))))
 
 (defun tkj-html-entities-to-char()
   (interactive)
