@@ -4,8 +4,8 @@
 (add-hook 'python-mode-hook 'ac-anaconda-setup)
 
 (setq python-shell-virtualenv-path "/home/torstein/src/atelier/src/main/python/pyenv")
-
 (pyenv-mode)
+
 (defun projectile-pyenv-mode-set ()
   "Set pyenv version matching project name.
 Version must be already installed."
