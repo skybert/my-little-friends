@@ -38,3 +38,6 @@
 [app] (name=x-www-browser) (class=X-www-browser) (role=browser)
   [Workspace]	{1}
 [end]
+[app] (name=amarok) (class=Amarok) (role=MainWindow)
+  [Workspace]	{0}
+[end]
