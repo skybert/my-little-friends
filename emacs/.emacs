@@ -505,10 +505,8 @@
              (auto-complete-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Web browser & search
+;; Web browser
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'google-this)
-(google-this-mode 1)
 (setq browse-url-generic-program "firefox"
       browse-url-browser-function 'browse-url-generic)
 
