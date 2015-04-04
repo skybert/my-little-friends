@@ -85,9 +85,6 @@
 ;; Shortcuts in all modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\M- " 'hippie-expand)
-(global-set-key "\C-\M-f" 'find-file-at-point)
-(global-set-key "\C-cn" 'find-dired)
-(global-set-key "\C-cN" 'grep-find)
 (global-set-key "\M-r" 'join-line)
 ;; minimising Emacs way too many times without wanting to.
 (global-unset-key "\C-z")
@@ -95,10 +92,29 @@
 (set-display-table-slot standard-display-table 'wrap ?\ )
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq grep-find-command
-      "find ~/src/git/puma -name \"*.java\" -type f | egrep -v 'target|.idea|.git' | xargs grep -n -i -e ")
-
 (global-set-key (kbd "<f1>") 'magit-status)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs grep and find
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key "\C-\M-f" 'find-file-at-point)
+(global-set-key "\C-cn" 'find-dired)
+(global-set-key "\C-cN" 'grep-find)
+(setq grep-find-ignored-directories
+      (append
+       (list
+        ".git"
+        ".idea"
+        ".project"
+        ".settings"
+        ".svn"
+        "pyenv"
+        "target"
+        )
+       grep-find-ignored-directories)
+      grep-find-ignored-files (append "TAGS" grep-find-ignored-files)
+      grep-find-command
+      "find ~/src/git/puma -name \"*.java\" | xargs grep -n -i -e ")
 
 (defun move-line-down ()
   (interactive)
