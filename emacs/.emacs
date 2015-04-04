@@ -108,6 +108,7 @@
         ".project"
         ".settings"
         ".svn"
+        "bootstrap*"
         "pyenv"
         "target"
         )
