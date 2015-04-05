@@ -101,9 +101,9 @@
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
 (setq grep-find-ignored-directories
-      (append
        (list
         ".git"
+        ".hg"
         ".idea"
         ".project"
         ".settings"
@@ -112,8 +112,7 @@
         "pyenv"
         "target"
         )
-       grep-find-ignored-directories)
-      grep-find-ignored-files (append "TAGS" grep-find-ignored-files)
+      grep-find-ignored-files (list "TAGS")
       grep-find-command
       "find ~/src/git/puma -name \"*.java\" | xargs grep -n -i -e ")
 
