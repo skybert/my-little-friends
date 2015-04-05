@@ -44,7 +44,6 @@ Mod4 Shift Tab :PrevTab
 
 # see all windows
 XF86LaunchA   :ClientMenu
-Super_L       :ClientMenu
 
 # go to a specific tab in the current window
 Mod4 1 :Tab 1
@@ -104,14 +103,19 @@ Control Mod4 F10 :TakeToWorkspace 10
 Control Mod4 F11 :TakeToWorkspace 11
 Control Mod4 F12 :TakeToWorkspace 12
 
-# My addition to $HOME/.fluxbox/keys
+# Torstein's additions to $HOME/.fluxbox/keys
 
 # I want a 7x2 grid
 Control Shift Left :PrevWorkspace
 Control Shift Right :NextWorkspace
 Control Shift Up :RightWorkspace 3
 Control Shift Down :LeftWorkspace 3
+
+# windows
 Control Shift m :Maximize
+Control Shift h :MaximizeHorizontal
+Control Shift v :MaximizeVertical
+Super_L         :ClientMenu
 
 # the keyboard layouts I use
 Control Shift 1 :ExecCommand setxkbmap us -option ctrl:nocaps;
@@ -144,7 +148,6 @@ Control Shift d :ShowDesktop
 Control Shift a :Exec caterm +sb -cr red -tr -fg white -fn 7x14 -tint blue -sl 10000
 # Control Shift t :Exec urxvt +sb -cr red -sl 10000 -bg "#3f3f3f" -fg "#dcdccc" -fn 7x14
 Control Shift t :Exec urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"
-Control Shift h :Exec urxvt -fn xft:Mono +sb -cr red -sl 10000
 
 # 'u' is the first letter of the Norwegian word for "without", "uten" :-)
 Control Shift u :ToggleDecor
