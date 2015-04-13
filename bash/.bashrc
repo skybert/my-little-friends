@@ -67,6 +67,7 @@ alias mc="mvn clean install"
 alias mcc="mvn clean compile"
 alias mcp="mvn clean package"
 alias mda='mvn dependency:analyze'
+alias mdt='mvn dependency:tree | less'
 alias mount="mount | column -t"
 alias mp="mvn package -DskipTests"
 alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
