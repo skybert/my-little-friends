@@ -41,6 +41,11 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 ##################################################################
 # aliases
 ##################################################################
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 alias de='setxkbmap de'
 alias df='df -hT'
 alias e='emacsclient'
