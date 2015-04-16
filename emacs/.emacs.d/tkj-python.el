@@ -2,6 +2,7 @@
 
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'ac-anaconda-setup)
+(add-hook 'python-mode-hook 'eldoc-mode)
 
 (setq python-shell-virtualenv-path "/home/torstein/src/atelier/src/main/python/pyenv")
 (pyenv-mode)
