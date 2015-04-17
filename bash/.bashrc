@@ -67,7 +67,7 @@ alias gs='git status'
 alias gsh='git show'
 alias gsr='git svn rebase'
 alias gbud='git branch --set-upstream-to=origin/develop develop'
-alias ls='ls -lh'
+alias ls='ls -ltrh'
 alias mc="mvn clean install"
 alias mcc="mvn clean compile"
 alias mcp="mvn clean package"
