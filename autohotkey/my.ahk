@@ -1,12 +1,16 @@
 ; Replace caps with ctrl
 Capslock::Ctrl
 
-; Toggle maximize with Ctrl-shift-m
+; Toggle maximize with Ctrl-shift-m. When in fullscreen, turn off window decorations
 ^+m::
    WinGet MX, MinMax, A
 
-   If MX
+   If (MX) {
+        WinSet, Style, +0xC00000, A
         WinRestore A
-   Else
+   }
+   Else {
+        WinSet, Style, -0xC00000, A
         WinMaximize A
+   }
 return
