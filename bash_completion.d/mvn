@@ -75,6 +75,7 @@ commands="
   compile
   dependency:analyze
   dependency:tree
+  deploy
   eclipse:eclipse
   help:effective-pom
   idea:idea
