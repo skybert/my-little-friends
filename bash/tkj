@@ -280,6 +280,25 @@ function do_doc() {
   done
 }
 
+function do_status() {
+    for el in $src_list; do
+      if [ ! -d $el ]; then
+         continue
+      fi
+      (
+        cd $el
+        if [ -d $el/.git ]; then
+          local status=$(git status | egrep "(modified:|added:|new file:|ahead of)")
+          if [ $(echo "$status" | wc -c) -gt 2 ]; then
+            red "${el}"
+            blue $(git status | head -1)
+            echo "$status"
+          fi
+        fi
+      )
+    done
+}
+
 ## Updates the sources, including p4, git, forks, hg++
 ## Arguments: takes no arguments.
 function do_update-sources()
