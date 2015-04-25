@@ -53,9 +53,18 @@
        ))
 (global-set-key  (kbd "C-.") 'springboard)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Jump to the right project quickly
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key (kbd "C-.") 'springboard)
+(setq springboard-directories
+      (list "~/src/my-little-friends" "~/src/atelier" "~/doc"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sometimes, for instance when working on HUGE code bases - or on
 ;; windows, it's better to use a good old file cache (I generate mine
 ;; with ../../bash/create-emacs-file-cache).
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun tkj-load-filecache()
   (interactive)
   (require 'filecache)
