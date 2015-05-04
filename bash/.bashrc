@@ -119,7 +119,9 @@ export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
 ##################################################################
 # path
 ##################################################################
-PATH=$HOME/src/ece-scripts/usr/bin:\
+PATH=\
+$HOME/bin:\
+$HOME/src/ece-scripts/usr/bin:\
 $HOME/src/moria/voss/usr/bin:\
 $HOME/src/my-little-friends/bash:\
 $HOME/src/my-little-friends/git:\
