@@ -12,17 +12,13 @@
 (setq org-return-follows-link t
       org-reveal-theme "blood" ;; serif
       org-reveal-root "http://skybert.net/reveal.js"
-      org-agenda-files (list "~/src/my-writings/work.org"
-                             "~/src/my-writings/conduct.org"
-                             "~/src/my-writings/conduct-cal.org"
-                             "~/src/my-writings/home.org"
-                             "~/src/my-writings/jira.org"
-                             "~/src/my-writings/sameiet.org"
-                             "~/src/my-writings/someday.org"
-                             "~/src/my-writings/gcal.org"
-                             "~/src/my-writings/wunderlist.org"
+      org-agenda-files (list "~/doc/work.org"
+                             "~/doc/jira.org"
+                             "~/doc/someday.org"
+                             "~/doc/gcal.org"
+                             "~/doc/wunderlist.org"
                              )
-      org-capture-templates(quote (("t" "todo" entry (file "~/src/my-writings/work.org")
+      org-capture-templates(quote (("t" "todo" entry (file "~/doc/work.org")
                                     "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)))
       )
 
