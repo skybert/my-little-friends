@@ -44,6 +44,10 @@ print_header() {
   <head>
     <title>${title}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet"
+          type="text/css"
+          href="http://skybert.net/theme/styles/skybert.css"
+    />
     <style type="text/css">
       .invisible { display: none; }
       a { color: black; }
