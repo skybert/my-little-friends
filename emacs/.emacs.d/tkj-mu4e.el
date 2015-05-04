@@ -16,7 +16,7 @@
       message-send-mail-function 'smtpmail-send-it
       )
 
-conduc(defun tkj-load-mu4e-escenic()
+(defun tkj-load-mu4e-escenic()
   (interactive)
   (setq  mu4e-maildir-shortcuts
          '(
@@ -27,9 +27,8 @@ conduc(defun tkj-load-mu4e-escenic()
            )
          user-mail-address "torstein@escenic.com"
          smtpmail-smtp-server "smtp.gmail.com.escenic"
-         smtpmail-smtp-service 1025
-         smtpmail-stream-type 'plain
-         mu4e-sent-messages-behavior 'sent
+         smtpmail-smtp-service 587
+         smtpmail-stream-type 'starttls
          message-signature-file "~/.signature-escenic"
          )
   )
