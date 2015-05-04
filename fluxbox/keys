@@ -153,7 +153,7 @@ Control Shift t :Exec urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 
 Control Shift u :ToggleDecor
 
 # Lock the screen
-Control Shift x :ExecCommand ~/src/my-little-friends/bash/tkj lock-screen
+Control Shift x :Exec ~/src/my-little-friends/bash/tkj lock-screen
 
 # 'w' for web browser
 Control Shift w :Exec opera
