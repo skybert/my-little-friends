@@ -14,3 +14,6 @@
 (package-install 'smartscan)
 (package-install 'smex)
 (package-install 'yasnippet)
+(package-install 'erc-image)
+(package-install 'erc-colorize)
+(package-install 'magit)
