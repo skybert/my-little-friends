@@ -16,38 +16,21 @@
       message-send-mail-function 'smtpmail-send-it
       )
 
-(defun tkj-load-mu4e-conduct()
+conduc(defun tkj-load-mu4e-escenic()
   (interactive)
   (setq  mu4e-maildir-shortcuts
          '(
-           ("/conduct/inbox" . ?i)
-           ("/conduct/techtalk" . ?t)
-           ("/conduct/vizrt-forum" . ?v)
-           ("/conduct/wiki" . ?w)
+           ("/escenic/inbox" . ?i)
+           ("/escenic/jira" . ?j)
+           ("/escenic/build" . ?e)
+           ("/escenic/wiki" . ?w)
            )
-         user-mail-address "tkj@conduct.no"
-         message-signature-file "~/.signature-conduct"
-         smtpmail-smtp-server "smtp.gmail.com.conduct"
-         smtpmail-smtp-service 587
-         smtpmail-stream-type 'starttls
-         )
-  )
-
-(defun tkj-load-mu4e-spk()
-  (interactive)
-  (setq  mu4e-maildir-shortcuts
-         '(
-           ("/spk/inbox" . ?i)
-           ("/spk/inbox.jira" . ?j)
-           ("/spk/inbox.jenkins" . ?e)
-           ("/spk/inbox.crucible" . ?c)
-           )
-         user-mail-address "torstein.krause.johansen@spk.no"
-         smtpmail-smtp-server "smtp.spk"
+         user-mail-address "torstein@escenic.com"
+         smtpmail-smtp-server "smtp.gmail.com.escenic"
          smtpmail-smtp-service 1025
          smtpmail-stream-type 'plain
          mu4e-sent-messages-behavior 'sent
-         message-signature-file "~/.signature-spk"
+         message-signature-file "~/.signature-escenic"
          )
   )
 
@@ -85,23 +68,21 @@
         smtpmail-smtp-server "smtp.gmail.com.work"
         smtpmail-smtp-service 587
         smtpmail-stream-type 'starttls
-        message-signature-file "~/.signature-conduct"
-        )
+        message-signature-file "~/.signature-escenic"
+.com.es        )
   )
 
 ;; quickly change account
 (define-key mu4e-main-mode-map (kbd "<f1>") 'tkj-load-mu4e-gmail)
 (define-key mu4e-main-mode-map (kbd "<f2>") 'tkj-load-mu4e-gmailw)
-(define-key mu4e-main-mode-map (kbd "<f4>") 'tkj-load-mu4e-conduct)
-(define-key mu4e-main-mode-map (kbd "<f6>") 'tkj-load-mu4e-broadnet)
+(define-key mu4e-main-mode-map (kbd "<f4>") 'tkj-load-mu4e-escenic)
 (define-key mu4e-headers-mode-map (kbd "<f1>") 'tkj-load-mu4e-gmail)
 (define-key mu4e-headers-mode-map (kbd "<f2>") 'tkj-load-mu4e-gmailw)
-(define-key mu4e-headers-mode-map (kbd "<f4>") 'tkj-load-mu4e-conduct)
-(define-key mu4e-headers-mode-map (kbd "<f6>") 'tkj-load-mu4e-broadnet)
+(define-key mu4e-headers-mode-map (kbd "<f4>") 'tkj-load-mu4e-escenic)
 
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
 ;; default profile
-(tkj-load-mu4e-conduct)
+(tkj-load-mu4e-gmail)
