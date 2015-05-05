@@ -33,6 +33,7 @@
   (save-excursion
     (goto-char (point-min))
     (if (looking-at
-         "^<root> Message from unknown participant Your Name:")
-        (replace-match "<yournick>"))))
+         "^<root> Message from unknown participant \\([^:]+\\):")
+        (replace-match "<\\1>"))))
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
+
