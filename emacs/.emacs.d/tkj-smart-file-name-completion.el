@@ -35,6 +35,15 @@
       )
 (global-set-key "\C-cf" 'projectile-find-file)
 
+;; General springboard to switch between often used directories/
+;; projects.
+(require 'springboard)
+(setq springboard-directories (list "~/doc"
+                                    "~/src/p4/escenic/engine/trunk"
+                                    "~/src/my-little-friends"
+                                    "~/src/"))
+(global-set-key  (kbd "C-.") 'springboard)
+
 ;; Sometimes, for instance when working on HUGE code bases - or on
 ;; windows, it's better to use a good old file cache (I generate mine
 ;; with ../../bash/create-emacs-file-cache).
