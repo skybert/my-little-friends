@@ -28,14 +28,12 @@
 (global-set-key (kbd "M-x") 'smex)
 
 ;; General project support
-(defun tkj-load-projectile()
-  (interactive)
-  (require 'projectile)
-  (projectile-global-mode)
-  (setq projectile-enable-caching nil
-        projectile-globally-ignored-directories '("target")
-        )
-  (global-set-key "\C-cf" 'projectile-find-file))
+(require 'projectile)
+(projectile-global-mode)
+(setq projectile-enable-caching nil
+      projectile-globally-ignored-directories '("target")
+      )
+(global-set-key "\C-cf" 'projectile-find-file)
 
 ;; Sometimes, for instance when working on HUGE code bases - or on
 ;; windows, it's better to use a good old file cache (I generate mine
