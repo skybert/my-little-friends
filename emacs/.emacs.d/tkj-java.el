@@ -10,8 +10,8 @@
 (defun my-java-mode-hook ()
   (auto-fill-mode)
   (gtags-mode)
-  (flyspell-prog-mode)
-;;  (flymake-mode)
+  ;;  (flyspell-prog-mode)
+  ;;  (flymake-mode)
   (subword-mode)
   (smartscan-mode)
 
@@ -69,7 +69,7 @@
 
 ;; Variables
 (setq eclim-auto-save t
-;;      eclim-executable "/opt/eclipse/eclim"
+      eclim-executable "/opt/eclipse/eclim"
 ;;      eclimd-executable "/opt/eclipse/eclimd"
       eclimd-wait-for-process nil
       eclimd-default-workspace "~/src/workspace-eclim"
