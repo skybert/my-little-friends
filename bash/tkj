@@ -349,11 +349,11 @@ function do_update-sources()
 }
 
 function get_primary_screen() {
-  echo $(xrandr -q | head -2 | grep connected | cut -d' ' -f1)
+  echo $(xrandr -q | grep -w connected | cut -d' ' -f1 | head -1)
 }
 
 function get_secondary_screen() {
-  echo $(xrandr -q | grep connected | tail -1 | cut -d' ' -f1)
+  echo $(xrandr -q | grep -w connected | cut -d' ' -f1 | tail -1)
 }
 
 function do_setup-screens() {
@@ -365,9 +365,9 @@ function do_setup-screens() {
 
   if [ -n "$screen2" ]; then
     print "Setting up secondary screen $screen2 ..."
-    xrandr --output $screen2 --right-of $screen1 --auto
-    print "Rotating screen $screen2 to the left..."
-    xrandr --output $screen2 --rotate left
+    xrandr --output $screen2 --left-of $screen1 --auto
+    # print "Rotating screen $screen2 to the left..."
+    # xrandr --output $screen2 --rotate left
   fi
 
   do_set-random-wallpaper
