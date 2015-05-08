@@ -402,9 +402,9 @@ function do_delete-cache-files()
 function do_dates()
 {
   echo "Taipei:    " $(TZ='Asia/Taipei' date)
-  echo "Bangkok:   " $(TZ='Asia/Bangkok' date)
+  # echo "Bangkok:   " $(TZ='Asia/Bangkok' date)
   echo "Dhaka:     " $(TZ='Asia/Dhaka' date)
-  echo "Kolkata:   " $(TZ='Asia/Kolkata' date)
+  # echo "Kolkata:   " $(TZ='Asia/Kolkata' date)
   echo "Oslo:      " $(TZ='Europe/Oslo' date)
   # echo -n "Argentina: "
   # TZ='America/Argentina/Buenos_Aires' date
@@ -670,7 +670,7 @@ function p4_check_that_everythings_ok()
 
 function do_set-random-wallpaper()
 {
-  wallpaper_names=$(ls ~/wallpapers/*.jpg)
+  wallpaper_names=$(ls ~/pictures/wallpapers/*.jpg)
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
