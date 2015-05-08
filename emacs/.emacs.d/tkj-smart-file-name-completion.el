@@ -38,10 +38,15 @@
 ;; General springboard to switch between often used directories/
 ;; projects.
 (require 'springboard)
-(setq springboard-directories (list "~/doc"
-                                    "~/src/p4/escenic/engine/trunk"
-                                    "~/src/my-little-friends"
-                                    "~/src/"))
+(setq springboard-directories
+      (list
+       (concat "~/doc/" (format-time-string "%Y"))
+       "~/src/"
+       "~/src/ece-scripts/usr/bin/"
+       "~/src/my-little-friends/bash"
+       "~/src/git/escenic/engine/trunk/engine-core/src/main/java"
+       "~/src/skybert-net/src/linux"
+       ))
 (global-set-key  (kbd "C-.") 'springboard)
 
 ;; Sometimes, for instance when working on HUGE code bases - or on
