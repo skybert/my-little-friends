@@ -45,6 +45,7 @@
        "~/src/ece-scripts/usr/bin/"
        "~/src/my-little-friends/bash"
        "~/src/git/escenic/engine/trunk/engine-core/src/main/java"
+       "~/src/git/escenic/plugins/semantic/trunk"
        "~/src/git/escenic/studio/trunk/studio-core/src/main/java"
        "~/src/skybert-net/src/linux"
        ))
