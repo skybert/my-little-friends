@@ -181,8 +181,8 @@ function do_restart-eclimd() {
     kill -9 $eclimd_pid
   fi
 
-  do_build-sources
-  do_start-eclimd
+  # do_build-sources
+  do_start-eclimd "$@"
 }
 
 function do_start-eclimd() {
