@@ -70,12 +70,13 @@
 ;; Variables
 (setq eclim-auto-save t
       eclim-executable "/opt/eclipse/eclim"
-;;      eclimd-executable "/opt/eclipse/eclimd"
       eclimd-wait-for-process nil
       eclimd-default-workspace "~/src/workspace-eclim"
       eclim-use-yasnippet nil
+      eclim-autoupdate-problems nil
+      eclim-print-debug-messages nil
       help-at-pt-display-when-idle t
-      help-at-pt-timer-delay 0.1
+      help-at-pt-timer-delay 0.3
       )
 
 ;; Call the help framework with the settings above & activate
