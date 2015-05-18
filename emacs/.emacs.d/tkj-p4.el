@@ -63,7 +63,7 @@
 (defun tkj-p4-annotate()
   (interactive)
   (shell-command
-   (concat "p4 annotate -c " (buffer-file-name) " &")
+   (concat "p4 annotate -i -c " (buffer-file-name) " &")
    (get-buffer-create tkj-p4-out-buffer)
    (get-buffer-create tkj-p4-out-buffer)))
 
