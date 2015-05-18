@@ -9,7 +9,8 @@
       erc-log-write-after-send t
       erc-autoaway-idle-seconds 600
       erc-enable-logging t
-      erc-save-buffer-on-part t)
+      erc-save-buffer-on-part t
+      erc-hide-list '("JOIN" "PART" "QUIT"))
 
 (erc-log-mode)
 
@@ -36,4 +37,11 @@
          "^<root> Message from unknown participant \\([^:]+\\):")
         (replace-match "<\\1>"))))
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
+
+;; social
+(require 'erc-youtube)
+(require 'erc-tweet)
+(add-to-list 'erc-modules 'youtube)
+(add-to-list 'erc-modules 'tweet)
+(erc-update-modules)
 
