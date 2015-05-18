@@ -17,7 +17,7 @@
   [Workspace]	{5}
 [end]
 [app] (name=xterm) (class=XTerm)
-  [Workspace]	{3}
+  [Workspace]	{5}
 [end]
 [app] (name=skype) (class=Skype) (role=ConversationsWindow)
   [Workspace]	{0}
@@ -39,5 +39,8 @@
   [Workspace]	{1}
 [end]
 [app] (name=amarok) (class=Amarok) (role=MainWindow)
+  [Workspace]	{0}
+[end]
+[app] (name=vlc) (class=Vlc) (role=vlc-main)
   [Workspace]	{0}
 [end]
