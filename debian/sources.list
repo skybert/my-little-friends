@@ -1,6 +1,7 @@
 ## Official Debian
 deb http://security.debian.org/ jessie/updates main contrib non-free
 deb http://ftp.no.debian.org/debian jessie main contrib non-free
+deb-src http://ftp.no.debian.org/debian jessie main contrib non-free
 
 ## Excellent MySQL patch set for performance
 deb http://repo.percona.com/apt wheezy main
