@@ -78,6 +78,35 @@ function do_set-up-vpn() {
   fi
 }
 
+## $1 :: dir
+function do_generate-eclipse-files() {
+  local dir=$1
+  if [[ -z "$dir" || ! -d "$dir" ]]; then
+      echo $(basename $0) ${FUNCNAME#do_} "<dir>"
+      exit 1
+  fi
+
+  print "Deleting old Eclipse files in ${1} ..."
+  find ${1} \
+       -name bin -o \
+       -name .classpath -o \
+       -name maven-eclipse.xml -o \
+       -name .externalToolBuilders -o \
+       -name .project | \
+      xargs rm -rf
+
+  print "Re-generating Eclipse project files in ${1} ..."
+  mvn -q \
+      -f ${1}/pom.xml \
+      -DdownloadSources \
+      -DdownloadJavadocs \
+      -Dmaven.test.skip=true \
+      clean \
+      install \
+      eclipse:clean \
+      eclipse:eclipse
+}
+
 ## $1 :: name
 function do_switch-workspace() {
   print_and_log "Switching to ${1} ..."
@@ -192,7 +221,7 @@ function do_start-eclimd() {
   if [ -n "$1" ]; then
     workspace=@user.home/src/workspace-${1}
   fi
-  xterm -e $eclimd_bin \
+  xterm -bg black -fg green -e $eclimd_bin \
     -Dosgi.instance.area.default=${workspace} &
 }
 
