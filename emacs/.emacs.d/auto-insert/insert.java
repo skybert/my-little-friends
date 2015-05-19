@@ -4,7 +4,7 @@ package net.skybert;
  * (>>FILE_NO_EXT<<)
  *
  * @author Torstein Krause Johansen
- * @version 1.0
+ * @version $Revision$ $Date$
  */
 public class (>>FILE_NO_EXT<<) {
 
