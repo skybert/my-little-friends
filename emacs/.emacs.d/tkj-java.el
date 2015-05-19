@@ -12,7 +12,9 @@
   (gtags-mode)
   ;;  (flyspell-prog-mode)
   ;;  (flymake-mode)
+  (eclim-mode)
   (subword-mode)
+  (yas-minor-mode)
   (smartscan-mode)
 
   (define-key c-mode-base-map "\C-\M-j" 'tkj-insert-serial-version-uuid)
@@ -65,7 +67,7 @@
 ;; Interface to eclipse via eclim
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'eclim)
-(global-eclim-mode)
+;; (global-eclim-mode)
 
 ;; Variables
 (setq eclim-auto-save t
