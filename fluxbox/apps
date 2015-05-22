@@ -44,3 +44,7 @@
 [app] (name=vlc) (class=Vlc) (role=vlc-main)
   [Workspace]	{0}
 [end]
+[app] (name=xclipboard) (class=XClipboard)
+  [Dimensions]	{33% 15%}
+  [Position]	(UPPERLEFT)	{67% 85%}
+[end]
