@@ -333,7 +333,9 @@
       message-directory "~/mail"
 )
 
-(load "~/.emacs.d/tkj-mu4e.el")
+(defun tkj-load-mu4e()
+  (interactive)
+  (load "~/.emacs.d/tkj-mu4e.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Display the time on the status line
