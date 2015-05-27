@@ -29,3 +29,5 @@ fluxbox/slitlist
 fluxbox/windowmenu
 gitignore
 thumbs
+emacs/.emacs.d/eww-bookmarks
+emacs/.emacs.d/image-dired
