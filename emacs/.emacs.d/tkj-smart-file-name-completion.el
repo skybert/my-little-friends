@@ -46,6 +46,7 @@
        "~/src/git/escenic/client/trunk/client-core/src/main/java"
        "~/src/git/escenic/engine/trunk/engine-core/src/main/java"
        "~/src/git/escenic/plugins/semantic/trunk"
+       "~/src/git/escenic/plugins/mobile-studio/trunk"
        "~/src/git/escenic/studio/trunk/studio-core/src/main/java"
        "~/src/my-little-friends/bash"
        "~/src/my-little-friends/emacs"
