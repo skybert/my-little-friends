@@ -171,6 +171,3 @@ XF86AudioMute :ExecCommand aumix -v 0
 # eject
 XF86Eject :ExecCommand eject
 
-# Brightness
-XF86MonBrightnessDown :ExecCommand /usr/local/sbin/nvidiablctl down
-XF86MonBrightnessUp :ExecCommand /usr/local/sbin/nvidiablctl up
