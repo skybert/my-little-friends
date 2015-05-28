@@ -279,9 +279,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Multiple, real time replace
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-unset-key (kbd "C-;"))
-(global-set-key (kbd "C-;") 'iedit-mode)
-
 (require 'multiple-cursors)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -362,10 +359,11 @@
 (ac-config-default)
 (ac-flyspell-workaround)
 
-(setq ac-delay 0.1
-      ac-auto-start 1)
+(setq ac-delay 0.3
+      ac-auto-start nil)
 
-(global-set-key (kbd "<C-return>") 'complete-symbol)
+(global-unset-key (kbd "<C-return>"))
+(global-set-key (kbd "<C-return>") 'auto-complete)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
