@@ -153,9 +153,6 @@ Control Shift u :ToggleDecor
 # Lock the screen
 Control Shift x :Exec ~/src/my-little-friends/bash/tkj lock-screen
 
-# 'w' for web browser
-Control Shift w :Exec opera
-
 # sound
 XF86AudioRaiseVolume :ExecCommand aumix -v +2
 XF86AudioLowerVolume :ExecCommand aumix -v -2
