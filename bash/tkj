@@ -79,28 +79,31 @@ function do_set-up-vpn() {
 }
 
 ## $1 :: dir
-function do_update-eclipse-files() {
+function do_generate-eclipse-files() {
   local dir=$1
   if [[ -z "$dir" || ! -d "$dir" ]]; then
       echo $(basename $0) ${FUNCNAME#do_} "<dir>"
       exit 1
   fi
 
-  # print "Deleting old Eclipse files in ${1} ..."
-  # find ${1} \
-  #      -name bin -o \
-  #      -name .classpath -o \
-  #      -name maven-eclipse.xml -o \
-  #      -name .externalToolBuilders -o \
-  #      -name .project | \
-  #     xargs rm -rf
+  print "Deleting old Eclipse files in ${1} ..."
+  find ${1} \
+       -name bin -o \
+       -name .classpath -o \
+       -name maven-eclipse.xml -o \
+       -name .externalToolBuilders -o \
+       -name .project | \
+      xargs rm -rf
 
-  print "Updating Eclipse project files in ${1} ..."
-  mvn \
-      -q \
+  print "Re-generating Eclipse project files in ${1} ..."
+  mvn -q \
       -f ${1}/pom.xml \
       -DdownloadSources \
       -DdownloadJavadocs \
+      -Dmaven.test.skip=true \
+      clean \
+      install \
+      eclipse:clean \
       eclipse:eclipse
 }
 
