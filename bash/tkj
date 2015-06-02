@@ -332,7 +332,7 @@ function do_status() {
 ## Arguments: takes no arguments.
 function do_update-sources()
 {
-  for el in $(find $src_list -maxdepth 1); do
+  for el in $src_list; do
     if [ ! -d $el ]; then
       continue
     fi
@@ -349,7 +349,11 @@ function do_update-sources()
         if [[ $(git branch | grep develop | wc -l) -gt 0 ]]; then
             git checkout develop
         fi
-        git pull --rebase
+        if [[ $(cd $el && git branch --all | grep remotes/p4/master | wc -l) -gt 0 ]]; then
+            echo git p4 rebase
+        else
+          git pull --rebase
+        fi
       elif [ -d $el/.svn ]; then
         svn up
       elif [ -d $el/CVS ]; then
