@@ -350,7 +350,7 @@ function do_update-sources()
             git checkout develop
         fi
         if [[ $(cd $el && git branch --all | grep remotes/p4/master | wc -l) -gt 0 ]]; then
-            echo git p4 rebase
+            git p4 rebase
         else
           git pull --rebase
         fi
