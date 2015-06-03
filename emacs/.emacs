@@ -360,7 +360,7 @@
 (ac-flyspell-workaround)
 
 (setq ac-delay 0.3
-      ac-auto-start nil)
+      ac-auto-start t)
 
 (global-unset-key (kbd "<C-return>"))
 (global-set-key (kbd "<C-return>") 'auto-complete)
