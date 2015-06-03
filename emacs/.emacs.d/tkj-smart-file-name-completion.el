@@ -33,7 +33,7 @@
 (setq projectile-enable-caching nil
       projectile-globally-ignored-directories '("target")
       )
-(global-set-key "\C-cf" 'projectile-find-file)
+(global-set-key (kbd "C-;") 'projectile-find-file)
 
 ;; General springboard to switch between often used directories/
 ;; projects.
