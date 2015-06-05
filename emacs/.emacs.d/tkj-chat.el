@@ -40,3 +40,11 @@
 (add-to-list 'erc-modules 'tweet)
 (erc-update-modules)
 
+
+(defun tkj-insert-happy-face()
+  (interactive)
+  (insert "😊"))
+
+(defun tkj-insert-sad-face()
+  (interactive)
+  (insert "😠"))
