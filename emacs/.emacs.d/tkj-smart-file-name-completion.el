@@ -32,6 +32,7 @@
 (projectile-global-mode)
 (setq projectile-enable-caching nil
       projectile-globally-ignored-directories '("target")
+      projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath")
       )
 (global-set-key (kbd "C-;") 'projectile-find-file)
 
@@ -55,13 +56,6 @@
        "~/src/skybert-net/src/linux"
        ))
 (global-set-key  (kbd "C-.") 'springboard)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Jump to the right project quickly
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "C-.") 'springboard)
-(setq springboard-directories
-      (list "~/src/my-little-friends" "~/src/atelier" "~/doc"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sometimes, for instance when working on HUGE code bases - or on
