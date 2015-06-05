@@ -49,7 +49,7 @@ alias ......='cd ../../../../..'
 alias de='setxkbmap de'
 alias df='df -hT'
 alias e='emacsclient'
-alias emacs='emacs -fn terminus-12'
+alias emacs='emacs -fn terminus-bold-14'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
 alias eternal='cat ~/.bash_eternal_history | grep'
 alias grep='grep --text --ignore-case --color --exclude-dir={.svn,.git,.hg,CVS}'
@@ -100,7 +100,6 @@ l="
 
   /etc/bash_completion
   /usr/share/bash-completion/bash_completion
-  /etc/bash_completion.d/maven
   /etc/bash_completion.d/subversion
   /usr/share/bash-completion/git
 "
