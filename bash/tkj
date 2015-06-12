@@ -409,7 +409,7 @@ function do_setup-screens() {
 function do_change-clipboard() {
   if [ $(ps aux| grep clipit | grep -v grep | wc -l) -gt 0 ]; then
     killall -9 clipit 2>/dev/null
-    xclipboard &
+    xclipboard -rv &
   else
     killall -9 xclipboard 2>/dev/null
     clipit &
