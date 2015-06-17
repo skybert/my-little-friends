@@ -28,14 +28,14 @@
   (define-key c-mode-base-map (kbd "C-M-o") 'eclim-java-import-organize)
   (define-key c-mode-base-map (kbd "C-S-e") 'eclim-problems-show-errors)
   (define-key c-mode-base-map (kbd "C-S-w") 'eclim-problems-show-warnings)
-  (define-key c-mode-base-map (kbd "C-f9") 'tkj-eclim-maven-run-quick-package)
+  (define-key c-mode-base-map (kbd "C-<f9>") 'tkj-eclim-maven-run-quick-package)
   (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)
   (define-key c-mode-base-map (kbd "C-q") 'eclim-java-show-documentation-for-current-element)
   (define-key c-mode-base-map (kbd "M-RET") 'eclim-problems-correct)
-  (define-key c-mode-base-map (kbd "M-f7") 'eclim-java-find-references)
+  (define-key c-mode-base-map (kbd "M-<f7>") 'eclim-java-find-references)
   (define-key c-mode-base-map (kbd "M-i") 'eclim-java-implement) ;; IDEA is C-i
-  (define-key c-mode-base-map (kbd "S-f6") 'eclim-java-refactor-rename-symbol-at-point)
-  (define-key c-mode-base-map (kbd "S-f7") 'gtags-find-tag-from-here)
+  (define-key c-mode-base-map (kbd "S-<f6>") 'eclim-java-refactor-rename-symbol-at-point)
+  (define-key c-mode-base-map (kbd "S-<f7>") 'gtags-find-tag-from-here)
 
   ;; Fix indentation for anonymous classes
   (c-set-offset 'substatement-open 0)
