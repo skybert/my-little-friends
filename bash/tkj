@@ -381,27 +381,35 @@ function do_update-sources()
   done
 }
 
-function get_primary_screen() {
-  echo $(xrandr -q | grep -w connected | cut -d' ' -f1 | head -1)
+function get_connected_screen_list() {
+  xrandr -q | sed -r -n 's#(.*) connected .*#\1#p'
 }
 
-function get_secondary_screen() {
-  echo $(xrandr -q | grep -w connected | cut -d' ' -f1 | tail -1)
+function do_turn-off-external-screens() {
+  local screen_list=$(get_connected_screen_list)
+  local primary_screen=$(echo "$l" | head -1)
+  for screen in ${screen_list}; do
+    if [[ "${screen}" == "${primary_screen}" ]]; then
+      continue
+    else
+      xrandr --output ${screen} --off
+    fi
+  done
 }
 
 function do_setup-screens() {
-  local screen1=$(get_primary_screen)
-  local screen2=$(get_secondary_screen)
-
-  print "Setting up primary screen $screen1 ..."
-  xrandr --output $screen1 --auto
-
-  if [ -n "$screen2" ]; then
-    print "Setting up secondary screen $screen2 ..."
-    xrandr --output $screen2 --left-of $screen1 --auto
-    # print "Rotating screen $screen2 to the left..."
-    # xrandr --output $screen2 --rotate left
-  fi
+  local screen_list=$(get_connected_screen_list)
+  local primary_screen=$(echo "$l" | head -1)
+  for screen in ${screen_list}; do
+    if [[ -z "${previous_screen}" ]]; then
+      print "Setting up screen ${screen} ..."
+      xrandr --output ${screen} --auto
+    else
+      print "Setting up screen ${screen} right of ${previous_screen} ..."
+      xrandr --output ${screen} --right-of ${previous_screen} --auto
+    fi
+    previous_screen=${screen}
+  done
 
   do_set-random-wallpaper
 }
@@ -707,6 +715,7 @@ function do_set-random-wallpaper()
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
+  print "Setting a random wallpaper $(basename ${wallpaper})"
   display -window root $wallpaper
 }
 
