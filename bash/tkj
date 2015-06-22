@@ -387,7 +387,7 @@ function get_connected_screen_list() {
 
 function do_turn-off-external-screens() {
   local screen_list=$(get_connected_screen_list)
-  local primary_screen=$(echo "$l" | head -1)
+  local primary_screen=$(echo "${screen_list}" | head -1)
   for screen in ${screen_list}; do
     if [[ "${screen}" == "${primary_screen}" ]]; then
       continue
