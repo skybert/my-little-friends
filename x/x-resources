@@ -7,7 +7,7 @@ URxvt.perl-ext-common:  default,matcher
 URxvt.perl-ext:         clipboard
 URxvt.perl-lib:         /home/torstein/.urxvt/perl
 URxvt.underlineURLs:    true
-URxvt.urlLauncher:      firefox
+URxvt.url-launcher:     /usr/bin/firefox
 !! With these two magic settings, Ctrl+Shift does not mess up my work
 !! in the terminal
 URxvt.iso14755:    false
