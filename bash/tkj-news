@@ -172,9 +172,16 @@ weather_report() {
     </p>
 EOF
 
+}
 
-
-
+nok_vs_twd() {
+  cat <<EOF
+    <h2>NOK vs TWD</h2>
+    <p>
+      <img src="https://img.readitlater.com/i/themoneyconverter.com/exchange-rate-chart/NOK/NOK-TWD/RS/w896.gif"
+        alt="NOK vs TWD"/>
+    </p>
+EOF
 }
 
 main() {
@@ -187,6 +194,7 @@ main() {
   unix_news
   the_holy_word_of_the_day
   daily_pictures
+  nok_vs_twd
   print_footer
 }
 
