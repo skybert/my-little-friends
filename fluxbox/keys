@@ -110,8 +110,10 @@ Control Shift Up :RightWorkspace 3
 Control Shift Down :LeftWorkspace 3
 
 # windows
-Control Shift f :MoveRight 10
-Control Shift b :MoveLeft 10
+Control Shift f :MoveRight 20
+Control Shift b :MoveLeft 20
+Control Shift p :MoveUp 20
+Control Shift n :MoveDown 20
 Control Shift m :Maximize
 Control Shift h :MaximizeHorizontal
 Control Shift v :MaximizeVertical
