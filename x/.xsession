@@ -36,7 +36,7 @@ firefox &
 export LC_ALL=en_GB.utf8
 
 ## launch window manager
-exec fluxbox
+exec fluxbox -log ~/.fluxbox/log
 # exec mate-session
 # exec gnome-session
 # exec cinnamon-session
