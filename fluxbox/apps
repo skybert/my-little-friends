@@ -48,3 +48,6 @@
   [Dimensions]	{33% 15%}
   [Position]	(UPPERLEFT)	{67% 85%}
 [end]
+[app] (name=Qt-subapplication) (class=VirtualBox)
+  [Workspace]	{4}
+[end]
