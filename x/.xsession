@@ -30,6 +30,7 @@ conky &
 firefox &
 xmms &
 emacs -fn 7x14 -g 80x60 &
+firefox &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
