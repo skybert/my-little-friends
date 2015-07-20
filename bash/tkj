@@ -337,9 +337,7 @@ function do_update-sources()
       continue
     fi
 
-    print "----------------------------------------------"
     print "Updating $(echo $el | sed "s#${HOME}/##g") ..."
-    print "----------------------------------------------"
     (
       cd $el
       if [[ -d $el/.git && $(grep svn-remote $el/.git/config | wc -l) -gt 0 ]]; then
