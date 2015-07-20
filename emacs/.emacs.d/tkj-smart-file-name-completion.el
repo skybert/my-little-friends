@@ -18,6 +18,7 @@
 ;; Vertical completion menu
 (require 'ido-vertical-mode)
 (ido-vertical-mode)
+(setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
 
 ;; IDO support pretty much everwhere, including eclim-java-implement
 (require 'ido-ubiquitous)
