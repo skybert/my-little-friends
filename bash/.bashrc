@@ -46,6 +46,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+alias diff=colordiff
 alias de='setxkbmap de'
 alias df='df -hT'
 alias e='emacsclient'
