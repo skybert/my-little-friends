@@ -114,7 +114,7 @@ done
 # java
 ##################################################################
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
+export MAVEN_OPTS="-Xmx1024m"
 
 ##################################################################
 # man pages from non packages
