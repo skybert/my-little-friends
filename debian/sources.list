@@ -9,3 +9,6 @@ deb http://repo.percona.com/apt wheezy main
 ## Lots of great multimedia software, such as DVD playback
 deb http://www.deb-multimedia.org jessie main non-free
 
+## Latest Firefox for Debian stable from Mozilla
+deb http://mozilla.debian.net/ jessie-backports iceweasel-release
+
