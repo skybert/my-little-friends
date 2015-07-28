@@ -90,5 +90,8 @@ $hr
 ${exec ~/src/my-little-friends/bash/tkj dates}
 ${color grey}Battery    :${color white} ${battery_percent}% ${battery_bar}
 ${color grey}Temperature:${color white} ${acpitemp} C
-$hr
+${color grey}$hr
 ${color grey}${exec date}
+${color grey}$hr
+${color grey}${exec mpc | head -1}
+
