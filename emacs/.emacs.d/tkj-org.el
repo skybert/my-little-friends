@@ -31,7 +31,7 @@
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
 ;; restore windows after showing the agenda
-(add-hook 'org-agenda-after-show-hook 'winner-undo)
+;; (add-hook 'org-agenda-after-show-hook 'winner-undo)
 
 ;; don't create a footer
 (setq
