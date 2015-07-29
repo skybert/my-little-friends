@@ -35,6 +35,8 @@ options="
   -B
   -C
   -D
+  -DdownloadJavadocs
+  -DdownloadSources
   -Dmaven.test.failure.ignore=false
   -Dmaven.test.skip=true
   -DskipTests
