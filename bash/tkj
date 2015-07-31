@@ -107,6 +107,22 @@ function do_generate-eclipse-files() {
       eclipse:eclipse
 }
 
+function do_update-eclipse-files-and-restart-eclim() {
+  local dir=${1-$(pwd)}
+
+  print "Update Eclipse project files in ${dir} ..."
+  mvn -q \
+      clean \
+      install \
+      eclipse:eclipse \
+      -f ${dir}/pom.xml \
+      -DdownloadSources \
+      -DdownloadJavadocs \
+      -Dmaven.test.skip=true
+  
+  do_restart-eclimd $(basename $(dirname ${dir}))
+}
+
 ## $1 :: name
 function do_switch-workspace() {
   print_and_log "Switching to ${1} ..."
