@@ -1,56 +1,58 @@
 [app] (name=emacs) (class=Emacs24)
-  [Workspace] {2}
+  [Workspace]	{2}
 [end]
 [app] (name=Navigator) (class=Firefox) (role=browser)
-  [Workspace] {1}
+  [Workspace]	{1}
 [end]
 [app] (name=Eclipse) (class=Eclipse)
-  [Workspace] {5}
+  [Workspace]	{5}
 [end]
 [app] (name=opera) (class=Opera) (role=browser)
-  [Workspace] {1}
+  [Workspace]	{1}
 [end]
 [app] (name=emacs) (class=Emacs)
-  [Workspace] {2}
+  [Workspace]	{2}
 [end]
 [app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea-ce)
-  [Workspace] {5}
+  [Workspace]	{5}
 [end]
 [app] (name=xterm) (class=XTerm)
-  [Workspace] {5}
+  [Workspace]	{5}
 [end]
 [app] (name=skype) (class=Skype) (role=ConversationsWindow)
-  [Workspace] {0}
+  [Workspace]	{0}
 [end]
 [app] (name=skype) (class=Skype)
-  [Workspace] {0}
+  [Workspace]	{0}
 [end]
 [group]
  [app] (name=skype) (class=Skype)
  [app] (name=skype) (class=Skype) (role=ConversationsWindow)
 [end]
 [app] (name=Navigator) (class=Iceweasel) (role=browser)
-  [Workspace] {1}
+  [Workspace]	{1}
 [end]
 [app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea)
-  [Workspace] {5}
+  [Workspace]	{5}
 [end]
 [app] (name=x-www-browser) (class=X-www-browser) (role=browser)
-  [Workspace] {1}
+  [Workspace]	{1}
 [end]
 [app] (name=amarok) (class=Amarok) (role=MainWindow)
-  [Workspace] {0}
+  [Workspace]	{0}
 [end]
 [app] (name=vlc) (class=Vlc) (role=vlc-main)
-  [Workspace] {0}
+  [Workspace]	{0}
 [end]
 [app] (name=xclipboard) (class=XClipboard)
-  [Dimensions]  {33% 15%}
-  [Position]  (UPPERLEFT) {67% 85%}
+  [Dimensions]	{33% 15%}
+  [Position]	(UPPERLEFT)	{67% 85%}
 [end]
 [app] (name=Qt-subapplication) (class=VirtualBox)
-  [Workspace] {4}
-  [Workspace] {0}
-  [Dimensions]  {67% 98%}
-  [Position]  (UPPERLEFT) {15% 0%}
+  [Workspace]	{4}
+  [Dimensions]	{67% 98%}
+  [Position]	(UPPERLEFT)	{15% 0%}
+[end]
+[app] (name=Google-chrome-stable) (class=Google-chrome-stable) (role=browser)
+  [Workspace]	{1}
 [end]
