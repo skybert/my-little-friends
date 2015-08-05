@@ -119,7 +119,7 @@ function do_update-eclipse-files-and-restart-eclim() {
       -DdownloadSources \
       -DdownloadJavadocs \
       -Dmaven.test.skip=true
-  
+
   do_restart-eclimd $(basename $(dirname ${dir}))
 }
 
@@ -413,6 +413,7 @@ function do_turn-off-external-screens() {
 }
 
 function do_setup-screens() {
+  local portrait=${1-0}
   local screen_list=$(get_connected_screen_list)
   local primary_screen=$(echo "$l" | head -1)
   for screen in ${screen_list}; do
@@ -421,7 +422,11 @@ function do_setup-screens() {
       xrandr --output ${screen} --auto
     else
       print "Setting up screen ${screen} right of ${previous_screen} ..."
-      xrandr --output ${screen} --right-of ${previous_screen} --auto
+      if [ ${portrait} -eq 0 ]; then
+          xrandr --output ${screen} --right-of ${previous_screen} --auto
+      else
+        xrandr --output ${screen} --right-of ${previous_screen} --auto  --rotate left
+      fi
     fi
     previous_screen=${screen}
   done
