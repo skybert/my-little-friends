@@ -520,7 +520,7 @@ function do_hours()
 
   local previous_date
   cat $HOME/.bash_eternal_history | \
-    cut -d' ' -f7-8 | \
+    awk '{ print $2; }' | \
     grep $the_date | \
     uniq | \
     sort | \
