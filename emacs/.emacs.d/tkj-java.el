@@ -96,7 +96,7 @@
 
 ;; Hook eclim up with auto complete mode
 (require 'auto-complete-config)
-(ac-config-default)
+;; (ac-config-default)
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
 
