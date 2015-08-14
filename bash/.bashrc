@@ -83,9 +83,20 @@ alias nocaps='setxkbmap -option ctrl:nocaps'
 alias steam='SDL_AUDIODRIVER=alsa steam'
 alias t='urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"'
 alias ts='tkj status'
-alias uprompt="export PROMPT_COMMAND='echo \$(history 1) >> $HOME/.bash_eternal_history'; export PS1='\$ '"
 alias us='setxkbmap us'
 alias vi=vim
+
+
+##################################################################
+## Command for switchong to a simple prompt I always use this in Emacs
+## shells, so I set the EDITOR variable to emacsclient as well.
+##################################################################
+uprompt() {
+  export EDITOR=emacsclient
+  export PROMPT_COMMAND='echo \$(history 1) >> $HOME/.bash_eternal_history'
+  export PS1='\$ '
+}
+
 
 ##################################################################
 # bash completion
