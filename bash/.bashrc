@@ -95,7 +95,7 @@ alias vi=vim
 ##################################################################
 uprompt() {
   export EDITOR=emacsclient
-  export PROMPT_COMMAND='echo \$(history 1) >> $HOME/.bash_eternal_history'
+  PROMPT_COMMAND='echo "$(history 1)" >> $HOME/.bash_eternal_history'
   export PS1='\$ '
 }
 
