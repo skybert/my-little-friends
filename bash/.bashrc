@@ -93,7 +93,7 @@ alias vi=vim
 ## Command for switchong to a simple prompt I always use this in Emacs
 ## shells, so I set the EDITOR variable to emacsclient as well.
 ##################################################################
-uprompt() {
+function uprompt() {
   export EDITOR=emacsclient
   PROMPT_COMMAND='echo "$(history 1)" >> $HOME/.bash_eternal_history'
   export PS1='\$ '
