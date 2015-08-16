@@ -1,4 +1,4 @@
-## Torstein's sources.list                            Yo Emacs! use -*- sh -*- mode
+## Torstein's sources.list                          Yo Emacs! use -*- sh -*- mode
 
 ## Official Debian
 deb http://security.debian.org/ jessie/updates main contrib non-free
