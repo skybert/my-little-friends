@@ -73,6 +73,14 @@
 ;;             '("\\.java$" my-flymake-init flymake-simple-cleanup))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Highlighting gud
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun tkj-java-debug-highlighting()
+  (interactive)
+  (highlight-regexp "^[a-zA-Z].* =" "hi-green")
+  (highlight-phrase "com.escenic" "hi-red-b"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interface to eclipse via eclim
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'eclim)
