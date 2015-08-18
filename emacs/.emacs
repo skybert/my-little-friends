@@ -115,7 +115,7 @@
         )
       grep-find-ignored-files (list "TAGS")
       grep-find-command
-      "find ~/src/git/puma -name \"*.java\" | xargs grep -n -i -e ")
+      "find ~/src/git/escenic/engine/trunk -name \"*.java\" | xargs grep -n -i -e ")
 
 (defun move-line-down ()
   (interactive)
