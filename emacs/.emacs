@@ -642,3 +642,11 @@
 ;;Allow interactive narrow-to-region
 (put 'narrow-to-region 'disabled nil)
 
+;; Create a new shell buffer
+;; taken from http://stackoverflow.com/a/4116113/446256
+(defun spawn-shell (name)
+  (interactive "MName of shell buffer to create: ")
+  (pop-to-buffer (get-buffer-create (generate-new-buffer-name name)))
+  (shell (current-buffer))
+  (process-send-string nil "uprompt\n\n"))
+
