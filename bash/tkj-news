@@ -190,8 +190,8 @@ main() {
   print_header
   weather_report
   news
-  international_news
-  unix_news
+  # international_news
+  # unix_news
   the_holy_word_of_the_day
   daily_pictures
   nok_vs_twd
