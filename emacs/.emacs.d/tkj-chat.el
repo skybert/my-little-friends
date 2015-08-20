@@ -34,9 +34,9 @@
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
 
 ;; social
-(require 'erc-youtube)
+;; (require 'erc-youtube)
+;; (add-to-list 'erc-modules 'youtube)
 (require 'erc-tweet)
-(add-to-list 'erc-modules 'youtube)
 (add-to-list 'erc-modules 'tweet)
 (erc-update-modules)
 
