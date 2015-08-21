@@ -3,7 +3,7 @@ escape ^Zz
 
 # set the window title
 termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]2;\007'
-hardstatus string "screen (%n: %t)"
+hardstatus string "%H (%n: %t)"
 
 # status line at the bottom
 caption string "%{= kR}%H %{= kY}%M %d %{= kG}%c %{= kB}%?%-Lw%?%{= kW}%n*%f %t%?(%u)%?%{= kB}%?%+Lw%?"
