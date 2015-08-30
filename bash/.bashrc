@@ -18,14 +18,15 @@ function get_git_status() {
   local old_exit_code=$?
   local status=$(git status 2>/dev/null | head -1 | awk '{print $NF}')
   if [[ "$status" == "on" ]]; then
-    echo "<tag/$(git describe --always --tag)>"
+    echo "<tag/$(git describe --always --tag)> "
   elif [ -n "$status" ]; then
-    echo "<${status}>"
+    echo "<${status}> "
   fi
   return $old_exit_code
 }
 
-PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;35m\]\$(get_git_status) \[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
+# PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;35m\]\$(get_git_status) \[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
+PS1="\[\033[0;35m\]\$(get_git_status)\[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
 
 ##################################################################
 # history
@@ -84,6 +85,7 @@ alias no='setxkbmap no'
 alias nocaps='setxkbmap -option ctrl:nocaps'
 alias steam='SDL_AUDIODRIVER=alsa steam'
 alias t='urxvt +sb -cr red -sl 10000 -fn xft:Terminus:pixelsize=14 -bg black -fg "#dcdccc"'
+alias tb='urxvt +sb -cr red -sl 10000 -fn 10x20'
 alias ts='tkj status'
 alias us='setxkbmap us'
 alias vi=vim
