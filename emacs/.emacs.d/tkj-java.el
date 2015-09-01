@@ -77,6 +77,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun tkj-java-debug-highlighting()
   (interactive)
+  (insert "monitor locals\n")
   (highlight-regexp "^[a-zA-Z].* =" "hi-green")
   (highlight-phrase "com.escenic" "hi-red-b"))
 
