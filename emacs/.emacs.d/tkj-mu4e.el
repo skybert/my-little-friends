@@ -68,7 +68,7 @@
         smtpmail-smtp-service 587
         smtpmail-stream-type 'starttls
         message-signature-file "~/.signature-escenic"
-.com.es        )
+        )
   )
 
 ;; quickly change account
