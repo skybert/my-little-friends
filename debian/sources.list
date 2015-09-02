@@ -8,6 +8,9 @@ deb-src http://ftp.no.debian.org/debian jessie main contrib non-free
 ## Excellent MySQL patch set for performance
 deb http://repo.percona.com/apt wheezy main
 
+## Backports for jessie
+deb http://ftp.no.debian.org/debian jessie-backports main
+
 ## Lots of great multimedia software, such as DVD playback
 deb http://www.deb-multimedia.org jessie main non-free
 
