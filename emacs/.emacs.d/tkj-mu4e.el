@@ -1,6 +1,7 @@
 (require 'mu4e)
 
 (setq mu4e-maildir "~/mail"
+      mu4e-attachment-dir  "~/tmp"
       mu4e-get-mail-command "offlineimap"
       mu4e-debug nil
 
