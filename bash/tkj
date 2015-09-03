@@ -342,6 +342,8 @@ function do_status() {
         fi
       )
     done
+
+    red $(p4 opened 2>/dev/null | cut -d'#' -f1)
 }
 
 ## Updates the sources, including p4, git, forks, hg++
