@@ -50,6 +50,11 @@
   (c-set-offset 'arglist-intro '+))
 (add-hook 'java-mode-hook 'my-java-mode-hook)
 
+(defun tkj-java-before-save-hook()
+  (when (eq major-mode 'java-mode)
+    (eclim-problems-show-errors)))
+(add-hook 'before-save-hook 'tkj-java-before-save-hook)
+
 (defun tkj-default-code-style-hook()
   (setq c-basic-offset 2
         c-label-offset 0
