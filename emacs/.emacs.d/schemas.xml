@@ -13,6 +13,6 @@
        uri="file:///home/torstein/.emacs.d/xml/jboss-7/jboss-as-config_1_3.rnc"
        />
   <uri pattern="*.html"
-       uri="file:///usr/share/emacs/24.3/etc/schema/xhtml.rnc"/>
+       uri="file:///usr/share/emacs/25.0.50/etc/schema/xhtml.rnc"/>
 
 </locatingRules>

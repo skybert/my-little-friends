@@ -25,10 +25,20 @@ function get_vc_status() {
   return $old_exit_code
 }
 
+function get_short_dir() {
+  local dir=$(pwd)
+  dir=${dir#/home/${USER}}
+  if [ -z "${dir}" ]; then
+      dir="~"
+  fi
+  ## TODO
+  echo $dir
+}
+
 # PS1="\[\033[0;36m\]{\[\033[0;50m\]\w\[\033[0;36m\]} \[\033[0;35m\]\$(get_git_status) \[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
 # PS1="\[\033[0;35m\]\$(get_git_status)\[\033[0;32m\]what now\[\033[0;39m\]\$(if [ \$? -eq 0 ]; then echo '...'; else echo '..,'; fi) "
 
-PS1="\[\033[0;35m\]\$(get_vc_status)\[\033[0;39m\]\$(if [ \$? -ne 0 ]; then echo '↓ '; fi)\[\033[0;32m\]$\[\033[0;39m\] "
+PS1="\[\033[0;35m\]\$(get_vc_status)\[\033[0;39m\]\W \$(if [ \$? -ne 0 ]; then echo '↓ '; fi)\[\033[0;32m\]$\[\033[0;39m\] "
 
 ##################################################################
 # history
