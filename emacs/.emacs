@@ -232,9 +232,10 @@
 
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
-(global-set-key "\C-z" 'compile)
+(global-set-key "\C-z" 'imenu)
 (global-set-key (kbd "<C-S-f10>") 'recompile)
 (global-set-key (kbd "<C-tab>") 'yas-expand)
+
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
 
@@ -432,7 +433,6 @@
          ("\\.less\\'" . javascript-mode)
          ("\\.magik$" . python-mode)
          ("\\.md$" . markdown-mode)
-         ("github.*\\.txt$" . markdown-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
          ("\\.pdf\\'" . doc-view-mode)
@@ -464,8 +464,9 @@
          ("\\.yaml\\'" . yaml-mode)
          ("\\config\\'" . conf-mode)
          ("control" . conf-mode)
-         ("p4" . sh-mode)
+         ("github.*\\.txt$" . markdown-mode)
          ("pom.xml" . nxml-mode)
+         ("tkj-p4-diff-buffer" . diff-mode)
          )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
