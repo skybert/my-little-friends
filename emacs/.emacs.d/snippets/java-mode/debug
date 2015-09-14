@@ -1,5 +1,5 @@
 #name : debug
 # --
-LOG.debug("${1:result}=" + ${2:result});
+mLogger.debug("${1:result}=" + ${2:result});
 $0
 
