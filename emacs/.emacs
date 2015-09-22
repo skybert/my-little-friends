@@ -291,6 +291,7 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this-dwim)
+(global-set-key (kbd "C-c C-'") 'mc/mark-all-like-this-in-defun)
 
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
