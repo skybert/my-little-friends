@@ -35,3 +35,7 @@
   # preloadindex = true
   # ignoreStat = true
 
+# Prefer HTTPS over git protocol. This resolved bower install timeouts
+# on my company network.
+[url "https://"]
+  insteadOf = git://
