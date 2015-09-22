@@ -1,5 +1,5 @@
-! fluxbox-update_configs added '(workspace=[current])' to (Next|Prev)(Window|Group) -*- conf -*-
-! check lines marked by 'FBCV13' if they are correctly updated
+# -*- conf -*-
+
 !mouse actions added by fluxbox-update_configs
 OnTitlebar Mouse1 :MacroCmd {Focus} {Raise} {ActivateTab}
 !mouse actions added by fluxbox-update_configs
@@ -35,8 +35,8 @@ OnTitlebar Double Mouse1 :Shade
 OnTitlebar Mouse3 :WindowMenu
 
 # alt-tab
-Mod1 Tab :NextWindow {groups} (workspace=[current])  !! FBCV13 !!
-Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])  !! FBCV13 !!
+Mod1 Tab :NextWindow {groups} (workspace=[current])
+Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
 
 # cycle through tabs in the current window
 Mod4 Tab :NextTab
