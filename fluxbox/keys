@@ -38,30 +38,8 @@ OnTitlebar Mouse3 :WindowMenu
 Mod1 Tab :NextWindow {groups} (workspace=[current])
 Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
 
-# cycle through tabs in the current window
-Mod4 Tab :NextTab
-Mod4 Shift Tab :PrevTab
-
 # see all windows
 XF86LaunchA   :ClientMenu
-
-# go to a specific tab in the current window
-Mod4 1 :Tab 1
-Mod4 2 :Tab 2
-Mod4 3 :Tab 3
-Mod4 4 :Tab 4
-Mod4 5 :Tab 5
-Mod4 6 :Tab 6
-Mod4 7 :Tab 7
-Mod4 8 :Tab 8
-Mod4 9 :Tab 9
-
-# open a terminal
-Mod1 F1 :Exec xterm
-
-# open a dialog to run programs
-# Mod1 F2 :Exec gnome-do
-# Super_L Space :Exec gnome-do
 
 # current window commands
 Mod1 F4 :Close
@@ -110,10 +88,10 @@ Control Shift Up :RightWorkspace 3
 Control Shift Down :LeftWorkspace 3
 
 # windows
-Control Shift f :MoveRight 20
-Control Shift b :MoveLeft 20
-Control Shift p :MoveUp 20
-Control Shift n :MoveDown 20
+Control Shift f :MoveRight 80
+Control Shift b :MoveLeft 80
+Control Shift p :MoveUp 80
+Control Shift n :MoveDown 80
 Control Shift m :Maximize
 Control Shift h :MaximizeHorizontal
 Control Shift v :MaximizeVertical
