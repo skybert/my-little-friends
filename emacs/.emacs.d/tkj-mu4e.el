@@ -4,7 +4,7 @@
       mu4e-attachment-dir  "~/tmp"
       mu4e-get-mail-command "offlineimap"
       mu4e-debug nil
-
+      mu4e-use-fancy-chars t
       ;; don't save messages to Sent Messages, Gmail/IMAP will take
       ;; care of this
       mu4e-sent-messages-behavior 'trash
