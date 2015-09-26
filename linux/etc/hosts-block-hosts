@@ -1,2 +1,12 @@
+# Ad servers
+127.0.0.1 adserver.adtech.de
 127.0.0.1 aka-cdn-ns.adtech.de
+127.0.0.1 s1.adform.net
+127.0.0.1 flash.vg.no
+127.0.0.1 cdn6.emediate.eu
+127.0.0.1 cache.kickback.no
+127.0.0.1 pagead2.googlesyndication.com
+127.0.0.1 rtgStat.solocpm.com
+127.0.0.1 cas.nl.eu.criteo.com
+127.0.0.1 mds3.pliing.com
 
