@@ -1,4 +1,4 @@
-/**
+/*
  * $Header$
  *
  * Copyright (C) 2015 Escenic AS.
