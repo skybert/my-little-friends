@@ -77,7 +77,7 @@
 ;; (global-set-key "\C-xpe" 'tkj-p4-edit)
 ;; (global-set-key "\C-xpf" 'tkj-p4-filelog)
 ;; (global-set-key "\C-xpr" 'tkj-p4-revert)
-(global-set-key "\C-xp=" 'tkj-p4-diff)
+;; (global-set-key "\C-xp=" 'tkj-p4-diff)
 ;; (global-set-key "\C-xpo" 'tkj-p4-opened)
 ;; (global-set-key "\C-xpS" 'tkj-p4-submit)
 ;; (global-set-key "\C-xpV" 'tkj-p4-annotate)
