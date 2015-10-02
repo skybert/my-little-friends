@@ -23,7 +23,7 @@
   (idle-highlight-mode)
 
   (define-key c-mode-base-map (kbd "<f2>") 'eclim-problems)
-  (define-key c-mode-base-map (kbd "C-M-g") 'eclim-java-find-declaration)
+  (define-key c-mode-base-map (kbd "M-m") 'eclim-java-find-declaration)
   (define-key c-mode-base-map (kbd "C-M-j") 'tkj-insert-serial-version-uuid)
   (define-key c-mode-base-map (kbd "C-M-o") 'eclim-java-import-organize)
   (define-key c-mode-base-map (kbd "C-S-e") 'eclim-problems-show-errors)
