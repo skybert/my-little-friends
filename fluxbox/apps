@@ -56,3 +56,6 @@
 [app] (name=Google-chrome-stable) (class=Google-chrome-stable) (role=browser)
   [Workspace]	{1}
 [end]
+[app] (name=emacs-snapshot) (class=Emacs)
+  [Workspace]	{2}
+[end]
