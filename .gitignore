@@ -31,3 +31,4 @@ gitignore
 thumbs
 emacs/.emacs.d/eww-bookmarks
 emacs/.emacs.d/image-dired
+emacs/.emacs.d/network-security.data
