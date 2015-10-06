@@ -56,3 +56,7 @@
 [app] (name=Google-chrome-stable) (class=Google-chrome-stable) (role=browser)
   [Workspace]	{1}
 [end]
+[app] (name=sun-awt-X11-XFramePeer) (class=com-sun-javaws-Main)
+  [Workspace]	{2}
+  [Position]	(UPPERLEFT)	{11% 13%}
+[end]
