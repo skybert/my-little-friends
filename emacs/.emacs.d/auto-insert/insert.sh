@@ -11,7 +11,6 @@ read_user_input() {
 
 main() {
   read_user_input "$@"
-  :
 }
 
 main "$@"
