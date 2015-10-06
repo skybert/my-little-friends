@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+set -e
+set -u
+set -o pipefail
+
+src=$HOME/src/p4/escenic
+l="
+  $src/engine/trunk
+  $src/studio/trunk
+  $src/model-core/trunk
+  $src/common/trunk
+"
+main() {
+  find $l -type f | \
+      egrep -v '/target/|derby.log|*.iml|.settings|maven-eclipse.xml|*.classpath|hs_err*|externalToolBuilders|*.project' | \
+      while read -r f; do
+    p4 filelog "$f" >/dev/null
+  done
+}
+
+main "$@"
