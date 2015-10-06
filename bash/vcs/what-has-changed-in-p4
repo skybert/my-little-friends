@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+set -e
+set -u
+set -o pipefail
+
+p4_src=~/src/p4/escenic
+l="
+model-core
+core
+common
+engine
+studio
+engine-dist"
+
+main() {
+  local days=${1-1}
+  local from_date=$(date +%Y/%m/%d --date @$(( $(date +%s) - (${days-1} * 24 * 60 * 60))))
+  local to_date=$(date +%Y/%m/%d)
+
+  echo "Changed from ${from_date} to ${to_date}:"
+
+  for el in ${l}; do
+    local p4_path=${p4_src}/${el}/trunk/...
+    echo "→ ${p4_path}"
+    p4 changes -l ${p4_path}@${from_date},${to_date};
+  done
+}
+
+main "$@"
