@@ -34,8 +34,9 @@ draw_borders no
 draw_graph_borders yes
 draw_outline no
 draw_shades no
-# use_xft yes
-# xftfont DejaVu Sans Mono:size=8
+use_xft no
+xftfont wenquanyi:pixelsize=12
+override_utf8_locale
 gap_x 5
 gap_y 60
 minimum_size 5 5
