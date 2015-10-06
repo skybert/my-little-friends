@@ -9,16 +9,23 @@
       sgml-validation-command "xmllint --noout --postvalid %s %s"
       nxhtml-skip-welcome t
       popcmp-group-alternatives nil
-      ;; using additional schemas for the nxml mode
-      rng-schema-locating-files
-      (quote ("/usr/share/emacs/24.4/etc/schema/schemas.xml"
-              "/usr/local/src/html5-el/schemas.xml"
-              "~/.emacs.d/schemas.xml"))
       rng-validate-delay 3
       nxml-slash-auto-complete-flag t
       nxml-child-indent 2
       nxml-attribute-indent 2
       )
+
+;; Using additional schemas for the nxml mode
+(eval-after-load "rng-loc"
+  '(add-to-list 'rng-schema-locating-files
+                "/usr/local/src/emacs/html5-el/schemas.xml"))
+(eval-after-load "rng-loc"
+  '(add-to-list 'rng-schema-locating-files
+                "~/.emacs.d/schemas.xml"))
+
+;; HTML5 spport, see https://github.com/hober/html5-el
+(add-to-list 'load-path "/usr/local/src/emacs/html5-el")
+(require 'whattf-dt)
 
 ;; my special nXML mode settings.
 (add-hook 'nxml-mode-hook
