@@ -343,7 +343,8 @@ function do_status() {
     )
   done
 
-  red $(p4 opened 2>/dev/null | cut -d'#' -f1)
+  local status=$(p4 opened 2>/dev/null)
+  red "$(echo "$status" | cut -d'#' -f1)"
 }
 
 ## Updates the sources, including p4, git, forks, hg++
