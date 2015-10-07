@@ -156,6 +156,7 @@ $HOME/bin:\
 $HOME/src/ece-scripts/usr/bin:\
 $HOME/src/moria/voss/usr/bin:\
 $HOME/src/my-little-friends/bash:\
+$HOME/src/my-little-friends/bash/vcs:\
 $HOME/src/my-little-friends/git:\
 $HOME/src/moria/src/net:\
 $HOME/src/moria/src/java:\
