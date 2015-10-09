@@ -95,6 +95,7 @@ Control Shift p :ResizeVertical -10%
 Control Shift m :Maximize
 Control Shift h :MaximizeHorizontal
 Control Shift v :MaximizeVertical
+Control Shift y :ClientMenu
 Super_L         :ClientMenu
 
 # the keyboard layouts I use
