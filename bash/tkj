@@ -22,6 +22,8 @@ scm_user_list="h73 tkj"
 function read_user_conf_if_exists() {
   if [ -r $conf_file ]; then
     source $conf_file
+  else
+    echo $conf_file "doesn't exist :-("
   fi
 }
 
@@ -80,7 +82,7 @@ function do_set-up-vpn() {
 
 function do_generate-eclipse-files-and-restart-eclimd() {
   local dir=
-  for dir in $eclipse_worskspace_src_list; do
+  for dir in $eclipse_workspace_src_list; do
     print "Deleting old Eclipse files in ${dir} ..."
     find ${dir} \
          -name bin -o \
@@ -108,7 +110,7 @@ function do_generate-eclipse-files-and-restart-eclimd() {
 
 function do_update-eclipse-files-and-restart-eclimd() {
   local dir=
-  for dir in $eclipse_worskspace_src_list; do
+  for dir in $eclipse_workspace_src_list; do
     print "Updating Eclipse project files in ${dir} ..."
     mvn -q \
         -f ${dir}/pom.xml \
