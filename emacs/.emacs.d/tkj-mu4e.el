@@ -72,6 +72,13 @@
         )
   )
 
+(defun tkj-highlight-message-hook()
+  "Highlights messages, especially diffs."
+  (interactive)
+  (highlight-lines-matching-regexp "^ \\+.*" 'hi-green-b)
+  (highlight-lines-matching-regexp "^ \\-.*" 'hi-red-b))
+(add-hook 'mu4e-view-mode-hook 'tkj-highlight-message-hook)
+
 ;; quickly change account
 (define-key mu4e-main-mode-map (kbd "<f1>") 'tkj-load-mu4e-gmail)
 (define-key mu4e-main-mode-map (kbd "<f2>") 'tkj-load-mu4e-gmailw)
