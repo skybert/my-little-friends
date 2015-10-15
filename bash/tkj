@@ -744,7 +744,7 @@ function p4_check_that_everythings_ok()
 
 function do_set-random-wallpaper()
 {
-  wallpaper_names=$(ls ~/pictures/wallpapers/*.{jpg,png})
+  wallpaper_names=$(ls ~/pictures/wallpapers/*.{jpg,png} 2>/dev/null)
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
