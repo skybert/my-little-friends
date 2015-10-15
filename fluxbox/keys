@@ -93,7 +93,10 @@ Control Shift b :ResizeHorizontal -10%
 Control Shift n :ResizeVertical 10%
 Control Shift p :ResizeVertical -10%
 Control Shift m :Maximize
-Control Shift h :MaximizeHorizontal
+Control Shift h :MoveLeft 10
+Control Shift k :MoveUp 10
+Control Shift j :MoveDown 10
+Control Shift l :MoveRight 10
 Control Shift v :MaximizeVertical
 Control Shift y :ClientMenu
 Super_L         :ClientMenu
