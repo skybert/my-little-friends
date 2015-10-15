@@ -416,6 +416,15 @@ function do_turn-off-external-screens() {
   done
 }
 
+## Sets up screens like this:
+## 💻 → 💻
+## ↑
+## L
+function do_setup-screens-laptop-is-king() {
+  xrandr --output HDMI1 --above eDP1 --auto
+  xrandr --output HDMI2 --right-of HDMI1  --auto
+}
+
 function do_setup-screens() {
   local portrait=${1-0}
   local screen_list=$(get_connected_screen_list)
