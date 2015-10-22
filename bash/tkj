@@ -156,6 +156,7 @@ function do_switch-workspace() {
 }
 
 function do_lock-screen() {
+  mpc stop
   killall gnome-screensaver 2>/dev/null
   xscreensaver 2>/dev/null &
   sleep 1
