@@ -23,7 +23,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-alignment top_right
+alignment bottom_left
 background yes
 border_width 1
 cpu_avg_samples 2
@@ -35,7 +35,7 @@ draw_graph_borders yes
 draw_outline no
 draw_shades no
 use_xft no
-xftfont wenquanyi:pixelsize=12
+# xftfont xft:wenquanyi
 override_utf8_locale
 gap_x 5
 gap_y 60
