@@ -455,6 +455,7 @@
          ("\\.xsd$" . nxml-mode) ;; xsl-mode
          ("\\.xsl$" . nxml-mode) ;; xsl-mode
          ("\\.yaml\\'" . yaml-mode)
+         ("\\.yml\\'" . yaml-mode)
          ("\\config\\'" . conf-mode)
          ("control" . conf-mode)
          ("github.*\\.txt$" . markdown-mode)
@@ -477,12 +478,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'yas/expand "yasnippet" t)
 (autoload 'yas/load-directory "yasnippet" t)
-(setq yas/root-directory '("~/.emacs.d/snippets"
-                           ))
+(setq yas/root-directory '("~/.emacs.d/snippets"))
 (mapc 'yas/load-directory yas/root-directory)
 (global-set-key "\C-c\C-i" 'yas/expand)
 (global-unset-key "\C-]")
 (global-set-key "\C-\]" 'yas-exit-all-snippets)
+(yas-global-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java
