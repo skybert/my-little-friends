@@ -14,7 +14,7 @@
 (defun my-java-mode-hook ()
   (auto-fill-mode)
   (gtags-mode)
-  (flyspell-prog-mode)
+  ;;  (flyspell-prog-mode) ;; grabs C-; :(
   ;;  (flymake-mode)
   (eclim-mode)
   (subword-mode)
