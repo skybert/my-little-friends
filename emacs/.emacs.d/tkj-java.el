@@ -85,6 +85,7 @@
   (insert "monitor locals\n")
   (highlight-regexp "^[a-zA-Z].* =" "hi-green")
   (highlight-phrase "com.escenic" "hi-red-b"))
+(add-hook 'gud-mode-hook 'tkj-java-debug-highlighting)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interface to eclipse via eclim
