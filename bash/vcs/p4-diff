@@ -1,0 +1,12 @@
+
+main() {
+  if [ $# -lt 2 ]; then
+    local path=...
+  else
+    local path="$*"
+  fi
+
+  P4DIFF=colordiff p4 diff ${path}
+}
+
+main "$*"

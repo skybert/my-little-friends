@@ -1,0 +1,4 @@
+*.min.js
+jquery*.js
+src/test
+target
