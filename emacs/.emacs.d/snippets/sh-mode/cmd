@@ -10,8 +10,8 @@ set -o pipefail
 source ~/src/moria/src/common/text/color.sh
 source ~/src/moria/src/common/indispensable.sh
 
-conf_file=$HOME/.$(basename $0).conf
-log_file=$HOME/.$(basename $0).log
+conf_file=$HOME/.$(basename \$0).conf
+log_file=$HOME/.$(basename \$0).log
 start_time=$(date +%s)
 
 my_exit_hook() {
@@ -19,14 +19,14 @@ my_exit_hook() {
   local end_time=$(date +%s)
   local it_took=$(echo "It took" $(( end_time - start_time )) "seconds.")
 
-  if [ ${exit_status} -eq 0 ]; then
-    echo $(basename $0) → $(green SUCCESS 😃) ${it_took}
+  if [ \${exit_status} -eq 0 ]; then
+    echo $(basename \$0) → $(green SUCCESS 😃) \${it_took}
   else
-    echo $(basename $0) → $(red FAILED ☠) ${it_took} ", last messages in ${log_file}:"
-    tail -10 ${log_file}
+    echo $(basename \$0) → $(red FAILED ☠) \${it_took} ", last messages in \${log_file}:"
+    tail -10 \${log_file}
   fi
 
-  exit ${exit_status}
+  exit \${exit_status}
 }
 
 trap my_exit_hook EXIT
