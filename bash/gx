@@ -3,7 +3,7 @@
 function get_xml_pp()
 {
     local xml_pretty_printer=""
-    
+
     if [ $(which xml_pp 2>/dev/null | wc -l) -gt 0 ]; then
         xml_pretty_printer=xml_pp
     elif [ $(which xmllint 2>/dev/null | wc -l) -gt 0 ]; then
@@ -14,7 +14,7 @@ function get_xml_pp()
 }
 
 xml_pretty_printer=$(get_xml_pp)
-curl -s $1 | sed "s/></>\n</g" | $xml_pretty_printer
+curl -s "$@" | sed "s/></>\n</g" | $xml_pretty_printer
 
 
 
