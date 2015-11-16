@@ -1,0 +1,37 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+set -o errexit
+set -o nounset
+set -o pipefail
+
+conf_file=$HOME/.$(basename $0).conf
+
+get_xml_pp()
+{
+    local xml_pretty_printer=""
+
+    if [ $(which xml_pp 2>/dev/null | wc -l) -gt 0 ]; then
+        xml_pretty_printer=xml_pp
+    elif [ $(which xmllint 2>/dev/null | wc -l) -gt 0 ]; then
+        xml_pretty_printer="xmllint --format -"
+    fi
+
+    echo "$xml_pretty_printer"
+}
+
+read_conf_file() {
+  . "${conf_file}"
+}
+
+read_conf_file
+xml_pretty_printer=$(get_xml_pp)
+curl -s ${curl_opts-""} "$@" | sed "s/></>\n</g" | $xml_pretty_printer | less
+
+
+
+
+
+
+
+
