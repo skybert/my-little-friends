@@ -16,7 +16,7 @@ main() {
   local jar_without_tld_list=
 
   for f in $(find ${tomcat_home} -name "*.jar"); do
-    if [[ $(unzip -v ${f} | grep '.tld ' | wc -l) -eq 0 ]]; then
+    if [[ $(unzip -v ${f} | grep '.tld$' | wc -l) -eq 0 ]]; then
       jar_without_tld_list="${jar_without_tld_list}$(basename $f)\n"
     fi
   done
