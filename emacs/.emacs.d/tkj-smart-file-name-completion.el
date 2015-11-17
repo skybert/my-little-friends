@@ -51,6 +51,9 @@
        ))
 (global-set-key  (kbd "C-.") 'springboard)
 
+;; General lookup of methods in the current buffer
+(global-set-key (kbd "C-,") 'helm-imenu)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sometimes, for instance when working on HUGE code bases - or on
 ;; windows, it's better to use a good old file cache (I generate mine
