@@ -14,8 +14,15 @@ engine
 studio
 engine-dist"
 
+
+
 main() {
   local days=${1-1}
+  if [[ ! $days =~ ^[0-9]*$ ]]; then
+    echo "Usage: $(basename $0) <number-of-days>"
+    exit 1
+  fi
+  
   local from_date=$(date +%Y/%m/%d --date @$(( $(date +%s) - (${days-1} * 24 * 60 * 60))))
   local to_date=$(date +%Y/%m/%d)
 
