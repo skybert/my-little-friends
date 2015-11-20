@@ -22,9 +22,10 @@ main() {
     echo "Usage: $(basename $0) <number-of-days>"
     exit 1
   fi
-  
+
   local from_date=$(date +%Y/%m/%d --date @$(( $(date +%s) - (${days-1} * 24 * 60 * 60))))
-  local to_date=$(date +%Y/%m/%d)
+  # to_date to tomorrow to include today's commits
+  local to_date=$(date +%Y/%m/%d --date @$(( $(date +%s) + (24 * 60 * 60))))
 
   echo "Changed from ${from_date} to ${to_date}:"
 
