@@ -3,33 +3,18 @@
 #! /usr/bin/env bash
 
 # by torstein.k.johansen@gmail.com
+
 set -o errexit
 set -o nounset
 set -o pipefail
 
 source ~/src/moria/src/common/text/color.sh
 source ~/src/moria/src/common/indispensable.sh
+source ~/src/moria/src/common/common-exit-hook.sh
 
 conf_file=$HOME/.$(basename \$0).conf
 log_file=$HOME/.$(basename \$0).log
-start_time=$(date +%s)
 
-my_exit_hook() {
-  local exit_status=$?
-  local end_time=$(date +%s)
-  local it_took=$(echo "It took" $(( end_time - start_time )) "seconds.")
-
-  if [ \${exit_status} -eq 0 ]; then
-    echo $(basename \$0) → $(green SUCCESS 😃) \${it_took}
-  else
-    echo $(basename \$0) → $(red FAILED ☠) \${it_took} ", last messages in \${log_file}:"
-    tail -10 \${log_file}
-  fi
-
-  exit \${exit_status}
-}
-
-trap my_exit_hook EXIT
 
 read_user_input() {
   :
