@@ -12,9 +12,6 @@ source ~/src/moria/src/common/text/color.sh
 source ~/src/moria/src/common/indispensable.sh
 source ~/src/moria/src/common/common-exit-hook.sh
 
-conf_file=$HOME/.$(basename \$0).conf
-log_file=$HOME/.$(basename \$0).log
-
 read_user_input() {
   :
 }
