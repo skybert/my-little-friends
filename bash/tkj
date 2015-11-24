@@ -156,7 +156,7 @@ function do_switch-workspace() {
 }
 
 function do_lock-screen() {
-  mpc stop
+  mpc -p ${mpd_port-6600} stop
   killall gnome-screensaver 2>/dev/null
   xscreensaver 2>/dev/null &
   sleep 1
@@ -710,7 +710,7 @@ function do_music-next() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -f
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
-    mpc next
+    mpc -p ${mpd_port-6600} next
   fi
 }
 
@@ -718,7 +718,7 @@ function do_music-previous() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -r
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
-    mpc prev
+    mpc -p ${mpd_port-6600} prev
   fi
 }
 
@@ -726,24 +726,24 @@ function do_music-toggle() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -t
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
-    mpc toggle
+    mpc -p ${mpd_port-6600} toggle
   fi
 }
 
 function do_play-that-music()
 {
-  mpc clear
+  mpc -p ${mpd_port-6600} clear
 
   for el in $@; do
     if [ $el = "music" ]; then
       continue
     fi
 
-    mpc add $el
+    mpc -p ${mpd_port-6600} add $el
   done
 
-  mpc shuffle
-  mpc play
+  mpc -p ${mpd_port-6600} shuffle
+  mpc -p ${mpd_port-6600} play
 }
 
 function p4_check_that_everythings_ok()
