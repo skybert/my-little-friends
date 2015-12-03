@@ -495,8 +495,7 @@ function do_dates()
   echo "Dhaka:     " $(TZ='Asia/Dhaka' date)
   # echo "Kolkata:   " $(TZ='Asia/Kolkata' date)
   echo "Oslo:      " $(TZ='Europe/Oslo' date)
-  # echo -n "Argentina: "
-  # TZ='America/Argentina/Buenos_Aires' date
+  echo "Argentina: " $(TZ='America/Argentina/Buenos_Aires' date)
 }
 
 function do_hours()
