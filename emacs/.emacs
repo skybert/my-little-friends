@@ -163,11 +163,14 @@
   (interactive)
   (gcr/delete-trailing-whitespace)
   (untabify (point-min) (point-max)))
-(add-hook 'before-save-hook 'tkj-clean-up-whitespace)
+;; (add-hook 'before-save-hook 'tkj-clean-up-whitespace)
+
+;; TODO check out ws-butler-mode
+;; (ws-butler-global-mode)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
-  (delete-trailing-whitespace)
+  (gcr/delete-trailing-whitespace)
   (untabify (point-min) (point-max))
   (indent-region (point-min) (point-max)))
 (global-set-key "\C-\M-\\" 'tkj-indent-and-fix-whitespace)
