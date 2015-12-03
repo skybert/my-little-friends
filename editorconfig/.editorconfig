@@ -1,0 +1,23 @@
+# EditorConfig is awesome: http://EditorConfig.org
+#
+# This file ensurse a basic set of common coding style accross all
+# editors. IDEA & Eclipse++ detects .editorconfig automatically out of
+# the box, other editors have plugins.
+#
+#          version: $Revision: #19 $ $Date: 2015/12/03 $
+# last modified by: $Author: torstein $
+
+root = true
+
+# Common settings for all file types
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# file specific settings
+[Makefile]
+indent_style = tab
