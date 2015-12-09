@@ -1,66 +1,42 @@
-# Conky, a system monitor, based on torsmo -*- conf -*-
-#
-# Any original torsmo code is licensed under the BSD license
-#
-# All code written since the fork of torsmo is licensed under the GPL
-#
-# Please see COPYING for details
-#
-# Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
-# Copyright (c) 2005-2010 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
-# All rights reserved.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
+conky.config = {
+    alignment = 'top_right',
+    background = yes,
+    border_width = 1,
+    cpu_avg_samples = 2,
+    default_color = 'white',
+    default_outline_color = 'white',
+    default_shade_color = 'white',
+    draw_borders = false,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    use_xft = true,
+    font = 'DejaVu Sans Mono:size=10',
+    gap_x = 5,
+    gap_y = 60,
+    minimum_height = 5,
+    minimum_width = 5,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    own_window = false,
+    own_window_class = 'Conky',
+    own_window_type = 'desktop',
+    stippled_borders = 0,
+    update_interval = 5.0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false
+}
 
-alignment bottom_left
-background yes
-border_width 1
-cpu_avg_samples 2
-default_color white
-default_outline_color white
-default_shade_color white
-draw_borders no
-draw_graph_borders yes
-draw_outline no
-draw_shades no
-use_xft no
-# xftfont xft:wenquanyi
-override_utf8_locale
-gap_x 5
-gap_y 60
-minimum_size 5 5
-net_avg_samples 2
-no_buffers yes
-out_to_console no
-out_to_stderr no
-extra_newline no
-own_window no
-own_window_class Conky
-own_window_type desktop
-stippled_borders 0
-update_interval 5.0
-uppercase no
-use_spacer none
-show_graph_scale no
-show_graph_range no
-
-TEXT
-# ${scroll 16 $nodename - $sysname $kernel on $machine | }
- $nodename - $kernel}
+conky.text = [[
+$nodename - $kernel
 $hr
 ${color grey}Uptime:$color $uptime
-${color grey}Frequency (in GHz):$color $freq_g
+${color grey}Frequency:$color ${freq} ${color grey}MHz
 ${color grey}RAM Usage:$color $mem/$memmax - $memperc% ${membar 4}
 ${color grey}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
 ${color grey}CPU Usage:$color $cpu% ${cpubar 4}
@@ -85,14 +61,13 @@ ${color lightgrey} ${top name 7} ${top pid 7} ${top cpu 7} ${top mem 7}
 ${color lightgrey} ${top name 8} ${top pid 8} ${top cpu 8} ${top mem 8}
 ${color lightgrey} ${top name 9} ${top pid 9} ${top cpu 9} ${top mem 9}
 ${color lightgrey} ${top name 10} ${top pid 10} ${top cpu 10} ${top mem 10}
-$hr
-# ${mpd_smart}
-# $hr
-${exec ~/src/my-little-friends/bash/tkj dates}
+$hr              
 ${color grey}Battery    :${color white} ${battery_percent}% ${battery_bar}
 ${color grey}Temperature:${color white} ${acpitemp} C
+$hr
+${exec ~/src/my-little-friends/bash/tkj dates}
 ${color grey}$hr
 ${color grey}${exec date}
 ${color grey}$hr
 ${color grey}${exec mpc | head -1}
-
+]]
