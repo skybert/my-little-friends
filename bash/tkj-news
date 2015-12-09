@@ -118,6 +118,34 @@ music() {
   get_twitter_list sspu 2
 }
 
+todays_comics() {
+  local dilbert=$(
+    curl -s  http://dilbert.com | \
+      sed -r -n 's#.*img-responsive img-comic.*src="([^"]*)".*#\1#p' | \
+      head -1)
+  local xkcd=$(curl -s http://xkcd.com/ | sed -n 's#Image URL.*: ##p')
+  local commitstrip=$(
+    curl -s  http://www.commitstrip.com/en/feed/ | \
+      xmllint  --format - | \
+      sed -n  -r  's#.*<img src="([^"]*)".*#\1#p' | \
+      head -1)
+
+  cat <<EOF
+    <h2>Dilbert</h2>
+    <div>
+      <img src="${dilbert}" alt="dilbert" class="centered"/>
+    </div>
+    <h2>xkcd</h2>
+    <div>
+      <img src="${xkcd}" alt="xkcd" class="centered"/>
+    </div>
+    <h2>CommitStrip</h2>
+    <div>
+      <img src="${commitstrip}" alt="commitstrip" class="centered"/>
+    </div>
+EOF
+}
+
 daily_pictures() {
   local url=http://photography.nationalgeographic.com/photography/photo-of-the-day/
   local img=$(curl -s $url | egrep '<img .*images.national.*' | head -2 | tail -1)
@@ -194,6 +222,7 @@ main() {
   # unix_news
   the_holy_word_of_the_day
   daily_pictures
+  todays_comics
   nok_vs_twd
   print_footer
 }
