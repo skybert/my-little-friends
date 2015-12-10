@@ -17,6 +17,11 @@
 ;; general options
 (setq erc-default-server "localhost")
 
+;; Adjust text wrapping/filling whenever the window is resized
+(add-hook 'window-configuration-change-hook
+          '(lambda ()
+             (setq erc-fill-column (- (window-width) 2))))
+
 ;; Spell checking
 (add-hook 'erc-mode-hook 'flyspell-mode)
 
@@ -39,7 +44,6 @@
 (require 'erc-tweet)
 (add-to-list 'erc-modules 'tweet)
 (erc-update-modules)
-
 
 (defun tkj-insert-happy-face()
   (interactive)
