@@ -59,6 +59,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+alias cal='LC_ALL=zh_TW.UTF-8 cal'
 alias diff=colordiff
 alias de='setxkbmap de'
 alias df='df -hT'
