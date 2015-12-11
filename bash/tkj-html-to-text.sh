@@ -8,7 +8,7 @@ tmp_file=$(mktemp)
 function get_code_page_from_html() {
     local result=$default_code_page
     local cp=$(
-        cat $1 | sed -n 's#.*charset=\([^"]*\)".*#\1#p'
+      cat $1 | sed -n 's#.*charset=\([^"]*\)".*#\1#p' | sort | uniq
     )
 
     if [[ -n "$cp" ]]; then
