@@ -1,0 +1,49 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+set -u
+set -o pipefail
+
+get_commit_list() {
+  for src in $src_list; do
+    (
+      cd ${src}
+      git log --grep ${issue} | \
+          sed -r -n 's#.* change = ([0-9]*).*#\1#p' | \
+          sort | \
+          uniq
+    )
+  done
+}
+
+get_commit_list_fisheye() {
+  local issue=$1
+  curl "${fisheye_url}?q=${issue}&t=1&FEAUTH=${fisheye_auth}&RSS=true"
+}
+
+get_commit_list_p4() {
+  local issue=$1
+  for src in $src_list; do
+    (
+      cd ${src}
+      local changes=$(p4 changes ... | grep ${issue})
+      if [ -n "${changes}" ]; then
+        echo ${src}
+        echo "${changes}"
+      fi
+    )
+  done
+}
+
+initialize_thyself() {
+  source ~/src/moria/src/common/text/color.sh
+  source $HOME/.$(basename $0).conf
+}
+
+main() {
+  initialize_thyself
+  local issue=$1
+  get_commit_list_p4 ${issue}
+}
+
+main "$@"
