@@ -1,0 +1,60 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+set -o errexit
+set -o nounset
+set -o pipefail
+
+source ~/src/moria/src/common/text/color.sh
+source ~/src/moria/src/common/indispensable.sh
+source ~/src/moria/src/common/common-exit-hook.sh
+
+read_user_input() {
+  change=$1
+  dir=$2
+}
+
+main() {
+  read_user_input "$@"
+  local change_before=$(( change - 1 ))
+  p4 sync ${dir}/...@${change_before}
+
+  p4 edit $( \
+    p4 describe -du ${change} | \
+      grep '\.\.\. //depot' | \
+      awk '{print $2}' | \
+      cut -d'#' -f1)
+
+  p4 sync ${dir}/...@${change}
+  p4 resolve -ay
+
+  # latest changes, these two are necessary for rolling back old
+  # commits
+  p4 sync ${dir}/...
+  p4 resolve
+
+cat <<EOF
+Changes about to be submitted:
+------------------------------------------
+$(p4 diff -dw)
+------------------------------------------
+EOF
+
+  local jira_issue=$(
+    p4 describe -s ${change} | \
+      head -3 | \
+      tail -1 | \
+      cut -d: -f1 | \
+      sed 's#^[ \t]*##')
+
+  cat <<EOF
+If you're satisfied, go ahead and run:
+
+p4 submit -d "${jira_issue}: Rolled back change ${change}"
+EOF
+}
+
+main "$@"
+
+
+
