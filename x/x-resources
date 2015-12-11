@@ -3,11 +3,12 @@ Emacs*useXIM: false
 Mono:bold:pixelsize=12:antialias=false:hinting=true
 URxvt*scrollBar: false
 URxvt.matcher.button:   1
-URxvt.perl-ext-common:  default,matcher
+URxvt.perl-ext-common:  default,matcher,keyboard-select
 URxvt.perl-ext:         clipboard
 URxvt.perl-lib:         /home/torstein/.urxvt/perl
 URxvt.underlineURLs:    true
 URxvt.url-launcher:     /usr/bin/firefox
+URxvt.keysym.M-Escape:  perl:keyboard-select:activate
 !! With these two magic settings, Ctrl+Shift does not mess up my work
 !! in the terminal
 URxvt.iso14755:    false
