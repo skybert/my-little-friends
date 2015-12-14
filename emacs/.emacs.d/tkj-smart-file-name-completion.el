@@ -68,7 +68,10 @@
 (global-set-key  (kbd "C-.") 'springboard)
 
 ;; General lookup of methods in the current buffer
-(global-set-key (kbd "C-,") 'helm-imenu)
+(global-set-key (kbd "C-,") 'imenu)
+
+;; Improved find files
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sometimes, for instance when working on HUGE code bases - or on
