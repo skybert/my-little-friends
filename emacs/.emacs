@@ -305,7 +305,7 @@
 ;; additional shortcuts from the normal behaviour.
 (defun tkj-list-buffers()
   (interactive)
-  (list-buffers)
+  (helm-mini)
   (other-window 1)
   (delete-other-windows))
 (global-unset-key "\C-x\C-b")
