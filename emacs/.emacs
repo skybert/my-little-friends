@@ -99,7 +99,7 @@
 ;; Emacs grep and find
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\C-\M-f" 'find-file-at-point)
-(global-set-key "\C-cn" 'find-dired)
+(global-set-key "\C-cn" 'helm-find)
 (global-set-key "\C-cN" 'grep-find)
 (setq grep-find-ignored-directories
        (list
@@ -235,7 +235,6 @@
 
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
-(global-set-key "\C-z" 'imenu)
 (global-set-key (kbd "<C-S-f10>") 'recompile)
 (global-set-key (kbd "<C-tab>") 'yas-expand)
 
