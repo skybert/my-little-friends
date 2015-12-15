@@ -182,7 +182,6 @@ function do_daily()
   do_set-random-wallpaper &
 
   # do_set-up-vpn
-  do_update-tags
 
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
@@ -208,6 +207,7 @@ function do_daily()
   echo -n $id "Start of the day: Getting, building & deploying the latest code"
   echo "..."
   do_update-sources
+  do_update-tags
   do_restart-eclimd
   do_backup
 
