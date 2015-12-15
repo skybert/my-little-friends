@@ -149,28 +149,13 @@
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 
-(defun gcr/delete-trailing-whitespace ()
-  "Apply delete-trailing-whitespace to everything but the current line."
-  (interactive)
-  (let ((first-part-start (point-min))
-        (first-part-end (point-at-bol))
-        (second-part-start (point-at-eol))
-        (second-part-end (point-max)))
-    (delete-trailing-whitespace first-part-start first-part-end)
-    (delete-trailing-whitespace second-part-start second-part-end)))
-
-(defun tkj-clean-up-whitespace()
-  (interactive)
-  (gcr/delete-trailing-whitespace)
-  (untabify (point-min) (point-max)))
-;; (add-hook 'before-save-hook 'tkj-clean-up-whitespace)
-
-;; TODO check out ws-butler-mode
-;; (ws-butler-global-mode)
+;; ws-butler cleans up whitespace only on the lines you've edited,
+;; keeping messy colleagues happy ;-)
+(ws-butler-global-mode)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
-  (gcr/delete-trailing-whitespace)
+  (delete-trailing-whitespace)
   (untabify (point-min) (point-max))
   (indent-region (point-min) (point-max)))
 (global-set-key "\C-\M-\\" 'tkj-indent-and-fix-whitespace)
@@ -645,4 +630,3 @@
 
 ;;Allow interactive narrow-to-region
 (put 'narrow-to-region 'disabled nil)
-
