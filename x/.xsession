@@ -31,6 +31,7 @@ firefox &
 xmms &
 emacs-snapshot -fn 7x14 -g 80x60 &
 firefox &
+mpd $HOME/.mpdconf &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
