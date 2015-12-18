@@ -99,7 +99,7 @@
 ;; Emacs grep and find
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\C-\M-f" 'find-file-at-point)
-(global-set-key "\C-cn" 'helm-find)
+(global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
 (setq grep-find-ignored-directories
        (list
@@ -290,7 +290,7 @@
 ;; additional shortcuts from the normal behaviour.
 (defun tkj-list-buffers()
   (interactive)
-  (helm-mini)
+  (list-buffers)
   (other-window 1)
   (delete-other-windows))
 (global-unset-key "\C-x\C-b")
