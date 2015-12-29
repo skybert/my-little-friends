@@ -290,9 +290,8 @@
 ;; additional shortcuts from the normal behaviour.
 (defun tkj-list-buffers()
   (interactive)
-  (list-buffers)
-  (other-window 1)
-  (delete-other-windows))
+  (let ((helm-full-frame t))
+    (helm-mini)))
 (global-unset-key "\C-x\C-b")
 (global-set-key "\C-x\C-b" 'tkj-list-buffers)
 
@@ -342,9 +341,11 @@
 (setq backup-by-copying-when-mismatch t
       backup-by-copying-when-linked t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Yes, I want large files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq large-file-warning-threshold 100000000)
+;; Yes, I want large files
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq large-file-warning-threshold 150000000)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
