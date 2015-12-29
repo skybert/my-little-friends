@@ -28,7 +28,6 @@ fi
 clipit &
 conky &
 firefox &
-xmms &
 emacs-snapshot -fn 7x14 -g 80x60 &
 firefox &
 mpd $HOME/.mpdconf &
