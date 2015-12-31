@@ -146,7 +146,7 @@ encode=1
 # Example: coder=0,0,1,2 encodes CD twice to mp3, ogg and flac files
 # Default: Lame
 
-coder=0
+coder=1
 
 ###
 #
@@ -217,7 +217,7 @@ preset=
 # Can be set to "off"
 # Default: 3
 
-qualoggenc=3
+qualoggenc=7
 
 # oggencopt: Additional options for oggenc,
 # use a comma separated list if encoder is used several times.
