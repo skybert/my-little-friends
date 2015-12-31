@@ -22,6 +22,10 @@
   (smartscan-mode)
   (idle-highlight-mode)
 
+  ;; Only include eclim candidates in the completion menu, must be run
+  ;; after eclim-mode above.
+  (setq ac-sources '(ac-source-emacs-eclim))
+
   (define-key c-mode-base-map (kbd "<f2>") 'eclim-problems)
   (define-key c-mode-base-map (kbd "M-m") 'eclim-java-find-declaration)
   (define-key c-mode-base-map (kbd "C-M-j") 'tkj-insert-serial-version-uuid)
@@ -102,7 +106,7 @@
       eclim-autoupdate-problems nil
       eclim-print-debug-messages nil
       help-at-pt-display-when-idle t
-      help-at-pt-timer-delay 0.3
+      help-at-pt-timer-delay 0.5
       )
 
 ;; Call the help framework with the settings above & activate
