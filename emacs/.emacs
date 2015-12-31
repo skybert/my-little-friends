@@ -301,7 +301,7 @@
 
 ;; buffer names and mini buffer
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward
+(setq uniquify-buffer-name-style 'forward
       uniquify-separator ":"
       uniquify-strip-common-suffix nil
       read-file-name-completion-ignore-case t)
