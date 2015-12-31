@@ -70,9 +70,6 @@
 ;; General lookup of methods in the current buffer
 (global-set-key (kbd "C-,") 'imenu)
 
-;; Improved find files
-(global-set-key (kbd "C-x C-f") 'ido-find-file)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sometimes, for instance when working on HUGE code bases - or on
 ;; windows, it's better to use a good old file cache (I generate mine
