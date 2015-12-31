@@ -18,5 +18,5 @@ deb http://www.deb-multimedia.org jessie main non-free
 deb http://mozilla.debian.net/ jessie-backports iceweasel-release
 
 ## Emacs snapshot
-deb http://londo.ganneff.de jessie main
+# deb http://londo.ganneff.de jessie main
 
