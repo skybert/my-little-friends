@@ -208,7 +208,7 @@ function do_daily()
   echo "..."
   do_update-sources
   do_update-tags
-  do_restart-eclimd
+  do_update-eclipse-files-and-restart-eclimd
   do_backup
 
   print "Happy hacking :-)"
@@ -232,7 +232,6 @@ function do_restart-eclimd() {
     kill -9 $eclimd_pid
   fi
 
-  # do_build-sources
   do_start-eclimd "$@"
 }
 
