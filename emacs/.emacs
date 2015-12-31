@@ -303,6 +303,7 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward
       uniquify-separator ":"
+      uniquify-strip-common-suffix nil
       read-file-name-completion-ignore-case t)
 
 ;; Auto scroll the compilation window
