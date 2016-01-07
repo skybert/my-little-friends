@@ -177,6 +177,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'text-mode-hook
           '(lambda ()
+             (auto-complete-mode 1)
              (auto-fill-mode 1)
              (flyspell-mode 1)))
 (setq longlines-show-hard-newlines t)
@@ -420,6 +421,7 @@
          ("\\.md$" . markdown-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
+         ("\\.patch\\'" . diff-mode)
          ("\\.pdf\\'" . doc-view-mode)
          ("\\.php\\'" . php-mode)
          ("\\.phtml\\'" . php-mode)
