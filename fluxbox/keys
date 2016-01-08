@@ -97,10 +97,11 @@ Control Shift h :MoveLeft 10
 Control Shift k :MoveUp 10
 Control Shift j :MoveDown 10
 Control Shift l :MoveRight 10
-Alt     Shift Left :MoveLeft 100
 Control Shift v :MaximizeVertical
 Control Shift y :ClientMenu
 Super_L         :ClientMenu
+Alt Shift Left  :MoveLeft 200
+Alt Shift Right :MoveRight 200
 
 # the keyboard layouts I use
 Control Shift 1 :ExecCommand setxkbmap us -option ctrl:nocaps;
