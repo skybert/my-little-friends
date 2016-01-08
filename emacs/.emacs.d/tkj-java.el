@@ -88,7 +88,9 @@
   (interactive)
   (insert "monitor locals\n")
   (highlight-regexp "^[a-zA-Z].* =" "hi-green")
-  (highlight-phrase "com.escenic" "hi-red-b"))
+  (highlight-phrase "com.escenic" "hi-red-b")
+  (highlight-phrase "neo." "hi-red-b")
+  )
 (add-hook 'gud-mode-hook 'tkj-java-debug-highlighting)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
