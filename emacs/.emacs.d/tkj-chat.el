@@ -52,3 +52,15 @@
 (defun tkj-insert-sad-face()
   (interactive)
   (insert "😠"))
+
+(defun tkj-insert-winking-face()
+  (interactive)
+  (insert "😉"))
+
+(defun tkj-insert-right-arrow()
+  (interactive)
+  (insert "→"))
+
+(defun tkj-insert-scream()
+  (interactive)
+  (insert "😱"))
