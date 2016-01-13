@@ -64,3 +64,7 @@
 (defun tkj-insert-scream()
   (interactive)
   (insert "😱"))
+
+(defun tkj-insert-kiss()
+  (interactive)
+  (insert "💏"))
