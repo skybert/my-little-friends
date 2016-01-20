@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# by torstein.k.johansen@gmail.com
+# by torstein@escenic.com
 set -o errexit
 set -o nounset
 set -o pipefail
