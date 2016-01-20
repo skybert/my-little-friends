@@ -178,8 +178,7 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (auto-complete-mode 1)
-             (auto-fill-mode 1)
-             (flyspell-mode 1)))
+             (auto-fill-mode 1)))
 (setq longlines-show-hard-newlines t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

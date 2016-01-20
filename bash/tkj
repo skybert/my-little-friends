@@ -94,7 +94,7 @@ function do_generate-eclipse-files-and-restart-eclimd() {
       xargs -0 rm -rf
 
     print "Re-generating Eclipse project files in ${dir} ..."
-    mvn -q \
+    run mvn -q \
         -f ${dir}/pom.xml \
         -DdownloadSources \
         -DdownloadJavadocs \
@@ -112,7 +112,7 @@ function do_update-eclipse-files-and-restart-eclimd() {
   local dir=
   for dir in $eclipse_workspace_src_list; do
     print "Updating Eclipse project files in ${dir} ..."
-    mvn -q \
+    run mvn -q \
         -f ${dir}/pom.xml \
         -DdownloadSources \
         -DdownloadJavadocs \
@@ -123,36 +123,6 @@ function do_update-eclipse-files-and-restart-eclimd() {
   done
 
   do_restart-eclimd engine
-}
-
-## $1 :: name
-function do_switch-workspace() {
-  print_and_log "Switching to ${1} ..."
-
-  local src_dir=$HOME/src/DocEngine-${1}
-  run cd $src_dir
-
-  print_and_log "Pulling from git ..."
-  run git pull
-
-  print_and_log "Running Maven install & eclipse setup ..."
-  run mvn clean install eclipse:eclipse \
-      -Dpmd.skip=true \
-      -Dfindbugs.skip=true \
-      -Dcheckstyle.skip=true \
-      -DskipTests
-  do_restart-eclimd ${1}
-
-  print_and_log "Killing all jboss java processes ..."
-  sudo -u jboss killall java 2>/dev/null
-
-  print_and_log "Removing old WARs ..."
-  sudo -u jboss rm /opt/jboss/standalone/deployments/*.war* 2>/dev/null
-
-  for el in $(find $src_dir -name '*.war'); do
-    print_and_log "Making JBoss use $el ..."
-    sudo -u jboss ln -s $el /opt/jboss/standalone/deployments/$(basename $el)
-  done
 }
 
 function do_lock-screen() {
@@ -181,8 +151,6 @@ function do_daily()
   print "Setting a random wallpaper..."
   do_set-random-wallpaper &
 
-  # do_set-up-vpn
-
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
   app_list="
@@ -210,6 +178,7 @@ function do_daily()
   do_update-tags
   do_update-eclipse-files-and-restart-eclimd
   do_backup
+  tc all
 
   print "Happy hacking :-)"
 }
