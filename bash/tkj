@@ -140,8 +140,8 @@ function do_daily()
   print "Creating daily doc dir ${doc_dir} ..."
   mkdir -p ${doc_dir} &> /dev/null
 
-  print "Putting on some good music ..."
-  mpc play
+  # print "Putting on some good music ..."
+  # mpc play
 
   if [ $(ssh-add -l | grep -v "no identities" | wc -l) -lt 1 ]; then
     print "Adding your SSH key"
