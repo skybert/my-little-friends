@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
-# by torstein@escenic.com
+##          author: torstein@escenic.com
+## last modifed by: $Author: torstein $
+##         version: $Revision: #1 $ $Date: 2016/01/21 $
 set -o errexit
 set -o nounset
 set -o pipefail
