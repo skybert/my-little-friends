@@ -8,12 +8,8 @@ set -o nounset
 set -o pipefail
 shopt -s nullglob
 
-read_user_input() {
-  :
-}
-
 main() {
-  read_user_input "$@"
+  :
 }
 
 main "$@"
