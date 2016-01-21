@@ -6,6 +6,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+shopt -s nullglob
 
 read_user_input() {
   :
