@@ -475,14 +475,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'yas/expand "yasnippet" t)
-(autoload 'yas/load-directory "yasnippet" t)
-(setq yas/root-directory '("~/.emacs.d/snippets"))
-(mapc 'yas/load-directory yas/root-directory)
-(global-set-key "\C-c\C-i" 'yas/expand)
-(global-unset-key "\C-]")
-(global-set-key "\C-\]" 'yas-exit-all-snippets)
-(yas-global-mode 1)
+(defun tkj-load-yas()
+  (interactive)
+  (autoload 'yas/expand "yasnippet" t)
+  (autoload 'yas/load-directory "yasnippet" t)
+  (setq yas/root-directory '("~/.emacs.d/snippets"))
+  (mapc 'yas/load-directory yas/root-directory)
+  (global-set-key "\C-c\C-i" 'yas/expand)
+  (global-unset-key "\C-]")
+  (global-set-key "\C-\]" 'yas-exit-all-snippets)
+  (yas-global-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java
