@@ -1,7 +1,7 @@
 /*
  * $Header$
  *
- * Copyright (C) 2015 Escenic AS.
+ * Copyright (C) 2016 Escenic AS.
  *
  * All Rights Reserved.  No use, copying or distribution of this work
  * may be made except in accordance with a valid license agreement
