@@ -88,10 +88,10 @@ Control Shift Up :RightWorkspace 3
 Control Shift Down :LeftWorkspace 3
 
 # windows
-Control Shift f :ResizeHorizontal 10%
-Control Shift b :ResizeHorizontal -10%
-Control Shift n :ResizeVertical 10%
-Control Shift p :ResizeVertical -10%
+Control Shift f :ResizeHorizontal 10
+Control Shift b :ResizeHorizontal -10
+Control Shift n :ResizeVertical 10
+Control Shift p :ResizeVertical -10
 Control Shift m :Maximize
 Control Shift h :MoveLeft 10
 Control Shift k :MoveUp 10
