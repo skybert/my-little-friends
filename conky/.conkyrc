@@ -1,5 +1,5 @@
 conky.config = {
-    alignment = 'bottom_left',
+    alignment = 'top_right',
     background = yes,
     border_width = 1,
     cpu_avg_samples = 2,
