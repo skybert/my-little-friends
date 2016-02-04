@@ -151,6 +151,7 @@
 
 ;; ws-butler cleans up whitespace only on the lines you've edited,
 ;; keeping messy colleagues happy ;-)
+;; TODO make ws-butler not touch the current line
 (ws-butler-global-mode)
 
 (defun tkj-indent-and-fix-whitespace()
