@@ -68,3 +68,7 @@
 (defun tkj-insert-kiss()
   (interactive)
   (insert "💏"))
+
+(defun tkj-insert-thumbs-up()
+  (interactive)
+  (insert "👍"))
