@@ -388,8 +388,12 @@ function get_connected_screen_list() {
   xrandr -q | sed -r -n 's#(.*) connected .*#\1#p'
 }
 
+function get_full_screen_list() {
+  xrandr -q | sed -r -n 's#(.*) (dis)?connected.*#\1#p'
+}
+
 function do_turn-off-external-screens() {
-  local screen_list=$(get_connected_screen_list)
+  local screen_list=$(get_full_screen_list)
   local primary_screen=$(echo "${screen_list}" | head -1)
   for screen in ${screen_list}; do
     if [[ "${screen}" == "${primary_screen}" ]]; then
