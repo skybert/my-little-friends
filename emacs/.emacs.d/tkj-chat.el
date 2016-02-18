@@ -80,4 +80,5 @@
   (condition-case nil (kill-buffer "#platform") (error nil))
   (condition-case nil (kill-buffer "#developers") (error nil))
   (condition-case nil (kill-buffer "#all") (error nil))
+  (condition-case nil (kill-buffer "#cue") (error nil))
   (condition-case nil (kill-buffer "#support") (error nil)))
