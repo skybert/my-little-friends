@@ -59,6 +59,7 @@
 [app] (name=sun-awt-X11-XFramePeer) (class=com-sun-javaws-Main)
   [Workspace]	{2}
   [Position]	(UPPERLEFT)	{11% 13%}
+[end]
 [app] (name=emacs-snapshot) (class=Emacs)
   [Workspace]	{2}
 [end]
