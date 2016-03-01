@@ -12,7 +12,8 @@
       erc-autoaway-idle-seconds 600
       erc-enable-logging t
       erc-save-buffer-on-part t
-      erc-hide-list '("JOIN" "PART" "QUIT"))
+      erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE")
+      erc-hide-list '("JOIN" "PART" "QUIT" "MODE"))
 
 (erc-log-mode)
 
@@ -45,6 +46,7 @@
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
 
 (add-to-list 'erc-modules 'tweet)
+(add-to-list 'erc-modules 'image)
 (erc-update-modules)
 
 (defun tkj-insert-happy-face()
