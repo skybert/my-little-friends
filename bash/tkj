@@ -136,9 +136,12 @@ function do_lock-screen() {
 function do_daily()
 {
   # do_setup-screens
-  local doc_dir=$HOME/doc/$(date +%Y)/$(date --iso)
+  local doc_dir=$HOME/doc/$(date +%Y)/
+
+  print "Removing empty directories in ${doc_dir} ..."
+  find "${doc_dir}" -type d -empty -delete
   print "Creating daily doc dir ${doc_dir} ..."
-  mkdir -p ${doc_dir} &> /dev/null
+  mkdir -p "${doc_dir}/$(date --iso)" &> /dev/null
 
   # print "Putting on some good music ..."
   # mpc play
