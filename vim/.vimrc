@@ -15,6 +15,21 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
+"Move the way I want, also with visual lines"
+nmap j gj
+nmap k gk
+
+"Support basic Emacs shortcuts"
+cnoremap <C-a>  <Home>
+cnoremap <C-b>  <Left>
+cnoremap <C-f>  <Right>
+cnoremap <C-d>  <Delete>
+cnoremap <C-k>  <C-U>
+cnoremap <M-b>  <S-Left>
+cnoremap <M-f>  <S-Right>
+cnoremap <M-d>  <S-right><Delete>
+cnoremap <C-g>  <C-c>
+
 "Highlight trailing white space"
 highlight ExtraWhitespace ctermbg=red guibg=red
 au ColorScheme * highlight ExtraWhitespace guibg=red
