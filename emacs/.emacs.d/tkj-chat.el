@@ -15,6 +15,9 @@
       erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE")
       erc-hide-list '("JOIN" "PART" "QUIT" "MODE"))
 
+;; M-RET opens link at point
+(define-key erc-mode-map (kbd "M-<return>") 'browse-url)
+
 (erc-log-mode)
 
 ;; general options
