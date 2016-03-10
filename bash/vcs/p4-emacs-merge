@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+
+## Usage:
+## echo P4MERGE=/path/to/p4-emacs-merge >> ~/.p4enviro
+
+## P4 doc: https://www.perforce.com/perforce/r12.1/manuals/cmdref/env.P4MERGE.html
+## emacs:ancestor is the same as p4:base
+ancestor=$1
+theirs=$2
+yours=$3
+merge_result=$4
+
+## Emacs/ediff doc
+## (ediff-merge-files-with-ancestor FILE-A FILE-B FILE-ANCESTOR &optional STARTUP-HOOKS MERGE-BUFFER-FILE)
+emacsclient -e "(ediff-merge-files-with-ancestor \"${yours}\" \"${theirs}\" \"${ancestor}\" () \"${merge_result}\")"
+emacsclient "${merge_result}"
