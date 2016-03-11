@@ -4,7 +4,6 @@
 (require 'erc-image)
 (require 'erc-colorize)
 (require 'erc-tweet)
-(require 'ac-hipchat-nick)
 
 (setq erc-default-server "localhost"
       erc-log-channels-directory "~/.erc/logs"
@@ -33,9 +32,6 @@
 
 ;; auto completion
 (add-hook 'erc-mode-hook 'auto-complete-mode)
-
-;; auto completion of HipChat nicks
-(add-hook 'erc-mode-hook 'ac-hipchat-nick-setup)
 
 ;; From the bitlbee wiki: Since the server sends wrong JIDs for the
 ;; "from" field (123456_chat_name@conf.hipchat.com/real name here),
