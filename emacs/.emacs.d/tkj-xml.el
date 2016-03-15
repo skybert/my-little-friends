@@ -15,18 +15,6 @@
       nxml-attribute-indent 2
       )
 
-;; Using additional schemas for the nxml mode
-(eval-after-load "rng-loc"
-  '(add-to-list 'rng-schema-locating-files
-                "/usr/local/src/emacs/html5-el/schemas.xml"))
-(eval-after-load "rng-loc"
-  '(add-to-list 'rng-schema-locating-files
-                "~/.emacs.d/schemas.xml"))
-
-;; HTML5 spport, see https://github.com/hober/html5-el
-(add-to-list 'load-path "/usr/local/src/emacs/html5-el")
-(require 'whattf-dt)
-
 ;; my special nXML mode settings.
 (add-hook 'nxml-mode-hook
           (lambda ()
