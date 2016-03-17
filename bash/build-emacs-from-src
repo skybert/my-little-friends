@@ -15,10 +15,13 @@ src=/usr/local/src/emacs
 
 checkout_or_update_repository() {
   if [ -e "${src}" ]; then
-    git checkout master
-    git pull origin master
+    (
+      cd "${src}"
+      git checkout master
+      git pull origin master
+    )
   else
-    git clone "${git_url}" "$(basename "${src}")"
+    git clone "${git_url}" "${src}"
   fi
 }
 
