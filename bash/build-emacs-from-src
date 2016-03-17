@@ -34,6 +34,10 @@ compile() {
     --with-gif && \
     make clean && \
     make
+cat <<EOF
+Compile was successful, now enter your root password to install it.
+EOF
+
   su -c "make install"
 
 }
