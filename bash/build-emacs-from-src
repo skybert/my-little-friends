@@ -1,0 +1,48 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+source ~/src/moria/src/common/text/color.sh
+source ~/src/moria/src/common/indispensable.sh
+source ~/src/moria/src/common/common-exit-hook.sh
+
+git_url=http://git.sv.gnu.org/r/emacs.git
+src=/usr/local/src/emacs-savannah
+
+checkout_or_update_repository() {
+  if [ -e "${src}" ]; then
+    git checkout master
+    git pull origin master
+  else
+    git clone "${git_url}" "$(basename "${src}")"
+  fi
+}
+
+compile() {
+  cd "${src}"
+  ./configure \
+    --with-x-toolkit=gtk \
+    --with-png \
+    --with-jpeg \
+    --with-gif && \
+    make clean && \
+    make
+  su -c "make install"
+
+}
+
+
+read_user_input() {
+  :
+}
+
+main() {
+  checkout_or_update_repository
+  compile
+}
+
+main "$@"
