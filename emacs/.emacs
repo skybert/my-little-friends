@@ -22,11 +22,14 @@
 (menu-bar-mode 0)
 
 (when window-system
+  (smart-mode-line-enable)
+  (sml/apply-theme 'dark)
+  (load-theme 'sanityinc-tomorrow-eighties)
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (setq-default cursor-type 'box)
   (tool-bar-mode 0)
-  (fringe-mode 0))
+  (set-fringe-style 0))
 
 (setq frame-background-mode nil
       column-number-mode t
