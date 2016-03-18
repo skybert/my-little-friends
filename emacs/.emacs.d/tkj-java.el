@@ -123,3 +123,15 @@
 
 ;; restore the window configuration after running certain eclim commands
 ;; (add-hook 'eclim-problems-mode-hook 'winner-undo)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 2015-08-18 eclim fails, added this from
+;; https://gist.github.com/mads379/3402786
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun toggle-maximize-buffer ()
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (jump-to-register '_)
+    (progn
+      (window-configuration-to-register '_)
+      (delete-other-windows))))
