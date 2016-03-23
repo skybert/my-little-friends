@@ -27,7 +27,7 @@ fi
 ## favourite apps
 clipit &
 conky &
-firefox &
+vivaldi &
 emacs-snapshot -fn 7x14 -g 80x60 &
 mpd $HOME/.mpdconf &
 konsole &
