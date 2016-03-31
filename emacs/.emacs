@@ -22,14 +22,21 @@
 (menu-bar-mode 0)
 
 (when window-system
+  ;; Themes
   (smart-mode-line-enable)
   (sml/apply-theme 'dark)
+  (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
   (load-theme 'sanityinc-tomorrow-eighties)
+
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (setq-default cursor-type 'box)
   (tool-bar-mode 0)
-  (set-fringe-style 0))
+  (set-fringe-style 0)
+
+  ;; Edit server needed for editing text areas in Chrome browsers
+  (edit-server-start)
+)
 
 (setq frame-background-mode nil
       column-number-mode t
@@ -69,11 +76,6 @@
 (winner-mode 1)
 (global-set-key (kbd "<M-left>") 'winner-undo)
 (global-set-key (kbd "<M-right>") 'winner-redo)
-
-;; themes
-(add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
-(load-theme 'deeper-blue)
-;; (load-theme 'sanityinc-solarized-dark)
 
 ;; navigate between visible buffers (windows in emacs speak)
 (defun other-window-backward (&optional n)
