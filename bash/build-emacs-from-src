@@ -11,7 +11,7 @@ source ~/src/moria/src/common/indispensable.sh
 source ~/src/moria/src/common/common-exit-hook.sh
 
 git_url=http://git.sv.gnu.org/r/emacs.git
-src=/usr/local/src/emacs-savannah
+src=/usr/local/src/emacs
 
 checkout_or_update_repository() {
   if [ -e "${src}" ]; then
