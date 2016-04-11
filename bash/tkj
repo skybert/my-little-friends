@@ -151,8 +151,13 @@ function do_daily()
     ssh-add
   fi
 
+  print "Setting up external screens..."
+  do_setup-screens
+
   print "Setting a random wallpaper..."
   do_set-random-wallpaper &
+
+  killall xmessage 2>/dev/null || true
 
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
