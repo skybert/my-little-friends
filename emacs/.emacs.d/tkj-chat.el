@@ -79,5 +79,6 @@
 (defun tkj-close-some-chats()
   (interactive)
   (condition-case nil (kill-buffer "#cloud") (error nil))
+  (condition-case nil (kill-buffer "#ng") (error nil))
   (condition-case nil (kill-buffer "#support-operations") (error nil))
   (condition-case nil (kill-buffer "#qa") (error nil)))
