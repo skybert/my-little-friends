@@ -20,3 +20,4 @@ alias df='df -hT'
 alias emacs='emacs -nw'
 alias eternal='cat ~/.bash_eternal_history | grep'
 alias vi=vim
+alias grep='grep -i'
