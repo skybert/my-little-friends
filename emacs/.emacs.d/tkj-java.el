@@ -1,7 +1,7 @@
 ;; -*- emacs-lisp -*-
 
 ;; Add development sources of emacs-eclim to the load path
-(add-to-list 'load-path "~/src/emacs-eclim")
+;; (add-to-list 'load-path "~/src/emacs-eclim")
 
 (defun tkj-insert-serial-version-uuid()
   (interactive)
