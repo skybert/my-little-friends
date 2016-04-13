@@ -371,7 +371,6 @@ function do_update-sources()
         cvs up -d
       else
         p4 sync "${el}"/...
-        git commit -a -m "Latest changes from p4 @ $(date)"
       fi
     )
   done
