@@ -14,32 +14,30 @@ git_url=http://git.sv.gnu.org/r/emacs.git
 src=/usr/local/src/emacs
 
 checkout_or_update_repository() {
+  print "$FUNCNAME ..."
   if [ -e "${src}" ]; then
     (
-      cd "${src}"
-      git checkout master
-      git pull origin master
+      run cd "${src}"
+      run git checkout master
+      run git pull origin master
     )
   else
-    git clone "${git_url}" "${src}"
+    run git clone "${git_url}" "${src}"
   fi
 }
 
 compile() {
-  cd "${src}"
-  ./configure \
+  print "$FUNCNAME ..."
+  run cd "${src}"
+  run ./configure \
     --with-x-toolkit=gtk \
     --with-png \
     --with-jpeg \
-    --with-gif && \
-    make clean && \
-    make
-cat <<EOF
-Compile was successful, now enter your root password to install it.
-EOF
-
+    --with-gif
+  run make clean
+  run make
+  print "Compile was successful, now enter your root password to install it."
   su -c "make install"
-
 }
 
 
@@ -48,6 +46,7 @@ read_user_input() {
 }
 
 main() {
+  print "$FUNCNAME ..."
   checkout_or_update_repository
   compile
 }
