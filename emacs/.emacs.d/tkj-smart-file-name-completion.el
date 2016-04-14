@@ -54,21 +54,6 @@
   (call-interactively 'occur))
 (global-set-key (kbd "M-s o") 'occur-dwim)
 
-;; General springboard to switch between often used directories/
-;; projects.
-(require 'springboard)
-(setq springboard-directories
-      (list
-       (concat "~/doc/" (format-time-string "%Y"))
-       "~/.erc/logs/"
-       "~/src/"
-       "~/src/my-little-friends/bash"
-       "~/src/my-little-friends/emacs"
-       "~/src/skybert-net/src/linux"
-       ))
-(global-set-key  (kbd "C-.") 'springboard)
-
-;; General lookup of methods in the current buffer
 (global-set-key (kbd "C-,") 'imenu)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
