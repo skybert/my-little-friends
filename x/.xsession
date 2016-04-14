@@ -30,7 +30,7 @@ conky &
 vivaldi &
 emacs-snapshot -fn 7x14 -g 80x60 &
 mpd $HOME/.mpdconf &
-konsole &
+gnome-terminal &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
