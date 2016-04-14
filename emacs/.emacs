@@ -23,10 +23,16 @@
 
 (when window-system
   ;; Themes
-  (smart-mode-line-enable)
-  (sml/apply-theme 'dark)
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
   (load-theme 'sanityinc-tomorrow-eighties)
+  (smart-mode-line-enable)
+  (sml/apply-theme 'dark)
+
+  (set-face-attribute 'default nil
+                      :family "Source Code Pro"
+                      :height 100
+                      :weight 'normal
+                      :width 'normal)
 
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
