@@ -24,9 +24,9 @@
 (when window-system
   ;; Themes
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
-  (load-theme 'sanityinc-tomorrow-eighties)
-  (smart-mode-line-enable)
-  (sml/apply-theme 'dark)
+  ;; (load-theme 'sanityinc-tomorrow-eighties)
+  ;; (smart-mode-line-enable)
+  ;; (sml/apply-theme 'dark)
 
   (set-face-attribute 'default nil
                       :family "Source Code Pro"
