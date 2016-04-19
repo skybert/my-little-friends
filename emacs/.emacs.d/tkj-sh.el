@@ -3,3 +3,6 @@
 
 ;; snippets, please
 (add-hook 'sh-mode-hook 'yas-minor-mode)
+
+;; on the fly syntax checking
+(add-hook 'sh-mode-hook 'flycheck-mode)
