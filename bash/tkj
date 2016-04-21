@@ -286,8 +286,8 @@ function do_update-tags()
     )
   done
 
-  for el in $java_src_list; do
-    if [ ! -d $el ]; then
+  for el in ${eclipse_workspace_src_list}; do
+    if [ ! -d "$el" ]; then
       continue
     fi
 
@@ -742,8 +742,9 @@ function do_set-random-wallpaper()
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
-  print "Setting a random wallpaper $(basename ${wallpaper})"
-  display -window root $wallpaper
+  sleep 1
+  print "Setting a random wallpaper $(basename "${wallpaper}")"
+  display -window root "$wallpaper"
 }
 
 # try to be smart first
