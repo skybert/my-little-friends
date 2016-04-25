@@ -493,13 +493,9 @@ function do_hours()
       sort -n
         )
 
-  local started_working_string=$(
-    echo "${entries}" | head -1
-        )
+  local started_working_string=$(echo "${entries}" | head -1)
 
-  local ended_working_string=$(
-    echo "${entries}" | tail -1
-        )
+  local ended_working_string=$(echo "${entries}" | tail -1)
 
   local seconds_worked=$((
                           $(date +%s -d "$ended_working_string") -
