@@ -200,6 +200,19 @@
              (auto-fill-mode 1)))
 (setq longlines-show-hard-newlines t)
 
+(defun tkj-insert-left-arrow()
+  (interactive)
+  (insert "←"))
+(defun tkj-insert-right-arrow()
+  (interactive)
+  (insert ""))
+(defun tkj-insert-up-arrow()
+  (interactive)
+  (insert "↑"))
+(defun tkj-insert-down-arrow()
+  (interactive)
+  (insert "↓"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Loading other general init files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
