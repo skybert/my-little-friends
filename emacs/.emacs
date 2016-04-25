@@ -83,6 +83,13 @@
 (global-set-key (kbd "<M-left>") 'winner-undo)
 (global-set-key (kbd "<M-right>") 'winner-redo)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; General debugger settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key (kbd "<f7>") 'gud-step)
+(global-set-key (kbd "<f8>") 'gud-next)
+(global-set-key (kbd "<f9>") 'gud-cont)
+
 ;; navigate between visible buffers (windows in emacs speak)
 (defun other-window-backward (&optional n)
   (interactive "p")
@@ -163,7 +170,7 @@
 ;; ws-butler cleans up whitespace only on the lines you've edited,
 ;; keeping messy colleagues happy ;-)
 ;; TODO make ws-butler not touch the current line
-(ws-butler-global-mode)
+;; (ws-butler-global-mode)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
@@ -233,7 +240,7 @@
 (global-unset-key "\C-x\C-c") ;; quitting too often without wanting to
 (global-set-key "\C-x\C-c" 'compile) ;; imenu
 (global-set-key (kbd "<C-S-f10>") 'recompile)
-(global-set-key (kbd "<C-tab>") 'yas-expand)
+(global-set-key (kbd "<C-tab>") 'completion-at-point)
 
 ;; newline and indent (like other editors, even vi, do).
 (global-set-key  "\C-m" 'newline-and-indent)
