@@ -81,4 +81,5 @@
   (condition-case nil (kill-buffer "#cloud") (error nil))
   (condition-case nil (kill-buffer "#ng") (error nil))
   (condition-case nil (kill-buffer "#support-operations") (error nil))
+  (condition-case nil (kill-buffer "#cue-notifications") (error nil))
   (condition-case nil (kill-buffer "#qa") (error nil)))
