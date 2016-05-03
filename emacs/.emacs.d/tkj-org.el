@@ -86,23 +86,3 @@
 |-"))
   )
 
-
-;; (org-set-generic-type
-;;  "confluence"
-;;  '(:file-suffix     ".confluence"
-;;                     :body-line-export-preformated t
-;;                     :body-line-fixed-format  "%s\n"
-;;                     :body-line-fixed-prefix  "{code}\n"
-;;                     :body-line-fixed-suffix  "\n\{code}\n"
-;;                     :body-line-format "%s\n"
-;;                     :body-line-wrap   75
-;;                     :body-list-format  "* %s\n"
-;;                     :body-list-suffix  "\n"
-;;                     :body-number-list-format "# %s\n"
-;;                     :body-number-list-suffix "\n"
-;;                     :body-section-header-format  "%s\n"
-;;                     :body-section-header-prefix  ("h1. " "h2. " "h3. " "\h4. " "h5. " "h6. ")
-;;                     :body-text-prefix  "\n"
-;;                     :body-text-suffix  "\n\n"
-;;                     :key-binding     ?c
-;;                     ))
