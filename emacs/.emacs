@@ -168,9 +168,11 @@
 (setq-default indent-tabs-mode nil)
 
 ;; ws-butler cleans up whitespace only on the lines you've edited,
-;; keeping messy colleagues happy ;-)
-;; TODO make ws-butler not touch the current line
-;; (ws-butler-global-mode)
+;; keeping messy colleagues happy ;-) Important that it doesn't clean
+;; the whitespace on currrent line, otherwise, eclim leaves messy
+;; code behind.
+(ws-butler-global-mode)
+(setq ws-butler-keep-whitespace-before-point nil)
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
@@ -205,7 +207,7 @@
   (insert "←"))
 (defun tkj-insert-right-arrow()
   (interactive)
-  (insert ""))
+  (insert "→"))
 (defun tkj-insert-up-arrow()
   (interactive)
   (insert "↑"))

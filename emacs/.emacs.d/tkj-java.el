@@ -41,10 +41,6 @@
   (define-key c-mode-base-map (kbd "S-<f6>") 'eclim-java-refactor-rename-symbol-at-point)
   (define-key c-mode-base-map (kbd "S-<f7>") 'gtags-find-tag-from-here)
 
-  (define-key c-mode-base-map (kbd "<f7>") 'gud-step)
-  (define-key c-mode-base-map (kbd "<f8>") 'gud-next)
-  (define-key c-mode-base-map (kbd "<f9>") 'gud-cont)
-
   ;; Fix indentation for anonymous classes
   (c-set-offset 'substatement-open 0)
   (if (assoc 'inexpr-class c-offsets-alist)
