@@ -1,4 +1,4 @@
-;; ERC modules & hipchat integration
+;; ERC modules
 (require 'erc-log)
 (require 'erc-autoaway)
 (require 'erc-image)
@@ -85,3 +85,11 @@
   (condition-case nil (kill-buffer "#cue-notifications") (error nil))
   (condition-case nil (kill-buffer "#ece-notificiations") (error nil))
   (condition-case nil (kill-buffer "#qa") (error nil)))
+
+;; Slack settings, slack-register-team and slack-start called from
+;; ~/.emacs.d/custom.el which is NOT checked in 😉
+(require 'slack)
+(setq slack-enable-emoji t
+      ;; don't like the icon set used
+      slack-buffer-emojify nil
+      slack-prefer-current-team t)
