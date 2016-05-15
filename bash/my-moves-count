@@ -1,0 +1,115 @@
+#! /usr/bin/env bash
+
+## Lists my weely summary of my Suunto Ambit 2 moves.
+
+# by torstein.k.johansen@gmail.com
+
+date_cmd=
+jq_cmd=
+separator=
+user_id=
+
+create_token() {
+  curl -s https://www.movescount.com/api/servicetoken/activityfeed/${user_id} | \
+    jq --raw-output '.Token'
+}
+
+bootstrap_thyself() {
+  local system=
+  system=$(uname -s)
+
+  if [[ ${system} == Darwin ]]; then
+    date_cmd=/opt/local/libexec/gnubin/date
+    jq_cmd=/usr/local/bin/jq
+  else
+    date_cmd=/bin/date
+    jq_cmd=/usr/bin/jq
+  fi
+
+  for i in {0..71}; do
+    separator="─${separator}"
+  done
+}
+
+read_user_input() {
+  if [ -z "$1" ]; then
+    cat <<EOF
+$(basename $0) <user-id>
+EOF
+    exit 1
+  fi
+  user_id=$1
+}
+
+main() {
+  bootstrap_thyself
+  read_user_input "$*"
+  local info=
+  local token=
+  token=$(create_token)
+
+  info=$(
+    curl -s https://activityfeed-fb.movescount.com/${user_id}?token=${token} | \
+      ${jq_cmd} -r '.objects[] | "\(.UTCStartTime) \(.Distance) \(.Notes)"'
+  )
+
+  distance_file=$(mktemp)
+  cat <<EOF
+Weekly summary, my moves the last 7 last days
+${separator}
+EOF
+
+  echo "${info}" | while read line; do
+    local old_ifs=$IFS
+    IFS=' ' read date distance notes <<< "${line}"
+    IFS=$old_ifs
+
+    if [[ "${date}" == null ]]; then
+      continue
+    fi
+    if [[ "${notes}" == null ]]; then
+      notes=""
+    fi
+
+    today=$(date +%s)
+    last_week=$(( today - (60 * 60 * 24 * 7) ))
+
+    date_in_s=$(${date_cmd} +%s -d "${date}")
+    if [[ ${date_in_s} -ge ${last_week} ]]; then
+      cat <<EOF
+Date: $( ${date_cmd} -d ${date})
+Distance: $(convert_to_human_distance ${distance})
+EOF
+      if [ -n "${notes}" ]; then
+        echo "Notes: ${notes}" | fmt
+      fi
+
+      total_distance_this_week=$((
+          $(cat ${distance_file})
+          +
+          ${distance}
+          ))
+      echo $total_distance_this_week > ${distance_file}
+    fi
+  done
+
+  local weekly_distance=$(
+    convert_to_human_distance $(cat ${distance_file}))
+
+  cat <<EOF
+${separator}
+Total distance this week: ${weekly_distance}
+EOF
+  rm ${distance_file}
+}
+
+## $1 :: distance in metres
+convert_to_human_distance() {
+  local distance_in_m=$1
+  local km=$((distance_in_m / 1000))
+  local metres=$((distance_in_m - (km * 1000)))
+  echo "${km}.${metres}km"
+}
+
+
+main "$*"
