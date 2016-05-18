@@ -95,4 +95,5 @@
 (setq slack-enable-emoji t
       ;; don't like the icon set used
       slack-buffer-emojify nil
+      slack-typing-visibility 'buffer
       slack-prefer-current-team t)
