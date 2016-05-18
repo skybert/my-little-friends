@@ -157,6 +157,7 @@ export MANPATH=/usr/local/man/man1:$MANPATH
 ##################################################################
 PATH=\
 $HOME/bin:\
+$HOME/.cargo/bin:\
 $HOME/src/ece-scripts/usr/bin:\
 $HOME/src/moria/voss/usr/bin:\
 $HOME/src/my-little-friends/bash:\
@@ -164,6 +165,7 @@ $HOME/src/my-little-friends/bash/vcs:\
 $HOME/src/my-little-friends/git:\
 $HOME/src/moria/src/net:\
 $HOME/src/moria/src/java:\
+$HOME/src/moria/src/graphics:\
 $HOME/src/moria/src/pictures:\
 /opt/local/bin:\
 $JAVA_HOME/bin:\
