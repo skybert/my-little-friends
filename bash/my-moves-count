@@ -10,7 +10,7 @@ separator=
 user_id=
 
 create_token() {
-  curl -s https://www.movescount.com/api/servicetoken/activityfeed/${user_id} | \
+  curl -s http://www.movescount.com/api/servicetoken/activityfeed/${user_id} | \
     jq --raw-output '.Token'
 }
 
@@ -49,7 +49,7 @@ main() {
   token=$(create_token)
 
   info=$(
-    curl -s https://activityfeed-fb.movescount.com/${user_id}?token=${token} | \
+    curl -s http://activityfeed-fb.movescount.com/${user_id}?token=${token} | \
       ${jq_cmd} -r '.objects[] | "\(.UTCStartTime) \(.Distance) \(.Notes)"'
   )
 
