@@ -87,7 +87,7 @@
   (condition-case nil (kill-buffer "#qa") (error nil)))
 
 ;; emojies
-(setq emojify-display-style 'unicode)
+(setq emojify-display-style 'image)
 
 ;; Slack settings, slack-register-team and slack-start called from
 ;; ~/.emacs.d/custom.el which is NOT checked in 😉
