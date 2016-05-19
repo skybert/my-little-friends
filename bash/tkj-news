@@ -212,6 +212,15 @@ nok_vs_twd() {
 EOF
 }
 
+training() {
+  cat <<EOF
+    <h2>My latest moves</h2>
+    <pre>
+$($HOME/src/my-little-friends/bash/my-moves-count 604422)
+    </pre>
+EOF
+}
+
 main() {
   trap exit_hook EXIT
 
@@ -224,6 +233,7 @@ main() {
   daily_pictures
   todays_comics
   nok_vs_twd
+  training
   print_footer
 }
 
