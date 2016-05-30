@@ -19,8 +19,6 @@
 (add-hook 'nxml-mode-hook
           (lambda ()
             (define-key nxml-mode-map "\C-c\C-i" 'yas/expand)
-            (define-key nxml-mode-map (kbd "TAB") 'completion-at-point)
-            (define-key nxml-mode-map ">" 'nxml-balanced-close-start-tag-block)
             (rng-nxml-mode-init)
             )
           t)
