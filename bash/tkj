@@ -399,6 +399,12 @@ function get_full_screen_list() {
   xrandr -q | sed -r -n 's#(.*) (dis)?connected.*#\1#p'
 }
 
+function do_clone-screens() {
+  do_turn-off-external-screens
+  # TODO get primary and external screen names dynamically
+  xrandr --output HDMI2 --auto --same-as eDP1
+}
+
 function do_turn-off-external-screens() {
   local screen_list=$(get_full_screen_list)
   local primary_screen=$(echo "${screen_list}" | head -1)
