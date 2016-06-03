@@ -42,7 +42,7 @@
 
   ;; Edit server needed for editing text areas in Chrome browsers
   (edit-server-start)
-)
+  )
 
 (setq frame-background-mode nil
       column-number-mode t
@@ -52,6 +52,15 @@
       ;; no visible or audible bells, please
       visible-bell nil
       ring-bell-function (lambda nil (message "")))
+
+(defun tkj-presentation-mode()
+  (interactive)
+  (when window-system
+    (set-face-attribute 'default nil
+                        :family "Source Code Pro"
+                        :height 150
+                        :weight 'normal
+                        :width 'normal)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Show paren mode, built-in from Emacs 24.x
@@ -120,17 +129,17 @@
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
 (setq grep-find-ignored-directories
-       (list
-        ".git"
-        ".hg"
-        ".idea"
-        ".project"
-        ".settings"
-        ".svn"
-        "bootstrap*"
-        "pyenv"
-        "target"
-        )
+      (list
+       ".git"
+       ".hg"
+       ".idea"
+       ".project"
+       ".settings"
+       ".svn"
+       "bootstrap*"
+       "pyenv"
+       "target"
+       )
       grep-find-ignored-files (list "TAGS")
       grep-find-command
       "find ~/src/git/escenic/engine/trunk -name \"*.java\" | xargs grep -n -i -e ")
@@ -357,7 +366,7 @@
       mail-interactive nil
       mail-self-blind t
       message-directory "~/mail"
-)
+      )
 
 (defun tkj-load-mu4e()
   (interactive)
@@ -440,7 +449,7 @@
          ("\\.emacs\\'" . emacs-lisp-mode)
          ("\\.es$" . c++-mode)
          ("\\.htm\\'" . html-mode)
-         ("\\.html\\'" . nxml-mode)
+         ("\\.html\\'" . web-mode)
          ("\\.idl\\'" . c++-mode)
          ("\\.ini\\'" . conf-mode)
          ("\\.java$" . java-mode)
@@ -600,7 +609,7 @@
   (interactive)
   (if (get-buffer "tidy-errs") (kill-buffer "tidy-errs"))
   (shell-command-on-region (point-min) (point-max)
-    "tidy -f /tmp/tidy-errs -q -wrap 72" t)
+                           "tidy -f /tmp/tidy-errs -q -wrap 72" t)
   (find-file-other-window "/tmp/tidy-errs")
   (other-window 1)
   (delete-file "/tmp/tidy-errs")
