@@ -27,7 +27,7 @@
            ("/escenic/wiki" . ?w)
            )
          user-mail-address "torstein@escenic.com"
-         smtpmail-smtp-server "smtp.gmail.com.escenic"
+         smtpmail-smtp-server "smtp.gmail.com"
          smtpmail-smtp-service 587
          smtpmail-stream-type 'starttls
          message-signature-file "~/.signature-escenic"
