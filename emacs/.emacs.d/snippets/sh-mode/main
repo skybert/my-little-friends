@@ -1,0 +1,7 @@
+#name : main
+# --
+main() {
+  $0
+}
+
+main "$*"
