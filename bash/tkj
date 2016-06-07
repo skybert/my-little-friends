@@ -154,8 +154,9 @@ function do_daily()
   print "Setting up external screens..."
   do_setup-screens
 
-  print "Setting a random wallpaper..."
-  do_set-random-wallpaper &
+  print "Setting wallpaper..."
+  # do_set-random-wallpaper &
+  do_set-wallpaper &
 
   killall xmessage 2>/dev/null || true
 
@@ -445,7 +446,8 @@ function do_setup-screens() {
     previous_screen=${screen}
   done
 
-  do_set-random-wallpaper
+  do_set-wallpaper &
+  # do_set-random-wallpaper
 }
 
 function do_change-clipboard() {
@@ -736,6 +738,11 @@ function p4_check_that_everythings_ok()
     while read f; do
       p4 filelog $f 1>/dev/null
     done
+}
+
+function do_set-wallpaper() {
+  local wallpaper=$HOME/pictures/wallpapers/current
+  display -window root "$wallpaper"
 }
 
 function do_set-random-wallpaper()
