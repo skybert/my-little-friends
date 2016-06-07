@@ -63,7 +63,7 @@ alias cal='LC_ALL=zh_TW.UTF-8 cal'
 alias diff=colordiff
 alias de='setxkbmap de'
 alias df='df -hT'
-alias e='emacsclient'
+alias e='emacsclient --no-wait'
 alias emacs='emacs -fn terminus-bold-14'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
 alias eternal='cat ~/.bash_eternal_history | grep'
