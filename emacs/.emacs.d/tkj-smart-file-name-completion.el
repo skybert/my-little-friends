@@ -32,7 +32,7 @@
 (require 'projectile)
 (projectile-global-mode)
 (setq projectile-enable-caching nil
-      projectile-globally-ignored-directories '("target")
+      projectile-globally-ignored-directories (append (list "target") projectile-globally-ignored-directories)
       projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath")
       projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s"
       )
