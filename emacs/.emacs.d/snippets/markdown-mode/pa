@@ -1,8 +1,7 @@
 #name : pelican article
 # --
 title: ${1:`(file-name-base (buffer-file-name))`}
-date: ${2:`(insert-date)`}
-tags: ${3: `(file-name-directory (buffer-file-name))`}
-tags: ${4: `(file-name-directory (buffer-file-name))`}
-
+date: ${2:`(format-time-string "%Y-%m-%d" (current-time))`}
+category: ${3:`(file-name-directory (buffer-file-name))`}
+tags: ${4:`(file-name-directory (buffer-file-name))`}
 $0
