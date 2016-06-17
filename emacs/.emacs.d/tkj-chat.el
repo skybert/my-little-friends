@@ -97,3 +97,5 @@
       slack-buffer-emojify t
       slack-typing-visibility 'buffer
       slack-prefer-current-team t)
+
+(add-hook 'slack-mode-hook 'flyspell-mode)
