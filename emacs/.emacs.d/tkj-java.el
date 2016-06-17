@@ -104,7 +104,7 @@
       eclim-autoupdate-problems nil
       eclim-print-debug-messages nil
       help-at-pt-display-when-idle t
-      help-at-pt-timer-delay 0.5
+      help-at-pt-timer-delay 1.0
       )
 
 ;; Call the help framework with the settings above & activate
