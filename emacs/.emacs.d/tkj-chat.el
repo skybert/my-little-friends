@@ -33,6 +33,9 @@
 ;; auto completion
 (add-hook 'erc-mode-hook 'auto-complete-mode)
 
+;; emojies
+(add-hook 'erc-mode-hook 'emojify-mode)
+
 ;; From the bitlbee wiki: Since the server sends wrong JIDs for the
 ;; "from" field (123456_chat_name@conf.hipchat.com/real name here),
 ;; all you can do is using client scripts to fix this up
