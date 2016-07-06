@@ -33,8 +33,9 @@
 (projectile-global-mode)
 (setq projectile-enable-caching nil
       projectile-globally-ignored-directories (append (list "target") projectile-globally-ignored-directories)
-      projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath")
+      projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath" "tkj")
       projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s"
+      projectile-mode-line '(:eval (format " [%s]" (projectile-project-name)))
       )
 (global-set-key (kbd "C-;") 'projectile-find-file)
 
