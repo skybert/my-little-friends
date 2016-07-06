@@ -17,7 +17,7 @@ java_src_list="
 java_build_src_list="
 "
 eclimd_bin=/opt/eclipse/eclimd
-scm_user_list="h73 tkj"
+scm_user_list="h73 tkj torstein"
 
 function read_user_conf_if_exists() {
   if [ -r $conf_file ]; then
@@ -549,14 +549,20 @@ function eight_days_ago() {
 ## $1 :: since date
 function get_issues_since() {
   # subtrack one day
-  local from_date=$1
+  export from_date=$1
+
+  # weird! For some reason, this echo must be here, otherwise
+  # from_date in the sub shell gets the value of $dir (from the for
+  # loop)
+  echo from_date="$from_date"
+
   local dir=
   local author=
   for dir in $(find $src_list -maxdepth 2 -type d -name .git); do
     for author in $scm_user_list; do
       local issues=$(
-        cd $dir && \
-          git log --author=${author} --since=${from_date} 2>/dev/null | \
+        cd "$dir" && \
+          git log --author="${author}" --since="${from_date}" 2>/dev/null | \
             egrep -o '[A-Z]+-[0-9]+' | \
             sort | \
             uniq
