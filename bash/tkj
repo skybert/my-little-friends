@@ -160,6 +160,10 @@ function do_daily()
 
   killall xmessage 2>/dev/null || true
 
+  # conky on right screen
+  killall conky || true
+  conky &
+
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
   app_list="
