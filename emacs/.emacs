@@ -125,6 +125,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs grep and find
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key "\C-x\C-f" 'find-file)
 (global-set-key "\C-\M-f" 'find-file-at-point)
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
@@ -195,7 +196,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq ispell-program-name "aspell"
       ispell-list-command "list"
-      ispell-dictionary "british")
+      ispell-dictionary "british"
+      flyspell-auto-correct-binding (kbd "<S-f12>"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tag lookup/auto completion based on GNU Global
@@ -208,6 +210,7 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (auto-complete-mode 1)
+             (flyspell-mode)
              (auto-fill-mode 1)))
 (setq longlines-show-hard-newlines t)
 
