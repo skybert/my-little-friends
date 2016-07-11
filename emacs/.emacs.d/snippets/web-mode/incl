@@ -1,0 +1,3 @@
+#name : incl
+# --
+{% include "$1" %}
