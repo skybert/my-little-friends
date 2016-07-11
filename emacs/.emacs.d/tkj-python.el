@@ -32,3 +32,5 @@ Version must be already installed."
   (pyenv-mode-set (projectile-project-name)))
 
 ;; (add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
+
+(setq python-indent 2)
