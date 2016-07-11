@@ -86,6 +86,7 @@ alias gri='git rebase -i'
 alias gs='git status'
 alias gsh='git show'
 alias gsr='git svn rebase'
+alias less='less -Ri'
 alias ls='ls -ltrh'
 alias mcc="mvn clean compile"
 alias mci="mvn clean install"
