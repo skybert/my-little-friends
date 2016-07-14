@@ -3,7 +3,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq js2-basic-offset 2
       js2-indent-on-enter-key t
-      js2-enter-indents-newline t)
+      js2-enter-indents-newline t
+      js-indent-level 2
+      )
 
 ;; makes j2-mode work (better) with JSON files.
 (defadvice js2-reparse (before json)
