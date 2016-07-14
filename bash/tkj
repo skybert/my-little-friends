@@ -156,7 +156,7 @@ function do_daily()
 
   print "Setting wallpaper..."
   # do_set-random-wallpaper &
-  do_set-wallpaper &
+  do_set-wallpaper
 
   killall xmessage 2>/dev/null || true
 
