@@ -135,7 +135,8 @@ function do_lock-screen() {
 
 function do_daily()
 {
-  # do_setup-screens
+  print "Setting up external screens..."
+  do_setup-screens
   local doc_dir=$HOME/doc/$(date +%Y)/
 
   print "Removing empty directories in ${doc_dir} ..."
@@ -150,15 +151,6 @@ function do_daily()
     print "Adding your SSH key"
     ssh-add
   fi
-
-  print "Setting up external screens..."
-  do_setup-screens
-
-  print "Setting wallpaper..."
-  # do_set-random-wallpaper &
-  do_set-wallpaper
-
-  killall xmessage 2>/dev/null || true
 
   # conky on right screen
   killall conky || true
@@ -191,8 +183,13 @@ function do_daily()
   # do_update-tags
   do_update-eclipse-files-and-restart-eclimd
   do_backup
-  tc all
 
+  print "Setting wallpaper..."
+  do_set-random-wallpaper &
+  # do_set-wallpaper
+  killall xmessage 2>/dev/null || true
+
+  tc all
   print "Happy hacking :-)"
 }
 
@@ -314,7 +311,7 @@ function do_doc() {
 
 function do_status() {
   for el in $src_list; do
-    if [ ! -d $el ]; then
+    if [ ! -d "$el" ]; then
       continue
     fi
     (
@@ -512,38 +509,38 @@ function do_hours()
   local seconds_left=$(( seconds_left - $minutes * 60 ))
 
   # echo "It's" ${hours}h ${minutes}m ${seconds_left}s \
-  # "since you started working today."$'\n' \
-  echo -n "|" $(date -d "$ended_working_string" --iso) \
-       "|" $(date -d "$started_working_string" +%H:%M) \
-       "->" \
-       $(date -d "$ended_working_string" +%H:%M) \
-       "| and probably some lunch | "
+    # "since you started working today."$'\n' \
+    echo -n "|" $(date -d "$ended_working_string" --iso) \
+         "|" $(date -d "$started_working_string" +%H:%M) \
+         "->" \
+         $(date -d "$ended_working_string" +%H:%M) \
+         "| and probably some lunch | "
 
-  if [ $minutes -gt 0 ]; then
-    echo ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours |"
-  else
-    echo ${hours}".0 hours |"
-  fi
+    if [ $minutes -gt 0 ]; then
+      echo ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours |"
+    else
+      echo ${hours}".0 hours |"
+    fi
 
-  local previous_date
-  cat $HOME/.bash_eternal_history | \
-    awk '{ print $2; }' | \
-    grep $the_date | \
-    uniq | \
-    sort | \
-    while read l; do
-      now=$(date -d "$l" +%s)
-      if [ $previous_date ] ;then
-        since_last=$(( $now - $previous_date ))
+    local previous_date
+    cat $HOME/.bash_eternal_history | \
+      awk '{ print $2; }' | \
+      grep $the_date | \
+      uniq | \
+      sort | \
+      while read l; do
+        now=$(date -d "$l" +%s)
+        if [ $previous_date ] ;then
+          since_last=$(( $now - $previous_date ))
 
-        if [ $since_last -gt 2500 ]; then
-          print "No command line action between" $(date -d @${previous_date} +%H:%M:%S) \
-                "and" $(date -d "$l" +%H:%M:%S) \
-                $(get_human_time $since_last)
+          if [ $since_last -gt 2500 ]; then
+            print "No command line action between" $(date -d @${previous_date} +%H:%M:%S) \
+                  "and" $(date -d "$l" +%H:%M:%S) \
+                  $(get_human_time $since_last)
+          fi
         fi
-      fi
-      previous_date=$now
-    done
+        previous_date=$now
+      done
 }
 
 function eight_days_ago() {
