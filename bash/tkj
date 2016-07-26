@@ -126,7 +126,7 @@ function do_update-eclipse-files-and-restart-eclimd() {
 }
 
 function do_lock-screen() {
-  mpc -p ${mpd_port-6600} stop
+  mpc -p "${mpd_port-6600}" stop
   killall gnome-screensaver 2>/dev/null
   xscreensaver 2>/dev/null &
   sleep 1
