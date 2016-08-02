@@ -1,0 +1,5 @@
+#name : div
+# --
+<div class="$1">
+  $0
+</div>

@@ -1,0 +1,5 @@
+#name : divv
+# --
+<div class="{{ $1 }}">
+  $0
+</div>

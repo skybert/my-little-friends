@@ -1,0 +1,13 @@
+#name : itemthumb
+# --
+<a href="{{ data.byhref[item.href].links.alternate[0].href }}">
+  {% if data.byhref[item.href].links.thumbnail[0] %}
+  <img
+    src="{{ data.byhref[item.href].links.thumbnail[0].href }}"
+    alt="thumbnail for {{ item.title }}"
+  />
+  <br/>
+  {% endif %}
+  {{ item.title }}
+</a>
+$0
