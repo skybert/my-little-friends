@@ -130,6 +130,7 @@ l="
   $HOME/src/ece-scripts/etc/bash_completion.d/ece
   $HOME/src/moria/voss/etc/bash_completion.d/p4
   $HOME/src/my-little-friends/bash_completion.d/mvn
+  $HOME/src/moria/src/ecews/bin/ecews.bash_completion
 
   /etc/bash_completion
   /usr/share/bash-completion/bash_completion
