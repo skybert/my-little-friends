@@ -111,11 +111,11 @@
 ;; eclim-mode
 (help-at-pt-set-timer)
 
-;; Hook eclim up with auto complete mode
-(require 'auto-complete-config)
-;; (ac-config-default)
-(require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
+;; Use company mode for auto completion
+(require 'company)
+(require 'company-emacs-eclim)
+(company-emacs-eclim-setup)
+(setq company-emacs-eclim-ignore-case t)
 
 ;; restore the window configuration after running certain eclim commands
 ;; (add-hook 'eclim-problems-mode-hook 'winner-undo)
@@ -131,3 +131,6 @@
     (progn
       (window-configuration-to-register '_)
       (delete-other-windows))))
+
+;; TODO: get this into emacs-eclim
+(add-to-list 'eclim--file-coding-system-mapping '("iso-latin-1-unix" . "iso-8859-1"))
