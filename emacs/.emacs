@@ -209,7 +209,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'text-mode-hook
           '(lambda ()
-             (auto-complete-mode 1)
              (flyspell-mode)
              (auto-fill-mode 1)))
 (setq longlines-show-hard-newlines t)
@@ -500,7 +499,6 @@
 ;; Markdown
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'markdown-mode-hook 'flyspell-mode)
-(add-hook 'markdown-mode-hook 'ac-emoji-setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Navigation
@@ -535,7 +533,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'sql-interactive-mode-hook
           '(lambda ()
-             (auto-complete-mode)))
+             (company-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Web browser
