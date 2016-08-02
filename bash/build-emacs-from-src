@@ -23,6 +23,13 @@ checkout_or_update_repository() {
     )
   else
     run git clone "${git_url}" "${src}"
+
+    # creating machine dependent build files
+    run cd "${src}"
+    aclocal
+    autoheader
+    automake --force-missing --add-missing
+    autoconf
   fi
 }
 
@@ -32,12 +39,12 @@ compile() {
   run git checkout ${branch-master}
   print "$FUNCNAME branch=${branch} ..."
   run cd "${src}"
+  run make clean
   run ./configure \
     --with-x-toolkit=gtk \
     --with-png \
     --with-jpeg \
     --with-gif
-  run make clean
   run make
   print "Compile was successful, now enter your root password to install it."
   su -c "make install"
