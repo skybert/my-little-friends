@@ -30,9 +30,6 @@
 ;; Spell checking
 (add-hook 'erc-mode-hook 'flyspell-mode)
 
-;; auto completion
-(add-hook 'erc-mode-hook 'auto-complete-mode)
-
 ;; emojies
 (add-hook 'erc-mode-hook 'emojify-mode)
 
@@ -102,3 +99,6 @@
       slack-prefer-current-team t)
 
 (add-hook 'slack-mode-hook 'flyspell-mode)
+
+(eval-after-load 'slack-mode
+  '(define-key slack-mode-map (kbd "<f5>") #'slack-room-update-messages))
