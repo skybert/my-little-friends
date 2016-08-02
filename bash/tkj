@@ -202,6 +202,10 @@ function do_backup() {
   if [ -x ~/backup/bin/sync-logs ]; then
     run ~/backup/bin/sync-logs
   fi
+
+  if [ -x ~/backup/pull ]; then
+    run ~/backup/pull
+  fi
 }
 
 function do_restart-eclimd() {
