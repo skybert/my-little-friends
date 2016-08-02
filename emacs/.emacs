@@ -396,21 +396,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'auto-complete)
-(require 'auto-complete-config)
-(require 'auto-complete-nxml)
-(add-to-list 'ac-dictionary-directories
-             "~/.emacs.d/auto-complete/dict"
-             )
-
-(ac-config-default)
-(ac-flyspell-workaround)
-
-(setq ac-delay 0.3
-      ac-auto-start t)
-
-(global-unset-key (kbd "<C-return>"))
-(global-set-key (kbd "<C-return>") 'auto-complete)
+(global-company-mode 1)
+(company-quickhelp-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
@@ -463,6 +450,8 @@
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.less\\'" . javascript-mode)
          ("\\.magik$" . python-mode)
+         ("\\Makefile$" . makefile-mode)
+         ("\\makefile$" . makefile-mode)
          ("\\.md$" . markdown-mode)
          ("\\.odl\\'" . c++-mode)
          ("\\.org\\'" . org-mode)
