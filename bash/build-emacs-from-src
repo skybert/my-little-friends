@@ -27,7 +27,10 @@ checkout_or_update_repository() {
 }
 
 compile() {
-  print "$FUNCNAME ..."
+  local branch=$1
+
+  run git checkout ${branch-master}
+  print "$FUNCNAME branch=${branch} ..."
   run cd "${src}"
   run ./configure \
     --with-x-toolkit=gtk \
@@ -41,14 +44,10 @@ compile() {
 }
 
 
-read_user_input() {
-  :
-}
-
 main() {
   print "$FUNCNAME ..."
   checkout_or_update_repository
-  compile
+  compile $1
 }
 
 main "$@"
