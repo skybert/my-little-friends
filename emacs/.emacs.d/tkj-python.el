@@ -2,6 +2,7 @@
 ;; Torstein's Python setup for Emacs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq python-indent 2)
 (add-hook 'python-mode-hook 'flycheck-mode)
 (add-hook 'python-mode-hook 'yas-minor-mode)
 
@@ -32,5 +33,3 @@ Version must be already installed."
   (pyenv-mode-set (projectile-project-name)))
 
 ;; (add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
-
-(setq python-indent 2)
