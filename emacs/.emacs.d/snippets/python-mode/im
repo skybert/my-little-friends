@@ -1,0 +1,4 @@
+#name : im
+# --
+from $1 import $2
+$0

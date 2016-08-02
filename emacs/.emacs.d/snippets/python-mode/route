@@ -1,0 +1,5 @@
+#name : route
+# --
+@app.route("/<$1>$2")
+def $3($1):
+  $0
