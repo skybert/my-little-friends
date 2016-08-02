@@ -1,7 +1,8 @@
 [flake8]
 
-# E111 indention must be 4 spaces
-# E114 indention must be 4 spaces for comments
-# E121 continuation line under-indented for hanging indent
-# E266 too many leading ‘#’ for block comment
-ignore = E111, E114, E121, E266
+# E111 indention must be 4 spaces (I like 2 space indent)
+# E114 indention must be 4 spaces for comments (I like 2 space indent)
+# E121 continuation line under-indented for hanging indent (problem with indent=2)
+# E125 continuation line with same indent as next logical line (problem with indent=2)
+# E266 too many leading ‘#’ for block comment (I like double #s)
+ignore = E111, E114, E121, E125, E266
