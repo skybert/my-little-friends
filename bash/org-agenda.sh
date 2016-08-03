@@ -19,7 +19,7 @@ main() {
           org-agenda-files (quote ("~/doc/work.org")))')
 
   echo "${org_agenda}" |
-    sed -r -e 's#:([^:]+)#\#\1 #g' -e 's# :##' |
+    sed -r -e 's#:([^:^ ]+)#\#\1 #g' -e 's# :$##' |
     sed -r 's#work:.* Sched. [0-9]+x:.*STARTED#  CONTINUE#' |
     sed -r 's#work:.* Sched.*:##'
 
