@@ -16,13 +16,13 @@ main() {
           -eval '(org-batch-agenda "a"
           org-agenda-span (quote week)
           org-agenda-include-diary t
-          org-agenda-files (quote ("~/doc/work.org")))')
+          org-agenda-files (quote ("~/doc/work.org")))' \
+            2>/dev/null)
 
   echo "${org_agenda}" |
     sed -r -e 's#:([^:^ ]+)#\#\1 #g' -e 's# :$##' |
     sed -r 's#work:.* Sched. [0-9]+x:.*STARTED#  CONTINUE#' |
     sed -r 's#work:.* Sched.*:##'
-
 }
 
 main "$@"
