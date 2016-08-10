@@ -25,11 +25,10 @@
   ;; Themes
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
   ;; (load-theme 'sanityinc-tomorrow-eighties)
-  ;; (smart-mode-line-enable)
-  ;; (sml/apply-theme 'dark)
 
+  ;; Favourite fonts: Source Code Pro, Terminus
   (set-face-attribute 'default nil
-                      :family "Source Code Pro"
+                      :family "Terminus"
                       :height 100
                       :weight 'normal
                       :width 'normal)
