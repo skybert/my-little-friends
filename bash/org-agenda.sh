@@ -10,19 +10,35 @@ set -o pipefail
 shopt -s nullglob
 
 main() {
+  format=${1-""}
+  start_date="$(date +%Y-%m)-01"
   org_agenda=
   org_agenda=$(
     emacs -batch -l ~/.emacs.d/tkj-org.el \
-          -eval '(org-batch-agenda "a"
-          org-agenda-span (quote week)
+          -eval "(org-batch-agenda \"a\"
+          org-agenda-start-day \"${start_date}\"
+          org-agenda-span (quote month)
           org-agenda-include-diary t
-          org-agenda-files (quote ("~/doc/work.org")))' \
+          org-agenda-files (quote (\"~/doc/work.org\")))" \
             2>/dev/null)
 
-  echo "${org_agenda}" |
-    sed -r -e 's#:([^:^ ]+)#\#\1 #g' -e 's# :$##' |
-    sed -r 's#work:.* Sched. [0-9]+x:.*STARTED#  CONTINUE#' |
-    sed -r 's#work:.* Sched.*:##'
+  result=
+  result=$(
+    echo "${org_agenda}" |
+      sed -r -e 's#:([^:^ ]+)#\#\1 #g' -e 's# :$##' |
+      sed -r 's#work:.* Sched. [0-9]+x:.*STARTED#  CONTINUE#' |
+      sed -r 's#work:.* Sched.*:##' |
+      sed -r 's#TODO ##' |
+      sed -r 's#PR #⌛ Fixed, awaiting PR: #' |
+      sed -r 's#DONE #✔ #' |
+      sed -r 's#MERGED #✔ Merged: #')
+
+  if [[ ${format} == "markdown" ]]; then
+    echo "${result}" | \
+      sed -r 's#^[ ]+#- #'
+  else
+    echo "${result}"
+  fi
 }
 
 main "$@"
