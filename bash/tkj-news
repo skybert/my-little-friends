@@ -125,7 +125,7 @@ todays_comics() {
       head -1)
   local xkcd=$(curl -s http://xkcd.com/ | sed -n 's#Image URL.*: ##p')
   local commitstrip=$(
-    curl -s  http://www.commitstrip.com/en/feed/ | \
+    curl -s  https://www.commitstrip.com/en/feed/ | \
       xmllint  --format - | \
       sed -n  -r  's#.*<img src="([^"]*)".*#\1#p' | \
       head -1)
