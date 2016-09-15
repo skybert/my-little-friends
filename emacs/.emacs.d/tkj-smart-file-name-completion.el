@@ -31,7 +31,7 @@
 ;; General project support
 (require 'projectile)
 (projectile-global-mode)
-(setq projectile-enable-caching nil
+(setq projectile-enable-caching t
       projectile-globally-ignored-directories (append (list "target" "node_modules" "venv") projectile-globally-ignored-directories)
       projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath" "tkj")
       projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s"

@@ -102,3 +102,56 @@
 
 (eval-after-load 'slack-mode
   '(define-key slack-mode-map (kbd "<f5>") #'slack-room-update-messages))
+
+;; (alert-define-style
+;;  'tkj-slack-alert-style :title "tkj notifier Style"
+;;  :notifier
+;;  (lambda (info)
+;;    ;; The message text is :message
+;;    (plist-get info :message)
+;;    ;; The :title of the alert
+;;    (plist-get info :title)
+;;    ;; The :category of the alert
+;;    (plist-get info :category)
+;;    ;; The major-mode this alert relates to
+;;    (plist-get info :mode)
+;;    ;; The buffer the alert relates to
+;;    (plist-get info :buffer)
+;;    ;; Severity of the alert.  It is one of:
+;;    ;;   `urgent'
+;;    ;;   `high'
+;;    ;;   `moderate'
+;;    ;;   `normal'
+;;    ;;   `low'
+;;    ;;   `trivial'
+;;    (plist-get info :severity)
+;;    ;; Whether this alert should persist, or fade away
+;;    (plist-get info :persistent)
+;;    ;; Data which was passed to `alert'.  Can be
+;;    ;; anything.
+;;    (plist-get info :data)
+
+;;    (save-excursion
+;;      (set-buffer (get-buffer-create "*slack-messages*"))
+;;      (goto-char
+;;      (insert
+;;       (concat
+;;        (format-time-string "%Y-%m-%d %H:%M:%S")
+;;        " title=" (plist-get info :title)
+;;        (if (plist-get info :message)
+;;            (concat " message=" (plist-get info :message)))
+;;        "\n"))
+;;      (write-region nil nil "~/.slack-messages.log")
+;;      )
+;;    )
+
+;;  ;; Removers are optional.  Their job is to remove
+;;  ;; the visual or auditory effect of the alert.
+;;  :remover
+;;  (lambda (info)
+;;    ;; It is the same property list that was passed to
+;;    ;; the notifier function.
+;;    )))
+
+;; (setq alert-default-style 'tkj-slack-alert-style)
+;; (alert "hello" :title "the title")

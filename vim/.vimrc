@@ -1,3 +1,6 @@
+"Theme"
+colo darkblue
+
 "Numbered lines"
 " set number
 
