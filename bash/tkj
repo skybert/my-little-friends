@@ -177,17 +177,17 @@ function do_daily()
     fi
   done
 
+  print "Setting wallpaper..."
+  do_set-random-wallpaper &
+  # do_set-wallpaper
+  killall xmessage 2>/dev/null || true
+
   echo -n $id "Start of the day: Getting, building & deploying the latest code"
   echo "..."
   do_update-sources
   # do_update-tags
   do_update-eclipse-files-and-restart-eclimd
   do_backup
-
-  print "Setting wallpaper..."
-  do_set-random-wallpaper &
-  # do_set-wallpaper
-  killall xmessage 2>/dev/null || true
 
   tc all
   print "Happy hacking :-)"
