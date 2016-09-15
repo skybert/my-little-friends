@@ -28,7 +28,7 @@
 
   ;; Favourite fonts: Source Code Pro, Terminus
   (set-face-attribute 'default nil
-                      :family "Terminus"
+                      :family "Source Code Pro"
                       :height 100
                       :weight 'normal
                       :width 'normal)
@@ -396,6 +396,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-company-mode 1)
 (company-quickhelp-mode 1)
+(global-set-key (kbd "<C-return>") 'company-complete)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
