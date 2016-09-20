@@ -170,7 +170,7 @@ function do_daily()
         # bash ~/src/my-little-friends/bash/create-emacs-file-cache
         # print "Replacing ~/.emacs.d/file_cache.el ..."
         # run cp /tmp/file_cache.el-`date --iso` ~/.emacs.d/file_cache.el
-        emacs-snapshot &
+        emacs &
       else
         $el 1>/dev/null 2>/dev/null &
       fi
