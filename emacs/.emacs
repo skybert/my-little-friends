@@ -52,6 +52,12 @@
       visible-bell nil
       ring-bell-function (lambda nil (message "")))
 
+(require 'diminish)
+(diminish 'eclim-mode)
+(diminish 'auto-fill-function)
+(diminish 'ws-butler-mode)
+(diminish 'auto-revert-mode)
+
 (defun tkj-presentation-mode()
   (interactive)
   (when window-system
