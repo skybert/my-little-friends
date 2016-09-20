@@ -23,14 +23,14 @@ checkout_or_update_repository() {
     )
   else
     run git clone "${git_url}" "${src}"
-
-    # creating machine dependent build files
-    run cd "${src}"
-    aclocal
-    autoheader
-    automake --force-missing --add-missing
-    autoconf
   fi
+
+  # creating machine dependent build files
+  run cd "${src}"
+  aclocal
+  autoheader
+  automake --force-missing --add-missing
+  autoconf
 }
 
 compile() {
@@ -41,10 +41,10 @@ compile() {
   run cd "${src}"
   run make clean
   run ./configure \
-    --with-x-toolkit=gtk \
-    --with-png \
-    --with-jpeg \
-    --with-gif
+      --with-x-toolkit=gtk \
+      --with-png \
+      --with-jpeg \
+      --with-gif
   run make
   print "Compile was successful, now enter your root password to install it."
   su -c "make install"
