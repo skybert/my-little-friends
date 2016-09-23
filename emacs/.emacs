@@ -363,7 +363,8 @@
 ;; Search
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'helm-swoop)
-(global-set-key (kbd "C-s") 'helm-swoop)
+(global-set-key (kbd "C-s") 'isearch-forward)
+(global-set-key (kbd "M-n") 'helm-swoop)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mail (and news), common to both Gnus and VM
