@@ -96,12 +96,13 @@
       ;; don't like the icon set used
       slack-buffer-emojify t
       slack-typing-visibility 'buffer
-      slack-prefer-current-team t)
+      slack-prefer-current-team t
+      lui-prompt-string "陶亭> "
+      )
 
 (add-hook 'slack-mode-hook 'flyspell-mode)
 
-(eval-after-load 'slack-mode
-  '(define-key slack-mode-map (kbd "<f5>") #'slack-room-update-messages))
+(define-key slack-mode-map (kbd "<f5>") 'slack-room-update-messages)
 
 ;; (alert-define-style
 ;;  'tkj-slack-alert-style :title "tkj notifier Style"
