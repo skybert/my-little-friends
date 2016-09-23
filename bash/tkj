@@ -137,20 +137,23 @@ function do_daily()
 {
   print "Setting up external screens..."
   do_setup-screens
-  local doc_dir=$HOME/doc/$(date +%Y)/
+  local today_dir=
+  local doc_dir=
+  doc_dir=$HOME/doc/$(date +%Y)
+  today_dir="${doc_dir}/$(date --iso)"
 
   print "Removing empty directories in ${doc_dir} ..."
   find "${doc_dir}" -type d -empty -delete
   print "Creating daily doc dir ${doc_dir} ..."
-  mkdir -p "${doc_dir}/$(date --iso)" &> /dev/null
+  mkdir -p "${today_dir}" &> /dev/null
 
   local today="${HOME}/doc/today"
-  print "Pointing ${today} to ${doc_dir} ..."
+  print "Pointing ${today} to ${today_dir} ..."
   if [ -h "${today}" ]; then
     rm "${today}"
   fi
   if [ ! -e "${today}" ]; then
-    (cd "${HOME}/doc" && ln -s "${doc_dir}" "${today}")
+    (cd "${HOME}/doc" && ln -s "${today_dir}" "${today}")
   fi
 
   # print "Putting on some good music ..."
