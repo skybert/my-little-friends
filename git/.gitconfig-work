@@ -39,3 +39,7 @@
 # on my company network.
 [url "https://"]
   insteadOf = git://
+
+[diff]
+  # Get more intelligent git diff
+  compactionHeuristic = true
