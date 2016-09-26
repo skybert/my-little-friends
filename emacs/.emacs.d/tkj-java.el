@@ -19,7 +19,6 @@
   (eclim-mode)
   (subword-mode)
   (yas-minor-mode)
-  (smartscan-mode)
   (idle-highlight-mode)
 
   ;; Only include eclim candidates in the completion menu, must be run
