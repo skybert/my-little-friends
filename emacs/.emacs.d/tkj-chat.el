@@ -31,6 +31,7 @@
 (add-hook 'erc-mode-hook 'flyspell-mode)
 
 ;; emojies
+(company-emoji-init)
 (add-hook 'erc-mode-hook 'emojify-mode)
 
 ;; From the bitlbee wiki: Since the server sends wrong JIDs for the
