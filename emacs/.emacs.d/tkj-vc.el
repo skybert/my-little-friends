@@ -4,3 +4,8 @@
 ;; current branch.
 (setcdr (assq 'vc-mode mode-line-format)
         '((:eval (replace-regexp-in-string "^ Git-" " " vc-mode))))
+
+
+;; Ignore white space when running annotate to see who introduced
+;; actual code changes.
+(setq vc-git-annotate-switches '("-w"))
