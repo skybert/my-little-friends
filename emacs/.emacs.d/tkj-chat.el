@@ -104,6 +104,9 @@
 (add-hook 'slack-mode-hook 'flyspell-mode)
 
 (define-key slack-mode-map (kbd "<f5>") 'slack-room-update-messages)
+(define-key slack-mode-map (kbd "C-c C-e") 'slack-message-edit)
+(define-key slack-mode-map (kbd "C-c C-r") 'slack-message-add-reaction)
+(define-key slack-mode-map (kbd "C-c C-s") 'slack-message-show-reaction-users)
 
 ;; (alert-define-style
 ;;  'tkj-slack-alert-style :title "tkj notifier Style"
