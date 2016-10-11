@@ -135,8 +135,6 @@ function do_lock-screen() {
 
 function do_daily()
 {
-  print "Setting up external screens..."
-  do_setup-screens
   local today_dir=
   local doc_dir=
   doc_dir=$HOME/doc/$(date +%Y)
@@ -413,6 +411,7 @@ function do_setup-screens-presentation() {
   do_turn-off-external-screens
   # TODO get primary and external screen names dynamically
   xrandr --output HDMI-2 --auto --same-as eDP-1
+  do_set-wallpaper
 }
 
 function do_turn-off-external-screens() {
@@ -769,6 +768,7 @@ function do_set-random-wallpaper()
   sleep 1
   print "Setting a random wallpaper $(basename "${wallpaper}")"
   display -window root "$wallpaper"
+  killall xmessage 2>/dev/null
 }
 
 # try to be smart first
