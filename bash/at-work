@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+
+# by torstein.k.johansen@gmail.com
+set -o errexit
+set -u nounset
+set -o pipefail
+
+su -c wired
+get-new-email &
+tkj setup-screens
+tkj lock-screen &
+tkj daily
+
+# something runs fbsetbg which fails because of change in screen setup
+killall xmessage || true
+
