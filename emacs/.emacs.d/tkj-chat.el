@@ -49,34 +49,6 @@
 (add-to-list 'erc-modules 'image)
 (erc-update-modules)
 
-(defun tkj-insert-happy-face()
-  (interactive)
-  (insert "😊"))
-
-(defun tkj-insert-sad-face()
-  (interactive)
-  (insert "😠"))
-
-(defun tkj-insert-winking-face()
-  (interactive)
-  (insert "😉"))
-
-(defun tkj-insert-right-arrow()
-  (interactive)
-  (insert "→"))
-
-(defun tkj-insert-scream()
-  (interactive)
-  (insert "😱"))
-
-(defun tkj-insert-kiss()
-  (interactive)
-  (insert "💏"))
-
-(defun tkj-insert-thumbs-up()
-  (interactive)
-  (insert "👍"))
-
 (defun tkj-close-some-chats()
   (interactive)
   (condition-case nil (kill-buffer "#cloud") (error nil))
