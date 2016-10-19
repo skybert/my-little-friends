@@ -428,6 +428,9 @@ function do_turn-off-external-screens() {
 
 function do_setup-screens-above-laptop() {
   xrandr --output HDMI-2 --above eDP-1 --auto
+  sleep 3
+  fbsetroot -solid black
+  killall xmessage || true
 }
 
 ## Sets up screens like this:
