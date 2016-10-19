@@ -142,9 +142,9 @@
      (insert
       (concat
        (format-time-string "%Y-%m-%d %H:%M:%S")
-       " title=" (plist-get info :title)
+       " 📺 " (plist-get info :title)
        (if (plist-get info :message)
-           (concat " message=" (plist-get info :message)))
+           (concat " 📰 " (plist-get info :message)))
        "\n"))
      (write-region nil nil "~/.slack-messages.log")
      )
