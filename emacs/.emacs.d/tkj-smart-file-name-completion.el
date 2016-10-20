@@ -17,12 +17,12 @@
 
 ;; Vertical completion menu
 (require 'ido-vertical-mode)
-; (ido-vertical-mode)
+(ido-vertical-mode)
 (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
 
 ;; If not using ido-vertical-mode, make the minibuff stay still,
-;; i.e. never change height.
-(setq resize-mini-windows nil)
+;; i.e. never change height, set this to nil.
+;; (setq resize-mini-windows nil)
 
 ;; IDO support pretty much everwhere, including eclim-java-implement
 (require 'ido-ubiquitous)
