@@ -1,8 +1,10 @@
-personal_ws-1.1 en 146 
+personal_ws-1.1 en 155 
 API
 netfilter
 scp
 ACLs
+NewsGate
+Newsgate
 xattr
 cpuacct
 OpenQA
@@ -27,6 +29,7 @@ IDEs
 ECE
 el
 dev
+ELIVE
 cls
 LinuxCon
 distro
@@ -58,16 +61,20 @@ screenshots
 Escenic
 namespaces
 cgroups
+Escenic's
+versioning
 Unlicense
 systemd
 DiBona
 gatekeeping
+LayoutChamp
 poilicy
 symlinks
 infrakit
 ssh
 nosuid
 memcached
+NewsDirector
 https
 webshhere
 runv
@@ -102,6 +109,7 @@ VM
 AGPL
 iptables
 noexec
+workflow
 lwn
 APIs
 linux
@@ -136,6 +144,7 @@ gRPC
 partision
 GatheringArrow
 IMA
+NewsAccess
 CCI
 Evolvable
 swmaster
