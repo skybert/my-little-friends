@@ -5,6 +5,8 @@
 
 ;; Improved flex matching
 (require 'flx-ido)
+;; Vertical completion menu
+(require 'ido-vertical-mode)
 
 (setq ido-everywhere nil
       ido-enable-flex-matching t
@@ -12,21 +14,33 @@
       ido-file-extensions-order '(".java" ".js" ".el" ".xml")
       ido-use-filename-at-point 'guess
       ido-use-faces t
+      ido-vertical-indicator "→"
+      ido-vertical-show-count t
       )
 (ido-mode 'buffer)
 
-;; Vertical completion menu
-(require 'ido-vertical-mode)
 (ido-vertical-mode)
+(ido-vertical-mode 1)
 (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
+
+(defun tkj-switch-buffer()
+  (interactive)
+  (cons
+   ;;    (ido-vertical-mode 0)
+    (ido-switch-buffer)
+    ;; ido-vertical-mode never gets turned on
+    ;;    (ido-vertical-mode 1)
+    )
 
 ;; If not using ido-vertical-mode, make the minibuff stay still,
 ;; i.e. never change height, set this to nil.
-;; (setq resize-mini-windows nil)
+;; (setq resize-mini-windows 'grow-only)
 
 ;; IDO support pretty much everwhere, including eclim-java-implement
 (require 'ido-ubiquitous)
 (ido-ubiquitous)
+
+(global-set-key (kbd "C-x b") 'tkj-switch-buffer)
 
 ;; Enhanced M-x
 (require 'smex)
@@ -134,4 +148,3 @@ directory, select directory. Lastly the file is opened."
 
   (global-set-key "\C-cf" 'file-cache-ido-find-file)
   )
-
