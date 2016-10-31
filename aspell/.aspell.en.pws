@@ -1,10 +1,10 @@
-personal_ws-1.1 en 155 
+personal_ws-1.1 en 156 
 API
 netfilter
 scp
 ACLs
-NewsGate
 Newsgate
+NewsGate
 xattr
 cpuacct
 OpenQA
@@ -60,14 +60,14 @@ runc
 screenshots
 Escenic
 namespaces
-cgroups
-Escenic's
 versioning
+Escenic's
+cgroups
 Unlicense
 systemd
 DiBona
-gatekeeping
 LayoutChamp
+gatekeeping
 poilicy
 symlinks
 infrakit
@@ -94,8 +94,8 @@ mkdir
 LSS
 cpuset
 rw
-ui
 ss
+ui
 gid
 Kubernetes
 ve
@@ -114,6 +114,7 @@ lwn
 APIs
 linux
 Johansen's
+targetting
 jboss
 hostname
 EVM
