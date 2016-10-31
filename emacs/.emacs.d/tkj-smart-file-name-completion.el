@@ -25,12 +25,11 @@
 
 (defun tkj-switch-buffer()
   (interactive)
-  (cons
-   ;;    (ido-vertical-mode 0)
-    (ido-switch-buffer)
-    ;; ido-vertical-mode never gets turned on
-    ;;    (ido-vertical-mode 1)
-    )
+  ;;    (ido-vertical-mode 0)
+  (ido-switch-buffer)
+  ;; ido-vertical-mode never gets turned on
+  ;;    (ido-vertical-mode 1)
+  )
 
 ;; If not using ido-vertical-mode, make the minibuff stay still,
 ;; i.e. never change height, set this to nil.
