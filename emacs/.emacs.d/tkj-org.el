@@ -22,7 +22,7 @@
       (quote (("t" "todo" entry (file "~/doc/work.org")
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("q" "QA follow up" entry (file "~/doc/work.org")
-               "* TODO Follow up on QA of %?\n%U\n%a\n" :clock-in t :clock-resume t))))
+               "* TODO Follow up on QA of %?\n  SCHEDULED: %T\n%a\n"))))
 
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cl" 'org-store-link)
