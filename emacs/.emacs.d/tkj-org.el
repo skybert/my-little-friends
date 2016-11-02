@@ -20,7 +20,7 @@
                              )
       org-capture-templates
       (quote (("t" "todo" entry (file "~/doc/work.org")
-               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* TODO %?\n  SCHEDULED: %T\n%a\n")
               ("q" "QA follow up" entry (file "~/doc/work.org")
                "* TODO Follow up on QA of %?\n  SCHEDULED: %T\n%a\n"))))
 
