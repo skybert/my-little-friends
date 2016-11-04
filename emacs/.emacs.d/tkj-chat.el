@@ -131,3 +131,7 @@
 
 (setq alert-default-style 'tkj-slack-alert-style)
 ;; (alert "hello" :title "the title")
+
+(defun tkj-chat-set-frame-title()
+  (interactive)
+  (setq frame-title-format (concat "talk @" (system-name) " {%f}")))
