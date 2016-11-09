@@ -26,7 +26,6 @@ main() {
           org-agenda-include-diary t
           org-agenda-files (quote (\"~/doc/work.org\" \"~/doc/gcal.org\")))" \
             2>/dev/null)
-
   result=
   result=$(
     echo "${org_agenda}" |

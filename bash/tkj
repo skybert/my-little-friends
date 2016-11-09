@@ -35,6 +35,11 @@ function do_schedule-hudson-build() {
         http://hudson.dev.escenic.com/job/${1}/lastBuild
 }
 
+function do_go-to-meeting() {
+  do_turn-off-external-screens
+  wireless
+}
+
 ## Method useful for developers and system administrators. It checks
 ## the passed URL for common things interesting, producing a short
 ## report, as well as listing all the response headers.

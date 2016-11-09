@@ -1,4 +1,4 @@
-personal_ws-1.1 en 156 
+personal_ws-1.1 en 159 
 API
 netfilter
 scp
@@ -63,6 +63,7 @@ namespaces
 versioning
 Escenic's
 cgroups
+symlink
 Unlicense
 systemd
 DiBona
@@ -78,6 +79,7 @@ NewsDirector
 https
 webshhere
 runv
+discoverable
 blkio
 runz
 datastructure
@@ -94,8 +96,8 @@ mkdir
 LSS
 cpuset
 rw
-ss
 ui
+ss
 gid
 Kubernetes
 ve
@@ -113,6 +115,7 @@ workflow
 lwn
 APIs
 linux
+uri
 Johansen's
 targetting
 jboss
