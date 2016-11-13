@@ -31,6 +31,26 @@ EOF
 
   echo "$news" | sed -n \ 's#.*<title>\(.*\)</title>.*<description>\(.*\)</description>.*<link>\(.*\)</link>.*#      <li><a href="\3">\1</a>: \2 </li>#p'
   echo "    </ul>"
+
+  news=$(
+    curl -s http://www.aftenposten.no/rss/ |
+      sed -n -e '/      <title>/p' \
+          -e '/      <link>/p' \
+          -e '/      <description>/p'
+      )
+
+  cat <<EOF
+    <ul>
+EOF
+  echo "${news}" |
+    sed -r -n \
+        -e 's#[ ]*<title>(.*)</title>#      <li>\n        \1#p' \
+        -e 's#[ ]*<link>(.*)</link>#        <a href="\1">more</a>#p'  \
+        -e 's#[ ]*<description>(.*)</description>#        <p>\1</p>\n      </li>#p'
+  cat <<EOF
+    </ul>
+EOF
+
 }
 
 print_header() {
