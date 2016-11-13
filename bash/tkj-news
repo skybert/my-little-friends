@@ -23,7 +23,7 @@ the_holy_word_of_the_day() {
 news() {
   local news=$(curl -s http://www.nrk.no/nyheter/siste.rss | \
                     grep '<item>' | \
-                    head -6)
+                    head -n 10)
   cat <<EOF
     <h2>News</h2>
     <ul>
