@@ -44,9 +44,9 @@ EOF
 EOF
   echo "${news}" |
     sed -r -n \
-        -e 's#[ ]*<title>(.*)</title>#      <li>\n        \1#p' \
-        -e 's#[ ]*<link>(.*)</link>#        <a href="\1">more</a>#p'  \
-        -e 's#[ ]*<description>(.*)</description>#        <p>\1</p>\n      </li>#p'
+        -e 's#[ ]*<title>(.*)</title>#      <li>\n        <strong>\1</strong>#p' \
+        -e 's#[ ]*<link>(.*)</link>#        <a href="\1">→ les mer</a>#p'  \
+        -e 's#[ ]*<description>(.*)</description>#        \1\n      </li>#p'
   cat <<EOF
     </ul>
 EOF
