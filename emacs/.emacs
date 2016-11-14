@@ -52,6 +52,9 @@
       visible-bell nil
       ring-bell-function (lambda nil (message "")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Remove uninteresting information from the mode line
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'diminish)
 (diminish 'eclim-mode)
 (diminish 'auto-fill-function)
