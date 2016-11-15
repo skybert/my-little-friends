@@ -118,7 +118,7 @@
        (if (plist-get info :message)
            (concat " 📰 " (plist-get info :message)))
        "\n"))
-     (write-region nil nil "~/.slack-messages.log")
+     (write-region nil nil "~/.slack-messages.log" t)
      )
 
    ;; Removers are optional.  Their job is to remove
