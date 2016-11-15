@@ -1,10 +1,10 @@
-personal_ws-1.1 en 159 
+personal_ws-1.1 en 161 
 API
 netfilter
 scp
 ACLs
-Newsgate
 NewsGate
+Newsgate
 xattr
 cpuacct
 OpenQA
@@ -70,6 +70,7 @@ DiBona
 LayoutChamp
 gatekeeping
 poilicy
+inodes
 symlinks
 infrakit
 ssh
@@ -83,6 +84,7 @@ discoverable
 blkio
 runz
 datastructure
+unexplainable
 KVM
 OCI
 Merchner
