@@ -1,0 +1,8 @@
+#name : tmpdir
+# --
+local ${1:tmp_dir}=
+$1=\$(mktemp -d)
+
+$0
+
+rm -r "\${$1\}"
