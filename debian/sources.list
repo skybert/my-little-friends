@@ -6,7 +6,7 @@ deb http://ftp.no.debian.org/debian jessie main contrib non-free
 deb-src http://ftp.no.debian.org/debian jessie main contrib non-free
 
 ## Excellent MySQL patch set for performance
-deb http://repo.percona.com/apt wheezy main
+deb http://repo.percona.com/apt jessie main
 
 ## Backports for jessie
 deb http://ftp.no.debian.org/debian jessie-backports main
