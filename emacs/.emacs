@@ -75,7 +75,7 @@
   (when window-system
     (set-face-attribute 'default nil
                         :family "Source Code Pro"
-                        :height 150
+                        :height 170
                         :weight 'normal
                         :width 'normal)))
 
