@@ -1,10 +1,10 @@
-personal_ws-1.1 en 161 
+personal_ws-1.1 en 163 
 API
 netfilter
 scp
 ACLs
-NewsGate
 Newsgate
+NewsGate
 xattr
 cpuacct
 OpenQA
@@ -32,6 +32,7 @@ dev
 ELIVE
 cls
 LinuxCon
+artifact
 distro
 ECS
 AWS
@@ -58,6 +59,7 @@ cgroup
 runC
 runc
 screenshots
+escenic
 Escenic
 namespaces
 versioning
@@ -69,8 +71,8 @@ systemd
 DiBona
 LayoutChamp
 gatekeeping
-poilicy
 inodes
+poilicy
 symlinks
 infrakit
 ssh
@@ -83,8 +85,8 @@ runv
 discoverable
 blkio
 runz
-datastructure
 unexplainable
+datastructure
 KVM
 OCI
 Merchner
