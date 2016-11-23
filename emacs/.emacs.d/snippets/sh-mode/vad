@@ -1,0 +1,3 @@
+#name : vad
+# --
+local ${1:dir}=$0

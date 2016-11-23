@@ -8,9 +8,9 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source ~/src/moria/src/common/text/color.sh
-source ~/src/moria/src/common/indispensable.sh
-source ~/src/moria/src/common/common-exit-hook.sh
+source $(dirname "$0")/../common/text/color.sh
+source $(dirname "$0")/../common/indispensable.sh
+source $(dirname "$0")/../common/common-exit-hook.sh
 
 read_user_input() {
   local OPTS=
@@ -27,9 +27,9 @@ read_user_input() {
   eval set -- "$OPTS"
 
   while true; do
-    case "$1" in
+    case "\$1" in
       -c | --conf )
-        conf_file="$2";
+        conf_file="\$2";
         shift 2;;
       -h | --help )
         show_help_and_exit;
