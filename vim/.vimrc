@@ -33,6 +33,9 @@ cnoremap <M-f>  <S-Right>
 cnoremap <M-d>  <S-right><Delete>
 cnoremap <C-g>  <C-c>
 
+"Interact with vim using ; instead of :"
+:nmap ; :
+
 "Highlight trailing white space"
 highlight ExtraWhitespace ctermbg=red guibg=red
 au ColorScheme * highlight ExtraWhitespace guibg=red
