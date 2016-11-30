@@ -1,0 +1,5 @@
+#name : wh
+# --
+while read -r ${1:f}; do
+  $0
+done
