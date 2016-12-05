@@ -1,5 +1,6 @@
 #name : wh
 # --
 while read -r ${1:f}; do
+  echo "\${$1}"
   $0
 done
