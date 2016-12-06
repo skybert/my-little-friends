@@ -90,7 +90,7 @@ Control Shift k :MoveUp 10
 Control Shift j :MoveDown 10
 Control Shift l :MoveRight 10
 Control Shift v :MaximizeVertical
-Control Shift y :ClientMenu
+Control Shift o :ClientMenu
 Super_L         :ClientMenu
 Alt Shift Left  :MoveLeft 200
 Alt Shift Right :MoveRight 200
