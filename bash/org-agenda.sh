@@ -36,13 +36,16 @@ main() {
       egrep -v '^Diary:' |
       egrep -v ':noreport:' |
       sed -r -e 's#:([^:^ ]+)#\#\1 #g' -e 's# :$##' |
-      sed -r 's#work:.* Sched.*[0-9]+x:.*STARTED#  Continue#' |
+      sed -r 's#work:.* Sched.*[0-9]+x:.*STARTED # ⏩ #' |
       sed -r 's#work:.* Scheduled:##' |
       sed -r 's#work:.* Sched. [0-9]*x:##' |
       sed -r 's#TODO ##' |
       sed -r 's#PR #⌛ Fixed, awaiting PR: #' |
       sed -r 's#DONE #✔ #' |
-      sed -r 's#STARTED #Started #' |
+      sed -r 's#Help out #🏥 Help out #' |
+      sed -r 's#talk(ed)* with #💬 with #i' |
+      sed -r 's#talk(ed)* to #💬 to #i' |
+      sed -r 's#STARTED #▶ #' |
       sed -r 's#MERGED #✔ Merged: #'
         )
 
