@@ -1,10 +1,10 @@
-personal_ws-1.1 en 167 
+personal_ws-1.1 en 169 
 API
 netfilter
 scp
 ACLs
-Newsgate
 NewsGate
+Newsgate
 xattr
 cpuacct
 OpenQA
@@ -50,6 +50,7 @@ yaml
 virtualisation
 CPs
 NATing
+symlinking
 pids
 Goobuntu
 eachother
@@ -122,6 +123,7 @@ APIs
 linux
 uri
 Johansen's
+xinerama
 targetting
 jboss
 hostname
