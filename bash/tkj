@@ -429,6 +429,8 @@ function do_turn-off-external-screens() {
       xrandr --output ${screen} --off
     fi
   done
+  killall xmessage || true
+  do_set-wallpaper
 }
 
 function do_setup-screens-above-laptop() {
@@ -436,6 +438,7 @@ function do_setup-screens-above-laptop() {
   sleep 3
   fbsetroot -solid black
   killall xmessage || true
+  do_set-wallpaper
 }
 
 ## Sets up screens like this:
@@ -445,6 +448,7 @@ function do_setup-screens-above-laptop() {
 function do_setup-screens-laptop-is-king() {
   xrandr --output HDMI-1 --above eDP-1 --auto
   xrandr --output HDMI-2 --right-of HDMI-1  --auto
+  do_set-wallpaper
 }
 
 function do_setup-screens() {
