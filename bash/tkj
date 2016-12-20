@@ -416,7 +416,9 @@ function do_setup-screens-presentation() {
   do_turn-off-external-screens
   # TODO get primary and external screen names dynamically
   xrandr --output HDMI-2 --auto --same-as eDP-1
+  sleep 3
   do_set-wallpaper
+  killall xmessage || true
 }
 
 function do_turn-off-external-screens() {
@@ -429,8 +431,9 @@ function do_turn-off-external-screens() {
       xrandr --output ${screen} --off
     fi
   done
-  killall xmessage || true
+  sleep 3
   do_set-wallpaper
+  killall xmessage || true
 }
 
 function do_setup-screens-above-laptop() {
