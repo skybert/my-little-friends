@@ -1,14 +1,17 @@
-personal_ws-1.1 en 169 
+personal_ws-1.1 en 173 
 API
 netfilter
+hairer
 scp
 ACLs
-NewsGate
 Newsgate
+NewsGate
 xattr
+automagically
 cpuacct
 OpenQA
 relatime
+initialiser
 seccomp
 perf
 richfaces
@@ -61,7 +64,6 @@ runC
 runc
 screenshots
 escenic
-Escenic
 namespaces
 versioning
 Escenic's
@@ -125,6 +127,7 @@ uri
 Johansen's
 xinerama
 targetting
+TODO
 jboss
 hostname
 resize
