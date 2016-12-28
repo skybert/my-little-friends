@@ -38,8 +38,7 @@ function get_short_dir() {
 PS1="\[\033[0;35m\]\$(get_vc_status)\[\033[0;39m\]\W \$(if [ \$? -ne 0 ]; then echo '↓ '; fi)\[\033[0;32m\]$\[\033[0;39m\] "
 
 # improved bash -x (must be exported)
-export PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
-'
+export PS4='# ${BASH_SOURCE}:${LINENO}: ${FUNCNAME[0]}() - [${SHLVL},${BASH_SUBSHELL},$?] '
 
 ##################################################################
 # history
