@@ -69,5 +69,5 @@ ${exec ~/src/my-little-friends/bash/tkj dates}
 ${color grey}$hr
 ${color grey}${exec date}
 ${color grey}$hr
-${color grey}${exec mpc | head -1}
+${color grey}${exec mpc current  -f "%title% ♬ %artist% ♪ %album%"}
 ]]
