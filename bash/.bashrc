@@ -88,6 +88,7 @@ alias gsh='git show'
 alias gsr='git svn rebase'
 alias less='less -Ri'
 alias ls='ls -ltrh'
+alias m='mpc current  -f "%title% ♬ %artist% ♪ %album%"'
 alias mcc="mvn clean compile"
 alias mci="mvn clean install --fail-at-end"
 alias mcp="mvn clean package -DskipTests --fail-at-end"
