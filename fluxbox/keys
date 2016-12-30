@@ -31,7 +31,8 @@ Mod1 Tab :NextWindow {groups} (workspace=[current])
 Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
 
 # see all windows
-XF86LaunchA   :ClientMenu
+XF86LaunchA :Exec skippy-xd
+Super_L :Exec skippy-xd
 
 # current window commands
 Mod1 F4 :Close
@@ -91,7 +92,6 @@ Control Shift j :MoveDown 10
 Control Shift l :MoveRight 10
 Control Shift v :MaximizeVertical
 Control Shift o :ClientMenu
-Super_L         :ClientMenu
 Alt Shift Left  :MoveLeft 200
 Alt Shift Right :MoveRight 200
 
