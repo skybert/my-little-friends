@@ -18,6 +18,7 @@
 
 [merge]
     tool = ediff
+    conflictstyle = diff3
 
 [push]
     # only push the current branch, not all the local branches.
