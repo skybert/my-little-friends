@@ -637,7 +637,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally ;; !work
-      ediff-diff-options "-w")
+      ediff-diff-options "-w"
+      smerge-command-prefix "\C-cv")
 ;; Restore window/buffers when you're finishd ediff-ing.
 (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 
