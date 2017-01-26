@@ -14,7 +14,7 @@ git_url=http://git.sv.gnu.org/r/emacs.git
 src=/usr/local/src/emacs
 
 checkout_or_update_repository() {
-  print "$FUNCNAME ..."
+  print "${FUNCNAME[0]} ..."
   if [ -e "${src}" ]; then
     (
       run cd "${src}"
@@ -25,8 +25,12 @@ checkout_or_update_repository() {
     run git clone "${git_url}" "${src}"
   fi
 
-  # creating machine dependent build files
+  local branch=${1-master}
   run cd "${src}"
+  run git checkout "${branch}"
+  print "${FUNCNAME[0]} branch=${branch} ..."
+
+  # creating machine dependent build files
   aclocal
   autoheader
   automake --force-missing --add-missing
@@ -34,12 +38,11 @@ checkout_or_update_repository() {
 }
 
 compile() {
-  local branch=$1
-
-  run git checkout ${branch-master}
-  print "$FUNCNAME branch=${branch} ..."
+  print "${FUNCNAME[0]} ..."
   run cd "${src}"
   run make clean
+  run sh ./autogen.sh
+  run sh ./autogen.sh git
   run ./configure \
       --with-x-toolkit=gtk \
       --with-png \
@@ -52,9 +55,9 @@ compile() {
 
 
 main() {
-  print "$FUNCNAME ..."
-  checkout_or_update_repository
-  compile $1
+  print "${FUNCNAME[0]} ..."
+  checkout_or_update_repository  "${1-master}"
+  compile
 }
 
 main "$@"
