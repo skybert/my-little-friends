@@ -48,7 +48,7 @@ compile() {
       --with-png \
       --with-jpeg \
       --with-gif
-  run make
+  run nice -n 19 make
   print "Compile was successful, now enter your root password to install it."
   su -c "make install"
 }
