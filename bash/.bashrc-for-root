@@ -19,5 +19,6 @@ alias ls='ls -lh'
 alias df='df -hT'
 alias emacs='emacs -nw'
 alias eternal='cat ~/.bash_eternal_history | grep'
+alias free='free -h'
 alias vi=vim
 alias grep='grep -i'
