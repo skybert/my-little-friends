@@ -8,9 +8,11 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source $(dirname "$0")/../common/text/color.sh
-source $(dirname "$0")/../common/indispensable.sh
-source $(dirname "$0")/../common/common-exit-hook.sh
+show_help_and_exit() {
+  cat <<EOF
+Usage: ${BASH_SOURCE[0]}
+EOF
+}
 
 read_user_input() {
   local OPTS=
