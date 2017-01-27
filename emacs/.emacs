@@ -26,12 +26,17 @@
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
   ;; (load-theme 'sanityinc-tomorrow-eighties)
 
-  ;; Favourite fonts: Source Code Pro, Terminus
-  (set-face-attribute 'default nil
-                      :family "Source Code Pro"
-                      :height 100
-                      :weight 'normal
-                      :width 'normal)
+  (if (eq system-type 'gnu/linux)
+      (progn
+	;; Favourite fonts: Source Code Pro, Terminus
+	(set-face-attribute 'default nil
+			    :family "Source Code Pro"
+			    :height 100
+			    :weight 'normal
+			    :width 'normal)
+	;; Edit server needed for editing text areas in Chrome browsers
+	(edit-server-start)
+	))
 
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
@@ -39,8 +44,6 @@
   (tool-bar-mode 0)
   (set-fringe-style 0)
 
-  ;; Edit server needed for editing text areas in Chrome browsers
-  (edit-server-start)
   )
 
 (setq frame-background-mode nil
