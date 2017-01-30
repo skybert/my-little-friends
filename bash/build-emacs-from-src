@@ -44,6 +44,7 @@ compile() {
   run sh ./autogen.sh
   run sh ./autogen.sh git
   run ./configure \
+      CFLAGS=-no-pie \
       --with-x-toolkit=gtk \
       --with-png \
       --with-jpeg \
