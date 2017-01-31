@@ -1,7 +1,5 @@
 /*
- * $Header$
- *
- * Copyright (C) 2016 Escenic AS.
+ * Copyright © 2017 Escenic AS.
  *
  * All Rights Reserved.  No use, copying or distribution of this work
  * may be made except in accordance with a valid license agreement
@@ -16,7 +14,6 @@ import java.util.*;
  * (>>FILE_NO_EXT<<)
  *
  * @author <a href="mailto:torstein@escenic.com">Torstein Krause Johansen</a>
- * @version $Revision$ $Date$
  */
 public class (>>FILE_NO_EXT<<) {
 
