@@ -1,45 +1,18 @@
 ;; -*- emacs-lisp -*-
-(setq src "/home/torstein/src/p4")
+(setq src "/home/torstein/src")
 (setq jdibug-connect-hosts (quote ("localhost:5005"))
-      jdibug-use-jde-source-paths nil
+      jdibug-use-jdee-source-paths nil
       jdibug-source-paths
       (list
-       (concat src "/projects/poc/inpage-poc/viziwyg-ws/src/main/java")
-       (concat src "/projects/poc/inpage-poc/viziwyg-common/src/main/java")
-       (concat src "/escenic/plugins/viziwyg/trunk/viziwyg-ws/src/main/java")
-       (concat src "/branches/personal/torstein/memento/src/main/java")
-       (concat src "/escenic/plugins/forum/branches/3.0/forum-core/src/main/java")
-       (concat src "/escenic/plugins/forum/branches/3.0/forum-presentation/src/main/java")
-       (concat src "/escenic/engine/branches/5.3/engine-core/src/main/java")
-       (concat src "/escenic/engine/branches/5.3/engine-search/src/main/java")
-       (concat src "/escenic/engine/branches/5.3/engine-webservice/src/main/java")
-       (concat src "/escenic/plugins/dashboard/trunk/dashboard-core/src/main/java")
-       (concat src "/escenic/plugins/community/branches/3.6/community-core/src/main/java")
-       (concat src "/escenic/plugins/community/branches/3.6/community-common/src/main/java")
-       (concat src "/escenic/plugins/community/branches/3.6/community-presentation/src/main/java")
-       "/usr/lib/jvm/java-6-sun/src"
+       (concat src "/content-engine/engine/engine-core/src/main/java")
+       (concat src "/content-engine/engine/engine-webservice/src/main/java")
+       "/usr/lib/jvm/jdk-8-oracle-x64/src"
        )
 )
 
-(add-to-list 'load-path "/usr/local/src/emacs/jdibug-0.5")
-;; version 0.4 of jdibug requires semantic
-(setq semantic-load-turn-everything-on t)
-(semantic-mode 1)
-
-(require 'semantic/lex)
-(require 'semantic/senator)
-(require 'semantic/java)
-(require 'semantic/ia)
-(require 'semantic/ctxt)
-(require 'semantic/wisent)
-(require 'semantic/wisent/comp)
-(require 'semantic/wisent/java-tags)
-
-;; Use the full Java 1.5 grammer to parse Java
-(autoload 'wisent-java-default-setup "wisent" "Hook run to setup Semantic in 'java-mode'." nil nil)
-(require 'cl)
+(add-to-list 'load-path "/usr/local/src/jdibug/build/jdibug-0.7")
 (require 'jdibug)
-
+(require 'jdibug-ui)
 
 (defun my-jdibug-mode-hook ()
   ;; IDEA style debug short cuts
