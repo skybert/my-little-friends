@@ -52,7 +52,7 @@
       projectile-globally-ignored-directories
       (append (list "target" "output" "node_modules" "reveal.js" "venv")
               projectile-globally-ignored-directories)
-      projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath" "tkj")
+      projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath" "tkj" "zip")
       projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s"
       projectile-mode-line '(:eval (format " [%s]" (projectile-project-name)))
       )
