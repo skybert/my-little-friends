@@ -44,6 +44,7 @@
        (concat src "/content-engine/studio/studio-sandbox/src/main/java")
        (concat src "/content-engine/studio/studio-swing/src/main/java")
        "/usr/lib/jvm/jdk-8-oracle-x64/src"
+       "/usr/local/src/apache-tomcat-7.0.62-src/java"
        )
 )
 
