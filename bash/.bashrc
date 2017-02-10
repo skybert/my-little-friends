@@ -121,7 +121,7 @@ function uprompt() {
 ##################################################################
 # bash completion
 ##################################################################
-# music -> cd music
+# music → cd music
 shopt -s autocd
 # ls src/**/pom.xml
 shopt -s globstar
