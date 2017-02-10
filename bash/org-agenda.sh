@@ -35,7 +35,6 @@ main() {
       grep -v 'Onelinescrum' |
       egrep -v '^Diary:' |
       egrep -v ':noreport:' |
-      sed -r -e 's#:([^:^ ]+)#\#\1 #g' -e 's# :$##' |
       sed -r 's#work:.* Sched.*[0-9]+x:.*STARTED # ⏩ #' |
       sed -r 's#work:.* Scheduled:##' |
       sed -r 's#work:.* Sched. [0-9]*x:##' |
@@ -46,7 +45,12 @@ main() {
       sed -r 's#talk(ed)* with #💬 with #i' |
       sed -r 's#talk(ed)* to #💬 to #i' |
       sed -r 's#STARTED #▶ #' |
-      sed -r 's#MERGED #✔ Merged: #'
+      sed -r 's#MERGED #✔ Merged: #' |
+      sed -r 's#gcal:[ ]*[0-9]+:[0-9]+-[0-9]+:[0-9]+#Meeting:#' |
+      sed -r 's#gcal:[ ]*[0-9]+:[0-9]+#Meeting:#' |
+      sed -r 's#[\.][\.][\.][\.][\.][\.]##' |
+      sed -r 's#[ ]+:([^:]*):# \#\1#g'
+
         )
 
   if [[ ${format} == "markdown" ]]; then
