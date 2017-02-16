@@ -221,6 +221,10 @@ function do_backup() {
   if [ -x ~/backup/pull ]; then
     run ~/backup/pull
   fi
+
+  if [ -x ~/backup/push ]; then
+    run ~/backup/push
+  fi
 }
 
 function do_restart-eclimd() {
