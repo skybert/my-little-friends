@@ -125,8 +125,6 @@ function uprompt() {
 shopt -s autocd
 # ls src/**/pom.xml
 shopt -s globstar
-# if no .txt files, ls *.txt should return a null string
-shopt -s nullglob
 
 export FIGNORE=.svn
 l="
