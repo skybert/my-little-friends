@@ -20,6 +20,7 @@
   (subword-mode)
   (yas-minor-mode)
   (idle-highlight-mode)
+  (git-gutter+-mode)
 
   ;; Only include eclim candidates in the completion menu, must be run
   ;; after eclim-mode above.

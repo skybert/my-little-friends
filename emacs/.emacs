@@ -72,6 +72,7 @@
 (diminish 'compilation-minor-mode)
 (diminish 'command-log-mode)
 (diminish 'visual-line-mode)
+(diminish 'git-gutter+-mode)
 
 (defun tkj-presentation-mode()
   (interactive)
@@ -230,6 +231,7 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (flyspell-mode)
+             (git-gutter+-mode)
              (auto-fill-mode 1)))
 (setq longlines-show-hard-newlines t)
 
