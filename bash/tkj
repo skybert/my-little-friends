@@ -753,6 +753,14 @@ function do_music-toggle() {
   fi
 }
 
+function do_add-todo() {
+  cat >> "${HOME}/doc/work.org" <<EOF
+* TODO $*
+  SCHEDULED: <$(date --iso)>
+
+EOF
+}
+
 function do_play-that-music()
 {
   mpc -p ${mpd_port-6600} clear
