@@ -28,7 +28,7 @@ fi
 clipit &
 conky &
 vivaldi &
-emacs-snapshot -fn 7x14 -g 80x60 &
+emacs -fn 7x14 -g 80x60 &
 mpd $HOME/.mpdconf &
 gnome-terminal &
 
