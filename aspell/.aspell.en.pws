@@ -1,11 +1,11 @@
-personal_ws-1.1 en 172 
+personal_ws-1.1 en 173 
 API
 netfilter
 hairer
 scp
 ACLs
-NewsGate
 Newsgate
+NewsGate
 xattr
 automagically
 cpuacct
@@ -140,6 +140,7 @@ ona
 MySQL
 artifacts
 pid
+screenshot
 distros
 html
 OpenCV
