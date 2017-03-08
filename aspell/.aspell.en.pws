@@ -1,13 +1,15 @@
-personal_ws-1.1 en 173 
+personal_ws-1.1 en 179 
 API
 netfilter
 hairer
 scp
+whitespace
 ACLs
 Newsgate
 NewsGate
 xattr
 automagically
+coreutils
 cpuacct
 OpenQA
 relatime
@@ -29,6 +31,7 @@ cli
 Masos
 ContainerCon
 IDEs
+ece
 ECE
 el
 dev
@@ -100,6 +103,7 @@ blockchain
 etcd
 ro
 LSM
+recode
 mkdir
 LSS
 cpuset
@@ -128,6 +132,7 @@ Johansen's
 xinerama
 targetting
 jboss
+UTF
 hostname
 resize
 EVM
@@ -139,6 +144,7 @@ usr
 ona
 MySQL
 artifacts
+Percona
 pid
 screenshot
 distros
