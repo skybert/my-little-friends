@@ -6,9 +6,10 @@
       )
 
 (add-hook 'web-mode-hook
-          '(lambda ()
-             (yas-minor-mode)
-             ))
+          (lambda ()
+            (yas-minor-mode)
+            (set (make-local-variable 'company-backends) '(company-web-html))
+            (company-mode t)))
 
 (defun tkj-tidy-up-css()
   (interactive)
