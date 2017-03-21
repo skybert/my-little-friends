@@ -1,5 +1,5 @@
 "Theme"
-colo darkblue
+" colo darkblue
 
 "Numbered lines"
 set number
