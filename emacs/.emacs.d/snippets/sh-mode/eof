@@ -1,0 +1,5 @@
+#name : eof
+# --
+cat <<EOF
+$0
+EOF

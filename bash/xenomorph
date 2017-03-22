@@ -15,16 +15,16 @@ set -o pipefail
 
 show_help_and_exit() {
   cat <<EOF
-  Usage: BASH_SOURCE[0] <deb-file>
+Usage: ${BASH_SOURCE[0]##*/} <deb-file>
 EOF
+  exit 0
 }
 
 read_user_input() {
   local OPTS=
   OPTS=$(getopt \
-           -o hc: \
+           -o h \
            --long help \
-           --long conf: \
            -n 'parse-options' \
            -- "$@")
   if [ $? != 0 ] ; then
@@ -35,9 +35,6 @@ read_user_input() {
 
   while true; do
     case "$1" in
-      -c | --conf )
-        conf_file="$2";
-        shift 2;;
       -h | --help )
         show_help_and_exit;
         break;;
