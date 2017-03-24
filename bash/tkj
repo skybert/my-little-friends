@@ -821,15 +821,3 @@ rm $pid_file 2>/dev/null
 
 exit 0
 
-#    print $seperator
-#    print "Pulling from viziwyg/trunk -> branch/plugins-inpage-dnd-poc"
-#    p4 integrate -b plugins-inpage-poc
-#    p4 resolve -at
-
-# $HOME/src/p4/escenic/plugins/community
-# $HOME/src/p4/escenic/plugins/forum
-# $HOME/src/p4/escenic/plugins/dashboard
-# $HOME/src/p4/escenic/plugins/viziwyg
-# $HOME/src/p4/escenic/plugins/poll
-# $HOME/src/p4/escenic/plugins/analysis
-# $HOME/src/p4/main/tip-manager
