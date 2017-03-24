@@ -21,6 +21,8 @@
       org-capture-templates
       (quote (("t" "todo" entry (file "~/doc/work.org")
                "* TODO %?\n  SCHEDULED: %T\n%a\n")
+              ("i" "idea" entry (file "~/doc/ideas.org")
+               "* TODO %?\n  SCHEDULED: %T\n%a\n")
               ("q" "QA follow up" entry (file "~/doc/work.org")
                "* TODO Follow up on QA of %?\n  SCHEDULED: %T\n%a\n"))))
 
