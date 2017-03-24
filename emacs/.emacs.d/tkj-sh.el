@@ -7,6 +7,9 @@
 ;; on the fly syntax checking
 (add-hook 'sh-mode-hook 'flycheck-mode)
 
+;; show git changes in the gutter
+(add-hook 'sh-mode-hook 'git-gutter+-mode)
+
 (defun tkj-shunit-disable-all-tests()
   (interactive)
   (save-excursion
