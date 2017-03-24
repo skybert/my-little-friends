@@ -802,15 +802,6 @@ function do_set-random-wallpaper()
   killall xmessage 2>/dev/null
 }
 
-# try to be smart first
-if [  `echo $1 | sed 's/[0-9]//g' | wc -c` -lt 2 ]; then
-  search_otrs $1
-  exit 0
-elif [ `echo $1 | egrep -v -i "VIZIWYG|ECOME|VF|STATS|DASH|ERDQ|FORUM|TM" | wc -c` -lt 1 ]; then
-  do_jira $1
-  exit 0
-fi
-
 function unknown_command()
 {
   print "I don't know the command '${1}' :-("
