@@ -1,0 +1,6 @@
+#name : fo
+# --
+for ${1:el} in \$\{${2:list}\}; do
+  echo "\${$1}"
+  $0
+done
