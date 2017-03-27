@@ -15,7 +15,7 @@
       ido-use-filename-at-point 'guess
       ido-use-faces t
       ido-vertical-indicator "→"
-      ido-vertical-show-count t
+      ido-vertical-show-count nil
       )
 (ido-mode 'buffer)
 
