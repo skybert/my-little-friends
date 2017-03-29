@@ -10,7 +10,10 @@ set -o pipefail
 
 show_help_and_exit() {
   cat <<EOF
-Usage: ${BASH_SOURCE[0]}
+Usage: \${BASH_SOURCE[0]} [OPTIONS]
+
+OPTIONS
+  -h, --help   Don't panic.
 EOF
 }
 
