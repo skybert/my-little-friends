@@ -1,12 +1,12 @@
-personal_ws-1.1 en 185 
+personal_ws-1.1 en 187 
 API
 netfilter
 hairer
 scp
 whitespace
 ACLs
-NewsGate
 Newsgate
+NewsGate
 xattr
 automagically
 coreutils
@@ -26,6 +26,7 @@ rkt
 Sourceforge
 cp
 config
+seismometer
 Solaris
 WTFPL
 cli
@@ -135,6 +136,7 @@ uri
 Johansen's
 xinerama
 targetting
+TODO
 jboss
 UTF
 hostname
@@ -145,6 +147,7 @@ openchainproject
 Jira
 JIRA
 vmware
+desked
 usr
 ona
 MySQL
