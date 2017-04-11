@@ -40,6 +40,7 @@ main() {
       sed -r 's#work:.* Sched. [0-9]*x:##' |
       sed -r 's#TODO ##' |
       sed -r 's#PR #⌛ Fixed, awaiting PR: #' |
+      sed -r 's#WAITING #⌛ Waiting for: #' |
       sed -r 's#DONE #✔ #' |
       sed -r 's#Help out #🏥 Help out #' |
       sed -r 's#talk(ed)* with #💬 with #i' |
