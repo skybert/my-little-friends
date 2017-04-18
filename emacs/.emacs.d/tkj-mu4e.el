@@ -13,6 +13,13 @@
       mu4e-html2text-command "~/src/my-little-friends/bash/tkj-html-to-text.sh"
       mu4e-compose-signature t
 
+      ;; See C-h v mu4e-header-info for more
+      mu4e-headers-fields
+      '( (:date          .  12)
+         (:maildir       .  20)
+         (:from          .  22)
+         (:subject       .  nil))
+
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
       )
