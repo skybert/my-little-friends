@@ -204,6 +204,8 @@ function do_daily()
   do_update-eclipse-files-and-restart-eclimd
   do_backup
 
+  printf "%s\n" "${id} Stopping all Java processes and making world"
+  killall java || true
   tc all
   print "Happy hacking :-)"
 }
