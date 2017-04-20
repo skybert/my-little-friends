@@ -113,13 +113,6 @@
 (global-set-key (kbd "<M-left>") 'winner-undo)
 (global-set-key (kbd "<M-right>") 'winner-redo)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; General debugger settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "<f7>") 'gud-step)
-(global-set-key (kbd "<f8>") 'gud-next)
-(global-set-key (kbd "<f9>") 'gud-cont)
-
 ;; navigate between visible buffers (windows in emacs speak)
 (defun other-window-backward (&optional n)
   (interactive "p")
