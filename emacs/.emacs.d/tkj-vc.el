@@ -13,3 +13,9 @@
 ;; Move between local changes
 (global-set-key (kbd "M-<up>") 'git-gutter+-previous-hunk)
 (global-set-key (kbd "M-<down>") 'git-gutter+-next-hunk)
+
+;; Customise the magit log view
+(setq magit-log-arguments '("-n256"
+                            "--graph"
+                            "--decorate"
+                            "--color"))
