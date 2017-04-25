@@ -47,7 +47,7 @@
       (c-set-offset 'inexpr-class 0))
 
   ;; Indent arguments on the next line as indented body.
-  (c-set-offset 'arglist-intro '+))
+  (c-set-offset 'arglist-intro '++))
 (add-hook 'java-mode-hook 'my-java-mode-hook)
 
 (defun tkj-java-before-save-hook()
