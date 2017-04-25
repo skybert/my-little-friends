@@ -11,18 +11,18 @@ shopt -s nullglob
 
 main() {
   format=${1-"markdown"}
-
+  days_back=${2-"7"}
   now=
   start_date=
   org_agenda=
 
   now=$(date +%s)
-  start_date=$(date +%Y-%m-%d --date @$((now - (60 * 60 * 24 * 7))))
+  start_date=$(date +%Y-%m-%d --date @$((now - (60 * 60 * 24 * days_back))))
   org_agenda=$(
     emacs -batch -l ~/.emacs.d/tkj-org.el \
           -eval "(org-batch-agenda \"a\"
           org-agenda-start-day \"${start_date}\"
-          org-agenda-span 8
+          org-agenda-span $(( days_back + 1 ))
           org-agenda-include-diary t
           org-agenda-files (quote (\"~/doc/work.org\" \"~/doc/gcal.org\")))" \
             2>/dev/null)
