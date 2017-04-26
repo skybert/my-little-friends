@@ -9,7 +9,7 @@ set -o nounset
 set -o pipefail
 shopt -s nullglob
 
-main() {
+create_report() {
   format=${1-"markdown"}
   days_back=${2-"7"}
   now=
@@ -62,4 +62,15 @@ main() {
   fi
 }
 
-main "$@"
+main() {
+  create_report markdown 8
+
+  local file=/var/www/html/agenda.md.txt
+
+  create_report markdown 1 | sed '1d' > "${file}"
+  #  add bom
+  sed -i '1s/^/\xef\xbb\xbf/' "${file}"
+
+}
+
+main "$*"
