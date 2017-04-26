@@ -74,7 +74,7 @@ Control Mod4 F12 :TakeToWorkspace 12
 
 # Torstein's additions to $HOME/.fluxbox/keys
 
-# I want a 7x2 grid
+# I want a 3x2 grid
 Control Shift Left :PrevWorkspace
 Control Shift Right :NextWorkspace
 Control Shift Up :RightWorkspace 3
