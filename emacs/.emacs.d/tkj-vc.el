@@ -18,4 +18,5 @@
 (setq magit-log-arguments '("-n256"
                             "--graph"
                             "--decorate"
-                            "--color"))
+                            "--color")
+      vc-follow-symlinks t)
