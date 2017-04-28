@@ -37,7 +37,12 @@ function do_schedule-hudson-build() {
 
 function do_go-to-meeting() {
   do_turn-off-external-screens
-  wireless
+  su -c wireless
+  vpn
+}
+
+function do_agenda() {
+  org-agenda.sh
 }
 
 ## Method useful for developers and system administrators. It checks
