@@ -24,6 +24,7 @@ create_report() {
           org-agenda-start-day \"${start_date}\"
           org-agenda-span $(( days_back + 1 ))
           org-agenda-include-diary t
+          org-agenda-sorting-strategy '(todo-state-up)
           org-agenda-files (quote (\"~/doc/work.org\" \"~/doc/gcal.org\")))" \
             2>/dev/null)
   result=
