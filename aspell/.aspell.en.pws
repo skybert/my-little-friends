@@ -1,12 +1,12 @@
-personal_ws-1.1 en 187 
+personal_ws-1.1 en 190 
 API
 netfilter
 hairer
 scp
 whitespace
 ACLs
-Newsgate
 NewsGate
+Newsgate
 xattr
 automagically
 coreutils
@@ -37,6 +37,7 @@ ece
 el
 dev
 misconfigured
+Springer
 ELIVE
 cls
 LinuxCon
@@ -45,6 +46,7 @@ distro
 ECS
 AWS
 SELinux
+Solr
 AppArmor
 SmokeTalk
 orchastrates
@@ -119,6 +121,7 @@ gid
 Kubernetes
 ve
 dockerd
+screencast
 IPSec
 Heroku
 prio
@@ -145,7 +148,6 @@ EVM
 tgid
 openchainproject
 Jira
-JIRA
 vmware
 desked
 usr
