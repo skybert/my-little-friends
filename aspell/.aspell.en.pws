@@ -1,12 +1,12 @@
-personal_ws-1.1 en 190 
+personal_ws-1.1 en 191 
 API
 netfilter
 hairer
 scp
 whitespace
 ACLs
-NewsGate
 Newsgate
+NewsGate
 xattr
 automagically
 coreutils
@@ -149,6 +149,7 @@ tgid
 openchainproject
 Jira
 vmware
+WIP
 desked
 usr
 ona
