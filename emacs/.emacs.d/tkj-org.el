@@ -12,7 +12,9 @@
 (setq org-return-follows-link t
       org-reveal-theme "blood" ;; serif
       org-reveal-root "http://skybert.net/reveal.js"
-      org-agenda-files (list "~/doc/work.org"
+      org-agenda-files (list (concat "~/doc/scribbles/"
+                                     (format-time-string "%Y")
+                                     "/work.org")
                              "~/doc/jira.org"
                              "~/doc/someday.org"
                              "~/doc/gcal.org"
