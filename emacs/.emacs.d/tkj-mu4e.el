@@ -10,7 +10,10 @@
       mu4e-sent-messages-behavior 'trash
 
       mu4e-view-show-images t
-      mu4e-html2text-command "~/src/my-little-friends/bash/tkj-html-to-text.sh"
+
+      ;; Easier to read HTML email in dark themes
+      shr-color-visible-luminance-min 80
+
       mu4e-compose-signature t
 
       ;; See C-h v mu4e-header-info for more
@@ -23,6 +26,12 @@
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
       )
+
+;; Navigate links in rich text email by Tab/Shift + Tab
+(add-hook 'mu4e-view-mode-hook
+  (lambda()
+    (local-set-key (kbd "<tab>") 'shr-next-link)
+    (local-set-key (kbd "<backtab>") 'shr-previous-link)))
 
 (defun tkj-load-mu4e-escenic()
   (interactive)
