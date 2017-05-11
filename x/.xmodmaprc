@@ -3,3 +3,7 @@
 remove mod1 = Alt_R
 add control = Alt_R
 
+! I've remapped the Alt and the Diamond (Muhenkan) key on my HHKB,
+! want to use the old Alt (which now is Muhenkan) as an additional Ctrl.
+add control = Muhenkan
+
