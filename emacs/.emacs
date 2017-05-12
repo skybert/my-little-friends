@@ -394,7 +394,7 @@
       gnus-cache-directory "~/mail/cache"
       gnus-directory "~/mail"
       gnus-dribble-directory "~/mail/dribble"
-      gnus-local-organization "Conduct"
+      gnus-local-organization "Escenic"
       mail-default-directory "~/mail"
       mail-from-style 'angles
       mail-interactive nil
