@@ -1,8 +1,5 @@
 ;;                                                      -*- emacs-lisp -*-
 
-;; need the latest greatest for the exporter
-(add-to-list 'load-path "/usr/local/src/emacs/org-mode/lisp")
-
 (require 'org-compat)
 (require 'org-list)
 (require 'org-element)
