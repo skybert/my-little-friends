@@ -12,18 +12,10 @@
 (setq org-return-follows-link t
       org-reveal-theme "blood" ;; serif
       org-reveal-root "http://skybert.net/reveal.js"
-      org-agenda-files (list (concat "~/doc/scribbles/"
-                                     (format-time-string "%Y")
-                                     "/work.org")
-                             "~/doc/jira.org"
-                             "~/doc/someday.org"
-                             "~/doc/gcal.org"
-                             "~/doc/wunderlist.org"
-                             )
+      org-agenda-files '("~/doc/scribbles/2017")
       org-capture-templates
       (quote (("t" "todo" entry
-               (file
-                (concat "~/doc/scribbles/" (format-time-string "%Y") "/work.org"))
+               (file "~/doc/scribbles/2017/work.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n")
               ("i" "idea" entry (file "~/doc/ideas.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n"))))

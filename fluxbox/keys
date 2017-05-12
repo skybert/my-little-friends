@@ -97,8 +97,8 @@ Alt Shift Right :MoveRight 200
 
 # the keyboard layouts I use
 Control Shift 1 :ExecCommand setxkbmap us -option ctrl:nocaps && xmodmap ~/.xmodmaprc
-Control Shift 2 :ExecCommand setxkbmap de -option ctrl:nocaps && xmodmap ~/.xmodmaprc
-Control Shift 3 :ExecCommand setxkbmap no -option ctrl:nocaps && xmodmap ~/.xmodmaprc
+Control Shift 2 :ExecCommand setxkbmap de -option ctrl:nocaps && xmodmap ~/.xmodmaprc.no
+Control Shift 3 :ExecCommand setxkbmap no -option ctrl:nocaps && xmodmap ~/.xmodmaprc.no
 
 # controlling my music player (the numbers are simply following the
 # ones I use for the keyboard layouts and are quick to access, no
