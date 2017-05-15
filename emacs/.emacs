@@ -11,12 +11,6 @@
 (package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Name and email
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq user-full-name "Torstein Krause Johansen"
-      user-mail-address "torstein@escenic.com")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (menu-bar-mode 0)
@@ -387,24 +381,9 @@
 (global-set-key (kbd "M-n") 'helm-swoop)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Mail (and news), common to both Gnus and VM
+;; Mail & news
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq gnus-agent-directory "~/mail/agent"
-      gnus-article-save-directory "~/mail"
-      gnus-cache-directory "~/mail/cache"
-      gnus-directory "~/mail"
-      gnus-dribble-directory "~/mail/dribble"
-      gnus-local-organization "Escenic"
-      mail-default-directory "~/mail"
-      mail-from-style 'angles
-      mail-interactive nil
-      mail-self-blind t
-      message-directory "~/mail"
-      )
-
-(defun tkj-load-mu4e()
-  (interactive)
-  (load "~/.emacs.d/tkj-mu4e.el"))
+(load "~/.emacs.d/tkj-mail.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Display the time on the status line

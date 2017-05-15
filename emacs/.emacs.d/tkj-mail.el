@@ -1,5 +1,27 @@
 (require 'mu4e)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Name and email
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq user-full-name "Torstein Krause Johansen"
+      user-mail-address "torstein@escenic.com")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Mail (and news), common to both Gnus and VM
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq gnus-agent-directory "~/mail/agent"
+      gnus-article-save-directory "~/mail"
+      gnus-cache-directory "~/mail/cache"
+      gnus-directory "~/mail"
+      gnus-dribble-directory "~/mail/dribble"
+      gnus-local-organization "Escenic"
+      mail-default-directory "~/mail"
+      mail-from-style 'angles
+      mail-interactive nil
+      mail-self-blind t
+      message-directory "~/mail"
+      )
+
 (setq mu4e-maildir "~/mail"
       mu4e-attachment-dir  "~/tmp"
       mu4e-get-mail-command "offlineimap"
