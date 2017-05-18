@@ -54,15 +54,15 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;}"\
 ##################################################################
 # aliases
 ##################################################################
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+alias .....='cd ../../../..'
+alias ....='cd ../../..'
+alias ...='cd ../..'
+alias ..='cd ..'
 alias cal='LC_ALL=zh_TW.UTF-8 cal'
-alias diff=colordiff
 alias de='setxkbmap de'
 alias df='df -hT -x tmpfs -x devtmpfs'
+alias diff=colordiff
 alias e='emacsclient --no-wait'
 alias emacs='emacs -fn terminus-bold-14'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
@@ -72,6 +72,7 @@ alias gb='git branch'
 alias gbud='git branch --set-upstream-to=origin/develop develop'
 alias gc='git checkout'
 alias gca='git commit --amend'
+alias gcp='git cherry-pick'
 alias gd='git diff'
 alias gdn='git --no-pager diff'
 alias gg='git log --regexp-ignore-case --grep'
@@ -80,7 +81,6 @@ alias gln='git --no-pager log'
 alias glp='git log -p'
 alias glpn='git --no-pager log -p'
 alias gpr='git pull --rebase'
-alias gcp='git cherry-pick'
 alias grep='grep --text --ignore-case --color --exclude-dir={.svn,.git,.hg,CVS}'
 alias gri='git rebase -i'
 alias gria='git rebase --interactive --autosquash'
@@ -105,7 +105,7 @@ alias tb='urxvt +sb -cr red -sl 10000 -fn 10x20'
 alias ts='tkj status'
 alias us='setxkbmap us'
 alias vi=vim
-
+alias x='xml_pp'
 
 ##################################################################
 ## Command for switchong to a simple prompt I always use this in Emacs
