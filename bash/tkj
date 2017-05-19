@@ -143,6 +143,17 @@ function do_lock-screen() {
   xscreensaver-command -lock &
 }
 
+function do_sync-scribbles() {
+  local doc_dir=
+  doc_dir=$HOME/doc/scribbles/$(date +%Y)
+
+  cd "${doc_dir}" &&
+    git add "*.org"
+  git commit -a -m "latest scribbles from ${HOSTNAME} @ $(date)"
+  git pull --rebase
+  git push
+}
+
 function do_daily()
 {
   local today_dir=
@@ -163,6 +174,9 @@ function do_daily()
   if [ ! -e "${today}" ]; then
     (cd "${HOME}/doc" && ln -s "${today_dir}" "${today}")
   fi
+
+  printf "%s\n" "Syncing my latest scribbles ..."
+  do_sync-scribbles
 
   # print "Putting on some good music ..."
   # mpc play
