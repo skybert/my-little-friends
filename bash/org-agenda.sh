@@ -27,7 +27,8 @@ create_report() {
           org-agenda-sorting-strategy '(todo-state-up)
           org-agenda-files '(\"~/doc/scribbles/2017\"))" \
             2>/dev/null |
-      grep -v 'life:')
+      grep -v 'life:' |
+      grep -v 'yt:')
   result=
   result=$(
     echo "${org_agenda}" |
