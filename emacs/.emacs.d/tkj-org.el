@@ -10,6 +10,7 @@
       org-reveal-theme "blood" ;; serif
       org-reveal-root "http://skybert.net/reveal.js"
       org-agenda-files '("~/doc/scribbles/2017")
+      org-blank-before-new-entry '((heading . always) (plain-list-item . auto))
       org-capture-templates
       (quote (("t" "todo" entry
                (file "~/doc/scribbles/2017/work.org")
