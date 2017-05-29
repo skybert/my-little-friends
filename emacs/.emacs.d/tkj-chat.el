@@ -4,6 +4,12 @@
 (require 'erc-image)
 (require 'erc-colorize)
 (require 'erc-tweet)
+(require 'erc-replace)
+
+(add-to-list 'erc-modules 'tweet)
+(add-to-list 'erc-modules 'image)
+(add-to-list 'erc-modules 'replace)
+(erc-update-modules)
 
 (setq erc-default-server "localhost"
       erc-log-channels-directory "~/.erc/logs"
@@ -13,7 +19,10 @@
       erc-enable-logging t
       erc-save-buffer-on-part t
       erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE")
-      erc-hide-list '("JOIN" "PART" "QUIT" "MODE"))
+      erc-hide-list '("JOIN" "PART" "QUIT" "MODE")
+      erc-replace-alist '((":slightly_smiling_face:" . "😃")
+                          (":+1:" . "👍")
+                          (":wink:" . "😉")))
 
 ;; M-RET opens link at point
 (define-key erc-mode-map (kbd "M-<return>") 'browse-url)
@@ -46,9 +55,8 @@
         (replace-match "<\\1>"))))
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
 
-(add-to-list 'erc-modules 'tweet)
-(add-to-list 'erc-modules 'image)
-(erc-update-modules)
+;; Apply the erc-replace-alist whenever text arrives ERC
+(add-hook 'erc-insert-modify-hook 'erc-replace-insert)
 
 (defun tkj-close-some-chats()
   (interactive)
