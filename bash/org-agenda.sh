@@ -9,23 +9,26 @@ set -o nounset
 set -o pipefail
 shopt -s nullglob
 
-main() {
+create_report() {
   format=${1-"markdown"}
-
+  days_back=${2-"7"}
   now=
   start_date=
   org_agenda=
 
   now=$(date +%s)
-  start_date=$(date +%Y-%m-%d --date @$((now - (60 * 60 * 24 * 7))))
+  start_date=$(date +%Y-%m-%d --date @$((now - (60 * 60 * 24 * days_back))))
   org_agenda=$(
     emacs -batch -l ~/.emacs.d/tkj-org.el \
           -eval "(org-batch-agenda \"a\"
           org-agenda-start-day \"${start_date}\"
-          org-agenda-span 8
+          org-agenda-span $(( days_back + 1 ))
           org-agenda-include-diary t
-          org-agenda-files (quote (\"~/doc/work.org\" \"~/doc/gcal.org\")))" \
-            2>/dev/null)
+          org-agenda-sorting-strategy '(todo-state-up)
+          org-agenda-files '(\"~/doc/scribbles/2017\"))" \
+            2>/dev/null |
+      grep -v 'life:' |
+      grep -v 'yt:')
   result=
   result=$(
     echo "${org_agenda}" |
@@ -35,18 +38,23 @@ main() {
       grep -v 'Onelinescrum' |
       egrep -v '^Diary:' |
       egrep -v ':noreport:' |
-      sed -r -e 's#:([^:^ ]+)#\#\1 #g' -e 's# :$##' |
-      sed -r 's#work:.* Sched.*[0-9]+x:.*STARTED # ⏩ #' |
-      sed -r 's#work:.* Scheduled:##' |
-      sed -r 's#work:.* Sched. [0-9]*x:##' |
+      sed -r 's#.* Sched.*[0-9]+x:.*STARTED # ⏩ #' |
+      sed -r 's#.* Scheduled:##' |
+      sed -r 's#.* Sched. [0-9]*x:##' |
       sed -r 's#TODO ##' |
       sed -r 's#PR #⌛ Fixed, awaiting PR: #' |
+      sed -r 's#WAITING #⌛ Waiting for: #' |
       sed -r 's#DONE #✔ #' |
       sed -r 's#Help out #🏥 Help out #' |
       sed -r 's#talk(ed)* with #💬 with #i' |
       sed -r 's#talk(ed)* to #💬 to #i' |
       sed -r 's#STARTED #▶ #' |
-      sed -r 's#MERGED #✔ Merged: #'
+      sed -r 's#MERGED #✔ Merged: #' |
+      sed -r 's#gcal:[ ]*[0-9]+:[0-9]+-[0-9]+:[0-9]+#Meeting:#' |
+      sed -r 's#gcal:[ ]*[0-9]+:[0-9]+#Meeting:#' |
+      sed -r 's#[\.][\.][\.][\.][\.][\.]##' |
+      sed -r 's#[ ]+:([^:]*):# \#\1#g'
+
         )
 
   if [[ ${format} == "markdown" ]]; then
@@ -57,4 +65,15 @@ main() {
   fi
 }
 
-main "$@"
+main() {
+  create_report markdown 8
+
+  local file=/var/www/html/agenda.md.txt
+
+  create_report markdown 1 | sed '1d' > "${file}"
+  #  add bom
+  sed -i '1s/^/\xef\xbb\xbf/' "${file}"
+
+}
+
+main "$*"

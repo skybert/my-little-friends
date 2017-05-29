@@ -7,6 +7,9 @@ TERM=xterm-color
 export PS1="\[\033[1;31m\]\u\[\033[0;0m\]@\h \w # "
 umask 022
 
+export PS4='# ${BASH_SOURCE}:${LINENO}: ${FUNCNAME[0]}() -
+[${SHLVL},${BASH_SUBSHELL},$?] '
+
 export PATH=$HOME/bin:$PATH
 
 # Eternal bash history

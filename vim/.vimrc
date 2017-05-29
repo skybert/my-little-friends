@@ -1,8 +1,8 @@
 "Theme"
-colo darkblue
+" colo darkblue
 
 "Numbered lines"
-set number
+" set number
 
 "Update the window bar"
 set title

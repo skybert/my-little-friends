@@ -1,0 +1,8 @@
+#name : help
+# --
+show_help() {
+  cat <<EOF
+Usage: \${BASH_SOURCE[0]##*/} OPTIONS
+$0
+EOF
+}

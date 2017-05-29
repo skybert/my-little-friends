@@ -37,7 +37,12 @@ function do_schedule-hudson-build() {
 
 function do_go-to-meeting() {
   do_turn-off-external-screens
-  wireless
+  su -c wireless
+  vpn
+}
+
+function do_agenda() {
+  org-agenda.sh
 }
 
 ## Method useful for developers and system administrators. It checks
@@ -138,6 +143,18 @@ function do_lock-screen() {
   xscreensaver-command -lock &
 }
 
+function do_sync-scribbles() {
+  local doc_dir=
+  doc_dir=$HOME/doc/scribbles/$(date +%Y)
+  printf "%s\n" "Syncing my latest scribbles in ${doc_dir} ..."
+
+  cd "${doc_dir}" || exit 1
+  git add "*.org"
+  git commit -a -m "latest scribbles from ${HOSTNAME} @ $(date)"
+  git pull --rebase
+  git push
+}
+
 function do_daily()
 {
   local today_dir=
@@ -158,6 +175,8 @@ function do_daily()
   if [ ! -e "${today}" ]; then
     (cd "${HOME}/doc" && ln -s "${today_dir}" "${today}")
   fi
+
+  do_sync-scribbles
 
   # print "Putting on some good music ..."
   # mpc play
@@ -204,6 +223,8 @@ function do_daily()
   do_update-eclipse-files-and-restart-eclimd
   do_backup
 
+  printf "%s\n" "${id} Stopping all Java processes and making world"
+  killall java || true
   tc all
   print "Happy hacking :-)"
 }
@@ -220,6 +241,10 @@ function do_backup() {
 
   if [ -x ~/backup/pull ]; then
     run ~/backup/pull
+  fi
+
+  if [ -x ~/backup/push ]; then
+    run ~/backup/push
   fi
 }
 
@@ -749,6 +774,14 @@ function do_music-toggle() {
   fi
 }
 
+function do_add-todo() {
+  cat >> "${HOME}/doc/work.org" <<EOF
+* TODO $*
+  SCHEDULED: <$(date --iso)>
+
+EOF
+}
+
 function do_play-that-music()
 {
   mpc -p ${mpd_port-6600} clear
@@ -790,15 +823,6 @@ function do_set-random-wallpaper()
   killall xmessage 2>/dev/null
 }
 
-# try to be smart first
-if [  `echo $1 | sed 's/[0-9]//g' | wc -c` -lt 2 ]; then
-  search_otrs $1
-  exit 0
-elif [ `echo $1 | egrep -v -i "VIZIWYG|ECOME|VF|STATS|DASH|ERDQ|FORUM|TM" | wc -c` -lt 1 ]; then
-  do_jira $1
-  exit 0
-fi
-
 function unknown_command()
 {
   print "I don't know the command '${1}' :-("
@@ -818,15 +842,3 @@ rm $pid_file 2>/dev/null
 
 exit 0
 
-#    print $seperator
-#    print "Pulling from viziwyg/trunk -> branch/plugins-inpage-dnd-poc"
-#    p4 integrate -b plugins-inpage-poc
-#    p4 resolve -at
-
-# $HOME/src/p4/escenic/plugins/community
-# $HOME/src/p4/escenic/plugins/forum
-# $HOME/src/p4/escenic/plugins/dashboard
-# $HOME/src/p4/escenic/plugins/viziwyg
-# $HOME/src/p4/escenic/plugins/poll
-# $HOME/src/p4/escenic/plugins/analysis
-# $HOME/src/p4/main/tip-manager

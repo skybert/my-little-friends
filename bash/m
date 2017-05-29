@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+
+mpc current  -f "%title% ♬ %artist% ♪ %album%"

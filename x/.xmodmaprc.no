@@ -1,7 +1,8 @@
 ! Make Right Alt behave as Ctrl, useful for Emacs users, especially if you
 ! don't have a right Ctrl.
-remove mod1 = Alt_R
-add control = Alt_R
+
+! remove ISO_Level3_Shift
+! add control = ISO_Level3_Shift
 
 ! I've remapped the Alt and the Diamond (Muhenkan) key on my HHKB,
 ! want to use the old Alt (which now is Muhenkan) as an additional Ctrl.

@@ -74,7 +74,7 @@ Control Mod4 F12 :TakeToWorkspace 12
 
 # Torstein's additions to $HOME/.fluxbox/keys
 
-# I want a 7x2 grid
+# I want a 3x2 grid
 Control Shift Left :PrevWorkspace
 Control Shift Right :NextWorkspace
 Control Shift Up :RightWorkspace 3
@@ -96,9 +96,9 @@ Alt Shift Left  :MoveLeft 200
 Alt Shift Right :MoveRight 200
 
 # the keyboard layouts I use
-Control Shift 1 :ExecCommand setxkbmap us -option ctrl:nocaps;
-Control Shift 2 :ExecCommand setxkbmap de -option ctrl:nocaps;
-Control Shift 3 :ExecCommand setxkbmap no -option ctrl:nocaps;
+Control Shift 1 :ExecCommand setxkbmap us -option ctrl:nocaps && xmodmap ~/.xmodmaprc
+Control Shift 2 :ExecCommand setxkbmap de -option ctrl:nocaps && xmodmap ~/.xmodmaprc.no
+Control Shift 3 :ExecCommand setxkbmap no -option ctrl:nocaps && xmodmap ~/.xmodmaprc.no
 
 # controlling my music player (the numbers are simply following the
 # ones I use for the keyboard layouts and are quick to access, no
@@ -136,8 +136,8 @@ Control Shift x :Exec ~/src/my-little-friends/bash/tkj lock-screen
 XF86AudioRaiseVolume :ExecCommand aumix -v +2
 XF86AudioLowerVolume :ExecCommand aumix -v -2
 XF86AudioMute        :ExecCommand aumix -v 0
-F2                   :ExecCommand pactl set-sink-volume 1 -10%
-F3                   :ExecCommand pactl set-sink-volume 1 +10%
+F2                   :ExecCommand amixer set Master 10%-
+F3                   :ExecCommand amixer set Master 10%+
 
 # keycodes match Zenbook keyboard
 96 :Exec amixer sset Master,0 1+

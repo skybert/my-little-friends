@@ -11,12 +11,6 @@
 (package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Name and email
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq user-full-name "Torstein Krause Johansen"
-      user-mail-address "torstein@escenic.com")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (menu-bar-mode 0)
@@ -59,19 +53,20 @@
 ;; Remove uninteresting information from the mode line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'diminish)
-(diminish 'eclim-mode)
+(diminish 'abbrev-mode)
 (diminish 'auto-fill-function)
-(diminish 'ws-butler-mode)
 (diminish 'auto-revert-mode)
-(diminish 'yas-minor-mode)
+(diminish 'auto-revert-mode)
+(diminish 'command-log-mode)
 (diminish 'company-mode)
 (diminish 'company-search-mode)
-(diminish 'abbrev-mode)
-(diminish 'auto-revert-mode)
-(diminish 'flyspell-mode)
 (diminish 'compilation-minor-mode)
-(diminish 'command-log-mode)
+(diminish 'eclim-mode)
+(diminish 'flyspell-mode)
+(diminish 'git-gutter+-mode)
 (diminish 'visual-line-mode)
+(diminish 'ws-butler-mode)
+(diminish 'yas-minor-mode)
 
 (defun tkj-presentation-mode()
   (interactive)
@@ -112,13 +107,6 @@
 (global-set-key (kbd "<M-left>") 'winner-undo)
 (global-set-key (kbd "<M-right>") 'winner-redo)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; General debugger settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "<f7>") 'gud-step)
-(global-set-key (kbd "<f8>") 'gud-next)
-(global-set-key (kbd "<f9>") 'gud-cont)
-
 ;; navigate between visible buffers (windows in emacs speak)
 (defun other-window-backward (&optional n)
   (interactive "p")
@@ -127,6 +115,16 @@
     (other-frame -1)))
 (global-set-key "\C-x\C-n" 'other-window)
 (global-set-key "\C-x\C-p" 'other-window-backward)
+
+;; Scroll without moving the cursor
+(defun gcm-scroll-down ()
+      (interactive)
+      (scroll-up 4))
+(defun gcm-scroll-up ()
+      (interactive)
+      (scroll-down 4))
+(global-set-key (kbd "M-p") 'gcm-scroll-up)
+(global-set-key (kbd "M-n") 'gcm-scroll-down)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts in all modes
@@ -230,6 +228,7 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (flyspell-mode)
+             (git-gutter+-mode)
              (auto-fill-mode 1)))
 (setq longlines-show-hard-newlines t)
 
@@ -382,24 +381,9 @@
 (global-set-key (kbd "M-n") 'helm-swoop)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Mail (and news), common to both Gnus and VM
+;; Mail & news
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq gnus-agent-directory "~/mail/agent"
-      gnus-article-save-directory "~/mail"
-      gnus-cache-directory "~/mail/cache"
-      gnus-directory "~/mail"
-      gnus-dribble-directory "~/mail/dribble"
-      gnus-local-organization "Conduct"
-      mail-default-directory "~/mail"
-      mail-from-style 'angles
-      mail-interactive nil
-      mail-self-blind t
-      message-directory "~/mail"
-      )
-
-(defun tkj-load-mu4e()
-  (interactive)
-  (load "~/.emacs.d/tkj-mu4e.el"))
+(load "~/.emacs.d/tkj-mail.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Display the time on the status line
@@ -429,18 +413,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar hexcolour-keywords
-  '(("#[abcdef[:digit:]]\\{6\\}"
-     (0 (put-text-property
-         (match-beginning 0)
-         (match-end 0)
-         'face (list :background
-                     (match-string-no-properties 0)))))))
-
-(defun hexcolour-add-to-font-lock ()
-  (font-lock-add-keywords nil hexcolour-keywords))
-(add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
-(setq css-indent-offset 2)
+(load "~/.emacs.d/tkj-css.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Associate different modes with different file types.

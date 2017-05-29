@@ -1,0 +1,113 @@
+#! /usr/bin/env bash
+
+## xenomorph uses alien to convert a DEB file to an RPM equivalent,
+## but fixes up the RPM so that it doesn't contain any common
+## directories that other RPM packages typically can contain (like
+## /etc).
+##
+##
+
+# by torstein@escenic.com
+
+# set -o errexit
+set -o nounset
+set -o pipefail
+
+show_help_and_exit() {
+  cat <<EOF
+Usage: ${BASH_SOURCE[0]##*/} <deb-file>
+EOF
+  exit 0
+}
+
+read_user_input() {
+  local OPTS=
+  OPTS=$(getopt \
+           -o h \
+           --long help \
+           -n 'parse-options' \
+           -- "$@")
+  if [ $? != 0 ] ; then
+    echo "Failed parsing options." >&2
+    exit 1
+  fi
+  eval set -- "$OPTS"
+
+  while true; do
+    case "$1" in
+      -h | --help )
+        show_help_and_exit;
+        break;;
+      -- )
+        shift;
+        break ;;
+      * )
+        break ;;
+    esac
+  done
+
+  rest_of_args=$*
+}
+
+_xenomorph() {
+  local deb=$1
+
+  declare -a remove_dir_list=(
+    "/"
+    "/etc/"
+    "/etc/default/"
+    "/etc/escenic/"
+    "/etc/init.d/"
+    "/usr/"
+    "/usr/share/"
+    "/usr/share/escenic/"
+  )
+
+  local tmp_dir=
+  tmp_dir=$(mktemp -d)
+
+  (
+    cd "${tmp_dir}" || exit 1
+    local dir=
+    dir=$(
+      LC_ALL=C fakeroot \
+            alien \
+            --to-rpm \
+            --scripts \
+            --generate \
+            --keep-version "${deb}" \
+            2> /dev/null |
+        sed -r 's#Directory (.*) prepared.#\1#')
+    (
+      cd "${dir}" || exit 1
+      for el in "${remove_dir_list[@]}"; do
+        sed -r -i "s#(%dir \"${el}\"\$)##" -- *.spec
+      done
+      sed -i 's#^%config #%config(noreplace) #' -- *.spec
+
+      file=$(
+        LC_ALL=C fakeroot \
+              rpmbuild \
+              -bb ./*.spec \
+              --root /. \
+              --buildroot "$(pwd)"/ \
+              2> /dev/null |
+          sed -n -r "s#Wrote: (.*)#\1#p")
+
+      local target_file=
+      target_file="$(dirname "${deb}")/$(basename "${file}")"
+      mv "${file}" "${target_file}"
+      echo "${target_file}"
+    )
+  )
+
+  rm -rf "${tmp_dir}"
+}
+
+main() {
+  read_user_input "$@"
+
+  _xenomorph "${rest_of_args}"
+}
+
+main "$@"

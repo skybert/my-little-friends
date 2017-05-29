@@ -42,3 +42,18 @@
         typescript-indent-level 2)
 
   (tss-config-default))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tern, enhanced JS mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun tkj-load-js-tern()
+  (interactive)
+  (require 'tern)
+
+  (setq tern-explicit-port 35129)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . tern-mode))
+
+  (require 'company-tern)
+  (add-to-list 'company-backends 'company-tern)
+
+)
