@@ -19,4 +19,8 @@
                             "--graph"
                             "--decorate"
                             "--color")
+      ;; Show diffs per word, looks nicer!
+      magit-diff-refine-hunk t
+
+      ;; Follow symlinks when opening files.
       vc-follow-symlinks t)
