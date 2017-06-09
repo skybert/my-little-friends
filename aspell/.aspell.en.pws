@@ -1,15 +1,16 @@
-personal_ws-1.1 en 191 
+personal_ws-1.1 en 193 
 API
 netfilter
 hairer
 scp
 whitespace
 ACLs
-Newsgate
 NewsGate
+Newsgate
 xattr
 automagically
 coreutils
+ubiquitousness
 cpuacct
 OpenQA
 webpage
@@ -56,6 +57,7 @@ IP
 mem
 CALIPSO
 timezones
+QUICKFIX
 yaml
 virtualisation
 CPs
