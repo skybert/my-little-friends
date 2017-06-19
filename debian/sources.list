@@ -1,15 +1,15 @@
 ## Torstein's sources.list                          Yo Emacs! use -*- sh -*- mode
 
 ## Official Debian
-deb http://security.debian.org/ jessie/updates main contrib non-free
-deb http://ftp.no.debian.org/debian jessie main contrib non-free
-deb-src http://ftp.no.debian.org/debian jessie main contrib non-free
+deb http://security.debian.org/ stretch/updates main contrib non-free
+deb http://ftp.no.debian.org/debian stretch main contrib non-free
+deb-src http://ftp.no.debian.org/debian stretch main contrib non-free
 
 ## Excellent MySQL patch set for performance
-deb http://repo.percona.com/apt jessie main
+deb http://repo.percona.com/apt stretch main
 
-## Backports for jessie
-deb http://ftp.no.debian.org/debian jessie-backports main
+## Backports for stretch
+deb http://ftp.no.debian.org/debian stretch-backports main
 
 ## Lots of great multimedia software, such as DVD playback
-deb http://www.deb-multimedia.org jessie main non-free
+deb http://www.deb-multimedia.org stretch main non-free
