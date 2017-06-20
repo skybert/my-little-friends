@@ -14,10 +14,13 @@ screen emacs
 title "emacs"
 
 # second screen tab
-screen bash
-title "shell"
+screen chat
+title "emacs"
 
 # third screen tab
 screen bash
 title "sdf"
 
+# third screen tab
+screen bash
+title "bash"
