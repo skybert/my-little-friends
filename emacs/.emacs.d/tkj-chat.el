@@ -20,9 +20,12 @@
       erc-save-buffer-on-part t
       erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE")
       erc-hide-list '("JOIN" "PART" "QUIT" "MODE")
-      erc-replace-alist '((":slightly_smiling_face:" . "😃")
+      erc-replace-alist '(
                           (":+1:" . "👍")
-                          (":wink:" . "😉")))
+                          (":laughing:" . "😂")
+                          (":slightly_smiling_face:" . "😃")
+                          (":wink:" . "😉")
+                          ))
 
 ;; M-RET opens link at point
 (define-key erc-mode-map (kbd "M-<return>") 'browse-url)
