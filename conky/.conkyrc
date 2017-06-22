@@ -43,9 +43,8 @@ $hr
 ${color grey}File systems:
  / $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
 ${color grey}Networking:
-${color grey} eth0 up:$color ${upspeed eth0} ${color grey} - down:$color ${downspeed eth0}
-${color grey} eth1 up:$color ${upspeed wlan0} ${color grey} - down:$color ${downspeed eth1}
-${color grey} wlan0 up:$color ${upspeed wlan0} ${color grey} - down:$color ${downspeed wlan0}
+${color grey} eth0  up:$color ${upspeed eth0}${color grey}- down: $color${downspeed eth0}${color grey}eth1 up:$color ${upspeed wlan0} ${color grey} - down: ${color}${downspeed eth1}
+${color grey} wlan0 up:$color ${upspeed wlan0}${color grey}- down: $color${downspeed wlan0}
 $hr
 ${color grey}Battery    :${color white} ${battery_percent}% ${battery_bar}
 ${color grey}Temperature:${color white} ${acpitemp} C

@@ -753,6 +753,12 @@ function search_otrs()
 function do_music-next() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -f
+  elif [ $(ps aux | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.Next
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
     mpc -p ${mpd_port-6600} next
   fi
@@ -761,6 +767,12 @@ function do_music-next() {
 function do_music-previous() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -r
+  elif [ $(ps aux | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.Prev
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
     mpc -p ${mpd_port-6600} prev
   fi
@@ -769,6 +781,12 @@ function do_music-previous() {
 function do_music-toggle() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -t
+  elif [ $(ps aux | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.PlayPause
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
     mpc -p ${mpd_port-6600} toggle
   fi
