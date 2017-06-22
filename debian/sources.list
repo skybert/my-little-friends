@@ -2,14 +2,14 @@
 
 ## Official Debian
 deb http://security.debian.org/ stretch/updates main contrib non-free
-deb http://ftp.no.debian.org/debian stretch main contrib non-free
-deb-src http://ftp.no.debian.org/debian stretch main contrib non-free
+deb http://ftp.tw.debian.org/debian stretch main contrib non-free
+deb-src http://ftp.tw.debian.org/debian stretch main contrib non-free
 
 ## Excellent MySQL patch set for performance
 deb http://repo.percona.com/apt stretch main
 
 ## Backports for stretch
-deb http://ftp.no.debian.org/debian stretch-backports main
+deb http://ftp.tw.debian.org/debian stretch-backports main
 
 ## Lots of great multimedia software, such as DVD playback
 deb http://www.deb-multimedia.org stretch main non-free

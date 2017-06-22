@@ -218,7 +218,7 @@ function do_daily()
 
   echo -n $id "Start of the day: Getting, building & deploying the latest code"
   echo "..."
-  do_update-sources
+  # do_update-sources
   # do_update-tags
   do_update-eclipse-files-and-restart-eclimd
   do_backup
