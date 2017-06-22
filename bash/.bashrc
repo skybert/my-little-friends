@@ -177,7 +177,7 @@ $HOME/src/moria/src/pictures:\
 $JAVA_HOME/bin:\
 $PATH
 
-export CDPATH=:$HOME/src:$HOME
+export CDPATH=:$HOME/src:$HOME/doc:$HOME
 
 ##################################################################
 # editor
