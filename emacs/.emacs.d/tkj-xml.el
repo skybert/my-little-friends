@@ -27,7 +27,7 @@
 ;;
 ;; Based on code snippet
 ;; from http://www.emacswiki.org/emacs/NxmlMode
-(defun nxml-where ()
+(defun nxml-current-xpath ()
   "Displays the XPATH of where you currently are in the  XML docment."
   (interactive)
   (let ((path nil))
