@@ -49,8 +49,7 @@
                    (xmltok-start-tag-local-name))
                  path)))
         (if (called-interactively-p t)
-            (message (concat "/"
-             (mapconcat 'identity path "/"))))))))
+            (message (concat "/" (mapconcat 'identity path "/"))))))))
 
 (defun tkj-html-entities-to-char()
   (interactive)
@@ -76,4 +75,3 @@
 <")
   (indent-region (point-min) (point-max)))
 (global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
-
