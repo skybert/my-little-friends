@@ -753,7 +753,7 @@ function search_otrs()
 function do_music-next() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -f
-  elif [ $(ps aux | grep -w -c spotify) -gt 0 ]; then
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
     dbus-send \
       --print-reply \
       --dest=org.mpris.MediaPlayer2.spotify \
@@ -767,7 +767,7 @@ function do_music-next() {
 function do_music-previous() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -r
-  elif [ $(ps aux | grep -w -c spotify) -gt 0 ]; then
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
     dbus-send \
       --print-reply \
       --dest=org.mpris.MediaPlayer2.spotify \
@@ -781,7 +781,7 @@ function do_music-previous() {
 function do_music-toggle() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -t
-  elif [ $(ps aux | grep -w -c spotify) -gt 0 ]; then
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
     dbus-send \
       --print-reply \
       --dest=org.mpris.MediaPlayer2.spotify \
