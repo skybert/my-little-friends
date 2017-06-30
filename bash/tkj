@@ -792,6 +792,20 @@ function do_music-toggle() {
   fi
 }
 
+function do_music-stop() {
+  if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
+    xmms -t
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.Stop
+  elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
+    mpc -p ${mpd_port-6600} stop
+  fi
+}
+
 function do_add-todo() {
   cat >> "${HOME}/doc/work.org" <<EOF
 * TODO $*
