@@ -1,9 +1,11 @@
 ;;                                                      -*- emacs-lisp -*-
 
+(require 'org-mu4e)
 (require 'org-compat)
 (require 'org-list)
 (require 'org-element)
 (require 'org)
+
 ;; (require 'ox-reveal)
 
 (setq org-return-follows-link t
