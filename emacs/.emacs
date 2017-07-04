@@ -409,6 +409,8 @@
 (global-company-mode 1)
 (company-quickhelp-mode 1)
 (global-set-key (kbd "<C-return>") 'company-complete)
+(require 'company-emoji)
+(add-to-list 'company-backends 'company-emoji)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS mode
