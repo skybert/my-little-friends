@@ -11,6 +11,9 @@
 ;; of which has problems on Emacs 25.1.50.
 (elpy-enable)
 
+;; Override default elpy key binding(s)
+(define-key elpy-mode-map (kbd "<C-return>") 'elpy-company-backend)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Eldoc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
