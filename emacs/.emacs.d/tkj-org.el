@@ -1,6 +1,5 @@
 ;;                                                      -*- emacs-lisp -*-
 
-(require 'org-mu4e)
 (require 'org-compat)
 (require 'org-list)
 (require 'org-element)
