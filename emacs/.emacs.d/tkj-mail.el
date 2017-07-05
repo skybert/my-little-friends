@@ -57,6 +57,7 @@
 
 (defun tkj-load-mu4e-escenic()
   (interactive)
+  (require 'org-mu4e)
   (setq  mu4e-maildir-shortcuts
          '(
            ("/escenic/inbox" . ?i)
