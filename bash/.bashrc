@@ -92,7 +92,7 @@ alias gsr='git svn rebase'
 alias less='less -Ri'
 alias ls='ls -ltrh'
 alias mcc="mvn clean compile"
-alias mci="mvn clean install --fail-at-end -Dmaven.test.skip=true"
+alias mci="mvn clean install --offline --fail-at-end -Dmaven.test.skip=true"
 alias mcit="mvn clean install --fail-at-end"
 alias mcp="mvn clean package -Dmaven.test.skip=true --fail-at-end"
 alias mda='mvn dependency:analyze'
