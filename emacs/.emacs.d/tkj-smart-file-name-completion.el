@@ -36,8 +36,8 @@
 ;; (setq resize-mini-windows 'grow-only)
 
 ;; IDO support pretty much everwhere, including eclim-java-implement
-(require 'ido-ubiquitous)
-(ido-ubiquitous)
+(require 'ido-completing-read+)
+(ido-ubiquitous-mode)
 
 (global-set-key (kbd "C-x b") 'tkj-switch-buffer)
 
