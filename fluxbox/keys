@@ -81,17 +81,19 @@ Control Shift Up :RightWorkspace 5
 Control Shift Down :LeftWorkspace 5
 
 # windows
-Control Shift f :ResizeHorizontal 10
 Control Shift b :ResizeHorizontal -10
-Control Shift n :ResizeVertical 10
-Control Shift p :ResizeVertical -10
-Control Shift m :Maximize
+Control Shift f :ResizeHorizontal 10
 Control Shift h :MoveLeft 10
-Control Shift k :MoveUp 10
 Control Shift j :MoveDown 10
+Control Shift k :MoveUp 10
 Control Shift l :MoveRight 10
-Control Shift v :MaximizeVertical
+Control Shift m :Maximize
+Control Shift n :ResizeVertical 10
 Control Shift o :ClientMenu
+Control Shift p :ResizeVertical -10
+Control Shift s :ArrangeWindowsStackRight
+Control Shift v :MaximizeVertical
+
 Alt Shift Left  :MoveLeft 200
 Alt Shift Right :MoveRight 200
 
