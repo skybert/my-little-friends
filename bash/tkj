@@ -157,6 +157,7 @@ function do_sync-scribbles() {
 
 function remove_various_junk() {
   rm -rf ${HOME}/*.jvm1
+  rm -rf ${HOME}/content-engine/*.jvm1
 }
 
 function do_daily()
