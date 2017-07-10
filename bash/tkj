@@ -155,6 +155,10 @@ function do_sync-scribbles() {
   git push
 }
 
+function remove_various_junk() {
+  rm -rf ${HOME}/*.jvm1
+}
+
 function do_daily()
 {
   local today_dir=
@@ -176,6 +180,7 @@ function do_daily()
     (cd "${HOME}/doc" && ln -s "${today_dir}" "${today}")
   fi
 
+  remove_various_junk
   do_sync-scribbles
 
   # print "Putting on some good music ..."
