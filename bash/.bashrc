@@ -61,6 +61,7 @@ alias ...='cd ../..'
 alias ..='cd ..'
 alias cal='LC_ALL=zh_TW.UTF-8 cal'
 alias cd='cd -P'
+alias clipit='clipit &> /dev/null'
 alias de='setxkbmap de'
 alias df='df -hT -x tmpfs -x devtmpfs'
 alias diff=colordiff
