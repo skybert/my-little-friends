@@ -100,7 +100,6 @@ alias mda='mvn dependency:analyze'
 alias mdt='mvn dependency:tree | less'
 alias mount="mount | column -t"
 alias mp="mvn package -DskipTests"
-alias my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 alias no='setxkbmap no'
 alias nocaps='setxkbmap -option ctrl:nocaps'
 alias steam='SDL_AUDIODRIVER=alsa steam'
@@ -109,6 +108,7 @@ alias tb='urxvt +sb -cr red -sl 10000 -fn 10x20'
 alias ts='tkj status'
 alias us='setxkbmap us'
 alias vi=vim
+alias what-is-my-public-ip="curl -s checkip.dyndns.org | sed 's/.*<body>.*: \(.*\)<\/body>.*/\1/'"
 alias x='xml_pp'
 
 ##################################################################
