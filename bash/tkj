@@ -514,7 +514,7 @@ function do_change-clipboard() {
     xclipboard -rv -fn 6x12 &
   else
     killall -9 xclipboard 2>/dev/null
-    clipit &
+    clipit &> /dev/null  &
   fi
 }
 
