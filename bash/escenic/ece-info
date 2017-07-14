@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 
+# Save yourself 30 clicks in the web browser, or ssh: Just point
+# ece-info to the host:port of your Escenic Content Engine and hit ⏎
+#
+# by torstein@escenic.com
+
 get_version_info() {
   local base_url=$1
   local url="${base_url}/escenic-admin/browser/Global/neo/io/managers/VersionManager?method=toString&invoke=true"
@@ -35,8 +40,6 @@ get_publication_info() {
 ➡ ${p} - ${base_url}/escenic-admin/publication-resources/${p}/escenic/content-type
 EOF
   done
-
-#  http://10.28.68.201:8080/escenic-admin/publication-resources/qa/escenic/content-type
 }
 
 main() {
