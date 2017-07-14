@@ -24,6 +24,7 @@
                           (":+1:" . "👍")
                           (":laughing:" . "😂")
                           (":slightly_smiling_face:" . "😃")
+                          (":smiley:" . "😃")
                           (":wink:" . "😉")
                           ))
 
