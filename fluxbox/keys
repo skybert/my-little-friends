@@ -74,24 +74,28 @@ Control Mod4 F12 :TakeToWorkspace 12
 
 # Torstein's additions to $HOME/.fluxbox/keys
 
-# I want a 3x2 grid
+# I want a 5x2 grid
 Control Shift Left :PrevWorkspace
 Control Shift Right :NextWorkspace
-Control Shift Up :RightWorkspace 3
-Control Shift Down :LeftWorkspace 3
+Control Shift Up :RightWorkspace 5
+Control Shift Down :LeftWorkspace 5
 
 # windows
-Control Shift f :ResizeHorizontal 10
 Control Shift b :ResizeHorizontal -10
-Control Shift n :ResizeVertical 10
-Control Shift p :ResizeVertical -10
-Control Shift m :Maximize
+Control Shift f :ResizeHorizontal 10
 Control Shift h :MoveLeft 10
-Control Shift k :MoveUp 10
 Control Shift j :MoveDown 10
+Control Shift k :MoveUp 10
 Control Shift l :MoveRight 10
-Control Shift v :MaximizeVertical
+Control Shift m :Maximize
+Control Shift n :ResizeVertical 10
 Control Shift o :ClientMenu
+Control Shift p :ResizeVertical -10
+Control Shift v :MaximizeVertical
+Control Shift s :ArrangeWindowsStackRight
+Control Shift y :ArrangeWindowsStackLeft
+Control Shift w :ArrangeWindowsStackTop
+
 Alt Shift Left  :MoveLeft 200
 Alt Shift Right :MoveRight 200
 
@@ -130,7 +134,7 @@ Control Shift t :Exec urxvt +sb -cr red -bc -sl 10000 -fn 'xft:Terminus:pixelsiz
 Control Shift u :ToggleDecor
 
 # Lock the screen
-Control Shift x :Exec ~/src/my-little-friends/bash/tkj lock-screen
+Control Shift q :Exec $HOME/src/my-little-friends/bash/tkj lock-screen
 
 # sound
 XF86AudioRaiseVolume :ExecCommand aumix -v +2

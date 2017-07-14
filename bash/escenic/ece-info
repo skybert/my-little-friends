@@ -1,0 +1,56 @@
+#! /usr/bin/env bash
+
+# Save yourself 30 clicks in the web browser, or ssh: Just point
+# ece-info to the host:port of your Escenic Content Engine and hit ⏎
+#
+# by torstein@escenic.com
+
+get_version_info() {
+  local base_url=$1
+  local url="${base_url}/escenic-admin/browser/Global/neo/io/managers/VersionManager?method=toString&invoke=true"
+
+  printf "Versions on %s\n" "${server_id}:"
+  curl -s "${url}" |
+    grep --fixed-strings '[[' |
+    sed 's#\[\[#[#' |
+    sed 's#\]\]#]#' |
+    sed 's#[,]#\n#g' |
+    sed 's#Name=io#Name=content-engine#g' |
+    sed -r 's#\[Name=(.*); Version=(.*)\]#➡ \1 \2#g' |
+    sed 's#^[ ]##' |
+    sort
+}
+
+get_escenic_server_id() {
+  local base_url=$1
+  curl -s ${base_url}/escenic-admin/status.jsp |
+    grep -A 2 escenic.server |
+    sed -n -r 's#.*<td><code>(.*)</code>.*#\1#p'
+}
+
+get_publication_info() {
+  local base_url=$1
+
+  printf "\nPublications on %s\n" "${server_id}:"
+  curl -s ${base_url}/escenic-admin/pages/publication/list.jsp |
+    sed -r -n 's#.*publication/view.jsp.*name=(.*)".*#\1#p' |
+    sort |
+    while read -r p; do
+    cat <<EOF
+➡ ${p} - ${base_url}/escenic-admin/publication-resources/${p}/escenic/content-type
+EOF
+  done
+}
+
+main() {
+  url=$1
+  # remove everything after slash
+  base_url=$url
+
+  server_id=$(get_escenic_server_id "${base_url}")
+
+  get_version_info "${base_url}"
+  get_publication_info "${base_url}"
+}
+
+main "$*"

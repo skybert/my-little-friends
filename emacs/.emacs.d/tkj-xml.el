@@ -23,10 +23,12 @@
             )
           t)
 
-;; Showing the curren xpath in the echo area.
-;; taken from http://www.emacswiki.org/emacs/NxmlMode
-(defun nxml-where ()
-  "Display the hierarchy of XML elements the point is on as a path."
+;; Showing the current xpath in the echo area.
+;;
+;; Based on code snippet
+;; from http://www.emacswiki.org/emacs/NxmlMode
+(defun nxml-current-xpath ()
+  "Displays the XPATH of where you currently are in the  XML docment."
   (interactive)
   (let ((path nil))
     (save-excursion
@@ -39,10 +41,15 @@
                           (nxml-backward-up-element) ; always returns nil
                           t)
                       (error nil)))
-          (setq path (cons (xmltok-start-tag-local-name) path)))
+          (setq path
+                (cons
+                 (if (xmltok-start-tag-prefix)
+                     (concat (xmltok-start-tag-prefix) ":"
+                             (xmltok-start-tag-local-name))
+                   (xmltok-start-tag-local-name))
+                 path)))
         (if (called-interactively-p t)
-            (message (concat "You are here: "
-             (mapconcat 'identity path " > "))))))))
+            (message (concat "/" (mapconcat 'identity path "/"))))))))
 
 (defun tkj-html-entities-to-char()
   (interactive)
@@ -68,4 +75,3 @@
 <")
   (indent-region (point-min) (point-max)))
 (global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
-

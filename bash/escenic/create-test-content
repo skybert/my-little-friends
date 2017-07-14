@@ -1,0 +1,77 @@
+#! /usr/bin/env bash
+
+section_id=49
+publication=rohan
+user=${publication}_admin
+password=admin
+atom_feed_list="
+   http://boingboing.net/feed
+   http://feeds.feedburner.com/TechCrunch/
+   http://rss.nytimes.com/services/xml/rss/nyt/World.xml
+   https://www.wired.com/feed/
+   http://trailrunnermag.com/feed
+   https://www.theguardian.com/international/rss
+"
+
+_create_content_items_based_on_atom_feed() {
+  local feed_uri=$1
+  printf "Creating entries from ${feed_uri}: "
+
+  curl -s "${feed_uri}"  |
+    xmllint --format -  |
+    sed -n -r 's#<title>(.*)</title>#\1#p' |
+    sed 's#[&#><;]# #g' |
+    while read -r line; do
+      printf "%s" "."
+      tmp_file=$(mktemp)
+      cat > "${tmp_file}" <<EOF
+<?xml version="1.0"?>
+<entry xmlns="http://www.w3.org/2005/Atom"
+       xmlns:app="http://www.w3.org/2007/app"
+       xmlns:metadata="http://xmlns.escenic.com/2010/atom-metadata"
+       xmlns:dcterms="http://purl.org/dc/terms/">
+  <title type="text">${line}</title>
+
+  <content type="application/vnd.vizrt.payload+xml">
+    <vdf:payload xmlns:vdf="http://www.vizrt.com/types"
+                 model="http://localhost:8080/webservice/escenic/publication/${publication}/model/content-type/story"
+                 >
+      <vdf:field name="title">
+        <vdf:value>${line}</vdf:value>
+      </vdf:field>
+      <vdf:field name="body">
+        <vdf:value>
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <p>
+              ${line}
+            </p>
+            <p>Source: ${feed_uri}</p>
+          </div>
+        </vdf:value>
+      </vdf:field>
+    </vdf:payload>
+  </content>
+</entry>
+EOF
+
+      curl \
+        --user ${user}:${password} \
+        --request POST \
+        --header 'Content-Type: application/atom+xml; type=entry' \
+        --upload-file ${tmp_file} \
+        http://localhost:8080/webservice/escenic/section/${section_id}/content-items ;
+
+      rm "${tmp_file}"
+    done
+
+  echo ""
+}
+
+
+main() {
+  for el in ${atom_feed_list}; do
+    _create_content_items_based_on_atom_feed "${el}"
+  done
+}
+
+main "$*"

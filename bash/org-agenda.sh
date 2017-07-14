@@ -28,6 +28,7 @@ create_report() {
           org-agenda-files '(\"~/doc/scribbles/2017\"))" \
             2>/dev/null |
       grep -v 'life:' |
+      grep -v 'quotes:' |
       grep -v 'yt:')
   result=
   result=$(

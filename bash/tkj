@@ -155,6 +155,11 @@ function do_sync-scribbles() {
   git push
 }
 
+function remove_various_junk() {
+  rm -rf ${HOME}/*.jvm1
+  rm -rf ${HOME}/content-engine/*.jvm1
+}
+
 function do_daily()
 {
   local today_dir=
@@ -176,6 +181,7 @@ function do_daily()
     (cd "${HOME}/doc" && ln -s "${today_dir}" "${today}")
   fi
 
+  remove_various_junk
   do_sync-scribbles
 
   # print "Putting on some good music ..."
@@ -218,7 +224,7 @@ function do_daily()
 
   echo -n $id "Start of the day: Getting, building & deploying the latest code"
   echo "..."
-  do_update-sources
+  # do_update-sources
   # do_update-tags
   do_update-eclipse-files-and-restart-eclimd
   do_backup
@@ -508,9 +514,92 @@ function do_change-clipboard() {
     xclipboard -rv -fn 6x12 &
   else
     killall -9 xclipboard 2>/dev/null
-    clipit &
+    clipit &> /dev/null  &
   fi
 }
+
+function do_update-ensime() {
+  local pom=~/src/content-engine/pom.xml
+  cat > "${pom}" <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.escenic.core</groupId>
+  <artifactId>content-engine-root</artifactId>
+  <version>develop-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Escenic :: Release POM</name>
+  <description>
+    This is a POM file that aggregates all Escenic Content Engine
+    &amp; Content Studio related products.
+  </description>
+
+  <properties>
+    <snapshotUrl>
+      http://repo.dev.escenic.com/content/repositories/escenic-snapshots
+    </snapshotUrl>
+  </properties>
+
+  <modules>
+    <module>core</module>
+    <module>common</module>
+    <module>model-core</module>
+    <module>engine</module>
+    <module>client</module>
+    <module>indexer</module>
+    <module>studio</module>
+    <module>engine-dist</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>core</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>central</id>
+      <url>http://repo.dev.escenic.com/content/repositories/escenic</url>
+    </repository>
+    <snapshotRepository>
+      <id>central</id>
+      <url>${snapshotUrl}</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.ensime.maven.plugins</groupId>
+        <artifactId>ensime-maven</artifactId>
+        <version>1.1.0</version>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+EOF
+
+  (
+    cd "$(dirname "${pom}")" || exit 1
+    mvn ensime:generate
+    git revert "$(basename "${pom}")"
+  )
+}
+
 
 function do_delete-cache-files()
 {
@@ -753,6 +842,12 @@ function search_otrs()
 function do_music-next() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -f
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.Next
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
     mpc -p ${mpd_port-6600} next
   fi
@@ -761,6 +856,12 @@ function do_music-next() {
 function do_music-previous() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -r
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.Prev
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
     mpc -p ${mpd_port-6600} prev
   fi
@@ -769,8 +870,28 @@ function do_music-previous() {
 function do_music-toggle() {
   if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
     xmms -t
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.PlayPause
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
     mpc -p ${mpd_port-6600} toggle
+  fi
+}
+
+function do_music-stop() {
+  if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
+    xmms -t
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
+    dbus-send \
+      --print-reply \
+      --dest=org.mpris.MediaPlayer2.spotify \
+      /org/mpris/MediaPlayer2 \
+      org.mpris.MediaPlayer2.Player.Stop
+  elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
+    mpc -p ${mpd_port-6600} stop
   fi
 }
 
