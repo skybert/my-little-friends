@@ -63,9 +63,3 @@ autocmd BufWritePre *.* :call TrimWhiteSpace()
 set formatoptions=t
 set textwidth=72
 
-"fancy vim status line"
-set laststatus=2
-set t_Co=256
-
-"This is to get vim-airline working"
-set laststatus=2
