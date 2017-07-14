@@ -7,8 +7,11 @@
 "Update the window bar"
 set title
 
-"Highlight searc hits and make the search case insensitive"
-set hlsearch ignorecase
+"Highlight search hits and make the search case insensitive (unless UPPERCASE)"
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
 
 "Turn on syntax highlighting"
 syntax on
