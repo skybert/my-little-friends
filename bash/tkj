@@ -895,6 +895,33 @@ function do_music-stop() {
   fi
 }
 
+function do_music-info() {
+  if [ $(ps aux | grep -w xmms | grep -v grep | wc -l) -gt 0 ]; then
+    :
+  elif [ $(ps aux | grep -v grep | grep -w -c spotify) -gt 0 ]; then
+    local info
+    info=$(
+      qdbus \
+        --literal org.mpris.MediaPlayer2.spotify \
+        /org/mpris/MediaPlayer2 \
+        org.freedesktop.DBus.Properties.Get \
+        org.mpris.MediaPlayer2.Player \
+        Metadata |
+        sed 's#, "#, "\n#g' |
+        egrep 'xesam:(title|album|arist)'
+        )
+
+    album=$(echo "${info}" | grep xesam:album | sed 's#xesam:album##')
+    artist=$(echo "${info}" | grep xesam:artist | sed 's#xesam:artist##')
+    title=$(echo "${info}" | grep xesam:title | sed 's#xesam:title##')
+
+    printf "%s ♬ %s ♪ %s" "${title}" "${album}" "${artist}"
+
+  elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
+    mpc -p ${mpd_port-6600} current  -f "%title% ♬ %artist% ♪ %album%"
+  fi
+}
+
 function do_add-todo() {
   cat >> "${HOME}/doc/work.org" <<EOF
 * TODO $*
