@@ -66,6 +66,7 @@ alias de='setxkbmap de'
 alias df='df -hT -x tmpfs -x devtmpfs'
 alias diff=colordiff
 alias e='emacsclient --no-wait'
+alias el='tail -f /var/log/escenic/engine1{.out,-messages,-catalina.out,-tomcat}'
 alias emacs='emacs -fn terminus-bold-14'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
 alias eternal='cat ~/.bash_eternal_history | grep'
