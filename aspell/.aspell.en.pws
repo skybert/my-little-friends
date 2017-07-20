@@ -82,6 +82,7 @@ nodev
 etcd
 webshhere
 torstein
+fallbacks
 Kubernetes
 systemd
 swmaster
@@ -151,8 +152,8 @@ OpenCV
 IDEs
 Solr
 rw
-ui
 ss
+ui
 ve
 Sourceforge
 yaml
