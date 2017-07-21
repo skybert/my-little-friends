@@ -13,9 +13,10 @@
       org-agenda-files '("~/doc/scribbles/2017")
       org-blank-before-new-entry '((heading . always) (plain-list-item . auto))
       org-capture-templates
-      (quote (("t" "todo" entry
-               (file "~/doc/scribbles/2017/work.org")
+      (quote (("t" "todo" entry (file "~/doc/scribbles/2017/work.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n")
+              ("f" "follow-up" entry (file "~/doc/scribbles/2017/work.org")
+               "** TODO Follow up on %?\n  SCHEDULED: %T\n%a\n")
               ("i" "idea" entry (file "~/doc/ideas.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n"))))
 
