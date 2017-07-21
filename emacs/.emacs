@@ -391,11 +391,7 @@
 (require 'helm-swoop)
 (global-set-key (kbd "C-s") 'isearch-forward)
 (global-set-key (kbd "M-n") 'helm-swoop)
-
-(defun tkj-helm-grep()
-  (interactive)
-  (helm-grep-do-git-grep t))
-(global-set-key (kbd "M-s") 'tkj-helm-grep)
+(global-set-key (kbd "C-'") 'helm-projectile-grep)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mail & news
