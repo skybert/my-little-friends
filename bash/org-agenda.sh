@@ -74,7 +74,7 @@ main() {
   create_report markdown 1 | sed '1d' > "${file}"
   #  add bom
   sed -i '1s/^/\xef\xbb\xbf/' "${file}"
-
+  git commit "${file}" -m "Updated agenda $(fortune | head -n 1)" &> /dev/null
 }
 
 main "$*"
