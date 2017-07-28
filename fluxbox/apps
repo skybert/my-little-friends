@@ -1,5 +1,8 @@
-
-# workspaces: music, talk, web, emacs, files, music2, talk2, web2, emacs2, files2,
+## Torstein's Fluxbox apps file, hand written 😉
+##
+## $ grep workspaceNames ~/.fluxbox/init | cut -d: -f2
+##
+## music, talk, web, emacs, files, music2, talk2, web2, emacs2, files2,
 
 ## music
 [app] (name=amarok) (class=Amarok)
