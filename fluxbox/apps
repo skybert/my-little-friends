@@ -13,10 +13,6 @@
 [app] (name=vlc) (class=Vlc)
   [Workspace]	{0}
 [end]
-[app] (name=pavucontrol)
-  [Workspace]	{0}
-  [Maximized]	{vert}
-[end]
 
 ## talk
 # using Google Chrome for video conferencing
@@ -70,4 +66,9 @@
 [end]
 [app] (name=xterm) (class=XTerm)
   [Workspace]	{8}
+[end]
+
+## any workspace
+[app] (name=pavucontrol)
+  [Maximized]	{vert}
 [end]
