@@ -1,65 +1,66 @@
-[app] (name=emacs) (class=Emacs24)
-  [Workspace]	{2}
-[end]
-[app] (name=Navigator) (class=Firefox) (role=browser)
-  [Workspace]	{1}
-[end]
-[app] (name=Eclipse) (class=Eclipse)
-  [Workspace]	{5}
-[end]
-[app] (name=opera) (class=Opera) (role=browser)
-  [Workspace]	{1}
-[end]
-[app] (name=emacs) (class=Emacs)
-  [Workspace]	{2}
-[end]
-[app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea-ce)
-  [Workspace]	{5}
-[end]
-[app] (name=xterm) (class=XTerm)
-  [Workspace]	{5}
-[end]
-[app] (name=skype) (class=Skype) (role=ConversationsWindow)
+
+# workspaces: music, talk, web, emacs, files, music2, talk2, web2, emacs2, files2,
+
+## music
+[app] (name=amarok) (class=Amarok)
   [Workspace]	{0}
+[end]
+[app] (name=vlc) (class=Vlc)
+  [Workspace]	{0}
+[end]
+[app] (name=pavucontrol) (class=Pavucontrol)
+  [Workspace]	{0}
+  [Dimensions]	{36% 100%}
+[end]
+
+## talk
+# using Google Chrome for video conferencing
+[app] (name=Google-chrome-stable) (class=Google-chrome-stable)
+  [Workspace]	{1}
 [end]
 [app] (name=skype) (class=Skype)
-  [Workspace]	{0}
+  [Workspace]	{1}
+[end]
+[app] (name=skype) (class=Skype)
+  [Workspace]	{1}
 [end]
 [group]
  [app] (name=skype) (class=Skype)
  [app] (name=skype) (class=Skype) (role=ConversationsWindow)
 [end]
-[app] (name=Navigator) (class=Iceweasel) (role=browser)
-  [Workspace]	{1}
-[end]
-[app] (name=sun-awt-X11-XFramePeer) (class=jetbrains-idea)
-  [Workspace]	{5}
-[end]
-[app] (name=x-www-browser) (class=X-www-browser) (role=browser)
-  [Workspace]	{1}
-[end]
-[app] (name=amarok) (class=Amarok) (role=MainWindow)
-  [Workspace]	{0}
-[end]
-[app] (name=vlc) (class=Vlc) (role=vlc-main)
-  [Workspace]	{0}
-[end]
-[app] (name=xclipboard) (class=XClipboard)
-  [Dimensions]	{33% 15%}
-  [Position]	(UPPERLEFT)	{67% 85%}
-[end]
-[app] (name=Qt-subapplication) (class=VirtualBox)
-  [Workspace]	{4}
-  [Dimensions]	{67% 98%}
-  [Position]	(UPPERLEFT)	{15% 0%}
-[end]
-[app] (name=Google-chrome-stable) (class=Google-chrome-stable) (role=browser)
-  [Workspace]	{1}
-[end]
-[app] (name=sun-awt-X11-XFramePeer) (class=com-sun-javaws-Main)
-  [Workspace]	{2}
-  [Position]	(UPPERLEFT)	{11% 13%}
-[end]
-[app] (name=emacs-snapshot) (class=Emacs)
+
+## web
+[app] (class=Vivaldi-snapshot)
   [Workspace]	{2}
 [end]
+[app] (class=Vivaldi-stable)
+  [Workspace]	{2}
+[end]
+
+## emacs
+[app] (class=Emacs)
+  [Workspace]	{2}
+[end]
+
+## web2
+[app] (class=Firefox)
+  [Workspace]	{7}
+[end]
+[app] (class=Firefox-esr)
+  [Workspace]	{7}
+[end]
+[app] (name=opera) (class=Opera) (role=browser)
+  [Workspace]	{7}
+[end]
+
+## emacs2
+[app] (name=Eclipse) (class=Eclipse)
+  [Workspace]	{8}
+[end]
+[app] (class=jetbrains-idea-ce)
+  [Workspace]	{8}
+[end]
+[app] (name=xterm) (class=XTerm)
+  [Workspace]	{8}
+[end]
+
