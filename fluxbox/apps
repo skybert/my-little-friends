@@ -7,13 +7,15 @@
 ## music
 [app] (name=amarok) (class=Amarok)
   [Workspace]	{0}
+  [Position]    (CENTER) {0 0}
+  [Maximized]	{vert}
 [end]
 [app] (name=vlc) (class=Vlc)
   [Workspace]	{0}
 [end]
-[app] (name=pavucontrol) (class=Pavucontrol)
+[app] (name=pavucontrol)
   [Workspace]	{0}
-  [Dimensions]	{36% 100%}
+  [Maximized]	{vert}
 [end]
 
 ## talk
@@ -42,7 +44,10 @@
 
 ## emacs
 [app] (class=Emacs)
-  [Workspace]	{2}
+  [Workspace]	{3}
+  [Position]    (CENTER) {0 0}
+  [Deco]        {NONE}
+  [Maximized]   {yes}
 [end]
 
 ## web2
@@ -66,4 +71,3 @@
 [app] (name=xterm) (class=XTerm)
   [Workspace]	{8}
 [end]
-
