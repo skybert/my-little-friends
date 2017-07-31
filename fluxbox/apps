@@ -13,6 +13,9 @@
 [app] (name=vlc) (class=Vlc)
   [Workspace]	{0}
 [end]
+[app] (name=spotify) (class=Spotify)
+  [Workspace]	{0}
+[end]
 
 ## talk
 # using Google Chrome for video conferencing
