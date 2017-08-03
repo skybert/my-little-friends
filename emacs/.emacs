@@ -128,16 +128,6 @@
 (global-set-key "\C-x\C-n" 'other-window)
 (global-set-key "\C-x\C-p" 'other-window-backward)
 
-;; Scroll without moving the cursor
-(defun gcm-scroll-down ()
-      (interactive)
-      (scroll-up 4))
-(defun gcm-scroll-up ()
-      (interactive)
-      (scroll-down 4))
-(global-set-key (kbd "M-p") 'gcm-scroll-up)
-(global-set-key (kbd "M-n") 'gcm-scroll-down)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shortcuts in all modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
