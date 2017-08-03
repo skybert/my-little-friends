@@ -216,7 +216,6 @@ function do_daily()
 
   print "Setting wallpaper..."
   do_set-random-wallpaper
-  # do_set-wallpaper
   killall xmessage 2>/dev/null || true
 
   echo -n $id "Start of the day: Getting, building & deploying the latest code"
@@ -959,13 +958,13 @@ function do_set-wallpaper() {
 function do_set-random-wallpaper()
 {
   wallpaper_names=$(ls ~/pictures/wallpapers/*.{jpg,png} 2>/dev/null)
-  wallpaper_names=$(ls ~/pictures/atlantis/*.bmp 2>/dev/null)
+  wallpaper_names=$(ls ~/pictures/atlantis/cropped/*.bmp 2>/dev/null)
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
   sleep 1
   print "Setting a random wallpaper $(basename "${wallpaper}")"
-  display -window root "$wallpaper"
+  display -window root -backdrop "$wallpaper"
   killall xmessage 2>/dev/null
 }
 
