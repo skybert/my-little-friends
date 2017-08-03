@@ -21,6 +21,7 @@
 # using Google Chrome for video conferencing
 [app] (name=Google-chrome-stable) (class=Google-chrome-stable)
   [Workspace]	{1}
+  [Deco]        {NONE}
 [end]
 [app] (name=skype) (class=Skype)
   [Workspace]	{1}
