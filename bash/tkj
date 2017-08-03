@@ -219,9 +219,9 @@ function do_daily()
   do_set-random-wallpaper
   killall xmessage 2>/dev/null || true
 
-  printf "%s\n" "${id} Stopping all Java processes and making world"
+  print "Stopping all Java processes and making world"
   killall java || true
-  printf "%s\n" "Building ECE to pull down today's SNAPSHOT dependencies ..."
+  print "Building ECE to pull down today's SNAPSHOT dependencies ..."
   mvn \
     --fail-at-end \
     -Dmaven.test.skip=true \
@@ -230,13 +230,14 @@ function do_daily()
     -f ~/src/content-engine/pom.xml \
     &> /dev/null
 
-  printf "%s %s\n" "${id}" "Now deploying ECE ..."
+  print "Now deploying ECE ..."
   tcc &>/dev/null
 
-  printf "%s %s\n" "${id}" "Getting, building & deploying the latest code ..."
+  print "Getting, building & deploying the latest code ..."
   do_update-eclipse-files-and-restart-eclimd
 
   do_backup
+
   print "Happy hacking :-)"
 }
 
