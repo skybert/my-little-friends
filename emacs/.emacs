@@ -165,26 +165,6 @@
       grep-find-command
       "find ~/src/content-engine -name \"*.java\" | xargs grep -n -i -e ")
 
-(defun move-line-down ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines 1))
-    (forward-line)
-    (move-to-column col)))
-
-(defun move-line-up ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines -1))
-    (move-to-column col)))
-
-(global-set-key (kbd "<C-s-down>") 'move-line-down)
-(global-set-key (kbd "<C-s-up>") 'move-line-up)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Prefer UTF 8, but don't override current encoding if specified
 ;; (unless you specify a write hook).
