@@ -18,7 +18,7 @@
 (when window-system
   ;; Themes
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
-  ;; (load-theme 'sanityinc-tomorrow-eighties)
+  (load-theme 'monokai)
 
   (if (eq system-type 'gnu/linux)
       (progn
