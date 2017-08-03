@@ -190,9 +190,9 @@ function do_daily()
     ssh-add
   fi
 
-  # conky on right screen
+  # ensure conky is on the correct screen
   killall conky || true
-  conky &
+  conky &> /dev/null &
 
   # the applications that requirethe network to work
   print "Launching my favourite applications..."
