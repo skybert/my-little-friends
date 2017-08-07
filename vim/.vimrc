@@ -66,6 +66,10 @@ set textwidth=72
 "Indent like the previous line"
 set smartindent
 
+"Detect file type and turn on indentation"
+"Makes XML indentation work"
+filetype plugin indent on
+
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
 
