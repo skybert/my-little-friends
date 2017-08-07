@@ -66,3 +66,6 @@ set textwidth=72
 "Indent like the previous line"
 set smartindent
 
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
+
