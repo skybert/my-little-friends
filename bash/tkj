@@ -221,7 +221,13 @@ function do_daily()
 
   print "Stopping all Java processes and making world"
   killall java || true
+
   print "Building ECE to pull down today's SNAPSHOT dependencies ..."
+  pom=~/src/content-engine/pom.xml
+  sed -i  '/<module>demo<\/module>/d' "${pom}"
+  sed -i  '/<module>documentation<\/module>/d' "${pom}"
+  sed -i  '/<module>studio-webstart<\/module>/d' "${pom}"
+  sed -i  '/<module>engine-dist<\/module>/d' "${pom}"
   mvn \
     --fail-at-end \
     -Dmaven.test.skip=true \
@@ -229,6 +235,7 @@ function do_daily()
     install \
     -f ~/src/content-engine/pom.xml \
     &> /dev/null
+  (cd ~/src/content-engine && git checkout pom.xml)
 
   print "Now deploying ECE ..."
   tcc &>/dev/null
