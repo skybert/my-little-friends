@@ -14,7 +14,7 @@
       (quote (("t" "todo" entry (file "~/doc/scribbles/2017/work.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n")
               ("f" "follow-up" entry (file "~/doc/scribbles/2017/work.org")
-               "** TODO Follow up on %?\n  SCHEDULED: %T\n%a\n")
+               "** TODO Follow up on %? :noreport:\n  SCHEDULED: %T\n%a\n")
               ("i" "idea" entry (file "~/doc/ideas.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n"))))
 
