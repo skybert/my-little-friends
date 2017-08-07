@@ -63,3 +63,6 @@ autocmd BufWritePre *.* :call TrimWhiteSpace()
 set formatoptions=t
 set textwidth=72
 
+"Indent like the previous line"
+set smartindent
+
