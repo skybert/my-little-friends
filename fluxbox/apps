@@ -50,6 +50,12 @@
   [Maximized]   {yes}
 [end]
 
+## talk2
+[app] (title=Signal)
+  [Workspace] {6}
+  [Position]    (CENTER) {0 0}
+[end]
+
 ## web2
 [app] (class=Firefox)
   [Workspace]	{7}
