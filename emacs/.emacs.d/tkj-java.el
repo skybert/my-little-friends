@@ -134,3 +134,17 @@
 
 ;; TODO: get this into emacs-eclim
 (add-to-list 'eclim--file-coding-system-mapping '("iso-latin-1-unix" . "iso-8859-1"))
+
+(defun tkj-java-compile-and-run-buffer()
+  """
+  Compiles the current Java buffer and runs it.
+  """
+  (interactive)
+
+  (compile
+   (concat
+    "javac "
+    (buffer-name)
+    " && "
+    "java "
+    (replace-regexp-in-string ".java" "" (buffer-name)))))
