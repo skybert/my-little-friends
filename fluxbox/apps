@@ -39,11 +39,11 @@
 [end]
 
 ## web
-[app] (class=Vivaldi-snapshot)
-  [Workspace]	{2}
+[app] (class=Firefox)
+  [Workspace]	{7}
 [end]
-[app] (class=Vivaldi-stable)
-  [Workspace]	{2}
+[app] (class=Firefox-esr)
+  [Workspace]	{7}
 [end]
 
 ## emacs
@@ -61,11 +61,11 @@
 [end]
 
 ## web2
-[app] (class=Firefox)
-  [Workspace]	{7}
+[app] (class=Vivaldi-snapshot)
+  [Workspace]	{2}
 [end]
-[app] (class=Firefox-esr)
-  [Workspace]	{7}
+[app] (class=Vivaldi-stable)
+  [Workspace]	{2}
 [end]
 [app] (name=opera) (class=Opera) (role=browser)
   [Workspace]	{7}
