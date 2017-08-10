@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 ## Torstein's .xinitrc/.xsession
 
@@ -25,12 +25,12 @@ if [ -e $HOME/pictures/wallpaper ]; then
 fi
 
 ## favourite apps
-clipit &
+clipit &> /dev/null &
 conky &
-vivaldi &
-emacs -fn 7x14 -g 80x60 &
-mpd $HOME/.mpdconf &
-gnome-terminal &
+vivaldi &> /dev/null &
+emacs -fn 7x14 -g 80x60 &> /dev/null &
+mpd ~/.mpdconf &> /dev/null &
+gnome-terminal &> /dev/null &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
