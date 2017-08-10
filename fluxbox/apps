@@ -40,10 +40,10 @@
 
 ## web
 [app] (class=Firefox)
-  [Workspace]	{7}
+  [Workspace]	{2}
 [end]
 [app] (class=Firefox-esr)
-  [Workspace]	{7}
+  [Workspace]	{2}
 [end]
 
 ## emacs
