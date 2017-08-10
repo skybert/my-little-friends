@@ -1,2 +1,13 @@
 set completion-query-items 10000
 set completion-ignore-case On
+
+# show coloured auto completion options (same as for ls --color)
+set colored-stats On
+
+# show ...<differentiaor> → easier to auto complete long names
+set completion-prefix-display-length 3
+
+# show the completion options immediately, no need to hit Tab again
+set show-all-if-ambiguous On
+
+
