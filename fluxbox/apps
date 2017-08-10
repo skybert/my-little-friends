@@ -19,7 +19,11 @@
 
 ## talk
 # using Google Chrome for video conferencing
-[app] (name=Google-chrome-stable) (class=Google-chrome-stable)
+[app] (name=google-chrome-stable)
+  [Workspace]	{1}
+  [Deco]        {NONE}
+[end]
+[app] (name=google-chrome)
   [Workspace]	{1}
   [Deco]        {NONE}
 [end]
