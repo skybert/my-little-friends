@@ -27,7 +27,7 @@ fi
 ## favourite apps
 clipit &> /dev/null &
 conky &
-vivaldi &> /dev/null &
+firefox &> /dev/null &
 emacs -fn 7x14 -g 80x60 &> /dev/null &
 mpd ~/.mpdconf &> /dev/null &
 gnome-terminal &> /dev/null &
