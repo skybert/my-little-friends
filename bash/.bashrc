@@ -93,7 +93,7 @@ alias gs='git status'
 alias gsh='git show'
 alias gsr='git svn rebase'
 alias less='less -Ri'
-alias ls='ls -ltrh'
+alias ls='ls -ltrh --color'
 alias mcc="mvn clean compile"
 alias mci="mvn clean install --offline --fail-at-end -Dmaven.test.skip=true"
 alias mcit="mvn clean install --fail-at-end"
