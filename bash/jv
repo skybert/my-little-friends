@@ -1,0 +1,27 @@
+#! /usr/bin/env bash
+
+## Command for quickly viewing a Jira issue from the command line
+##
+## by torstein.k.johansen@gmail.com
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+read_user_input() {
+  conf_file=$HOME/.$(basename "$0").conf
+  . ${conf_file}
+  issue=$1
+}
+
+main() {
+  read_user_input "$@"
+  local json=
+  json=$(curl -s -u ${jira_user}:${jira_password} "${jira_url}"/rest/api/2/issue/${issue})
+  jq --raw-output '.fields.summary' <<< "${json}"
+  jq --raw-output '.fields.resolution.name' <<< "${json}"
+  fixed_versions=$(jq --raw-output '.fields.fixVersions[].name' <<< "${json}")
+  printf "%s\n" "${fixed_versions}"
+}
+
+main "$@"
