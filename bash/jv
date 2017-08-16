@@ -10,12 +10,40 @@ set -o pipefail
 
 read_user_input() {
   conf_file=$HOME/.$(basename "$0").conf
-  . ${conf_file}
+  . ${conf_file} &> /dev/null || {
+    cat <<EOF
+You must have ${conf_file} with the following settings:
+
+   jira_url=https://jira.example.com
+   jira_user=foo
+   jira_password=bar
+
+EOF
+    exit 1
+  }
   issue=$1
 }
 
+ensure_sanity_or_exit() {
+  local sanity_ensured=1
+
+  for cmd in jq curl; do
+    which "${cmd}" &> /dev/null || {
+      printf "You must have %s installed to use %s\n" "${cmd}" "$(basename "$0")"
+      sanity_ensured=0
+    }
+  done
+
+  if [ "${sanity_ensured}" -eq 0 ]; then
+    exit 1
+  fi
+
+}
+
+
 main() {
   read_user_input "$@"
+  ensure_sanity_or_exit
   local json=
   json=$(curl -s -u ${jira_user}:${jira_password} "${jira_url}"/rest/api/2/issue/${issue})
   jq --raw-output '.fields.summary' <<< "${json}"
