@@ -283,7 +283,8 @@
 ;; Automatically reload files was modified by external program
 (global-set-key  [ (f5) ] 'revert-buffer)
 (global-auto-revert-mode 1)
-(setq revert-without-query (list "\\.png$" "\\.svg$"))
+(setq revert-without-query (list "\\.png$" "\\.svg$")
+      auto-revert-verbose nil)
 
 (defun rename-this-buffer-and-file ()
   "Renames current buffer and file it is visiting."
