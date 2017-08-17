@@ -276,10 +276,6 @@
 ;; extra line breaks are inserted.
 (global-visual-line-mode 1)
 
-;; Save & restore sessions, it drives me nuts ... but can be very
-;; useful, so I'll keep the setting just for a while
-;; (desktop-save-mode 1)
-
 ;; Automatically reload files was modified by external program
 (global-set-key  [ (f5) ] 'revert-buffer)
 (global-auto-revert-mode 1)
