@@ -15,6 +15,12 @@
                "** TODO %?\n  SCHEDULED: %T\n%a\n")
               ("f" "follow-up" entry (file "~/doc/scribbles/2017/work.org")
                "** TODO Follow up on %? :noreport:\n  SCHEDULED: %T\n%a\n")
+              ("e" "ece" entry (file "~/doc/scribbles/2017/ece.org")
+               "** TODO %?\n  SCHEDULED: %T\n%a\n")
+              ("c" "cloud" entry (file "~/doc/scribbles/2017/cloud.org")
+               "** TODO %?\n  SCHEDULED: %T\n%a\n")
+              ("a" "adm" entry (file "~/doc/scribbles/2017/adm.org")
+               "** TODO %?\n  SCHEDULED: %T\n%a\n")
               ("i" "idea" entry (file "~/doc/ideas.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n"))))
 
