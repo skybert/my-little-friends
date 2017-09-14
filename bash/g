@@ -5,7 +5,7 @@
 #
 # by torstein.k.johansen at gmail.com
 
-browser_bin=vivaldi
+browser_bin=firefox
 google_url="http://google.com/search?ion=1&q="
 
 for el in "$@"; do
