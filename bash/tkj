@@ -115,7 +115,7 @@ function do_generate-eclipse-files-and-restart-eclimd() {
         eclipse:eclipse
   done
 
-  do_restart-eclimd engine
+  do_restart-eclimd ${1-engine}
 }
 
 function do_update-eclipse-files-and-restart-eclimd() {
