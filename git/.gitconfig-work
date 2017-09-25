@@ -44,3 +44,6 @@
 [diff]
   # Get more intelligent git diff
   compactionHeuristic = true
+
+[magit]
+  hideCampaign = true
