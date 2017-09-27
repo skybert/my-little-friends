@@ -222,6 +222,13 @@ function do_daily()
   print "Stopping all Java processes and making world"
   killall java || true
 
+  print "Restarting virtual machine(s) ..."
+  local vms="iam"
+  for vm in ${vms}; do
+    vboxmanage controlvm "${vm}" poweroff &> /dev/null || true
+    run vboxmanage startvm "${vm}" --type headless
+  done
+
   print "Building ECE to pull down today's SNAPSHOT dependencies ..."
   pom=~/src/content-engine/pom.xml
   sed -i  '/<module>demo<\/module>/d' "${pom}"
