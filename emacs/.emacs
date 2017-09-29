@@ -282,24 +282,6 @@
 (setq revert-without-query (list "\\.png$" "\\.svg$")
       auto-revert-verbose nil)
 
-(defun rename-this-buffer-and-file ()
-  "Renames current buffer and file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (message "Buffer is not visiting a file!")
-      (let ((new-name (read-file-name "New name: " filename)))
-        (cond
-         ((vc-backend filename) (vc-rename-file filename new-name))
-         (t
-          (rename-file filename new-name t)
-          (rename-buffer new-name)
-          (set-visited-file-name new-name)
-          (set-buffer-modified-p nil)
-          (message "File '%s' successfully renamed to '%s'" filename (file-name-nondirectory new-name))))))))
-
-(global-set-key (kbd "C-x C-r") 'rename-this-buffer-and-file)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Minibuffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -369,16 +351,9 @@
 (display-time)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Tell emacs to skip backup files
+;; Reading & writing files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq make-backup-files nil)
-(setq backup-by-copying-when-mismatch t
-      backup-by-copying-when-linked t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Yes, I want large files
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq large-file-warning-threshold 150000000)
+(load "~/.emacs.d/tkj-files.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto complete
