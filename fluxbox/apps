@@ -55,6 +55,11 @@
 [end]
 
 ## talk2
+[app] (class=Gnome-terminal)
+  [Workspace] {6}
+  [Position]    (CENTER) {0 0}
+[end]
+
 [app] (title=Signal)
   [Workspace] {6}
   [Position]    (CENTER) {0 0}
