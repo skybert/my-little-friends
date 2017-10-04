@@ -216,8 +216,7 @@ function do_daily()
   done
 
   print "Setting wallpaper..."
-  do_set-random-wallpaper
-  killall xmessage 2>/dev/null || true
+  do_set-wallpaper
 
   print "Stopping all Java processes and making world"
   killall java || true
@@ -467,9 +466,7 @@ function do_setup-screens-presentation() {
   do_turn-off-external-screens
   # TODO get primary and external screen names dynamically
   xrandr --output HDMI-2 --auto --same-as eDP-1
-  sleep 3
   do_set-wallpaper
-  killall xmessage || true
 }
 
 function do_turn-off-external-screens() {
@@ -482,7 +479,6 @@ function do_turn-off-external-screens() {
       xrandr --output ${screen} --off
     fi
   done
-  sleep 3
   do_set-wallpaper
   killall xmessage || true
 }
@@ -524,8 +520,7 @@ function do_setup-screens() {
     previous_screen=${screen}
   done
 
-  # do_set-wallpaper
-  do_set-random-wallpaper
+  do_set-wallpaper
 }
 
 function do_change-clipboard() {
@@ -974,22 +969,23 @@ function p4_check_that_everythings_ok()
     done
 }
 
-function do_set-wallpaper() {
+function do_set-wallpaper-current()
+{
   local wallpaper=$HOME/pictures/wallpapers/current
   display -window root "$wallpaper"
 }
 
-function do_set-random-wallpaper()
+function do_set-wallpaper()
 {
   wallpaper_names=$(ls ~/pictures/wallpapers/*.{jpg,png} 2>/dev/null)
   wallpaper_names=$(ls ~/pictures/atlantis/cropped/*.bmp 2>/dev/null)
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
-  sleep 1
+  sleep 4
   print "Setting a random wallpaper $(basename "${wallpaper}")"
   display -window root -backdrop "$wallpaper"
-  killall xmessage 2>/dev/null
+  killall xmessage &>/dev/null || true
 }
 
 function unknown_command()
