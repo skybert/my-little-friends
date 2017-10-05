@@ -3,10 +3,6 @@
 ;; Add development sources of emacs-eclim to the load path
 ;; (add-to-list 'load-path "~/src/emacs-eclim")
 
-(defun tkj-insert-serial-version-uuid()
-  (interactive)
-  (insert "private static final long serialVersionUID = 1L;"))
-
 (defun tkj-eclim-maven-run-quick-package()
   (interactive)
   (eclim-maven-run "-o -q -DskipTests package"))
@@ -16,8 +12,7 @@
   (gtags-mode)
   ;;  (flyspell-prog-mode) ;; grabs C-; :(
   ;;  (flymake-mode)
-  (meghanada-mode)
-  ;; (eclim-mode)
+  (eclim-mode)
   (subword-mode)
   (yas-minor-mode)
   (idle-highlight-mode)
@@ -54,7 +49,7 @@
 (defun tkj-java-before-save-hook()
   (when (eq major-mode 'java-mode)
     (eclim-problems-show-errors)))
-;; (add-hook 'before-save-hook 'tkj-java-before-save-hook)
+(add-hook 'before-save-hook 'tkj-java-before-save-hook)
 
 (defun tkj-default-code-style-hook()
   (setq c-basic-offset 2
