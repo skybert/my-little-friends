@@ -7,7 +7,6 @@
 (defun my-java-mode-hook ()
   (auto-fill-mode)
   (gtags-mode)
-  (meghanada-mode)
   (subword-mode)
   (yas-minor-mode)
   (idle-highlight-mode)
@@ -88,3 +87,6 @@
 (defun tkj-load-meghanada ()
   (interactive)
   (load "~/.emacs.d/tkj-java-meghanada.el"))
+
+
+(tkj-load-meghanada)
