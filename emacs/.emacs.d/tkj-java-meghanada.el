@@ -1,2 +1,5 @@
 (require 'meghanada)
-(add-hook 'java-mode-hook (lambda () (meghanada-mode t)))
+(defun tkj-java-meghanda-mode-hook ()
+  (meghanada-mode)
+  (flycheck-mode))
+(add-hook 'java-mode-hook 'tkj-java-meghanda-mode-hook)
