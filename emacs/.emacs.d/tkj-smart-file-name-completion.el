@@ -52,7 +52,19 @@
       projectile-globally-ignored-directories
       (append (list "target" "output" "node_modules" "reveal.js" "elpa" "venv")
               projectile-globally-ignored-directories)
-      projectile-globally-ignored-file-suffixes '("iml" "ipr" "classpath" "tkj" "zip" "war" "class")
+      projectile-globally-ignored-file-suffixes
+      '(
+        "blob"
+        "class"
+        "classpath"
+        "iml"
+        "ipr"
+        "pyc"
+        "tkj"
+        "war"
+        "xd"
+        "zip"
+        )
       projectile-globally-ignored-files '("TAGS" "*~")
       projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s"
       projectile-mode-line '(:eval (format " [%s]" (projectile-project-name)))
