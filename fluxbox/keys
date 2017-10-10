@@ -82,6 +82,7 @@ Control Shift Down :LeftWorkspace 5
 
 # windows
 Control Shift b :ResizeHorizontal -10
+Control Shift c :MoveTo 0 * Center
 Control Shift f :ResizeHorizontal 10
 Control Shift h :MoveLeft 10
 Control Shift j :MoveDown 10
