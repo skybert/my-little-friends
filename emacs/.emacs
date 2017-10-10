@@ -22,15 +22,15 @@
 
   (if (eq system-type 'gnu/linux)
       (progn
-	;; Favourite fonts: Source Code Pro, Terminus
-	(set-face-attribute 'default nil
-			    :family "Source Code Pro"
-			    :height 100
-			    :weight 'normal
-			    :width 'normal)
-	;; Edit server needed for editing text areas in Chrome browsers
-	(edit-server-start)
-	))
+        ;; Favourite fonts: Source Code Pro, Terminus
+        (set-face-attribute 'default nil
+                            :family "Source Code Pro"
+                            :height 100
+                            :weight 'normal
+                            :width 'normal)
+        ;; Edit server needed for editing text areas in Chrome browsers
+        (edit-server-start)
+        ))
 
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
@@ -149,20 +149,34 @@
 (global-set-key "\C-\M-f" 'find-file-at-point)
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
+
 (setq grep-find-ignored-directories
-      (list
-       ".git"
-       ".hg"
-       ".idea"
-       ".project"
-       ".settings"
-       ".svn"
-       "bootstrap*"
-       "pyenv"
-       "target"
-       )
-      grep-find-ignored-files (list "TAGS")
-      grep-find-command
+      (append
+       (list
+        ".git"
+        ".hg"
+        ".idea"
+        ".project"
+        ".settings"
+        ".svn"
+        "bootstrap*"
+        "pyenv"
+        "target"
+        )
+       grep-find-ignored-directories))
+
+(setq grep-find-ignored-files
+      (append
+       (list
+        "*.blob"
+        "*.xd"
+        "TAGS"
+        "dependency-reduced-pom.xml"
+        "workbench.xmi"
+        )
+       grep-find-ignored-files))
+
+(setq grep-find-command
       "find ~/src/content-engine -name \"*.java\" | xargs grep -n -i -e ")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
