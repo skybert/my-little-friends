@@ -150,6 +150,7 @@
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
 
+(require 'grep)
 (setq grep-find-ignored-directories
       (append
        (list
