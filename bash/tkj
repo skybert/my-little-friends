@@ -246,9 +246,6 @@ function do_daily()
   print "Now deploying ECE ..."
   tcc &>/dev/null
 
-  print "Getting, building & deploying the latest code ..."
-  do_update-eclipse-files-and-restart-eclimd
-
   do_backup
 
   print "Happy hacking :-)"
