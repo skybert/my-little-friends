@@ -49,6 +49,16 @@ $hr
 ${color grey}Battery    :${color white} ${battery_percent}% ${battery_bar}
 ${color grey}Temperature:${color white} ${acpitemp} C
 $hr
+${color grey}Name              PID   CPU%   MEM%
+${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+${color lightgrey} ${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5}
+${color lightgrey} ${top name 6} ${top pid 6} ${top cpu 6} ${top mem 6}
+${color lightgrey} ${top name 7} ${top pid 7} ${top cpu 7} ${top mem 7}
+${color lightgrey} ${top name 8} ${top pid 8} ${top cpu 8} ${top mem 8}
+$hr
 ${exec ~/src/my-little-friends/bash/tkj dates}
 ${color grey}$hr
 ${color grey}${exec date}
