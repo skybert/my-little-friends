@@ -228,6 +228,14 @@ function do_daily()
     run vboxmanage startvm "${vm}" --type headless
   done
 
+  # Not working on ECE at the moment
+  # do_build_and_deploy_ece_to_pull_down_todays_snapshots
+  do_backup
+
+  print "Happy hacking :-)"
+}
+
+do_build_and_deploy_ece_to_pull_down_todays_snapshots() {
   print "Building ECE to pull down today's SNAPSHOT dependencies ..."
   pom=~/src/content-engine/pom.xml
   sed -i  '/<module>demo<\/module>/d' "${pom}"
@@ -245,11 +253,8 @@ function do_daily()
 
   print "Now deploying ECE ..."
   tcc &>/dev/null
-
-  do_backup
-
-  print "Happy hacking :-)"
 }
+
 
 function do_backup() {
   if [ -d ~/src/dbs ]; then
@@ -668,39 +673,39 @@ function do_hours()
   local minutes=$(( seconds_left / 60 ))
   local seconds_left=$(( seconds_left - $minutes * 60 ))
 
-  # echo "It's" ${hours}h ${minutes}m ${seconds_left}s \
-    # "since you started working today."$'\n' \
-    echo -n "|" $(date -d "$ended_working_string" --iso) \
-         "|" $(date -d "$started_working_string" +%H:%M) \
-         "->" \
-         $(date -d "$ended_working_string" +%H:%M) \
-         "| and probably some lunch | "
+  # echo "It's" ${hours}h ${minutes}m ${seconds_left}s
+  # "since you started working today."$'\n'
+  echo -n "|" $(date -d "$ended_working_string" --iso) \
+       "|" $(date -d "$started_working_string" +%H:%M) \
+       "->" \
+       $(date -d "$ended_working_string" +%H:%M) \
+       "| and probably some lunch | "
 
-    if [ $minutes -gt 0 ]; then
-      echo ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours |"
-    else
-      echo ${hours}".0 hours |"
-    fi
+  if [ $minutes -gt 0 ]; then
+    echo ${hours}$(echo "scale=2;" $minutes / 60 | bc -l)" hours |"
+  else
+    echo ${hours}".0 hours |"
+  fi
 
-    local previous_date
-    cat $HOME/.bash_eternal_history | \
-      awk '{ print $2; }' | \
-      grep $the_date | \
-      uniq | \
-      sort | \
-      while read l; do
-        now=$(date -d "$l" +%s)
-        if [ $previous_date ] ;then
-          since_last=$(( $now - $previous_date ))
+  local previous_date
+  cat $HOME/.bash_eternal_history | \
+    awk '{ print $2; }' | \
+    grep $the_date | \
+    uniq | \
+    sort | \
+    while read l; do
+      now=$(date -d "$l" +%s)
+      if [ $previous_date ] ;then
+        since_last=$(( $now - $previous_date ))
 
-          if [ $since_last -gt 2500 ]; then
-            print "No command line action between" $(date -d @${previous_date} +%H:%M:%S) \
-                  "and" $(date -d "$l" +%H:%M:%S) \
-                  $(get_human_time $since_last)
-          fi
+        if [ $since_last -gt 2500 ]; then
+          print "No command line action between" $(date -d @${previous_date} +%H:%M:%S) \
+                "and" $(date -d "$l" +%H:%M:%S) \
+                $(get_human_time $since_last)
         fi
-        previous_date=$now
-      done
+      fi
+      previous_date=$now
+    done
 }
 
 function eight_days_ago() {
@@ -1003,4 +1008,3 @@ ${fn} ${@:2}
 rm $pid_file 2>/dev/null
 
 exit 0
-
