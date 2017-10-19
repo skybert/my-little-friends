@@ -947,7 +947,7 @@ function do_add-todo() {
 EOF
 }
 
-function do_play-that-music()
+function do_music-play-artists()
 {
   mpc -p ${mpd_port-6600} clear
 
