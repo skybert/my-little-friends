@@ -1,5 +1,11 @@
+*.class
 *.min.js
+.cargo
+.local/lib
+.steam
+.wine
+TAGS
 jquery*.js
 src/test
 target
-TAGS
+virtual
