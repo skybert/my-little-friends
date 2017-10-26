@@ -267,7 +267,7 @@ function do_backup() {
   fi
 
   if [ -x ~/backup/pull ]; then
-    run ~/backup/pull
+    run ~/backup/pull &> /dev/null || true
   fi
 
   if [ -x ~/backup/push ]; then
