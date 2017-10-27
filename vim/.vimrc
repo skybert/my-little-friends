@@ -55,9 +55,12 @@ function! TrimWhiteSpace()
 endfunction
 autocmd BufWritePre *.* :call TrimWhiteSpace()
 
-"Spelling"
+"Spelling, enable for certain files only"
 "  set spell
-"  set spelllang=en
+set spelllang=en
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.txt setlocal spell
+autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
 
 "Text wrapping"
 set formatoptions=t
