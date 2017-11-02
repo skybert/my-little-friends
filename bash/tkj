@@ -980,13 +980,18 @@ function do_set-wallpaper-current()
 function do_set-wallpaper()
 {
   wallpaper_names=$(ls ~/pictures/wallpapers/*.{jpg,png} 2>/dev/null)
-  wallpaper_names=$(ls ~/pictures/atlantis/cropped/*.bmp 2>/dev/null)
+  wallpaper_names=$(ls ~/pictures/atlantis/cropped/*.png 2>/dev/null)
   wallpaper_array=($wallpaper_names)
   number_of_wallpapers=${#wallpaper_array[*]}
   wallpaper=${wallpaper_array[$((RANDOM % number_of_wallpapers))]}
   sleep 4
   print "Setting a random wallpaper $(basename "${wallpaper}")"
-  display -window root -backdrop "$wallpaper"
+  if [ -x /usr/bin/feh ]; then
+    feh --bg-scale "${wallpaper}"
+  else
+    display -window root -backdrop "$wallpaper"
+  fi
+
   killall xmessage &>/dev/null || true
 }
 
