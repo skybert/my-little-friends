@@ -129,7 +129,7 @@ Control Shift d :ShowDesktop
 
 # 't' for terminal. 'a' is an alternative terminal with differnet font and colours.
 Control Shift a :Exec urxvt +sb -cr red -bc -sl 10000 -fn 'xft:Source Code Pro:pixelsize=16' -bg white -fg black
-Control Shift t :Exec urxvt +sb -cr red -bc -sl 10000 -fn 'xft:Terminus:pixelsize=14' -bg black -fg "#dcdccc"
+Control Shift t :Exec urxvt +sb -cr red -bc -sl 10000 -fn 7x14 -bg black -fg "#dcdccc"
 
 # 'u' is the first letter of the Norwegian word for "without", "uten" :-)
 Control Shift u :ToggleDecor
