@@ -67,7 +67,9 @@ alias df='df -hT -x tmpfs -x devtmpfs'
 alias diff=colordiff
 alias e='emacsclient --no-wait'
 alias el='tail -f /var/log/escenic/engine1{.out,-messages,-catalina.out,-tomcat}'
-alias al="tail -f /opt/tomcat-engine1/logs/access.$(date --iso).log | egrep -v '(indexer|lock|changelog)'"
+if [[ $(uname -s) == Linux ]]; then
+  alias al="tail -f /opt/tomcat-engine1/logs/access.$(date --iso).log | egrep -v '(indexer|lock|changelog)'"
+fi
 alias emacs='emacs -fn terminus-bold-14'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
 alias eternal='cat ~/.bash_eternal_history | grep'
@@ -191,8 +193,8 @@ export EDITOR=vim
 # language & time zone
 ##################################################################
 # export TZ='Asia/Taipei'
-export LANG=en_GB.utf8
-export LC_ALL=en_GB.utf8
+export LANG=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
 
 ##################################################################
 # shell check
