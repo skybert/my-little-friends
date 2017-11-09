@@ -69,7 +69,11 @@ alias e='emacsclient --no-wait'
 alias el='tail -f /var/log/escenic/engine1{.out,-messages,-catalina.out,-tomcat}'
 if [[ $(uname -s) == Linux ]]; then
   alias al="tail -f /opt/tomcat-engine1/logs/access.$(date --iso).log | egrep -v '(indexer|lock|changelog)'"
+  alias ls='ls -ltrh --color'
+elif [[ $(uname -s) == OpenBSD ]]; then
+  alias ls='gls -ltrh --color'
 fi
+
 alias emacs='emacs -fn terminus-bold-14'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
 alias eternal='cat ~/.bash_eternal_history | grep'
@@ -95,7 +99,6 @@ alias gs='git status'
 alias gsh='git show'
 alias gsr='git svn rebase'
 alias less='less -Ri'
-alias ls='ls -ltrh --color'
 alias mcc="mvn clean compile"
 alias mci="mvn clean install --offline --fail-at-end -Dmaven.test.skip=true"
 alias mcit="mvn clean install --fail-at-end"
