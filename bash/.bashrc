@@ -70,8 +70,10 @@ alias el='tail -f /var/log/escenic/engine1{.out,-messages,-catalina.out,-tomcat}
 if [[ $(uname -s) == Linux ]]; then
   alias al="tail -f /opt/tomcat-engine1/logs/access.$(date --iso).log | egrep -v '(indexer|lock|changelog)'"
   alias ls='ls -ltrh --color'
+  alias grep='grep --text --ignore-case --color --exclude-dir={.svn,.git,.hg,CVS}'
 elif [[ $(uname -s) == OpenBSD ]]; then
   alias ls='gls -ltrh --color'
+  alias grep='grep --text --ignore-case'
 fi
 
 alias emacs='emacs -fn terminus-bold-14'
@@ -92,7 +94,6 @@ alias gln='git --no-pager log'
 alias glp='git log --decorate --patch --word-diff=color'
 alias glpn='git --no-pager log -p'
 alias gpr='git pull --rebase'
-alias grep='grep --text --ignore-case --color --exclude-dir={.svn,.git,.hg,CVS}'
 alias gri='git rebase -i'
 alias gria='git rebase --interactive --autosquash'
 alias gs='git status'
