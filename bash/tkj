@@ -167,8 +167,11 @@ function do_daily()
   doc_dir=$HOME/doc/$(date +%Y)
   today_dir="${doc_dir}/$(date --iso)"
 
+  print "Getting new email ..."
+  get-new-email &
+
   print "Removing empty directories in ${doc_dir} ..."
-  find "${doc_dir}" -type d -empty -delete
+  find "${doc_dir}" -type d -empty -delete &
   print "Creating daily doc dir ${doc_dir} ..."
   mkdir -p "${today_dir}" &> /dev/null
 
@@ -228,8 +231,7 @@ function do_daily()
     run vboxmanage startvm "${vm}" --type headless
   done
 
-  # Not working on ECE at the moment
-  # do_build_and_deploy_ece_to_pull_down_todays_snapshots
+  do_build_and_deploy_ece_to_pull_down_todays_snapshots
   do_backup
 
   print "Happy hacking :-)"
