@@ -43,6 +43,7 @@ function do_go-to-meeting() {
 
 function do_agenda() {
   org-agenda.sh
+  firefox https://statushero.com/teams/user-management-squad/statuses/current/edit &
 }
 
 ## Method useful for developers and system administrators. It checks
@@ -226,6 +227,7 @@ function do_daily()
 
   print "Restarting virtual machine(s) ..."
   local vms="iam"
+  vms=""
   for vm in ${vms}; do
     vboxmanage controlvm "${vm}" poweroff &> /dev/null || true
     run vboxmanage startvm "${vm}" --type headless
