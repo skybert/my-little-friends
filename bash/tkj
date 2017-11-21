@@ -185,7 +185,6 @@ function do_daily()
     (cd "${HOME}/doc" && ln -s "${today_dir}" "${today}")
   fi
 
-  do_agenda &>/dev/null
   remove_various_junk
   do_sync-scribbles
 
