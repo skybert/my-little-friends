@@ -928,14 +928,17 @@ function do_music-info() {
         org.mpris.MediaPlayer2.Player \
         Metadata |
         sed 's#, "#, "\n#g' |
-        egrep 'xesam:(title|album|arist)'
-        )
+        egrep 'xesam:(title|album|arist)')
 
-    album=$(echo "${info}" | grep xesam:album | sed 's#xesam:album##')
-    artist=$(echo "${info}" | grep xesam:artist | sed 's#xesam:artist##')
-    title=$(echo "${info}" | grep xesam:title | sed 's#xesam:title##')
+    album=$(echo "${info}" | grep -w xesam:album | sed -r 's#xesam:album.*[:] ##')
+    artist=$(echo "${info}" | grep -w xesam:albumArtist | sed -r 's#xesam:albumArtist.*[:] ##')
+    title=$(echo "${info}" | grep -w xesam:title | sed -r 's#xesam:title.*[:] ##')
 
-    printf "%s ♬ %s ♪ %s" "${title}" "${album}" "${artist}"
+    printf "%s ♬ %s ♪ %s\n" "${title}" "${album}" "${artist}" |
+      sed 's#[]],##g' |
+      sed 's#[{]##g' |
+      sed 's#[}]##g' |
+      sed 's#["]##g'
 
   elif [ $(ps aux | grep -w mpd | grep -v grep | wc -l) -gt 0 ]; then
     mpc -p ${mpd_port-6600} current  -f "%title% ♬ %artist% ♪ %album%"
