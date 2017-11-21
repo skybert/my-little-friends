@@ -13,9 +13,10 @@
 [app] (name=vlc) (class=Vlc)
   [Workspace]	{0}
 [end]
-[app] (name=spotify) (class=Spotify)
+[app] (name=spotify)
   [Workspace]	{0}
 [end]
+
 
 ## talk
 # using Google Chrome for video conferencing
@@ -39,7 +40,10 @@
 [end]
 
 ## web
-[app] (class=Firefox)
+[app] (title=Firefox)
+  [Workspace]	{2}
+[end]
+[app] (class=Firefox Developer Edition)
   [Workspace]	{2}
 [end]
 [app] (class=Firefox-esr)

@@ -22,5 +22,8 @@
       ;; Show diffs per word, looks nicer!
       magit-diff-refine-hunk t
 
+      ;; Easy switching between all repositories I'm working on
+      magit-repository-directories (list "~/src")
+
       ;; Follow symlinks when opening files.
       vc-follow-symlinks t)

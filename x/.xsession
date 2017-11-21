@@ -31,6 +31,9 @@ firefox &> /dev/null &
 emacs -fn 7x14 -g 80x60 &> /dev/null &
 mpd ~/.mpdconf &> /dev/null &
 gnome-terminal &> /dev/null &
+/opt/google/chrome/google-chrome \
+  --profile-directory=Default \
+  --app-id=bikioccmkafdpakkkcpdbppfkghcmihk &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
@@ -42,4 +45,3 @@ exec /usr/local/bin/fluxbox -log ~/.fluxbox/log
 # exec gnome-session
 # exec cinnamon-session
 # exec startkde
-
