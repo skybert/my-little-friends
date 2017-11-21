@@ -1,0 +1,28 @@
+# Torstein's .xsession for OpenBSD               -*- sh -*-
+
+
+# Turn off the bell
+xset -b
+
+# Load X resources, colours in xterm & friends++
+file=$HOME/.Xresources
+if [ -r "${file}" ]; then
+  xrdb "${file}"
+fi
+
+# Hide the mouse pointer when not using the mouse.
+unclutter &
+
+# Start favourite apps
+firefox &
+
+# Add installed fonts
+add_install_fonts_to_font_path() {
+  find  /usr/local/share/fonts -maxdepth 2 -name "fonts.dir" |
+    while read -r font ; do
+      xset fp+ "$(dirname "${font}")"
+    done
+}
+
+# Lastly, start the window manager
+fluxbox -log ~/.fluxbox/log
