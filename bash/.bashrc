@@ -5,11 +5,7 @@
 ##################################################################
 shopt -s checkwinsize
 PROMPT_COMMAND='echo -ne "\033]0;${USER-${USERNAME}}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-if [ -e /lib/terminfo/x/xterm-256color ]; then
-  export TERM='xterm-256color'
-else
-  export TERM='xterm'
-fi
+export TERM=xterm
 
 ##################################################################
 # prompt
