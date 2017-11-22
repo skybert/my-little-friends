@@ -9,7 +9,7 @@ x_resources="
 "
 for x in ${x_resources}; do
   if [ -r "${x}" ]; then
-    xrdb "${x}"
+    xrdb -merge "${x}"
   fi
 done
 
