@@ -11,6 +11,7 @@
   (yas-minor-mode)
   (idle-highlight-mode)
   (git-gutter+-mode)
+  (flyspell-prog-mode)
 
   (define-key c-mode-base-map (kbd "C-M-j") 'tkj-insert-serial-version-uuid)
   (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)
