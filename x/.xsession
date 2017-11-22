@@ -3,7 +3,15 @@
 ## Torstein's .xinitrc/.xsession
 
 ## load x settings
-xrdb $HOME/.Xresources
+x_resources="
+  $HOME/.Xresources
+  $HOME/src/my-little-friends/x/x-tango-theme
+"
+for x in ${x_resources}; do
+  if [ -r "${x}" ]; then
+    xrdb "${x}"
+  fi
+done
 
 ## remap keyboard
 if [ -r "$HOME/.xmodmaprc" ]; then
