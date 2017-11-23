@@ -62,7 +62,7 @@ alias clipit='clipit &> /dev/null'
 alias de='setxkbmap de'
 alias df='df -hT -x tmpfs -x devtmpfs'
 alias diff=colordiff
-alias e='emacsclient --alternate-editor=""'
+alias e='emacsclient --no-window-system --alternate-editor=""'
 alias el='tail -f /var/log/escenic/engine1{.out,-messages,-catalina.out,-tomcat}'
 alias emacs='emacs -fn terminus-bold-14'
 alias err="egrep --color -w 'ERROR|SEVERE|WARN|Exception'"
