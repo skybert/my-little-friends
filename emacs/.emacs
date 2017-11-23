@@ -29,16 +29,13 @@
                             :weight 'normal
                             :width 'normal)
         ;; Edit server needed for editing text areas in Chrome browsers
-        (edit-server-start)
-        ))
+        (edit-server-start)))
 
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (setq-default cursor-type 'box)
   (tool-bar-mode 0)
-  (set-fringe-style 0)
-
-  )
+  (set-fringe-style 0))
 
 (setq frame-background-mode nil
       column-number-mode t
