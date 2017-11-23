@@ -36,7 +36,10 @@ fi
 clipit &> /dev/null &
 conky &
 firefox &> /dev/null &
-emacs -fn 7x14 -g 80x60 &> /dev/null &
+emacsclient \
+  --create-frame \
+  --alternate-editor="" \
+  &> /dev/null &
 mpd ~/.mpdconf &> /dev/null &
 gnome-terminal &> /dev/null &
 /opt/google/chrome/google-chrome \
