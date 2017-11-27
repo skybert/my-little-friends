@@ -47,7 +47,11 @@
 
       ;; common SMTP settings for all accounts
       message-send-mail-function 'smtpmail-send-it
-      )
+
+      ;; Make GPG work with emacs daemon (by default, Emacs will
+      ;; attempt and fail to connect to the GPG agent and then fail
+      ;; the GPG alltogether.
+      epa-pinentry-mode 'loopback)
 
 ;; Navigate links in rich text email by Tab/Shift + Tab
 (add-hook 'mu4e-view-mode-hook
