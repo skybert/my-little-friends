@@ -46,6 +46,7 @@ main() {
   ensure_sanity_or_exit
   local json=
   json=$(curl -s -u ${jira_user}:${jira_password} "${jira_url}"/rest/api/2/issue/${issue})
+  printf "%s " "${issue^^}"
   jq --raw-output '.fields.summary' <<< "${json}"
   jq --raw-output '.fields.resolution.name' <<< "${json}"
   fixed_versions=$(jq --raw-output '.fields.fixVersions[].name' <<< "${json}")
