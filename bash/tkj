@@ -6,9 +6,16 @@ log_file=$HOME/.$(basename $0).log
 LC_ALL=C
 conf_file=$HOME/.$(basename $0).conf
 
-. $HOME/src/moria/src/common/indispensable.sh
-. $HOME/src/moria/src/common/text/color.sh
-. $HOME/src/moria/src/common/text/messages.sh
+who=$(whoami)
+if [[ "${who}" == root ]]; then
+  . /home/torstein/src/moria/src/common/indispensable.sh
+  . /home/torstein/src/moria/src/common/text/color.sh
+  . /home/torstein/src/moria/src/common/text/messages.sh
+else
+  . "${HOME}"/src/moria/src/common/indispensable.sh
+  . "${HOME}"/src/moria/src/common/text/color.sh
+  . "${HOME}"/src/moria/src/common/text/messages.sh
+fi
 
 src_list="
 "
