@@ -27,15 +27,18 @@
                             :family "Source Code Pro"
                             :height 100
                             :weight 'normal
-                            :width 'normal)
-        ;; Edit server needed for editing text areas in Chrome browsers
-        (edit-server-start)))
-
+                            :width 'normal)))
   (set-cursor-color "red")
   (set-scroll-bar-mode nil)
   (setq-default cursor-type 'box)
   (tool-bar-mode 0)
   (set-fringe-style 0))
+
+;; Edit server needed for editing text areas in Chrome browsers
+(when (locate-library "edit-server")
+  (require 'edit-server)
+  (setq edit-server-new-frame nil)
+  (edit-server-start))
 
 (setq frame-background-mode nil
       column-number-mode t
