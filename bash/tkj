@@ -42,8 +42,24 @@ function do_go-to-meeting() {
 }
 
 function do_agenda() {
-  org-agenda.sh
-  firefox https://statushero.com/teams/user-management-squad/statuses/current/edit &
+  org-agenda.sh | while read -r line; do
+    if [[ "${line}" == *Monday* ||
+            "${line}" == *Tuesday* ||
+            "${line}" == *Wednesday* ||
+            "${line}" == *Thursday* ||
+            "${line}" == *Friday* ||
+            "${line}" == *Staturday* ||
+            "${line}" == *Sunday* ]]; then
+      tput setaf 1
+      printf "%s\n" "${line}"
+      tput sgr 0
+    else
+      echo "${line}"
+    fi
+  done
+
+  printf "\nReport it here:\n%s\n" \
+         "https://statushero.com/teams/user-management-squad/statuses/current/edit"
 }
 
 ## Method useful for developers and system administrators. It checks
