@@ -34,6 +34,20 @@ function read_user_conf_if_exists() {
   fi
 }
 
+function do_talk-start() {
+  xrdb -merge ~/src/my-little-friends/x/x-resources-presentation
+  urxvt +sb -cr red -bc -sl 10000 -fn 'xft:Source Code Pro' -bg white -fg black
+  if [ -n "$1" ]; then
+    do_setup-screens-presentation
+  fi
+}
+
+function do_talk-stop() {
+  xrdb -remove
+  xrdb -merge ~/src/my-little-friends/x/x-resources
+  xrdb -merge "$HOME"/src/my-little-friends/x/x-tango-theme
+}
+
 ## $1 :: project
 function do_schedule-hudson-build() {
   print "Scheduled a new build of" $1 "..."
