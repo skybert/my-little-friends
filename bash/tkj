@@ -36,7 +36,7 @@ function read_user_conf_if_exists() {
 
 function do_talk-start() {
   xrdb -merge ~/src/my-little-friends/x/x-resources-presentation
-  urxvt +sb -cr red -bc -sl 10000 -fn 'xft:Source Code Pro' -bg white -fg black
+  urxvt +sb -cr red -bc -sl 10000 -fn 'xft:Source Code Pro' -bg white -fg black &
   if [ -n "$1" ]; then
     do_setup-screens-presentation
   fi
