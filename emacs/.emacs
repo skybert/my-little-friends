@@ -401,6 +401,7 @@
          ("config" . conf-mode)
          ("\\.cpp\\'" . c++-mode)
          ("\\.css\\'" . css-mode)
+         ("Dockerfile" . dockerfile-mode)
          ("\\.diff\\'" . diff-mode)
          ("\\.dtd\\'" . sgml-mode)
          ("\\.ebk\\'" . nxml-mode)
