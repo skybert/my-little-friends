@@ -1,0 +1,5 @@
+#define termfont      xft:Source Code Pro
+URxvt.font:           termfont
+URxvt.boldFont:       termfont
+URxvt.italicFont:     termfont
+URxvt.boldItalicFont: termfont
