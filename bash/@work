@@ -4,7 +4,7 @@
 
 su -c wired
 get-new-email &
-tkj setup-screens
+tkj setup-screens &
 tkj daily
 
 # something runs fbsetbg which fails because of change in screen setup
