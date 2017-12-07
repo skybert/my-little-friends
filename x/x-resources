@@ -15,3 +15,11 @@ URxvt.fading:           30
 URxvt.iso14755:    false
 URxvt.iso14755_52: false
 
+!! Urxvt Font. Define bold fonts to be the same as the regular font,
+!! otherwise the bold text (ls --color) are shown in a different font
+!! size than the regular text (smaller).
+#define termfont      xft:Source Code Pro:pixelsize=12:antialias=true
+URxvt.font:           termfont
+URxvt.boldFont:       termfont
+URxvt.italicFont:     termfont
+URxvt.boldItalicFont: termfont
