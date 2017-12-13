@@ -49,6 +49,12 @@
 [app] (class=Firefox-esr)
   [Workspace]	{2}
 [end]
+[app] (class=Vivaldi-snapshot)
+  [Workspace]	{2}
+[end]
+[app] (class=Vivaldi-stable)
+  [Workspace]	{2}
+[end]
 
 ## emacs
 [app] (class=Emacs)
@@ -70,12 +76,6 @@
 [end]
 
 ## web2
-[app] (class=Vivaldi-snapshot)
-  [Workspace]	{2}
-[end]
-[app] (class=Vivaldi-stable)
-  [Workspace]	{2}
-[end]
 [app] (name=opera) (class=Opera) (role=browser)
   [Workspace]	{7}
 [end]

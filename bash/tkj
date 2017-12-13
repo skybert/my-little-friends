@@ -238,7 +238,7 @@ function do_daily()
   print "Launching my favourite applications..."
   app_list="
     emacs
-    firefox
+    vivaldi
   "
 
   for el in $app_list; do

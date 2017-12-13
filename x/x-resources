@@ -7,7 +7,7 @@ URxvt.perl-ext-common:  default,matcher,keyboard-select
 URxvt.perl-ext:         clipboard
 URxvt.perl-lib:         /home/torstein/.urxvt/perl
 URxvt.underlineURLs:    true
-URxvt.url-launcher:     /usr/bin/firefox
+URxvt.url-launcher:     /usr/bin/vivaldi
 URxvt.keysym.M-Escape:  perl:keyboard-select:activate
 URxvt.fading:           30
 !! With these two magic settings, Ctrl+Shift does not mess up my work
