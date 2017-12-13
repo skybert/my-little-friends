@@ -31,7 +31,7 @@
       ;; care of this
       mu4e-sent-messages-behavior 'trash
 
-      mu4e-view-show-images t
+      mu4e-view-show-images nil
 
       ;; Easier to read HTML email in dark themes
       shr-color-visible-luminance-min 80
