@@ -2,4 +2,5 @@
 -emacs/.emacs.d/ensime
 -emacs/.emacs.d/anaconda-mode
 -emacs/.emacs.d/emojis
+-emacs/.emacs.d/thumbs
 -emacs/.emacs.d/projectile.cache
