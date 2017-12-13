@@ -45,6 +45,9 @@ gnome-terminal &> /dev/null &
 /opt/google/chrome/google-chrome \
   --profile-directory=Default \
   --app-id=bikioccmkafdpakkkcpdbppfkghcmihk &
+/opt/google/chrome/google-chrome \
+  --profile-directory=Default \
+  --app-id=filhcaihcfanbgghhefcjhiccijdjbbd &
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
