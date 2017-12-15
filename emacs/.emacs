@@ -15,7 +15,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (menu-bar-mode 0)
 
-(when window-system
+(defun tkj-load-graphical-settings()
+  (interactive)
   ;; Themes
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
   (load-theme 'deeper-blue)
@@ -33,6 +34,9 @@
   (setq-default cursor-type 'box)
   (tool-bar-mode 0)
   (set-fringe-style 0))
+
+(when window-system
+  (tkj-load-graphical-emacs-settings))
 
 ;; Edit server needed for editing text areas in Chrome browsers
 (when (locate-library "edit-server")
