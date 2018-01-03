@@ -321,6 +321,10 @@
         <direction>down</direction>
       </action>
     </keybind>
+    <!-- Keybindings for current window -->
+    <keybind key="C-S-m">
+      <action name="ToggleMaximize"/>
+    </keybind>
     <!-- Keybindings for running applications -->
     <keybind key="W-e">
       <action name="Execute">
