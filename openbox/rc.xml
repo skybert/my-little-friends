@@ -179,25 +179,25 @@
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
     <!-- Keybindings for desktop switching -->
-    <keybind key="C-A-Left">
+    <keybind key="C-S-Left">
       <action name="GoToDesktop">
         <to>left</to>
-        <wrap>no</wrap>
+        <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-A-Right">
+    <keybind key="C-S-Right">
       <action name="GoToDesktop">
         <to>right</to>
-        <wrap>no</wrap>
+        <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-A-Up">
+    <keybind key="C-S-Up">
       <action name="GoToDesktop">
         <to>up</to>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="C-A-Down">
+    <keybind key="C-S-Down">
       <action name="GoToDesktop">
         <to>down</to>
         <wrap>no</wrap>
