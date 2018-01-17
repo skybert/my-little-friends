@@ -25,7 +25,7 @@ create_report() {
           org-agenda-span $(( days_back + 1 ))
           org-agenda-include-diary t
           org-agenda-sorting-strategy '(todo-state-up)
-          org-agenda-files '(\"~/doc/scribbles/2017\"))" \
+          org-agenda-files '(\"~/doc/scribbles/""$(date +%Y)""\"))" \
             2>/dev/null |
       grep -v 'life:' |
       grep -v 'quotes:' |
@@ -34,14 +34,15 @@ create_report() {
   result=$(
     echo "${org_agenda}" |
       egrep -v '^[ ]+[0-9][0-9]?' |
+      egrep -v 'gcal.*Oslo R&D standup' |
       sed -r 's#gcal.*Scheduled:#Meeting:#' |
       sed -r 's#gcal:.*DONE#Meeting:#' |
       grep -v 'Onelinescrum' |
       egrep -v '^Diary:' |
       egrep -v ':noreport:' |
-      sed -r 's#.* Sched.*[0-9]+x:.*STARTED # ⏩ #' |
+      sed -r 's#.* Sched. [0-9][0-9]?x:.*STARTED # ⏩ #' |
       sed -r 's#.* Scheduled:##' |
-      sed -r 's#.* Sched. [0-9]*x:##' |
+      sed -r 's#.* Sched.[0-9][0-9]?x:##' |
       sed -r 's#TODO ##' |
       sed -r 's#PR #⌛ Fixed, awaiting PR: #' |
       sed -r 's#WAITING #⌛ Waiting for: #' |
