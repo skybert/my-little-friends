@@ -36,7 +36,7 @@
   (set-fringe-style 0))
 
 (when window-system
-  (tkj-load-graphical-emacs-settings))
+  (tkj-load-graphical-settings))
 
 ;; Edit server needed for editing text areas in Chrome browsers
 (when (locate-library "edit-server")
