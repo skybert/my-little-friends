@@ -8,20 +8,20 @@
 (setq org-return-follows-link t
       org-reveal-theme "blood" ;; serif
       org-reveal-root "http://skybert.net/reveal.js"
-      org-agenda-files '("~/doc/scribbles/2017")
+      org-agenda-files '("~/doc/scribbles/2018")
       org-blank-before-new-entry '((heading . always) (plain-list-item . auto))
       org-capture-templates
-      (quote (("t" "todo" entry (file "~/doc/scribbles/2017/work.org")
+      (quote (("t" "todo" entry (file "~/doc/scribbles/2018/work.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n")
-              ("f" "follow-up" entry (file "~/doc/scribbles/2017/work.org")
+              ("f" "follow-up" entry (file "~/doc/scribbles/2018/work.org")
                "** TODO Follow up on %? :noreport:\n  SCHEDULED: %T\n%a\n")
-              ("u" "user" entry (file "~/doc/scribbles/2017/user.org")
+              ("u" "user" entry (file "~/doc/scribbles/2018/user.org")
                "** TODO %? :user:\n  SCHEDULED: %T\n%a\n")
-              ("e" "ece" entry (file "~/doc/scribbles/2017/ece.org")
+              ("e" "ece" entry (file "~/doc/scribbles/2018/ece.org")
                "** TODO %? :ece:\n  SCHEDULED: %T\n%a\n")
-              ("c" "cloud" entry (file "~/doc/scribbles/2017/cloud.org")
+              ("c" "cloud" entry (file "~/doc/scribbles/2018/cloud.org")
                "** TODO %? :cloud:\n  SCHEDULED: %T\n%a\n")
-              ("a" "adm" entry (file "~/doc/scribbles/2017/adm.org")
+              ("a" "adm" entry (file "~/doc/scribbles/2018/adm.org")
                "** TODO %? :adm:\n  SCHEDULED: %T\n%a\n")
               ("i" "idea" entry (file "~/doc/ideas.org")
                "** TODO %?\n  SCHEDULED: %T\n%a\n"))))
