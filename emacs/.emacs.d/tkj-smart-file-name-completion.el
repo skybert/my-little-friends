@@ -1,27 +1,30 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; IDO & filecache: smart file name completion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'ido)
+(use-package ido
+  :init
+  (setq ido-everywhere nil
+        ido-enable-flex-matching t
+        ido-create-new-buffer 'always
+        ido-file-extensions-order '(".java" ".js" ".el" ".xml")
+        ido-use-filename-at-point 'guess
+        ido-use-faces t)
+
+  :config
+  (ido-mode 'buffer))
 
 ;; Improved flex matching
-(require 'flx-ido)
+(use-package flx-ido)
+
 ;; Vertical completion menu
-(require 'ido-vertical-mode)
-
-(setq ido-everywhere nil
-      ido-enable-flex-matching t
-      ido-create-new-buffer 'always
-      ido-file-extensions-order '(".java" ".js" ".el" ".xml")
-      ido-use-filename-at-point 'guess
-      ido-use-faces t
-      ido-vertical-indicator "→"
-      ido-vertical-show-count nil
-      )
-(ido-mode 'buffer)
-
-(ido-vertical-mode)
-(ido-vertical-mode 1)
-(setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
+(use-package ido-vertical-mode
+  :init
+  (setq ido-vertical-indicator "→"
+        ido-vertical-show-count nil
+        ido-vertical-define-keys 'C-n-C-p-up-and-down)
+  :config
+  (ido-vertical-mode)
+  (ido-vertical-mode 1))
 
 (defun tkj-switch-buffer()
   (interactive)
@@ -36,40 +39,48 @@
 ;; (setq resize-mini-windows 'grow-only)
 
 ;; IDO support pretty much everwhere, including eclim-java-implement
-(require 'ido-completing-read+)
-(ido-ubiquitous-mode)
+(use-package ido-completing-read+
+  :config
+  (ido-ubiquitous-mode))
 
 (global-set-key (kbd "C-x b") 'tkj-switch-buffer)
 
 ;; Enhanced M-x
-(require 'smex)
-(global-set-key (kbd "M-x") 'smex)
+(use-package smex
+  :bind
+  (("M-x" . smex)))
 
 ;; General project support
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-enable-caching t
-      projectile-globally-ignored-directories
-      (append (list "target" "output" "node_modules" "reveal.js" "elpa" "venv")
-              projectile-globally-ignored-directories)
-      projectile-globally-ignored-file-suffixes
-      '(
-        "blob"
-        "class"
-        "classpath"
-        "iml"
-        "ipr"
-        "pyc"
-        "tkj"
-        "war"
-        "xd"
-        "zip"
+(use-package projectile
+  :bind
+  (("C-;" . projectile-find-file))
+
+  :init
+  (setq projectile-enable-caching t
+        projectile-globally-ignored-file-suffixes
+        '(
+          "blob"
+          "class"
+          "classpath"
+          "iml"
+          "ipr"
+          "pyc"
+          "tkj"
+          "war"
+          "xd"
+          "zip"
+          )
+        projectile-globally-ignored-files '("TAGS" "*~")
+        projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s"
+        projectile-mode-line '(:eval (format " [%s]" (projectile-project-name)))
         )
-      projectile-globally-ignored-files '("TAGS" "*~")
-      projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s"
-      projectile-mode-line '(:eval (format " [%s]" (projectile-project-name)))
-      )
-(global-set-key (kbd "C-;") 'projectile-find-file)
+  :config
+  (projectile-global-mode)
+
+  (setq projectile-globally-ignored-directories
+        (append (list "target" "output" "node_modules" "reveal.js" "elpa" "venv")
+                projectile-globally-ignored-directories))
+  )
 
 ;; Show search hits of strings in current buffer
 ;; http://oremacs.com/2015/01/26/occur-dwim/
