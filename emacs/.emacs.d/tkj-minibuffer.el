@@ -22,10 +22,13 @@
         ido-use-faces t)
 
   :config
-  (ido-mode 'buffer))
+  (ido-mode 'buffer)
+
+  :bind ("C-x b" . ido-switch-buffer)
+  )
 
 ;; Improved flex matching
-;; (use-package flx-ido)
+(use-package flx-ido)
 
 ;; Vertical completion menu
 (use-package ido-vertical-mode
@@ -37,14 +40,6 @@
   (ido-vertical-mode)
   (ido-vertical-mode nil))
 
-(defun tkj-switch-buffer()
-  (interactive)
-  ;;    (ido-vertical-mode 0)
-  (ido-switch-buffer)
-  ;; ido-vertical-mode never gets turned on
-  ;;    (ido-vertical-mode 1)
-  )
-
 ;; If not using ido-vertical-mode, make the minibuff stay still,
 ;; i.e. never change height, set this to nil.
 ;; (setq resize-mini-windows 'grow-only)
@@ -53,8 +48,6 @@
 (use-package ido-completing-read+
   :config
   (ido-ubiquitous-mode))
-
-(global-set-key (kbd "C-x b") 'tkj-switch-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sub word support
