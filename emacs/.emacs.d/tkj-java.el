@@ -37,8 +37,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Flymake settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'flymake)
-(setq flymake-log-level -1) ;; 3 is debug
+(use-package flymake
+  :init
+  (setq flymake-log-level -1) ;; 3 is debug
+  )
 
 ;; On the fly checkstyle & pmd checking
 (defun my-flymake-init ()
