@@ -9,7 +9,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Currently (2016-07-19), elpy seems better than anaconda. The latter
 ;; of which has problems on Emacs 25.1.50.
-(elpy-enable)
+(use-package elpy
+  :config
+  (elpy-enable))
 
 ;; Override default elpy key binding(s)
 (define-key elpy-mode-map (kbd "<C-return>") 'elpy-company-backend)

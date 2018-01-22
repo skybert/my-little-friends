@@ -65,35 +65,29 @@
       ring-bell-function (lambda nil (message "")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Improve Emacs' internal garbage collection
+;; Minibuffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-minibuffer-setup-hook ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(defun my-minibuffer-exit-hook ()
-  (setq gc-cons-threshold 800000))
-
-(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+(load "~/.emacs.d/tkj-minibuffer.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Remove uninteresting information from the mode line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package diminish)
-(diminish 'abbrev-mode)
-(diminish 'auto-fill-function)
-(diminish 'auto-revert-mode)
-(diminish 'auto-revert-mode)
-(diminish 'command-log-mode)
-(diminish 'company-mode)
-(diminish 'company-search-mode)
-(diminish 'compilation-minor-mode)
-(diminish 'eclim-mode)
-(diminish 'flyspell-mode)
-(diminish 'git-gutter+-mode)
-(diminish 'visual-line-mode)
-(diminish 'ws-butler-mode)
-(diminish 'yas-minor-mode)
+(use-package diminish
+  :config
+  (diminish 'abbrev-mode)
+  (diminish 'auto-fill-function)
+  (diminish 'auto-revert-mode)
+  (diminish 'auto-revert-mode)
+  (diminish 'command-log-mode)
+  (diminish 'company-mode)
+  (diminish 'company-search-mode)
+  (diminish 'compilation-minor-mode)
+  (diminish 'eclim-mode)
+  (diminish 'flyspell-mode)
+  (diminish 'git-gutter+-mode)
+  (diminish 'visual-line-mode)
+  (diminish 'ws-butler-mode)
+  (diminish 'yas-minor-mode))
 
 (defun tkj-presentation-mode()
   (interactive)
@@ -302,9 +296,9 @@
       auto-revert-verbose nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Minibuffer
+;; Compile buffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'minibuffer-setup-hook 'subword-mode)
+(load "~/.emacs.d/tkj-compile.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Editing VC log messages
@@ -599,10 +593,9 @@
 (load "~/.emacs.d/tkj-time.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Various packaegs & settings to get smart file name completion
+;; Various packages & settings to get smart file name completion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/.emacs.d/tkj-navigation.el")
-(load "~/.emacs.d/tkj-minibuffer.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Chat
