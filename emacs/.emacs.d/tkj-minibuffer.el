@@ -6,6 +6,9 @@
 ;; Enhanced M-x
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package helm
+  :init
+  (setq helm-M-x-fuzzy-match t)
+
   :bind
   (("M-x" . helm-M-x)))
 
