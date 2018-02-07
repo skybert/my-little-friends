@@ -11,6 +11,17 @@
 (package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Load path
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Add ELPA packages to the load path
+(let ((default-directory "~/.emacs.d/elpa"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+(eval-when-compile
+  (require 'use-package))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (menu-bar-mode 0)
@@ -19,7 +30,7 @@
   (interactive)
   ;; Themes
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
-  (load-theme 'deeper-blue)
+  (load-theme 'monokai)
 
   (if (eq system-type 'gnu/linux)
       (progn
@@ -54,35 +65,29 @@
       ring-bell-function (lambda nil (message "")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Improve Emacs' internal garbage collection
+;; Minibuffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-minibuffer-setup-hook ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(defun my-minibuffer-exit-hook ()
-  (setq gc-cons-threshold 800000))
-
-(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+(load "~/.emacs.d/tkj-minibuffer.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Remove uninteresting information from the mode line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'diminish)
-(diminish 'abbrev-mode)
-(diminish 'auto-fill-function)
-(diminish 'auto-revert-mode)
-(diminish 'auto-revert-mode)
-(diminish 'command-log-mode)
-(diminish 'company-mode)
-(diminish 'company-search-mode)
-(diminish 'compilation-minor-mode)
-(diminish 'eclim-mode)
-(diminish 'flyspell-mode)
-(diminish 'git-gutter+-mode)
-(diminish 'visual-line-mode)
-(diminish 'ws-butler-mode)
-(diminish 'yas-minor-mode)
+(use-package diminish
+  :config
+  (diminish 'abbrev-mode)
+  (diminish 'auto-fill-function)
+  (diminish 'auto-revert-mode)
+  (diminish 'auto-revert-mode)
+  (diminish 'command-log-mode)
+  (diminish 'company-mode)
+  (diminish 'company-search-mode)
+  (diminish 'compilation-minor-mode)
+  (diminish 'eclim-mode)
+  (diminish 'flyspell-mode)
+  (diminish 'git-gutter+-mode)
+  (diminish 'visual-line-mode)
+  (diminish 'ws-butler-mode)
+  (diminish 'yas-minor-mode))
 
 (defun tkj-presentation-mode()
   (interactive)
@@ -99,7 +104,7 @@
 (show-paren-mode t)
 (setq show-paren-style 'expression)
 
-(require 'paren)
+(use-package paren)
 (set-face-background 'show-paren-match (face-background 'default))
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
@@ -154,7 +159,7 @@
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
 
-(require 'grep)
+(use-package grep)
 (setq grep-find-ignored-directories
       (append
        (list
@@ -218,7 +223,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tag lookup/auto completion based on GNU Global
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'gtags)
+(use-package gtags)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pure text settings
@@ -242,17 +247,6 @@
 (defun tkj-insert-down-arrow()
   (interactive)
   (insert "↓"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Loading other general init files
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; load all locally installed packages
-(let ((default-directory "/usr/local/src/emacs"))
-  (normal-top-level-add-subdirs-to-load-path))
-
-;; Add ELPA packages and emacs-eclim to the load path
-(let ((default-directory "~/.emacs.d/elpa"))
-  (normal-top-level-add-subdirs-to-load-path))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs package repositories
@@ -302,9 +296,9 @@
       auto-revert-verbose nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Minibuffer
+;; Compile buffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'minibuffer-setup-hook 'subword-mode)
+(load "~/.emacs.d/tkj-compile.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Editing VC log messages
@@ -314,15 +308,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Multiple, real time replace
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'multiple-cursors)
+(use-package multiple-cursors)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this-dwim)
 (global-set-key (kbd "C-c C-'") 'mc/mark-all-like-this-in-defun)
 
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+(use-package expand-region
+  :bind
+  ("C-=" . 'er/expand-region))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffers
@@ -341,11 +336,12 @@
   (mapc 'kill-buffer (buffer-list)))
 
 ;; buffer names and mini buffer
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward
-      uniquify-separator ":"
-      uniquify-strip-common-suffix nil
-      read-file-name-completion-ignore-case t)
+(use-package uniquify
+  :init
+  (setq uniquify-buffer-name-style 'forward
+        uniquify-separator ":"
+        uniquify-strip-common-suffix nil
+        read-file-name-completion-ignore-case t))
 
 ;; Auto scroll the compilation window
 (setq compilation-scroll-output t)
@@ -353,9 +349,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Search
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'helm-swoop)
+(use-package helm-swoop
+  :bind
+  ("M-n" . helm-swoop))
+
 (global-set-key (kbd "C-s") 'isearch-forward)
-(global-set-key (kbd "M-n") 'helm-swoop)
 (global-set-key (kbd "C-'") 'helm-projectile-grep)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -380,7 +378,7 @@
 (global-company-mode 1)
 (company-quickhelp-mode 1)
 (global-set-key (kbd "<C-return>") 'company-complete)
-(require 'company-emoji)
+(use-package company-emoji)
 (add-to-list 'company-backends 'company-emoji)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -595,9 +593,9 @@
 (load "~/.emacs.d/tkj-time.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Various packaegs & settings to get smart file name completion
+;; Various packages & settings to get smart file name completion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load "~/.emacs.d/tkj-smart-file-name-completion.el")
+(load "~/.emacs.d/tkj-navigation.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Chat
@@ -605,13 +603,6 @@
 (defun tkj-load-chat()
   (interactive)
   (load "~/.emacs.d/tkj-chat.el"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Blockdiag
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun tkj-load-blockdiag()
-  (interactive)
-  (load "~/src/emacsfiles/blockdiag-mode.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Python
