@@ -15,4 +15,13 @@ ln -s src/my-little-friends/bash/.inputrc
 # emacs
 ln -s src/my-little-friends/emacs/.emacs
 ln -s src/my-little-friends/emacs/.emacs.d
+
+# x
+ln -s src/my-little-friends/x/.xsession
+ln -s src/my-little-friends/x/.xmodmaprc
+ln -s ~/.Xresources src/my-little-friends/x/x-resources 
+
+# git
+ln -s src/my-little-friends/git/.gitignore
+ln -s ~/.gitconfig src/my-little-friends/git/.gitconfig-work
 ```
