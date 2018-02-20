@@ -1,0 +1,79 @@
+#! /usr/bin/env bash
+
+# by torstein@escenic.com
+
+# set -o errexit
+set -o nounset
+set -o pipefail
+
+show_help_and_exit() {
+  cat <<EOF
+Usage: ${BASH_SOURCE[0]} [OPTIONS]
+
+OPTIONS
+  -h, --help   Don't panic.
+EOF
+}
+
+read_user_input() {
+  local OPTS=
+  OPTS=$(getopt \
+           -o h \
+           --long help \
+           -n 'parse-options' \
+           -- "$@")
+  if [ $? != 0 ] ; then
+    echo "Failed parsing options." >&2
+    exit 1
+  fi
+  eval set -- "$OPTS"
+
+  while true; do
+    case "$1" in
+      -h | --help )
+        show_help_and_exit;
+        break;;
+      -- )
+        shift;
+        break ;;
+      * )
+        break ;;
+    esac
+  done
+
+  rest_of_args=$*
+}
+
+main() {
+  read_user_input "$@"
+
+  local streets=doesntexist
+
+  for el in $@; do
+    streets="${streets}|${el}"
+  done
+
+  local urls="
+    https://www.oslo.kommune.no/gate-transport-og-parkering/veiarbeid-og-vedlikehold/broyting-og-bortkjoring-av-sno/bortkjoring-av-sno-i-omrade-vest/
+    https://www.oslo.kommune.no/gate-transport-og-parkering/veiarbeid-og-vedlikehold/broyting-og-bortkjoring-av-sno/bortkjoring-av-sno-i-omrade-sor-ost/
+    https://www.oslo.kommune.no/gate-transport-og-parkering/veiarbeid-og-vedlikehold/broyting-og-bortkjoring-av-sno/bortkjoring-av-sno-i-omrade-sentrum/
+    https://www.oslo.kommune.no/gate-transport-og-parkering/veiarbeid-og-vedlikehold/broyting-og-bortkjoring-av-sno/bortkjoring-av-sno-i-omrade-nord/"
+
+  local url=
+  for url in ${urls}; do
+    curl -s "${url}" |
+      sed 's#><#>\n<#g' |
+      egrep -i -A 2 "${streets}" |
+      sed -r 's#.*>(.*)<.*#\1#' |
+      sed \
+        -e 's#&aring;#å#g' \
+        -e 's#&Aring;#Å#g' \
+        -e 's#&oring;#ø#g' \
+        -e 's#&Oring;#Ø#g' \
+        -e 's#&aelig;#æ#g' \
+        -e 's#&Aelig;#Æ#g'
+  done
+
+}
+
+main "$@"
