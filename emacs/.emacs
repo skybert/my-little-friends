@@ -353,10 +353,9 @@
   :bind
   ("M-n" . helm-swoop))
 
-(global-set-key (kbd "C-'") 'helm-projectile-grep)
-
-(use-package swiper
-  :bind ("C-s" . 'swiper))
+(use-package helm-projectile
+  :bind
+  ("C-'" . helm-projectile-grep))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mail & news
