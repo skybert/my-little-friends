@@ -26,9 +26,16 @@
   (projectile-global-mode)
 
   (setq projectile-globally-ignored-directories
-        (append (list "target" "output" "node_modules" "reveal.js" "elpa" "venv")
-                projectile-globally-ignored-directories))
-  )
+        (append (list
+                 "elpa"
+                 "node_modules"
+                 "output"
+                 "reveal.js"
+                 "semanticdb"
+                 "target"
+                 "venv"
+                 )
+                projectile-globally-ignored-directories)))
 
 ;; Show search hits of strings in current buffer
 ;; http://oremacs.com/2015/01/26/occur-dwim/
