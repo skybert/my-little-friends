@@ -140,8 +140,8 @@ Control Shift q :Exec $HOME/src/my-little-friends/bash/tkj lock-screen
 XF86AudioRaiseVolume :ExecCommand aumix -v +2
 XF86AudioLowerVolume :ExecCommand aumix -v -2
 XF86AudioMute        :ExecCommand aumix -v 0
-F2                   :ExecCommand amixer set Master 10%-
-F3                   :ExecCommand amixer set Master 10%+
+F2                   :ExecCommand pactl set-sink-volume 1 -10%
+F3                   :ExecCommand pactl set-sink-volume 1 +10%
 
 # keycodes match Zenbook keyboard
 96 :Exec amixer sset Master,0 1+
