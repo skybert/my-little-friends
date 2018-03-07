@@ -1,8 +1,14 @@
-## Torstein's Fluxbox apps file, hand written 😉
+## Torstein's Fluxbox apps file, hand written 😉 in Emacs using -*- conf -*- mode
 ##
 ## $ grep workspaceNames ~/.fluxbox/init | cut -d: -f2
 ##
-## music, talk, web, emacs, files, music2, talk2, web2, emacs2, files2,
+## 4x2 grid:
+##
+## ----------------------------------------------
+## | 4: talk2 | 5: web2 | 6: emacs2 | 7: files2 |
+## ----------------------------------------------
+## | 0: talk  | 1: web  |  2: emacs | 3: files  |
+## ----------------------------------------------
 
 ## talk
 # using Google Chrome for video conferencing
@@ -52,29 +58,29 @@
 
 ## talk2
 [app] (class=Gnome-terminal)
-  [Workspace] {5}
+  [Workspace] {4}
   [Position]    (CENTER) {0 0}
 [end]
 
 [app] (title=Signal)
-  [Workspace] {5}
+  [Workspace] {4}
   [Position]    (CENTER) {0 0}
 [end]
 
 ## web2
 [app] (name=opera) (class=Opera) (role=browser)
-  [Workspace]	{6}
+  [Workspace]	{5}
 [end]
 
 ## emacs2
 [app] (name=Eclipse) (class=Eclipse)
-  [Workspace]	{7}
+  [Workspace]	{6}
 [end]
 [app] (class=jetbrains-idea-ce)
-  [Workspace]	{7}
+  [Workspace]	{6}
 [end]
 [app] (name=xterm) (class=XTerm)
-  [Workspace]	{7}
+  [Workspace]	{6}
 [end]
 
 ## any workspace
