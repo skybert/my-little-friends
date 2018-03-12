@@ -75,3 +75,12 @@
 <")
   (indent-region (point-min) (point-max)))
 (global-set-key (kbd "C-x t") 'tkj-tidy-up-xml)
+
+(defun  tkj-nxml-close-if-applicable()
+  (interactive)
+  ;; TODO check to see if we're inside an open element.
+  (nxml-balanced-close-start-tag-block))
+
+(eval-after-load "nxml-mode"
+    '(define-key nxml-mode-map ">" 'tkj-nxml-close-if-applicable))
+
