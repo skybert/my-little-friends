@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+
+## Script to remove all docker containers and volumes. Useful for
+## local development. Use with care.
+
+docker ps -a -q |
+  while read -r f; do
+    docker stop "${f}"
+    docker rm "${f}"
+  done
+
+docker volume ls -q |
+  while read -r f; do
+    docker volume rm "${f}"
+  done
