@@ -189,6 +189,11 @@
 (setq grep-find-command
       "find ~/src/content-engine -name \"*.java\" | xargs grep -n -i -e ")
 
+(use-package ag
+ :init
+ (setq ag-arguments (list "--word-regexp" "--smart-case"))
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Prefer UTF 8, but don't override current encoding if specified
 ;; (unless you specify a write hook).
@@ -424,8 +429,8 @@
          ("\\.ini\\'" . conf-mode)
          ("\\.java$" . java-mode)
          ("\\.jbk\\'" . nxml-mode)
-         ("\\.js$" . js2-mode)
-         ("\\.json$" . js2-mode)
+         ("\\.js$" . js-mode)
+         ("\\.json$" . json-mode)
          ("\\.jsp$" . nxml-mode) ;; nxml-mode
          ("\\.jspf$" . nxml-mode) ;; nxml-mode
          ("\\.less\\'" . javascript-mode)
