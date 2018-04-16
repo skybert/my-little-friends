@@ -10,6 +10,12 @@
 ;; Currently (2016-07-19), elpy seems better than anaconda. The latter
 ;; of which has problems on Emacs 25.1.50.
 (use-package elpy
+  ;; TODO tkj: remove highlight-indentation from elpy-modules
+  ;;
+  ;; elpy-modules is a variable defined in ‘elpy.el’.  Its value is
+  ;; (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc
+  ;; elpy-module-flymake elpy-module-highlight-indentation
+  ;; elpy-module-pyvenv elpy-module-yasnippet elpy-module-django)
   :config
   (elpy-enable))
 
