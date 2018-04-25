@@ -42,7 +42,7 @@ create_report() {
       egrep -v ':noreport:' |
       sed -r 's#.* Sched. [0-9][0-9]?x:.*STARTED # ⏩ #' |
       sed -r 's#.* Scheduled:##' |
-      sed -r 's#.* Sched.[0-9][0-9]?x:##' |
+      sed -r 's#.* Sched. [0-9][0-9]?x:##' |
       sed -r 's#TODO ##' |
       sed -r 's#PR #⌛ Fixed, awaiting PR: #' |
       sed -r 's#WAITING #⌛ Waiting for: #' |
