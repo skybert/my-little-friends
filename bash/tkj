@@ -80,7 +80,7 @@ function do_agenda() {
   done
 
   printf "\nReport it here:\n%s\n" \
-         "https://statushero.com/teams/user-management-squad/statuses/current/edit"
+         "https://statushero.com/teams/stabilization-squad/statuses/current/edit"
 }
 
 ## Method useful for developers and system administrators. It checks
