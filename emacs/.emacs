@@ -337,6 +337,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ivy
+  :bind
+  (("C-x b" . 'ivy-switch-buffer)))
+
 ;; Make C-x C-b maximise the buffer list window, this saves two
 ;; additional shortcuts from the normal behaviour.
 (defun tkj-list-buffers()
