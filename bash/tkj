@@ -188,9 +188,9 @@ function do_sync-scribbles() {
 
   cd "${doc_dir}" || exit 1
   git add "*.org"
-  git commit -a -m "latest scribbles from ${HOSTNAME} @ $(date)"
-  git pull --rebase
-  git push
+  git commit -a -m "latest scribbles from ${HOSTNAME} @ $(date)" &> /dev/null
+  git pull --rebase &> /dev/null
+  git push &> /dev/null
 }
 
 function remove_various_junk() {
