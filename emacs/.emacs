@@ -153,9 +153,12 @@
 (global-set-key (kbd "<XF86MyComputer>") 'magit-status)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Emacs grep and find
+;; Emacs open file, grep and find
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key "\C-x\C-f" 'find-file)
+(use-package counsel
+  :bind
+  ("C-x C-f" . 'counsel-find-file))
+
 (global-set-key "\C-\M-f" 'find-file-at-point)
 (global-set-key "\C-cn" 'find-dired)
 (global-set-key "\C-cN" 'grep-find)
@@ -183,6 +186,7 @@
         "*.xd"
         "TAGS"
         "dependency-reduced-pom.xml"
+        "projectile.cache"
         "workbench.xmi"
         )
        grep-find-ignored-files))
