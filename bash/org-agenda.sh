@@ -33,30 +33,16 @@ create_report() {
   result=
   result=$(
     echo "${org_agenda}" |
-      egrep -v '^[ ]+[0-9][0-9]?' |
-      egrep -v 'gcal.*Oslo R&D standup' |
-      sed -r 's#gcal.*Scheduled:#Meeting:#' |
-      sed -r 's#gcal:.*DONE#Meeting:#' |
-      grep -v 'Onelinescrum' |
-      egrep -v '^Diary:' |
-      egrep -v ':noreport:' |
-      sed -r 's#.* Sched. [0-9][0-9]?x:.*STARTED # ⏩ #' |
-      sed -r 's#.* Scheduled:##' |
-      sed -r 's#.* Sched. [0-9][0-9]?x:##' |
-      sed -r 's#TODO ##' |
-      sed -r 's#PR #⌛ Fixed, awaiting PR: #' |
-      sed -r 's#WAITING #⌛ Waiting for: #' |
-      sed -r 's#DONE #✔ #' |
-      sed -r 's#Help out #🏥 Help out #' |
+      sed -r 's#([a-z]+): .* Sched.*: (.*)#\2 \#\1#' |
+      sed -r 's#^[ ]*DONE# ✔#g' |
+      sed -r 's#^[ ]*STARTED# ▶#g' |
+      sed -r 's#^[ ]*WAITING#⌛ Waiting for: #' |
+      sed -r 's#^[ ]*PR#⌛ Fixed, awaiting PR#g' |
+      sed -r 's#^[ ]*MERGED#✔ Merged: #' |
       sed -r 's#talk(ed)* with #💬 with #i' |
-      sed -r 's#talk(ed)* to #💬 to #i' |
-      sed -r 's#STARTED #▶ #' |
-      sed -r 's#MERGED #✔ Merged: #' |
-      sed -r 's#gcal:[ ]*[0-9]+:[0-9]+-[0-9]+:[0-9]+#Meeting:#' |
-      sed -r 's#gcal:[ ]*[0-9]+:[0-9]+#Meeting:#' |
-      sed -r 's#[\.][\.][\.][\.][\.][\.]##' |
-      sed -r 's#[ ]+:([^:]*):# \#\1#g'
-
+      sed -r 's#^[ ]*gcal:[ ]* .*[0-9]?[0-9]:[0-9][0-9] (.*)# Meeting: \1#' |
+      sed -r '/[a-z]/!d' |
+      sed -r '/.... now - - -/d'
         )
 
   if [[ ${format} == "markdown" ]]; then
