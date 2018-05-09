@@ -344,6 +344,9 @@
 ;; Buffers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package ivy
+  :init
+  (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy))
+        ivy-initial-inputs-alist nil)
   :bind
   (("C-x b" . 'ivy-switch-buffer)))
 
