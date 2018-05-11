@@ -87,6 +87,7 @@
   (diminish 'eclim-mode)
   (diminish 'flyspell-mode)
   (diminish 'git-gutter+-mode)
+  (diminish 'slack-message-buffer)
   (diminish 'undo-tree-mode)
   (diminish 'visual-line-mode)
   (diminish 'ws-butler-mode)
