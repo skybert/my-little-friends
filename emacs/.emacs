@@ -52,6 +52,15 @@
 (when window-system
   (tkj-load-graphical-settings))
 
+(defun tkj-presentation-mode()
+  (interactive)
+  (when window-system
+    (set-face-attribute 'default nil
+                        :family "Source Code Pro"
+                        :height 170
+                        :weight 'normal
+                        :width 'normal)))
+
 ;; Edit server needed for editing text areas in Chrome browsers
 (when (locate-library "edit-server")
   (require 'edit-server)
@@ -73,35 +82,9 @@
 (load "~/.emacs.d/tkj-minibuffer.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Remove uninteresting information from the mode line
+;; Mode line settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package diminish
-  :config
-  (diminish 'abbrev-mode)
-  (diminish 'auto-fill-function)
-  (diminish 'auto-revert-mode)
-  (diminish 'command-log-mode)
-  (diminish 'company-mode)
-  (diminish 'company-search-mode)
-  (diminish 'compilation-minor-mode)
-  (diminish 'eclim-mode)
-  (diminish 'flyspell-mode)
-  (diminish 'git-gutter+-mode)
-  (diminish 'slack-message-buffer)
-  (diminish 'undo-tree-mode)
-  (diminish 'visual-line-mode)
-  (diminish 'ws-butler-mode)
-  (diminish 'yas-minor-mode)
-  )
-
-(defun tkj-presentation-mode()
-  (interactive)
-  (when window-system
-    (set-face-attribute 'default nil
-                        :family "Source Code Pro"
-                        :height 170
-                        :weight 'normal
-                        :width 'normal)))
+(load "~/.emacs.d/tkj-mode-line.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Show paren mode, built-in from Emacs 24.x
