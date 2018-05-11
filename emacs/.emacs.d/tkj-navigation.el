@@ -1,8 +1,5 @@
 ;; General project support
 (use-package projectile
-  :bind
-  (("C-;" . projectile-find-file))
-
   :init
   (setq projectile-enable-caching t
         projectile-globally-ignored-file-suffixes
@@ -36,6 +33,10 @@
                  "venv"
                  )
                 projectile-globally-ignored-directories)))
+
+(use-package counsel-projectile
+  :bind
+  (("C-;" . counsel-projectile-find-file)))
 
 ;; Show search hits of strings in current buffer
 ;; http://oremacs.com/2015/01/26/occur-dwim/
