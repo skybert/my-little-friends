@@ -79,10 +79,10 @@
 ;; ~/.emacs.d/custom.el which is NOT checked in 😉
 (require 'slack)
 (setq slack-enable-emoji t
-      ;; don't like the icon set used
       slack-buffer-emojify t
       slack-typing-visibility 'buffer
       slack-prefer-current-team t
+      slack-thread-also-send-to-room nil
       lui-prompt-string "陶亭> "
       )
 
