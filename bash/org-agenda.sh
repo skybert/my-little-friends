@@ -33,6 +33,7 @@ create_report() {
   result=
   result=$(
     echo "${org_agenda}" |
+      sed '/:noreport:/d' |
       sed -r 's#([a-z]+): .* Sched.*: (.*)#\2 \#\1#' |
       sed -r 's#^[ ]*DONE# ✔#g' |
       sed -r 's#^[ ]*STARTED# ▶#g' |
