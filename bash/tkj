@@ -198,6 +198,14 @@ function remove_various_junk() {
   rm -rf {${HOME},${HOME}/src/content-engine}/hs_err_*
 }
 
+function do_sync-google-tasks() {
+  local cmd=
+  cmd=~/doc/scribbles/$(date +%Y)/sync-google-tasks
+  if [ -x "${cmd}" ]; then
+    ${cmd}
+  fi
+}
+
 function do_daily()
 {
   local today_dir=
@@ -224,6 +232,7 @@ function do_daily()
 
   remove_various_junk
   do_sync-scribbles
+  do_sync-google-tasks
 
   if [ $(ssh-add -l | grep -v "no identities" | wc -l) -lt 1 ]; then
     print "Adding your SSH key"
