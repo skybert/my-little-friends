@@ -8,6 +8,7 @@
 (setq org-return-follows-link t
       org-reveal-theme "blood" ;; serif
       org-reveal-root "http://skybert.net/reveal.js"
+      org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "PR(p)" "|" "MERGED(m)" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)"))
       org-agenda-files '("~/doc/scribbles/2018")
       org-blank-before-new-entry '((heading . always) (plain-list-item . auto))
       org-capture-templates
