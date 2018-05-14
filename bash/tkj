@@ -258,9 +258,15 @@ function do_daily()
   print "Setting wallpaper..."
   do_set-wallpaper
 
-  print "Stopping all Java processes and making world"
+  print "Stopping all Java processes"
   killall java || true
 
+  # do_build_and_deploy_ece_to_pull_down_todays_snapshots
+  do_backup
+  print "Happy hacking :-)"
+}
+
+do_restart_virtual-machines() {
   print "Restarting virtual machine(s) ..."
   local vms="iam"
   vms=""
@@ -268,12 +274,8 @@ function do_daily()
     vboxmanage controlvm "${vm}" poweroff &> /dev/null || true
     run vboxmanage startvm "${vm}" --type headless
   done
-
-  do_build_and_deploy_ece_to_pull_down_todays_snapshots
-  do_backup
-
-  print "Happy hacking :-)"
 }
+
 
 do_build_and_deploy_ece_to_pull_down_todays_snapshots() {
   print "Building ECE to pull down today's SNAPSHOT dependencies ..."
