@@ -276,7 +276,6 @@ do_restart_virtual-machines() {
   done
 }
 
-
 do_build_and_deploy_ece_to_pull_down_todays_snapshots() {
   print "Building ECE to pull down today's SNAPSHOT dependencies ..."
   pom=~/src/content-engine/pom.xml
