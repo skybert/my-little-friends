@@ -37,6 +37,7 @@ create_report() {
       sed -r 's#([a-z]+): .* Sched.*: (.*)#\2 \#\1#' |
       sed -r 's#^[ ]*DONE# ✔#g' |
       sed -r 's#^[ ]*STARTED# ▶#g' |
+      sed -r 's#^[ ]*TODO##g' |
       sed -r 's#^[ ]*WAITING#⌛ Waiting for: #' |
       sed -r 's#^[ ]*PR#⌛ Fixed, awaiting PR#g' |
       sed -r 's#^[ ]*MERGED#✔ Merged: #' |
