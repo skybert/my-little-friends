@@ -193,9 +193,15 @@ function do_sync-scribbles() {
   git push &> /dev/null
 }
 
-function remove_various_junk() {
-  rm -rf {${HOME},${HOME}/src/content-engine}/*.jvm1
-  rm -rf {${HOME},${HOME}/src/content-engine}/hs_err_*
+function do_remove-various-junk() {
+  find "${HOME}" \
+       -maxdepth 5 \
+       -name "*.jvm1" -o \
+       -name "replay_*.log" -o \
+       -name "hs_err_*" |
+    while read -r f; do
+      rm -r "${f}"
+    done
 }
 
 function do_sync-google-tasks() {
@@ -230,7 +236,7 @@ function do_daily()
     (cd "${HOME}/doc" && ln -s "${today_dir}" "${today}")
   fi
 
-  remove_various_junk
+  do_remove-various-junk
   do_sync-scribbles
   do_sync-google-tasks
 
