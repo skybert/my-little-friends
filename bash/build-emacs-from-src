@@ -43,8 +43,8 @@ compile() {
   run make clean
   run sh ./autogen.sh
   run sh ./autogen.sh git
-  run ./configure \
-      CFLAGS=-no-pie \
+  run CFLAGS=-no-pie \
+      ./configure \
       --with-x-toolkit=gtk \
       --with-png \
       --with-jpeg \

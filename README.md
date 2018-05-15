@@ -11,6 +11,7 @@ cd ~/
 # bash
 ln -s src/my-little-friends/bash/.bashrc 
 ln -s src/my-little-friends/bash/.inputrc
+ln -s src/my-little-friends/bash/.fzf.bash
 
 # emacs
 ln -s src/my-little-friends/emacs/.emacs
@@ -24,4 +25,7 @@ ln -s src/my-little-friends/x/x-resources ~/.Xresources
 # git
 ln -s src/my-little-friends/git/.gitignore
 ln -s src/my-little-friends/git/.gitconfig-work  ~/.gitconfig 
-```
+
+# top```
+ln -s src/my-little-friends/top/.toprc
+
