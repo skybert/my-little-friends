@@ -208,8 +208,11 @@
 ;; keeping messy colleagues happy ;-) Important that it doesn't clean
 ;; the whitespace on currrent line, otherwise, eclim leaves messy
 ;; code behind.
-(ws-butler-global-mode)
-(setq ws-butler-keep-whitespace-before-point nil)
+(use-package ws-butler
+  :init
+  (setq ws-butler-keep-whitespace-before-point nil)
+  :config
+  (ws-butler-global-mode))
 
 (defun tkj-indent-and-fix-whitespace()
   (interactive)
