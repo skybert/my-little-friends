@@ -29,6 +29,9 @@ setxkbmap -option ctrl:nocaps &
 ## disable touch pad while typing
 syndaemon -t -k -i 2 &
 
+## turn off the stupid bell, why oh why isn't this the default?
+xset -b
+
 ## set background image
 if [ -e $HOME/pictures/wallpaper ]; then
   display -backdrop -window root $HOME/pictures/wallpaper &
