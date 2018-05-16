@@ -33,7 +33,7 @@
   (interactive)
   ;; Themes
   (add-to-list 'custom-theme-load-path "$HOME/.emacs.d/themes")
-  (load-theme 'monokai)
+  (load-theme 'deeper-blue)
 
   (if (eq system-type 'gnu/linux)
       (progn
