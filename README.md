@@ -31,4 +31,7 @@ ln -s src/my-little-friends/top/.toprc
 
 # vim
 ln -s src/my-little-friends/vim/.vimrc
+
+#  mpd
+ln -s src/my-little-friends/mpd/mpd.conf .mpdconf
 ```
