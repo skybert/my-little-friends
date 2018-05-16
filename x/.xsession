@@ -2,6 +2,8 @@
 
 ## Torstein's .xinitrc/.xsession
 
+wm=/usr/local/bin/i3
+
 ## load x settings
 x_resources="
   $HOME/.Xresources
@@ -34,7 +36,9 @@ fi
 
 ## favourite apps
 clipit &> /dev/null &
-conky &
+if [[ "${wm}" != */i3 ]]; then
+  conky &
+fi
 firefox &> /dev/null &
 emacs &>/dev/null &
 mpd ~/.mpdconf &> /dev/null &
@@ -50,11 +54,4 @@ gnome-terminal &> /dev/null &
 export LC_ALL=en_GB.utf8
 
 ## launch window manager
-exec /usr/local/bin/i3
-# exec fluxbox -log ~/.fluxbox/log
-# exec /usr/local/bin/fluxbox -log ~/.fluxbox/log
-# exec mate-session
-# exec gnome-session
-# exec cinnamon-session
-# exec startkde
-# exec openbox
+exec "${wm}"
