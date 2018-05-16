@@ -50,7 +50,8 @@ gnome-terminal &> /dev/null &
 export LC_ALL=en_GB.utf8
 
 ## launch window manager
-exec fluxbox -log ~/.fluxbox/log
+exec /usr/local/bin/i3
+# exec fluxbox -log ~/.fluxbox/log
 # exec /usr/local/bin/fluxbox -log ~/.fluxbox/log
 # exec mate-session
 # exec gnome-session
