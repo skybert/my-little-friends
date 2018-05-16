@@ -26,6 +26,9 @@ ln -s src/my-little-friends/x/x-resources ~/.Xresources
 ln -s src/my-little-friends/git/.gitignore
 ln -s src/my-little-friends/git/.gitconfig-work  ~/.gitconfig 
 
-# top```
+# top
 ln -s src/my-little-friends/top/.toprc
 
+# vim
+ln -s src/my-little-friends/vim/.vimrc
+```
