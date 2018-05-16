@@ -1,0 +1,34 @@
+#! /usr/bin/env bash
+
+take_down_interfaces() {
+  echo $FUNCNAME "..."
+  killall ifup
+  for interface in $(ifconfig -a | egrep '^(eth|br|wlan)[0-9]' | awk '{print $1}' | cut -d: -f1); do
+  echo $FUNCNAME "taking down ${interface} ..."
+    ifdown $interface
+  done 
+}
+
+bring_up_wireless() {
+  echo $FUNCNAME "..."
+  ifup wlan0
+}
+
+kill_ssh_connections() {
+  echo $FUNCNAME "..."
+  killall ssh || true
+}
+
+kill_vpn_connections() {
+  echo $FUNCNAME "..."
+  killall openconnect || true
+}
+
+main() {
+  kill_vpn_connections
+  kill_ssh_connections
+  take_down_interfaces
+  bring_up_wireless
+}
+
+main

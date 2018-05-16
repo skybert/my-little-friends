@@ -1,0 +1,15 @@
+function take_down_interfaces() {
+  echo $FUNCNAME "..."
+  for interface in $(ifconfig | grep ^[a-z] | awk '{print $1}' | cut -d: -f1 | grep -v lo)
+  do
+    ifdown $interface || true
+  done 
+}
+
+killall ssh || true
+killall openconnect || true
+take_down_interfaces
+ifup -v eth0
+
+exit 0
+
