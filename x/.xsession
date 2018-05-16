@@ -20,6 +20,16 @@ if [ -r "$HOME/.xmodmaprc" ]; then
   xmodmap "$HOME/.xmodmaprc"
 fi
 
+start_signal_and_slack() {
+  /opt/google/chrome/google-chrome \
+    --profile-directory=Default \
+    --app-id=bikioccmkafdpakkkcpdbppfkghcmihk &
+  /opt/google/chrome/google-chrome \
+    --profile-directory=Default \
+    --app-id=filhcaihcfanbgghhefcjhiccijdjbbd &
+}
+
+
 ## hide mouse pointer after a couple of seconds
 unclutter -idle 2 &
 
@@ -33,9 +43,7 @@ syndaemon -t -k -i 2 &
 xset -b
 
 ## set background image
-if [ -e $HOME/pictures/wallpaper ]; then
-  display -backdrop -window root $HOME/pictures/wallpaper &
-fi
+tkj set-wallpaper &
 
 ## favourite apps
 clipit &> /dev/null &
@@ -46,12 +54,7 @@ firefox &> /dev/null &
 emacs &>/dev/null &
 mpd ~/.mpdconf &> /dev/null &
 gnome-terminal &> /dev/null &
-/opt/google/chrome/google-chrome \
-  --profile-directory=Default \
-  --app-id=bikioccmkafdpakkkcpdbppfkghcmihk &
-/opt/google/chrome/google-chrome \
-  --profile-directory=Default \
-  --app-id=filhcaihcfanbgghhefcjhiccijdjbbd &
+# start_signal_and_slack
 
 ## set encoding before window manager starts
 export LC_ALL=en_GB.utf8
