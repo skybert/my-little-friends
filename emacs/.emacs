@@ -390,7 +390,6 @@
 ;; Auto complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-company-mode 1)
-(company-quickhelp-mode 1)
 (global-set-key (kbd "<C-return>") 'company-complete)
 (use-package company-emoji)
 (add-to-list 'company-backends 'company-emoji)
@@ -490,18 +489,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun tkj-load-yas()
-  (interactive)
+(use-package yasnippet
+  :init
+  (setq yas/root-directory '("~/.emacs.d/snippets"))
+
+  :config
   (autoload 'yas/expand "yasnippet" t)
   (autoload 'yas/load-directory "yasnippet" t)
-  (setq yas/root-directory '("~/.emacs.d/snippets"))
   (mapc 'yas/load-directory yas/root-directory)
-  (global-set-key "\C-c\C-i" 'yas/expand)
-  (global-unset-key "\C-]")
-  (global-set-key "\C-\]" 'yas-exit-all-snippets)
   (yas-global-mode 1))
-
-(tkj-load-yas)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java

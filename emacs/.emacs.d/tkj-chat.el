@@ -45,8 +45,10 @@
 (add-hook 'erc-mode-hook 'flyspell-mode)
 
 ;; emojies
-(company-emoji-init)
-(add-hook 'erc-mode-hook 'emojify-mode)
+(use-package company-emoji
+  :config
+  (company-emoji-init)
+  (add-hook 'erc-mode-hook 'emojify-mode))
 
 ;; From the bitlbee wiki: Since the server sends wrong JIDs for the
 ;; "from" field (123456_chat_name@conf.hipchat.com/real name here),
@@ -77,21 +79,24 @@
 
 ;; Slack settings, slack-register-team and slack-start called from
 ;; ~/.emacs.d/custom.el which is NOT checked in 😉
-(require 'slack)
-(setq slack-enable-emoji t
-      slack-buffer-emojify t
-      slack-typing-visibility 'buffer
-      slack-prefer-current-team t
-      slack-thread-also-send-to-room nil
-      lui-prompt-string "陶亭> "
-      )
+(use-package slack
+  :init
+  (setq slack-enable-emoji t
+        slack-buffer-emojify t
+        slack-typing-visibility 'buffer
+        slack-prefer-current-team t
+        slack-thread-also-send-to-room nil
+        lui-prompt-string "陶亭> "
+        )
+  :bind
+  ("C-c C-l" . 'slack-select-unread-rooms)
+  ("C-c C-t" . 'slack-room-unread-threads))
 
 (add-hook 'slack-mode-hook 'flyspell-mode)
 
 (define-key slack-mode-map (kbd "<f5>") 'slack-room-update-messages)
 (define-key slack-mode-map (kbd "C-c C-e") 'slack-message-edit)
 (define-key slack-mode-map (kbd "C-c C-r") 'slack-message-add-reaction)
-(define-key slack-mode-map (kbd "C-c C-l") 'slack-select-rooms)
 (define-key slack-mode-map (kbd "C-c C-s") 'slack-message-show-reaction-users)
 
 (alert-define-style
