@@ -23,3 +23,6 @@ URxvt.font:           termfont
 URxvt.boldFont:       termfont
 URxvt.italicFont:     termfont
 URxvt.boldItalicFont: termfont
+
+!! Make Alt behave as the meta key in xterm
+XTerm*metaSendsEscape: true
