@@ -43,6 +43,8 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 bindsym Control+Shift+q exec tkj lock-screen
+bindsym Control+Shift+4 exec tkj music-toggle
+bubindsym Control+Shift+7 exec tkj music-next
 
 # change focus
 bindsym $mod+j focus left
