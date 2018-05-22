@@ -520,10 +520,23 @@ function get_full_screen_list() {
   xrandr -q | sed -r -n 's#(.*) (dis)?connected.*#\1#p'
 }
 
+function get_first_external_screen() {
+  get_connected_screen_list |
+    sed '1d;' |
+    head -n 1
+}
+
+function get_primary_screen() {
+  get_connected_screen_list |
+    head -n 1
+}
+
 function do_setup-screens-presentation() {
-  do_turn-off-external-screens
-  # TODO get primary and external screen names dynamically
-  xrandr --output HDMI-2 --auto --same-as eDP-1
+  xrandr \
+    --output $(get_first_external_screen) \
+    --auto \
+    --same-as \
+    $(get_primary_screen)
   do_set-wallpaper
 }
 
@@ -542,9 +555,11 @@ function do_turn-off-external-screens() {
 }
 
 function do_setup-screens-above-laptop() {
-  xrandr --output HDMI-2 --above eDP-1 --auto
+  xrandr \
+    --output $(get_first_external_screen) \
+    --above $(get_primary_screen) \
+    --auto
   sleep 3
-  fbsetroot -solid black
   killall xmessage || true
   do_set-wallpaper
 }
@@ -562,7 +577,7 @@ function do_setup-screens-laptop-is-king() {
 function do_setup-screens() {
   local portrait=${1-0}
   local screen_list=$(get_connected_screen_list)
-  local primary_screen=$(echo "$l" | head -1)
+  local primary_screen=$(get_primary_screen)
   for screen in ${screen_list}; do
     if [[ -z "${previous_screen}" ]]; then
       print "Setting up screen ${screen} ..."
