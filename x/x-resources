@@ -31,7 +31,8 @@ URxvt.italicFont:     termfont
 URxvt.boldItalicFont: termfont
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!! xterm
+!! xterm & uxterm
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! Make Alt behave as the meta key in xterm
 XTerm*metaSendsEscape: true
+UXTerm*metaSendsEscape: true
