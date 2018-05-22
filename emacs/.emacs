@@ -140,16 +140,6 @@
 (global-set-key (kbd "<XF86MyComputer>") 'magit-status)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Counsel
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package counsel
-  :bind
-  ("C-x C-f" . 'counsel-find-file)
-  ("C-h v" . 'counsel-describe-variable)
-  ("C-h f" . 'counsel-describe-function)
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs open grep and find
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\C-\M-f" 'find-file-at-point)
@@ -324,15 +314,14 @@
   ("C-=" . 'er/expand-region))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ivy, counsel and swiper. Mostly minibuffer and navigation
+;; enhancements.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "~/.emacs.d/tkj-ivy.el")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package ivy
-  :init
-  (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy))
-        ivy-initial-inputs-alist nil)
-  :bind
-  (("C-x b" . 'ivy-switch-buffer)))
-
 ;; Make C-x C-b maximise the buffer list window, this saves two
 ;; additional shortcuts from the normal behaviour.
 (defun tkj-list-buffers()
