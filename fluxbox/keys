@@ -61,9 +61,9 @@ Control Shift n :ResizeVertical 10
 Control Shift o :ClientMenu
 Control Shift p :ResizeVertical -10
 Control Shift v :MaximizeVertical
-Control Shift s :ArrangeWindowsStackRight
-Control Shift y :ArrangeWindowsStackLeft
-Control Shift w :ArrangeWindowsStackTop
+# Control Shift s :ArrangeWindowsStackRight
+# Control Shift y :ArrangeWindowsStackLeft
+# Control Shift w :ArrangeWindowsStackTop
 
 Alt Shift Left  :MoveLeft 200
 Alt Shift Right :MoveRight 200
