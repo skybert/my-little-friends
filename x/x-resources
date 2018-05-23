@@ -34,5 +34,8 @@ URxvt.boldItalicFont: termfont
 !! xterm & uxterm
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! Make Alt behave as the meta key in xterm
-XTerm*metaSendsEscape: true
-UXTerm*metaSendsEscape: true
+*XTerm*metaSendsEscape: true
+!! Put whatever I select with the mouse on the clipboard
+*XTerm*selectToClipboard: true
+
+!! check out https://wiki.archlinux.org/index.php/Xterm#Configuration
