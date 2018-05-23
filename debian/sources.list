@@ -12,7 +12,11 @@ deb http://ftp.no.debian.org/debian stretch-backports main
 deb http://www.deb-multimedia.org stretch main non-free
 
 ## Docker
-# deb [arch=amd64] http://download.docker.com/linux/debian stretch stable
+deb http://download.docker.com/linux/debian stretch stable
 
 ## Percona, excellent MySQL patch set for performance
 # deb http://repo.percona.com/apt stretch main
+
+## Spotify
+deb http://repository.spotify.com stable non-free
+
