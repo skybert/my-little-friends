@@ -38,9 +38,9 @@ create_report() {
       sed -r 's#^[ ]*DONE# ✔#g' |
       sed -r 's#^[ ]*STARTED# ▶#g' |
       sed -r 's#^[ ]*TODO##g' |
-      sed -r 's#^[ ]*WAITING#⌛ Waiting for: #' |
-      sed -r 's#^[ ]*PR#⌛ Fixed, awaiting PR#g' |
-      sed -r 's#^[ ]*MERGED#✔ Merged: #' |
+      sed -r 's#^[ ]*WAITING# ⌛ Waiting for: #' |
+      sed -r 's#^[ ]*PR# ⌛ Fixed, awaiting PR#g' |
+      sed -r 's#^[ ]*MERGED# ✔ Merged: #' |
       sed -r 's#talk(ed)* with #💬 with #i' |
       sed -r 's#^[ ]*gcal:[ ]* .*[0-9]?[0-9]:[0-9][0-9] (.*)# Meeting: \1#' |
       sed -r '/[a-z]/!d' |
