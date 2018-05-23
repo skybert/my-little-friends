@@ -20,7 +20,11 @@ ln -s src/my-little-friends/emacs/.emacs.d
 # x
 ln -s src/my-little-friends/x/.xsession
 ln -s src/my-little-friends/x/.xmodmaprc
-ln -s src/my-little-friends/x/x-resources ~/.Xresources 
+ln -s src/my-little-friends/x/x-resources ~/.Xresources
+
+# xdg
+ln -s ~/src/my-little-friends/xdg/.config/user-dirs.dirs ~/.config/user-dirs.dirs
+ln -s ~/src/my-little-friends/xdg/.config/user-dirs.locale ~/.config/user-dirs.locale
 
 # git
 ln -s src/my-little-friends/git/.gitignore
