@@ -28,6 +28,7 @@ run export DEBIAN_FRONTEND=noninteractive && \
             libtiff-dev \
             libx11-dev \
             libxpm-dev \
+            maildir-utils-extra \
             mu4e \
             silversearcher-ag \
             texinfo \
