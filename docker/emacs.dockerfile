@@ -31,6 +31,7 @@ run export DEBIAN_FRONTEND=noninteractive && \
             maildir-utils-extra \
             mu4e \
             silversearcher-ag \
+            subversion \
             texinfo \
             wget
 
