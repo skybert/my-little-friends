@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+docker run \
+       --tty \
+       --interactive \
+       --rm \
+       --name emacs \
+       --env DISPLAY \
+       --env UID \
+       --env GID \
+       --env HOME \
+       --env PWD \
+       --volume /tmp/.X11-unix:/tmp/.X11-unix \
+       --volume $HOME:$HOME \
+       --volume /usr/local/src:/usr/local/src \
+       skybert/emacs
