@@ -47,9 +47,6 @@ tkj set-wallpaper &
 
 ## favourite apps
 clipit &> /dev/null &
-if [[ "${wm}" != */i3 ]]; then
-  conky &
-fi
 firefox &> /dev/null &
 emacs &>/dev/null &
 mpd ~/.mpdconf &> /dev/null &
