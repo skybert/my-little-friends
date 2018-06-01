@@ -30,7 +30,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 # bindsym $mod+Shift+q kill
@@ -42,9 +42,9 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym Control+Shift+1 exec setxkbmap us
-bindsym Control+Shift+2 exec setxkbmap de
-bindsym Control+Shift+3 exec setxkbmap no
+bindsym Control+Shift+1 exec setxkbmap us -option ctrl:nocaps
+bindsym Control+Shift+2 exec setxkbmap de -option ctrl:nocaps
+bindsym Control+Shift+3 exec setxkbmap no -option ctrl:nocaps
 bindsym Control+Shift+4 exec tkj music-toggle
 bindsym Control+Shift+7 exec tkj music-next
 bindsym Control+Shift+q exec tkj lock-screen
@@ -110,7 +110,7 @@ set $ws6 "chat"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "private"
-set $ws10 "10"
+set $ws10 "♫"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
