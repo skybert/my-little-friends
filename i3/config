@@ -110,7 +110,7 @@ set $ws6 "chat"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "private"
-set $ws10 "♫"
+set $ws10 "♬ ♪"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
