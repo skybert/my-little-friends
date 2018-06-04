@@ -14,6 +14,9 @@ deb http://www.deb-multimedia.org stretch main non-free
 ## Docker
 deb http://download.docker.com/linux/debian stretch stable
 
+## Virtualbox
+deb http://download.virtualbox.org/virtualbox/debian stretch contrib
+
 ## Percona, excellent MySQL patch set for performance
 # deb http://repo.percona.com/apt stretch main
 
