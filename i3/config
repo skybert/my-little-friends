@@ -47,6 +47,7 @@ bindsym Control+Shift+2 exec setxkbmap de -option ctrl:nocaps
 bindsym Control+Shift+3 exec setxkbmap no -option ctrl:nocaps
 bindsym Control+Shift+4 exec tkj music-toggle
 bindsym Control+Shift+7 exec tkj music-next
+bindsym Control+Shift+o exec rofi -show window
 bindsym Control+Shift+q exec tkj lock-screen
 
 bindsym XF86MonBrightnessDown exec xbacklight -inc -10
@@ -142,6 +143,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # bind apps to workspaces
 assign [class="Emacs"] $ws1
 assign [class="Firefox Developer Edition"] $ws2
+assign [title="Signal"] $ws9
 assign [class="Google-chrome"] $ws6
 
 # reload the configuration file
