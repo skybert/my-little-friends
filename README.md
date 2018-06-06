@@ -41,4 +41,8 @@ ln -s src/my-little-friends/mpd/mpd.conf .mpdconf
 
 # urxvt
 ln -s src/my-little-friends/x/.urxvt 
+
+# i3
+ln -s src/my-little-friends/i3/config ~/.config/i3
+
 ```
