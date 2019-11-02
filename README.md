@@ -1,3 +1,7 @@
+# Moved →
+This repo has moved to https://gitlab.com/skybert/my-little-friends/
+
+
 The wee scripts and configuration files I cannot live without.
 
 
